@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `기술을 기술하다`,
+    title: `sogoagain 블로그`,
     siteUrl: `https://www.yourdomain.tld`,
   },
   plugins: [
@@ -32,6 +32,12 @@ module.exports = {
         path: "./src/pages/",
       },
       __key: "pages",
+    },
+    {
+      resolve: `gatsby-plugin-s3`,
+      options: {
+        bucketName: "sogoagain-blog",
+      },
     },
   ],
 };

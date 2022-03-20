@@ -2,7 +2,7 @@
   "name": "sogoagain-blog",
   "version": "1.0.0",
   "private": true,
-  "description": "sogoagain의 블로그 - 기술을 기술하다",
+  "description": "sogoagain의 블로그",
   "keywords": [
     "gatsby"
   ],
@@ -15,7 +15,8 @@
     "lint": "eslint --ext js,jsx .",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch-all"
+    "test:watch": "jest --watch-all",
+    "deploy": "gatsby-plugin-s3 deploy"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
@@ -28,6 +29,7 @@
     "gatsby-plugin-manifest": "^4.6.0",
     "gatsby-plugin-mdx": "^3.6.0",
     "gatsby-plugin-react-helmet": "^5.6.0",
+    "gatsby-plugin-s3": "^0.3.8",
     "gatsby-plugin-sharp": "^4.6.0",
     "gatsby-plugin-sitemap": "^5.6.0",
     "gatsby-source-filesystem": "^4.6.0",
