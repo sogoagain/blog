@@ -1,11 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Header({ title, profileImage }) {
+import { Link } from "gatsby";
+
+function Header({ title, profileImage, about }) {
   return (
     <header>
       <h1>{title}</h1>
       <img src={profileImage.src} alt={profileImage.alt} />
+      <Link to={about.to}>{about.title}</Link>
     </header>
   );
 }
@@ -15,6 +18,10 @@ Header.propTypes = {
   profileImage: PropTypes.shape({
     alt: PropTypes.string.isRequired,
     src: PropTypes.string.isRequired,
+  }).isRequired,
+  about: PropTypes.shape({
+    to: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
   }).isRequired,
 };
 
