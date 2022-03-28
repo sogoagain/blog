@@ -1,7 +1,10 @@
 module.exports = {
   siteMetadata: {
     title: `sogoagain 블로그`,
-    siteUrl: `https://www.yourdomain.tld`,
+    url: `https://blog.sogoagain.com`,
+    social: {
+      github: "sogoagain",
+    },
   },
   plugins: [
     "gatsby-plugin-emotion",

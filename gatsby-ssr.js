@@ -1,5 +1,4 @@
-import wrapWithProvider from "./wrap-with-provider";
+/* eslint-disable import/prefer-default-export */
+import wrapWithProvider from "./WrapWithProvider";
 
-const wrapRootElement = wrapWithProvider;
-
-export default wrapRootElement;
+export const wrapRootElement = wrapWithProvider;

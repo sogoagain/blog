@@ -5,14 +5,14 @@ import { render, screen } from "@testing-library/react";
 import Header from "./Header";
 
 describe("<Header/>", () => {
-  const title = "Sogoagain 블로그";
+  const title = "sogoagain 블로그";
   const profileImage = {
-    alt: "Sogoagain의 Github 프로필 이미지",
+    alt: "sogoagain의 Github 프로필 이미지",
     src: "https://avatars.githubusercontent.com/u/23417465?v=4",
   };
   const about = {
     to: "/about",
-    title: "Sogoagain 소개",
+    title: "소개",
   };
 
   beforeEach(() => {
