@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import { Link } from "gatsby";
 
@@ -43,20 +42,5 @@ function Header({ title, profileImage, about }) {
     </HeaderWrapper>
   );
 }
-
-Header.propTypes = {
-  title: PropTypes.shape({
-    to: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  }).isRequired,
-  profileImage: PropTypes.shape({
-    alt: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired,
-  }).isRequired,
-  about: PropTypes.shape({
-    to: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default Header;

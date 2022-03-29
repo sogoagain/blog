@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/prefer-default-export
 export async function fetchGithubUser(username) {
   const url = `https://api.github.com/users/${username}`;
   const response = await fetch(url);
