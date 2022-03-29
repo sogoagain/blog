@@ -5,15 +5,15 @@ import { Link } from "gatsby";
 import styled from "@emotion/styled";
 
 const HeaderWrapper = styled.header({
+  marginTop: "1rem",
+  height: "100%",
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
-  marginTop: 0,
-  marginBottom: "4rem",
-  maxWidth: "50rem",
 });
 
 const Heading1 = styled.h1({
+  fontSize: "2rem",
   flex: "auto",
 });
 
@@ -23,6 +23,7 @@ const ProfileImage = styled.img({
 });
 
 const AboutWrapper = styled.div({
+  fontSize: "1rem",
   display: "flex",
   alignItems: "center",
 });

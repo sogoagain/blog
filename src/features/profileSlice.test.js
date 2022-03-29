@@ -11,7 +11,7 @@ jest.mock("../services/github");
 describe("profile reducer", () => {
   const initialProfileState = {
     image: {
-      src: "",
+      src: null,
     },
   };
 
@@ -62,12 +62,12 @@ describe("profile actions", () => {
         );
       });
 
-      it("image.src를 빈문자열로 설정한다", async () => {
+      it("image.src를 null로 설정한다", async () => {
         await store.dispatch(loadProfileImageSrc("octocat"));
 
         const { profile } = store.getState();
 
-        expect(profile.image.src).toBe("");
+        expect(profile.image.src).toBe(null);
       });
     });
   });

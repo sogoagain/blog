@@ -1,12 +1,12 @@
 import React from "react";
-import PageWrapper from "../components/PageWrapper";
+import Layout from "../components/Layout";
 
 import HeaderContainer from "../container/HeaderContainer";
 
 export default function Home() {
   return (
-    <PageWrapper>
+    <Layout>
       <HeaderContainer />
-    </PageWrapper>
+    </Layout>
   );
 }

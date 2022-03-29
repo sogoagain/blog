@@ -26,11 +26,11 @@ describe("HeaderContainer", () => {
         },
       },
     });
+
+    render(<HeaderContainer />);
   });
 
   it("헤더를 출력한다", async () => {
-    render(<HeaderContainer />);
-
     const titleEl = screen.getByText("sogoagain 블로그");
     const imageEl = await screen.getByAltText(
       "sogoagain의 Github 프로필 이미지"
@@ -40,5 +40,21 @@ describe("HeaderContainer", () => {
     expect(titleEl).toBeInTheDocument();
     expect(imageEl).toBeInTheDocument();
     expect(aboutEl).toBeInTheDocument();
+  });
+
+  context("github 프로필 이미지를 불러오지 못하면", () => {
+    beforeEach(() => {
+      fetchGithubUser.mockRejectedValue(
+        new Error("Github User 데이터를 가져오지 못했습니다.")
+      );
+    });
+
+    it("기본 프로필 이미지를 출력한다", async () => {
+      const imageEl = await screen.getByAltText(
+        "sogoagain의 Github 프로필 이미지"
+      );
+
+      expect(imageEl).toHaveAttribute("src", "test-file-stub");
+    });
   });
 });

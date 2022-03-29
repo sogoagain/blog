@@ -6,7 +6,7 @@ const { actions, reducer } = createSlice({
   name: "profile",
   initialState: {
     image: {
-      src: "",
+      src: null,
     },
   },
   reducers: {
@@ -29,7 +29,7 @@ export function loadProfileImageSrc(githubUserName) {
       const user = await fetchGithubUser(githubUserName);
       src = user.avatar_url;
     } catch (err) {
-      src = "";
+      src = null;
     }
     dispatch(setImage({ src }));
   };

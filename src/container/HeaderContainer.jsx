@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { graphql, useStaticQuery } from "gatsby";
@@ -6,6 +6,8 @@ import { graphql, useStaticQuery } from "gatsby";
 import Header from "../components/Header";
 
 import { loadProfileImageSrc } from "../features/profileSlice";
+
+import ProfileImage from "../images/profile.png";
 
 export default function HeaderContainer() {
   const { site } = useStaticQuery(graphql`
@@ -20,8 +22,17 @@ export default function HeaderContainer() {
       }
     }
   `);
+
   const dispatch = useDispatch();
   const { image } = useSelector((state) => state.profile);
+
+  const [profileImage, setProfileImage] = useState(ProfileImage);
+
+  useEffect(() => {
+    if (image.src) {
+      setProfileImage(image.src);
+    }
+  }, [image]);
 
   useEffect(() => {
     dispatch(loadProfileImageSrc(site.siteMetadata.social.github));
@@ -35,7 +46,7 @@ export default function HeaderContainer() {
       }}
       profileImage={{
         alt: "sogoagain의 Github 프로필 이미지",
-        src: image.src,
+        src: profileImage,
       }}
       about={{
         text: "소개",
