@@ -8,47 +8,54 @@ import styled from "@emotion/styled";
 const HeaderWrapper = styled.header({
   display: "flex",
   flexDirection: "row",
-  justifyContent: "center",
-  alignItems: "baseline",
+  alignItems: "center",
+  marginTop: 0,
+  marginBottom: "4rem",
+  maxWidth: "50rem",
 });
 
 const Heading1 = styled.h1({
   flex: "auto",
-  marginTop: 0,
-  marginBottom: 64,
-  maxWidth: 640,
 });
 
 const ProfileImage = styled.img({
-  width: "28px",
-  height: "28px",
+  width: "2rem",
+  height: "2rem",
 });
 
-const AbountLink = styled(Link)`
-  color: black;
-`;
+const AboutWrapper = styled.div({
+  display: "flex",
+  alignItems: "center",
+});
 
 function Header({ title, profileImage, about }) {
   return (
     <HeaderWrapper>
-      <Heading1>{title}</Heading1>
-      <AbountLink to={about.to}>
-        <ProfileImage src={profileImage.src} alt={profileImage.alt} />
-        {about.title}
-      </AbountLink>
+      <Heading1>
+        <Link to={title.to}>{title.text} </Link>
+      </Heading1>
+      <Link to={about.to}>
+        <AboutWrapper>
+          <ProfileImage src={profileImage.src} alt={profileImage.alt} />
+          {about.text}
+        </AboutWrapper>
+      </Link>
     </HeaderWrapper>
   );
 }
 
 Header.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.shape({
+    to: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  }).isRequired,
   profileImage: PropTypes.shape({
     alt: PropTypes.string.isRequired,
     src: PropTypes.string.isRequired,
   }).isRequired,
   about: PropTypes.shape({
     to: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
   }).isRequired,
 };
 

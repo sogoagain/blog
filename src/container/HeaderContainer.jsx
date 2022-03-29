@@ -29,14 +29,17 @@ export default function HeaderContainer() {
 
   return (
     <Header
-      title={site.siteMetadata.title}
+      title={{
+        text: site.siteMetadata.title,
+        to: "/",
+      }}
       profileImage={{
         alt: "sogoagain의 Github 프로필 이미지",
         src: image.src,
       }}
       about={{
+        text: "소개",
         to: "/about",
-        title: "소개",
       }}
     />
   );

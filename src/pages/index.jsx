@@ -1,3 +1,12 @@
-import HomePage from "./HomePage";
+import React from "react";
+import PageWrapper from "../components/PageWrapper";
 
-export default HomePage;
+import HeaderContainer from "../container/HeaderContainer";
+
+export default function Home() {
+  return (
+    <PageWrapper>
+      <HeaderContainer />
+    </PageWrapper>
+  );
+}
