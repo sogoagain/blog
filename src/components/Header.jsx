@@ -13,7 +13,6 @@ const HeaderWrapper = styled.header({
 });
 
 const Heading1 = styled.h1({
-  fontSize: "2rem",
   flex: "auto",
 });
 
@@ -23,7 +22,6 @@ const ProfileImage = styled.img({
 });
 
 const AboutWrapper = styled.div({
-  fontSize: "1rem",
   display: "flex",
   alignItems: "center",
 });

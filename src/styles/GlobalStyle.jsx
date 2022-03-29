@@ -29,6 +29,10 @@ export default function GlobalStyle() {
         a:active {
           color: #828282;
         }
+
+        h1 {
+          font-size: 2rem;
+        }
       `}
     />
   );
