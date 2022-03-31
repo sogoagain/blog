@@ -5,7 +5,7 @@ import { Link } from "gatsby";
 import styled from "@emotion/styled";
 
 const HeaderWrapper = styled.header({
-  marginTop: "1rem",
+  padding: "2.4rem 1.6rem",
   height: "100%",
   display: "flex",
   flexDirection: "row",
@@ -17,8 +17,8 @@ const Heading1 = styled.h1({
 });
 
 const ProfileImage = styled.img({
-  width: "2rem",
-  height: "2rem",
+  width: "3.2rem",
+  height: "3.2rem",
 });
 
 const AboutWrapper = styled.div({

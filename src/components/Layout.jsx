@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import GlobalStyle from "../styles/GlobalStyle";
 
 const Wrapper = styled.div({
-  maxWidth: "1024px",
+  maxWidth: "144rem",
   marginLeft: "auto",
   marginRight: "auto",
 });

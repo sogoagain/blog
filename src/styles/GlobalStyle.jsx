@@ -13,12 +13,13 @@ export default function GlobalStyle() {
         }
 
         html {
-          font-size: 16px;
+          font-size: 10px;
         }
 
         body {
           font-family: "Noto Sans KR", sans-serif;
-          min-width: 320px;
+          font-size: 1.6rem;
+          min-width: 32rem;
         }
 
         a {
@@ -31,7 +32,7 @@ export default function GlobalStyle() {
         }
 
         h1 {
-          font-size: 2rem;
+          font-size: 2.4rem;
         }
       `}
     />
