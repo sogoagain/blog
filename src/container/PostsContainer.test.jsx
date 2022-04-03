@@ -8,11 +8,11 @@ import { render, screen } from "../testUtils";
 
 import PostsContainer from "./PostsContainer";
 
-import POST_LIST from "../__fixtures__/postList";
+import POST_LIST_QUERY from "../__fixtures__/postListQuery";
 
 describe("PostsContainer", () => {
   beforeEach(() => {
-    useStaticQuery.mockReturnValue(POST_LIST);
+    useStaticQuery.mockReturnValue(POST_LIST_QUERY);
 
     render(<PostsContainer />);
   });
@@ -21,7 +21,9 @@ describe("PostsContainer", () => {
     await waitFor(() => {
       const items = screen.getAllByRole("listitem");
 
-      expect(items).toHaveLength(POST_LIST.allMarkdownRemark.nodes.length);
+      expect(items).toHaveLength(
+        POST_LIST_QUERY.allMarkdownRemark.nodes.length
+      );
     });
   });
 

@@ -8,6 +8,7 @@ import { fetchGithubUser } from "../services/github";
 
 import HeaderContainer from "./HeaderContainer";
 
+import SITE_QUERY from "../__fixtures__/siteQuery";
 import GITHUB_USER from "../__fixtures__/githubUser";
 
 jest.mock("../services/github");
@@ -16,16 +17,7 @@ describe("HeaderContainer", () => {
   beforeEach(() => {
     fetchGithubUser.mockClear();
     fetchGithubUser.mockResolvedValue(GITHUB_USER);
-    useStaticQuery.mockReturnValue({
-      site: {
-        siteMetadata: {
-          title: "SOGOAGAIN",
-          social: {
-            github: "sogoagain",
-          },
-        },
-      },
-    });
+    useStaticQuery.mockReturnValue(SITE_QUERY);
 
     render(<HeaderContainer />);
   });
