@@ -6,6 +6,12 @@ import styled from "@emotion/styled";
 
 import { unit } from "../styles/styles";
 
+const HeaderWrapper = styled.div({
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+});
+
 const Heading1 = styled.h1({
   flex: "auto",
 });
@@ -22,7 +28,7 @@ const AboutWrapper = styled.div({
 
 function Header({ title, profileImage, about }) {
   return (
-    <>
+    <HeaderWrapper>
       <Heading1>
         <Link to={title.to}>{title.text} </Link>
       </Heading1>
@@ -32,7 +38,7 @@ function Header({ title, profileImage, about }) {
           {about.text}
         </AboutWrapper>
       </Link>
-    </>
+    </HeaderWrapper>
   );
 }
 

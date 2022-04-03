@@ -16,10 +16,9 @@ import ProfileImage from "../images/profile.png";
 
 const HeaderSection = styled.header({
   padding: unit(3),
-  height: "100%",
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
+  backdropFilter: `blur(${unit(0.4)})`,
+  position: "sticky",
+  top: 0,
 });
 
 export default function HeaderContainer() {
