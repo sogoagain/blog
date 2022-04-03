@@ -10,7 +10,7 @@ describe("<Header/>", () => {
     to: "/",
   };
   const profileImage = {
-    alt: "sogoagain의 Github 프로필 이미지",
+    alt: "프로필 이미지",
     src: "https://avatars.githubusercontent.com/u/23417465?v=4",
   };
   const about = {

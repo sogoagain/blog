@@ -5,7 +5,7 @@ import { Link } from "gatsby";
 import styled from "@emotion/styled";
 
 const HeaderWrapper = styled.header({
-  padding: "2.4rem 1.6rem",
+  padding: "1.6rem 1.6rem",
   height: "100%",
   display: "flex",
   flexDirection: "row",

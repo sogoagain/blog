@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `sogoagain 블로그`,
+    title: `SOGOAGAIN`,
     siteUrl: `https://blog.sogoagain.com`,
     author: `@sogoagain`,
     social: {

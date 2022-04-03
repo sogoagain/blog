@@ -19,7 +19,7 @@ describe("IndexPage", () => {
     useStaticQuery.mockReturnValue({
       site: {
         siteMetadata: {
-          title: "sogoagain 블로그",
+          title: "SOGOAGAIN",
           social: {
             github: "sogoagain",
           },
@@ -31,10 +31,8 @@ describe("IndexPage", () => {
   });
 
   it("헤더를 출력한다", async () => {
-    const titleEl = screen.getByText("sogoagain 블로그");
-    const imageEl = await screen.getByAltText(
-      "sogoagain의 Github 프로필 이미지"
-    );
+    const titleEl = screen.getByText("SOGOAGAIN");
+    const imageEl = await screen.getByAltText("프로필 이미지");
     const aboutEl = screen.getByText("소개");
 
     expect(titleEl).toBeInTheDocument();

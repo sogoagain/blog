@@ -45,7 +45,7 @@ export default function HeaderContainer() {
         to: "/",
       }}
       profileImage={{
-        alt: "sogoagain의 Github 프로필 이미지",
+        alt: "프로필 이미지",
         src: profileImage,
       }}
       about={{
