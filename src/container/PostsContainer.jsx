@@ -2,7 +2,15 @@ import React, { useState, useEffect } from "react";
 
 import { graphql, useStaticQuery } from "gatsby";
 
+import styled from "@emotion/styled";
+
 import PostList from "../components/PostList";
+
+import { unit } from "../styles/styles";
+
+const PostsSection = styled.section({
+  padding: unit(3),
+});
 
 export default function PostsContainer() {
   const {
@@ -34,5 +42,9 @@ export default function PostsContainer() {
     );
   }, [nodes]);
 
-  return <PostList posts={posts} basePath="/posts" />;
+  return (
+    <PostsSection>
+      <PostList posts={posts} basePath="/posts" />
+    </PostsSection>
+  );
 }
