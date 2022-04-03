@@ -2,6 +2,8 @@ import React from "react";
 
 import { Global, css } from "@emotion/react";
 
+import { unit, color } from "./styles";
+
 export default function GlobalStyle() {
   return (
     <Global
@@ -13,25 +15,26 @@ export default function GlobalStyle() {
         }
 
         html {
-          font-size: 16px;
+          font-size: 10px;
         }
 
         body {
           font-family: "Noto Sans KR", sans-serif;
-          min-width: 320px;
+          font-size: ${unit(2)};
+          min-width: ${unit(40)};
         }
 
         a {
           text-decoration: none;
-          color: #000;
-        }
-
-        a:active {
-          color: #828282;
+          color: ${color.primary};
         }
 
         h1 {
-          font-size: 2rem;
+          font-size: ${unit(3)};
+        }
+
+        h2 {
+          font-size: ${unit(2.5)};
         }
       `}
     />

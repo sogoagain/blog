@@ -1,7 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `sogoagain 블로그`,
+    title: `SOGOAGAIN`,
     siteUrl: `https://blog.sogoagain.com`,
+    author: `@sogoagain`,
     social: {
       github: "sogoagain",
     },
@@ -20,6 +21,7 @@ module.exports = {
     "gatsby-plugin-mdx",
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
+    "gatsby-transformer-remark",
     {
       resolve: "gatsby-source-filesystem",
       options: {
@@ -35,6 +37,14 @@ module.exports = {
         path: "./src/pages/",
       },
       __key: "pages",
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `posts`,
+        path: `${__dirname}/content/posts`,
+      },
+      __key: "posts",
     },
     {
       resolve: `gatsby-plugin-s3`,

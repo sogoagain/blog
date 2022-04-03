@@ -18,7 +18,10 @@ module.exports = {
   },
   plugins: ["react"],
   rules: {
+    "no-underscore-dangle": "off",
     "react/prop-types": "off",
+    "react/no-danger": "off",
     "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": "off",
   },
 };
