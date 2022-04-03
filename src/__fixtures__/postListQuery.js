@@ -1,4 +1,4 @@
-const postList = {
+const postListQuery = {
   allMarkdownRemark: {
     nodes: [
       {
@@ -338,4 +338,4 @@ const postList = {
   },
 };
 
-export default postList;
+export default postListQuery;
