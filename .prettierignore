@@ -3,3 +3,8 @@ package.json
 package-lock.json
 public
 node_modules
+content
+coverage
+.github
+.vscode
+README.md

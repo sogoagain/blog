@@ -14,17 +14,22 @@ describe("<PostItem/>", () => {
 
   beforeEach(() => {
     render(
-      <PostItem title={post.title} subtitle={post.subtitle} date={post.date} />
+      <PostItem
+        title={post.title}
+        subtitle={post.subtitle}
+        date={post.date}
+        to={`/posts${post.slug}`}
+      />
     );
   });
 
-  it("포스트 제목을 출력한다", () => {
+  it("제목을 출력한다", () => {
     const titleEl = screen.getByText(post.title);
 
     expect(titleEl).toBeInTheDocument();
   });
 
-  it("포스트 부제목을 출력한다", () => {
+  it("부제목을 출력한다", () => {
     const subtitleEl = screen.getByText(post.subtitle);
 
     expect(subtitleEl).toBeInTheDocument();
@@ -35,5 +40,14 @@ describe("<PostItem/>", () => {
 
     expect(dateEl).toBeInTheDocument();
     expect(dateEl).toHaveAttribute("datetime", "2021-01-20T00:00:00.000Z");
+  });
+
+  it("링크를 출력한다", () => {
+    const linkEl = screen.getByRole("listitem").firstChild;
+
+    expect(linkEl.closest("a")).toHaveAttribute(
+      "href",
+      "/posts/2021/doubling-ratio/"
+    );
   });
 });
