@@ -17,6 +17,7 @@ import ProfileImage from "../images/profile.png";
 const HeaderSection = styled.header({
   padding: unit(3),
   backdropFilter: `blur(${unit(0.4)})`,
+  backgroundColor: "rgba(255, 255, 255, 0.8)",
   position: "sticky",
   top: 0,
 });
