@@ -6,13 +6,16 @@ import Footer from "./Footer";
 
 describe("<Footer/>", () => {
   const title = "SOGOAGAIN";
-  const rss = {
-    text: "RSS",
-    to: "/rss.xml",
+  const rss = "/rss.xml";
+  const social = {
+    email: "test@gmail.com",
+    github: "https://github.com/sogoagain",
+    twitter: "https://twitter.com/sogoagain",
+    linkedin: "https://www.linkedin.com/in/sogoagain",
   };
 
   beforeEach(() => {
-    render(<Footer title={title} rss={rss} />);
+    render(<Footer title={title} rss={rss} social={social} />);
   });
 
   it("블로그 제작 정보를 출력한다", () => {
@@ -28,4 +31,20 @@ describe("<Footer/>", () => {
     expect(rssEl).toBeInTheDocument();
     expect(rssEl.closest("a")).toHaveAttribute("href", "/rss.xml");
   });
+
+  it.each`
+    socialName    | link
+    ${"Email"}    | ${social.email}
+    ${"GitHub"}   | ${social.github}
+    ${"Twitter"}  | ${social.twitter}
+    ${"LinkedIn"} | ${social.linkedin}
+  `(
+    "'$socialName'(으)로 이동하는 '$link'를 출력한다",
+    ({ socialName, link }) => {
+      const socialEl = screen.getByText(socialName);
+
+      expect(socialEl).toBeInTheDocument();
+      expect(socialEl.closest("a")).toHaveAttribute("href", link);
+    }
+  );
 });
