@@ -6,7 +6,7 @@ import styled from "@emotion/styled";
 
 import { unit } from "../styles/styles";
 
-const HeaderWrapper = styled.div({
+const HeaderWrapper = styled.header({
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
