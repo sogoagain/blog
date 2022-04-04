@@ -28,7 +28,7 @@ describe("IndexPage", () => {
     render(<IndexPage />);
   });
 
-  it("헤더를 출력한다", async () => {
+  it("header를 출력한다", async () => {
     const titleEl = screen.getByText("SOGOAGAIN");
     const imageEl = await screen.getByAltText("프로필 이미지");
     const aboutEl = screen.getByText("소개");
@@ -57,5 +57,14 @@ describe("IndexPage", () => {
         "/posts/2021/doubling-ratio/"
       );
     });
+  });
+
+  it("footer를 출력한다", () => {
+    const year = new Date().getFullYear();
+    const copyrightEl = screen.getByText(
+      `${SITE_QUERY.site.siteMetadata.title} ©${year}`
+    );
+
+    expect(copyrightEl).toBeInTheDocument();
   });
 });

@@ -33,7 +33,7 @@ describe("FooterContainer", () => {
 
   it.each`
     socialName    | link
-    ${"Email"}    | ${social.email}
+    ${"Email"}    | ${`mailto:${social.email}`}
     ${"GitHub"}   | ${`https://github.com/${social.github}`}
     ${"Twitter"}  | ${`https://twitter.com/${social.twitter}`}
     ${"LinkedIn"} | ${`https://www.linkedin.com/in/${social.linkedin}`}
@@ -43,7 +43,7 @@ describe("FooterContainer", () => {
       const socialEl = screen.getByText(socialName);
 
       expect(socialEl).toBeInTheDocument();
-      expect(socialEl.closest("a")).toHaveAttribute("href", link);
+      expect(socialEl).toHaveAttribute("href", link);
     }
   );
 });

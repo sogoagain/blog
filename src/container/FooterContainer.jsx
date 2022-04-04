@@ -2,7 +2,14 @@ import React from "react";
 
 import { graphql, useStaticQuery } from "gatsby";
 
+import styled from "@emotion/styled";
+
 import Footer from "../components/Footer";
+
+const FooterSection = styled.div({
+  display: "flex",
+  justifyContent: "center",
+});
 
 export default function FooterContainer() {
   const {
@@ -33,5 +40,9 @@ export default function FooterContainer() {
     linkedin: `https://www.linkedin.com/in/${social.linkedin}`,
   };
 
-  return <Footer title={title} rss={rss} social={socialLink} />;
+  return (
+    <FooterSection>
+      <Footer title={title} rss={rss} social={socialLink} />
+    </FooterSection>
+  );
 }

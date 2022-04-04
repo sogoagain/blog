@@ -5,6 +5,7 @@ import MainWrapper from "../components/MainWrapper";
 
 import HeaderContainer from "../container/HeaderContainer";
 import PostsContainer from "../container/PostsContainer";
+import FooterContainer from "../container/FooterContainer";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <MainWrapper>
         <PostsContainer />
       </MainWrapper>
+      <FooterContainer />
     </Layout>
   );
 }
