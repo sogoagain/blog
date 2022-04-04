@@ -6,7 +6,7 @@ module.exports = {
     siteUrl: `${properties.site.url}`,
     author: `${properties.site.author}`,
     social: {
-      github: `${properties.social.github}`,
+      ...properties.social,
     },
   },
   plugins: [

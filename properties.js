@@ -7,6 +7,9 @@ module.exports = {
     postsBasePath: "/posts",
   },
   social: {
+    email: "imyong0@gmail.com",
     github: "sogoagain",
+    twitter: "sogoagain",
+    linkedin: "sogoagain",
   },
 };
