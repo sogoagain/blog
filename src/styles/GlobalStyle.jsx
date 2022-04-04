@@ -22,6 +22,8 @@ export default function GlobalStyle() {
           font-family: "Noto Sans KR", sans-serif;
           font-size: ${unit(2)};
           min-width: ${unit(40)};
+          word-break: keep-all;
+          word-wrap: break-word;
         }
 
         a {
