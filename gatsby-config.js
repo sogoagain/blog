@@ -2,12 +2,13 @@ const properties = require("./properties");
 
 module.exports = {
   siteMetadata: {
-    title: `${properties.site.title}`,
-    siteUrl: `${properties.site.url}`,
-    author: `${properties.site.author}`,
+    title: properties.site.title,
+    siteUrl: properties.site.url,
+    author: properties.site.author,
     social: {
       ...properties.social,
     },
+    rss: properties.rss,
   },
   plugins: [
     "gatsby-plugin-emotion",
@@ -51,7 +52,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-s3`,
       options: {
-        bucketName: `${properties.site.s3Bucket}`,
+        bucketName: properties.site.s3Bucket,
       },
     },
     {
@@ -98,7 +99,7 @@ module.exports = {
                 }
               }
             `,
-            output: "/rss.xml",
+            output: properties.rss,
             title: `${properties.site.title} RSS Feed`,
           },
         ],

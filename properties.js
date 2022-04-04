@@ -12,4 +12,5 @@ module.exports = {
     twitter: "sogoagain",
     linkedin: "sogoagain",
   },
+  rss: "/rss.xml",
 };

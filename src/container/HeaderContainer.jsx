@@ -23,7 +23,14 @@ const HeaderSection = styled.div({
 });
 
 export default function HeaderContainer() {
-  const { site } = useStaticQuery(graphql`
+  const {
+    site: {
+      siteMetadata: {
+        title,
+        social: { github },
+      },
+    },
+  } = useStaticQuery(graphql`
     query {
       site {
         siteMetadata {
@@ -48,14 +55,14 @@ export default function HeaderContainer() {
   }, [image]);
 
   useEffect(() => {
-    dispatch(loadProfileImageSrc(site.siteMetadata.social.github));
+    dispatch(loadProfileImageSrc(github));
   }, []);
 
   return (
     <HeaderSection>
       <Header
         title={{
-          text: site.siteMetadata.title,
+          text: title,
           to: "/",
         }}
         profileImage={{
