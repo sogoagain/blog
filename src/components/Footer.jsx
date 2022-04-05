@@ -1,74 +1,77 @@
 import React from "react";
 
-import { Link } from "gatsby";
-
 import styled from "@emotion/styled";
+
+import SocialLink from "./SocialLink";
 
 import { unit } from "../styles/styles";
 
-const InfoWrapper = styled.div({
+import EmailIcon from "../images/icons/email.png";
+import GithubIcon from "../images/icons/github.png";
+import LinkedinIcon from "../images/icons/linkedin.png";
+import RssIcon from "../images/icons/rss.png";
+import TwitterIcon from "../images/icons/twitter.png";
+
+const CopyrightWrapper = styled.p({
+  fontSize: unit(1.75),
   display: "flex",
-  flexDirection: "row",
-  alignItems: "baseline",
   justifyContent: "center",
 });
 
-const CopyrightWrapper = styled.div({
-  marginRight: unit(2),
-  fontSize: unit(1.75),
-});
-
-const RssLinkWrapper = styled(Link)`
-  font-size: ${unit(1.5)};
-`;
-
-const SocialLInksWrapper = styled.div({
+const LinksWrapper = styled.div({
   padding: unit(1),
-  marginBottom: unit(1),
 });
 
-const SocialLinkWrapper = styled.a({
-  margin: `0 ${unit(1)}`,
-  fontSize: unit(1.5),
-});
+const socialLink = {
+  email: {
+    href: (src) => `mailto:${src}`,
+    title: "Email",
+    icon: EmailIcon,
+    blank: false,
+  },
+  github: {
+    href: (src) => src,
+    title: "GitHub",
+    icon: GithubIcon,
+    blank: true,
+  },
+  twitter: {
+    href: (src) => src,
+    title: "Twitter",
+    icon: TwitterIcon,
+    blank: true,
+  },
+  linkedin: {
+    href: (src) => src,
+    title: "LinkedIn",
+    icon: LinkedinIcon,
+    blank: true,
+  },
+  rss: {
+    to: (src) => src,
+    title: "RSS",
+    icon: RssIcon,
+    blank: false,
+  },
+};
 
 export default function Footer({ title, rss, social }) {
+  const link = {
+    ...social,
+    rss,
+  };
   const year = new Date().getFullYear();
 
   return (
     <footer>
-      <InfoWrapper>
-        <CopyrightWrapper>
-          {title} &copy;{year}
-        </CopyrightWrapper>
-        <RssLinkWrapper to={rss}>RSS</RssLinkWrapper>
-      </InfoWrapper>
-      <SocialLInksWrapper>
-        <SocialLinkWrapper href={`mailto:${social.email}`}>
-          Email
-        </SocialLinkWrapper>
-        <SocialLinkWrapper
-          href={social.github}
-          target="_blank"
-          rel="noreferrer"
-        >
-          GitHub
-        </SocialLinkWrapper>
-        <SocialLinkWrapper
-          href={social.twitter}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Twitter
-        </SocialLinkWrapper>
-        <SocialLinkWrapper
-          href={social.linkedin}
-          target="_blank"
-          rel="noreferrer"
-        >
-          LinkedIn
-        </SocialLinkWrapper>
-      </SocialLInksWrapper>
+      <CopyrightWrapper>
+        {title} &copy;{year}
+      </CopyrightWrapper>
+      <LinksWrapper>
+        {Object.keys(link).map((name) => (
+          <SocialLink key={name} link={link[name]} {...socialLink[name]} />
+        ))}
+      </LinksWrapper>
     </footer>
   );
 }

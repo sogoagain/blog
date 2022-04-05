@@ -1,8 +1,8 @@
 import React from "react";
 
-import { Link } from "gatsby";
-
 import styled from "@emotion/styled";
+
+import Anchor from "./Anchor";
 
 import { unit, color } from "../styles/styles";
 
@@ -30,11 +30,11 @@ export default function PostItem({ title, subtitle, date, to }) {
 
   return (
     <ListItem>
-      <Link to={to}>
+      <Anchor to={to}>
         <Time dateTime={datetime}>{date}</Time>
         <Title>{title}</Title>
         <SubTitle>{subtitle}</SubTitle>
-      </Link>
+      </Anchor>
     </ListItem>
   );
 }

@@ -26,7 +26,7 @@ describe("<Footer/>", () => {
   });
 
   it("RSS 링크를 출력한다", () => {
-    const rssEl = screen.getByText("RSS");
+    const rssEl = screen.getByAltText("RSS");
 
     expect(rssEl).toBeInTheDocument();
     expect(rssEl.closest("a")).toHaveAttribute("href", "/rss.xml");
@@ -41,10 +41,10 @@ describe("<Footer/>", () => {
   `(
     "'$socialName'(으)로 이동하는 '$link'를 출력한다",
     ({ socialName, link }) => {
-      const socialEl = screen.getByText(socialName);
+      const socialEl = screen.getByAltText(socialName);
 
       expect(socialEl).toBeInTheDocument();
-      expect(socialEl).toHaveAttribute("href", link);
+      expect(socialEl.closest("a")).toHaveAttribute("href", link);
     }
   );
 });

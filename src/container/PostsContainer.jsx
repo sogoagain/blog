@@ -9,7 +9,7 @@ import PostList from "../components/PostList";
 import { unit } from "../styles/styles";
 
 const PostsSection = styled.section({
-  padding: unit(3),
+  padding: unit(2),
 });
 
 export default function PostsContainer() {

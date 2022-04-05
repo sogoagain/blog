@@ -15,7 +15,7 @@ import { unit } from "../styles/styles";
 import ProfileImage from "../images/profile.png";
 
 const HeaderSection = styled.div({
-  padding: unit(3),
+  padding: unit(2),
   backdropFilter: `blur(${unit(0.4)})`,
   backgroundColor: "rgba(255, 255, 255, 0.8)",
   position: "sticky",

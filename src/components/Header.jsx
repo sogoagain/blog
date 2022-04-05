@@ -1,8 +1,9 @@
 import React from "react";
 
-import { Link } from "gatsby";
-
 import styled from "@emotion/styled";
+
+import Anchor from "./Anchor";
+import IconImage from "./IconImage";
 
 import { unit } from "../styles/styles";
 
@@ -13,15 +14,12 @@ const HeaderWrapper = styled.header({
 });
 
 const Heading1 = styled.h1({
+  fontSize: unit(2.5),
   flex: "auto",
 });
 
-const ProfileImage = styled.img({
-  width: unit(4),
-  height: unit(4),
-});
-
 const AboutWrapper = styled.div({
+  fontSize: unit(2),
   display: "flex",
   alignItems: "center",
 });
@@ -30,14 +28,14 @@ function Header({ title, profileImage, about }) {
   return (
     <HeaderWrapper>
       <Heading1>
-        <Link to={title.to}>{title.text} </Link>
+        <Anchor to={title.to}>{title.text} </Anchor>
       </Heading1>
-      <Link to={about.to}>
+      <Anchor to={about.to}>
         <AboutWrapper>
-          <ProfileImage src={profileImage.src} alt={profileImage.alt} />
+          <IconImage src={profileImage.src} alt={profileImage.alt} level={4} />
           {about.text}
         </AboutWrapper>
-      </Link>
+      </Anchor>
     </HeaderWrapper>
   );
 }

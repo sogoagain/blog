@@ -6,9 +6,12 @@ import styled from "@emotion/styled";
 
 import Footer from "../components/Footer";
 
+import { unit } from "../styles/styles";
+
 const FooterSection = styled.div({
   display: "flex",
   justifyContent: "center",
+  padding: unit(2),
 });
 
 export default function FooterContainer() {
