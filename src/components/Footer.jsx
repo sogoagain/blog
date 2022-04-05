@@ -15,10 +15,11 @@ const InfoWrapper = styled.div({
 
 const CopyrightWrapper = styled.div({
   marginRight: unit(2),
+  fontSize: unit(1.75),
 });
 
 const RssLinkWrapper = styled(Link)`
-  font-size: ${unit(1.75)};
+  font-size: ${unit(1.5)};
 `;
 
 const SocialLInksWrapper = styled.div({
@@ -28,7 +29,7 @@ const SocialLInksWrapper = styled.div({
 
 const SocialLinkWrapper = styled.a({
   margin: `0 ${unit(1)}`,
-  fontSize: unit(1.75),
+  fontSize: unit(1.5),
 });
 
 export default function Footer({ title, rss, social }) {
