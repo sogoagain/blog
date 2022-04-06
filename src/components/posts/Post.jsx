@@ -8,7 +8,7 @@ import PostContent from "./PostContent";
 import { unit } from "../../styles";
 
 const PostWrapper = styled.article({
-  padding: unit(2),
+  padding: `${unit(4)} ${unit(2)}`,
   margin: "0 auto",
 });
 
