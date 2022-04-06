@@ -2,7 +2,7 @@ import React from "react";
 
 import { Global, css } from "@emotion/react";
 
-import { unit, color } from "./styles";
+import { unit, color } from ".";
 
 export default function GlobalStyle() {
   return (
@@ -22,6 +22,8 @@ export default function GlobalStyle() {
           font-family: "Noto Sans KR", sans-serif;
           font-size: ${unit(2)};
           min-width: ${unit(40)};
+          word-break: keep-all;
+          word-wrap: break-word;
         }
 
         a {

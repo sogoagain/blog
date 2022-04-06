@@ -2,8 +2,6 @@ import React from "react";
 
 import { useStaticQuery } from "gatsby";
 
-import { waitFor } from "@testing-library/react";
-
 import { render, screen } from "../testUtils";
 
 import { fetchGithubUser } from "../services/github";
@@ -28,9 +26,9 @@ describe("IndexPage", () => {
     render(<IndexPage />);
   });
 
-  it("헤더를 출력한다", async () => {
+  it("header를 출력한다", () => {
     const titleEl = screen.getByText("SOGOAGAIN");
-    const imageEl = await screen.getByAltText("프로필 이미지");
+    const imageEl = screen.getByAltText("프로필 이미지");
     const aboutEl = screen.getByText("소개");
 
     expect(titleEl).toBeInTheDocument();
@@ -38,24 +36,27 @@ describe("IndexPage", () => {
     expect(aboutEl).toBeInTheDocument();
   });
 
-  it("포스트 목록을 출력한다", async () => {
-    await waitFor(() => {
-      const items = screen.getAllByRole("listitem");
+  it("포스트 목록을 출력한다", () => {
+    const items = screen.getAllByRole("listitem");
 
-      expect(items).toHaveLength(
-        POST_LIST_QUERY.allMarkdownRemark.nodes.length
-      );
-    });
+    expect(items).toHaveLength(POST_LIST_QUERY.allMarkdownRemark.nodes.length);
   });
 
-  it("포스트 링크를 출력한다", async () => {
-    await waitFor(() => {
-      const linkEl = screen.getAllByRole("listitem")[0].firstChild;
+  it("포스트 링크를 출력한다", () => {
+    const linkEl = screen.getAllByRole("listitem")[0].firstChild;
 
-      expect(linkEl.closest("a")).toHaveAttribute(
-        "href",
-        "/posts/2021/doubling-ratio/"
-      );
-    });
+    expect(linkEl.closest("a")).toHaveAttribute(
+      "href",
+      "/posts/2021/doubling-ratio/"
+    );
+  });
+
+  it("footer를 출력한다", () => {
+    const year = new Date().getFullYear();
+    const copyrightEl = screen.getByText(
+      `${SITE_QUERY.site.siteMetadata.title} ©${year}`
+    );
+
+    expect(copyrightEl).toBeInTheDocument();
   });
 });

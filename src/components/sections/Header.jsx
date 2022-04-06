@@ -1,12 +1,13 @@
 import React from "react";
 
-import { Link } from "gatsby";
-
 import styled from "@emotion/styled";
 
-import { unit } from "../styles/styles";
+import Anchor from "../Anchor";
+import IconImage from "../IconImage";
 
-const HeaderWrapper = styled.div({
+import { unit } from "../../styles";
+
+const HeaderWrapper = styled.header({
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
@@ -16,28 +17,24 @@ const Heading1 = styled.h1({
   flex: "auto",
 });
 
-const ProfileImage = styled.img({
-  width: unit(4),
-  height: unit(4),
-});
-
 const AboutWrapper = styled.div({
   display: "flex",
   alignItems: "center",
+  fontSize: unit(2),
 });
 
 function Header({ title, profileImage, about }) {
   return (
     <HeaderWrapper>
       <Heading1>
-        <Link to={title.to}>{title.text} </Link>
+        <Anchor to={title.to}>{title.text} </Anchor>
       </Heading1>
-      <Link to={about.to}>
+      <Anchor to={about.to}>
         <AboutWrapper>
-          <ProfileImage src={profileImage.src} alt={profileImage.alt} />
+          <IconImage src={profileImage.src} alt={profileImage.alt} level={4} />
           {about.text}
         </AboutWrapper>
-      </Link>
+      </Anchor>
     </HeaderWrapper>
   );
 }

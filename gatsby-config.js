@@ -1,11 +1,14 @@
+const properties = require("./properties");
+
 module.exports = {
   siteMetadata: {
-    title: `SOGOAGAIN`,
-    siteUrl: `https://blog.sogoagain.com`,
-    author: `@sogoagain`,
+    title: properties.site.title,
+    siteUrl: properties.site.url,
+    author: properties.site.author,
     social: {
-      github: "sogoagain",
+      ...properties.social,
     },
+    rss: properties.rss,
   },
   plugins: [
     "gatsby-plugin-emotion",
@@ -15,7 +18,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-manifest",
       options: {
-        icon: "src/images/icon.png",
+        icon: "src/images/logo.png",
       },
     },
     "gatsby-plugin-mdx",
@@ -49,7 +52,57 @@ module.exports = {
     {
       resolve: `gatsby-plugin-s3`,
       options: {
-        bucketName: "sogoagain-blog",
+        bucketName: properties.site.s3Bucket,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allMarkdownRemark } }) =>
+              allMarkdownRemark.edges.map((edge) => {
+                const postUrl = `${site.siteMetadata.siteUrl}${properties.postsBasePath}${edge.node.fields.slug}`;
+                return {
+                  ...edge.node.frontmatter,
+                  description: edge.node.frontmatter.subtitle,
+                  url: postUrl,
+                  guid: postUrl,
+                };
+              }),
+            query: `
+              {
+                allMarkdownRemark(
+                  sort: { order: DESC, fields: [frontmatter___date] },
+                ) {
+                  edges {
+                    node {
+                      fields { slug }
+                      frontmatter {
+                        date
+                        title
+                        subtitle
+                      }
+                    }
+                  }
+                }
+              }
+            `,
+            output: properties.rss,
+            title: `${properties.site.title} RSS Feed`,
+          },
+        ],
       },
     },
   ],

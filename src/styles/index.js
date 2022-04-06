@@ -1,5 +1,6 @@
 export function unit(level) {
-  return `${level * 0.8}rem`;
+  const rem = level * 0.8;
+  return `${Math.round(rem * 100) / 100}rem`;
 }
 
 export const color = {

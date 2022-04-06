@@ -6,23 +6,31 @@ import { graphql, useStaticQuery } from "gatsby";
 
 import styled from "@emotion/styled";
 
-import Header from "../components/Header";
+import Header from "../components/sections/Header";
 
 import { loadProfileImageSrc } from "../features/profileSlice";
 
-import { unit } from "../styles/styles";
+import { unit } from "../styles";
 
 import ProfileImage from "../images/profile.png";
 
-const HeaderSection = styled.header({
-  padding: unit(3),
-  backdropFilter: `blur(${unit(0.4)})`,
+const HeaderSection = styled.div({
   position: "sticky",
+  padding: `${unit(1)} ${unit(2)}`,
+  backdropFilter: `blur(${unit(0.4)})`,
+  backgroundColor: "rgba(255, 255, 255, 0.8)",
   top: 0,
 });
 
 export default function HeaderContainer() {
-  const { site } = useStaticQuery(graphql`
+  const {
+    site: {
+      siteMetadata: {
+        title,
+        social: { github },
+      },
+    },
+  } = useStaticQuery(graphql`
     query {
       site {
         siteMetadata {
@@ -47,14 +55,14 @@ export default function HeaderContainer() {
   }, [image]);
 
   useEffect(() => {
-    dispatch(loadProfileImageSrc(site.siteMetadata.social.github));
+    dispatch(loadProfileImageSrc(github));
   }, []);
 
   return (
     <HeaderSection>
       <Header
         title={{
-          text: site.siteMetadata.title,
+          text: title,
           to: "/",
         }}
         profileImage={{
