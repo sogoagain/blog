@@ -4,8 +4,8 @@ import { unit } from "../../styles";
 
 const Main = styled.main({
   maxWidth: unit(160),
-  marginLeft: "auto",
-  marginRight: "auto",
+  margin: "0 auto",
+  minHeight: `calc(100vh - ${unit(17.75)})`,
 });
 
 export default Main;

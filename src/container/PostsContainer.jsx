@@ -10,6 +10,8 @@ import { unit } from "../styles";
 
 const PostsSection = styled.section({
   padding: `${unit(2)} ${unit(3)}`,
+  wordBreak: "keep-all",
+  wordWrap: "break-word",
 });
 
 export default function PostsContainer() {
