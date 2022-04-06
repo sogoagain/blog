@@ -35,6 +35,24 @@ describe("PostPage", () => {
     expect(aboutEl).toBeInTheDocument();
   });
 
+  it("포스트 제목을 출력한다", () => {
+    const postTitleEl = screen.getByText("르블랑의 법칙");
+
+    expect(postTitleEl).toBeInTheDocument();
+  });
+
+  it("포스트 부제목을 출력한다", () => {
+    const subtitleEl = screen.getByText("나중은 결코 오지 않는다.");
+
+    expect(subtitleEl).toBeInTheDocument();
+  });
+
+  it("포스트 작성 시간을 출력한다", () => {
+    const dateEl = screen.getByText("2017-01-06");
+
+    expect(dateEl).toBeInTheDocument();
+  });
+
   it("포스트 내용을 출력한다", () => {
     const postBodyEl = screen.getByTestId("post-body-element");
 

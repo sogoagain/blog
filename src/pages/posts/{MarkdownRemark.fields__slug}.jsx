@@ -3,20 +3,19 @@ import React from "react";
 import { graphql } from "gatsby";
 
 import LayoutContainer from "../../container/LayoutContainer";
+import Post from "../../components/posts/Post";
 
-export default function PostPage({ data }) {
-  const { markdownRemark } = data;
-  const { frontmatter, html } = markdownRemark;
-
+export default function PostPage({
+  data: {
+    markdownRemark: {
+      frontmatter: { title, subtitle, date },
+      html,
+    },
+  },
+}) {
   return (
     <LayoutContainer>
-      <h1>{frontmatter.title}</h1>
-      <h2>{frontmatter.subtitle}</h2>
-      <h3>{frontmatter.date}</h3>
-      <div
-        data-testid="post-body-element"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
+      <Post title={title} subtitle={subtitle} date={date} html={html} />
     </LayoutContainer>
   );
 }

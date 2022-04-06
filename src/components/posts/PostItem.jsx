@@ -4,6 +4,8 @@ import styled from "@emotion/styled";
 
 import Anchor from "../Anchor";
 
+import { yyyyMMddToISOString } from "../../utils";
+
 import { unit, color } from "../../styles";
 
 const ListItem = styled.li({
@@ -26,12 +28,10 @@ const SubTitle = styled.p({
 });
 
 export default function PostItem({ title, subtitle, date, to }) {
-  const datetime = new Date(date).toISOString();
-
   return (
     <ListItem>
       <Anchor to={to}>
-        <Time dateTime={datetime}>{date}</Time>
+        <Time dateTime={yyyyMMddToISOString(date)}>{date}</Time>
         <Title>{title}</Title>
         <SubTitle>{subtitle}</SubTitle>
       </Anchor>
