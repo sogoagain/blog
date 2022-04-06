@@ -1,25 +1,27 @@
 import React from "react";
+
 import { graphql } from "gatsby";
 
-export default function PostTemplate({ data }) {
+import LayoutContainer from "../../container/LayoutContainer";
+
+export default function PostPage({ data }) {
   const { markdownRemark } = data;
   const { frontmatter, html } = markdownRemark;
+
   return (
-    <div className="blog-post-container">
-      <div className="blog-post">
-        <h1>{frontmatter.title}</h1>
-        <h2>{frontmatter.subtitle}</h2>
-        <h3>{frontmatter.date}</h3>
-        <div
-          className="blog-post-content"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-      </div>
-    </div>
+    <LayoutContainer>
+      <h1>{frontmatter.title}</h1>
+      <h2>{frontmatter.subtitle}</h2>
+      <h3>{frontmatter.date}</h3>
+      <div
+        data-testid="post-body-element"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    </LayoutContainer>
   );
 }
 
-export const pageQuery = graphql`
+export const postQuery = graphql`
   query ($id: String!) {
     markdownRemark(id: { eq: $id }) {
       html
