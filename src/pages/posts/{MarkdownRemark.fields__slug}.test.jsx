@@ -54,7 +54,7 @@ describe("PostPage", () => {
   });
 
   it("포스트 내용을 출력한다", () => {
-    const postBodyEl = screen.getByTestId("post-body-element");
+    const postBodyEl = screen.getByTestId("post-content-element");
 
     expect(postBodyEl).toHaveTextContent(
       "나는 현재 충분히 아름다운 코드를 짜고 있는가?"

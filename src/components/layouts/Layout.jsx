@@ -2,13 +2,13 @@ import React from "react";
 
 import styled from "@emotion/styled";
 
-import GlobalStyle from "../../styles/GlobalStyle";
+import GlobalStyle from "./GlobalStyle";
+
 import { unit } from "../../styles";
 
 const GlobalWrapper = styled.div({
-  maxWidth: unit(180),
-  marginLeft: "auto",
-  marginRight: "auto",
+  maxWidth: unit(160),
+  margin: "0 auto",
 });
 
 export default function Layout({ children }) {

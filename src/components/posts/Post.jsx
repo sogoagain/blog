@@ -1,19 +1,22 @@
 import React from "react";
 
-import { yyyyMMddToISOString } from "../../utils";
+import styled from "@emotion/styled";
+
+import PostHeader from "./PostHeader";
+import PostContent from "./PostContent";
+
+import { unit } from "../../styles";
+
+const PostWrapper = styled.article({
+  padding: unit(2),
+  margin: "0 auto",
+});
 
 export default function Post({ title, subtitle, date, html }) {
   return (
-    <>
-      <h1>{title}</h1>
-      <h2>{subtitle}</h2>
-      <h3>
-        <time dateTime={yyyyMMddToISOString(date)}>{date}</time>
-      </h3>
-      <div
-        data-testid="post-body-element"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
-    </>
+    <PostWrapper>
+      <PostHeader title={title} subtitle={subtitle} date={date} />
+      <PostContent html={html} />
+    </PostWrapper>
   );
 }
