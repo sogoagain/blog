@@ -4,9 +4,9 @@ import { graphql, useStaticQuery } from "gatsby";
 
 import styled from "@emotion/styled";
 
-import Footer from "../components/Footer";
+import Footer from "../components/sections/Footer";
 
-import { unit } from "../styles/styles";
+import { unit } from "../styles";
 
 const FooterSection = styled.div({
   display: "flex",

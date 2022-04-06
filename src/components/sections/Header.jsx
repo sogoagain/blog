@@ -2,10 +2,10 @@ import React from "react";
 
 import styled from "@emotion/styled";
 
-import Anchor from "./Anchor";
-import IconImage from "./IconImage";
+import Anchor from "../Anchor";
+import IconImage from "../IconImage";
 
-import { unit } from "../styles/styles";
+import { unit } from "../../styles";
 
 const HeaderWrapper = styled.header({
   display: "flex",
@@ -14,14 +14,13 @@ const HeaderWrapper = styled.header({
 });
 
 const Heading1 = styled.h1({
-  fontSize: unit(2.5),
   flex: "auto",
 });
 
 const AboutWrapper = styled.div({
-  fontSize: unit(2),
   display: "flex",
   alignItems: "center",
+  fontSize: unit(2),
 });
 
 function Header({ title, profileImage, about }) {

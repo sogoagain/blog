@@ -2,7 +2,7 @@ import React from "react";
 
 import { Global, css } from "@emotion/react";
 
-import { unit, color } from "./styles";
+import { unit, color } from ".";
 
 export default function GlobalStyle() {
   return (

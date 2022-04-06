@@ -6,19 +6,19 @@ import { graphql, useStaticQuery } from "gatsby";
 
 import styled from "@emotion/styled";
 
-import Header from "../components/Header";
+import Header from "../components/sections/Header";
 
 import { loadProfileImageSrc } from "../features/profileSlice";
 
-import { unit } from "../styles/styles";
+import { unit } from "../styles";
 
 import ProfileImage from "../images/profile.png";
 
 const HeaderSection = styled.div({
-  padding: unit(2),
+  position: "sticky",
+  padding: `${unit(1)} ${unit(2)}`,
   backdropFilter: `blur(${unit(0.4)})`,
   backgroundColor: "rgba(255, 255, 255, 0.8)",
-  position: "sticky",
   top: 0,
 });
 

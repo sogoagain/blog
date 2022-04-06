@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 
-import { unit } from "../styles/styles";
+import { unit } from "../../styles";
 
-const MainWrapper = styled.main({
+const Main = styled.main({
   maxWidth: unit(160),
   marginLeft: "auto",
   marginRight: "auto",
 });
 
-export default MainWrapper;
+export default Main;

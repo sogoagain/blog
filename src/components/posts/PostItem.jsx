@@ -2,9 +2,9 @@ import React from "react";
 
 import styled from "@emotion/styled";
 
-import Anchor from "./Anchor";
+import Anchor from "../Anchor";
 
-import { unit, color } from "../styles/styles";
+import { unit, color } from "../../styles";
 
 const ListItem = styled.li({
   display: "flex",
@@ -12,8 +12,8 @@ const ListItem = styled.li({
 });
 
 const Time = styled.time({
-  fontSize: unit(1.75),
   color: color.secondary,
+  fontSize: unit(1.75),
 });
 
 const Title = styled.h2({
@@ -21,8 +21,8 @@ const Title = styled.h2({
 });
 
 const SubTitle = styled.p({
-  fontSize: unit(2),
   color: color.secondary,
+  fontSize: unit(2),
 });
 
 export default function PostItem({ title, subtitle, date, to }) {

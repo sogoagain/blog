@@ -1,7 +1,8 @@
 import React from "react";
+
 import { Provider } from "react-redux";
 
-import createStore from "./src/createStore";
+import createStore from "./createStore";
 
 export default function WrapWithProvider({ element }) {
   // Instantiating store in `wrapRootElement` handler ensures:

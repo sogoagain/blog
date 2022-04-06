@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { unit } from "../styles/styles";
+import { unit } from "../styles";
 
 const IconImage = styled.img({}, (props) => ({
   width: unit(props.level),

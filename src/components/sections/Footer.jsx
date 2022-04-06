@@ -2,20 +2,20 @@ import React from "react";
 
 import styled from "@emotion/styled";
 
-import SocialLink from "./SocialLink";
+import IconLink from "../IconLink";
 
-import { unit } from "../styles/styles";
+import { unit } from "../../styles";
 
-import EmailIcon from "../images/icons/email.png";
-import GithubIcon from "../images/icons/github.png";
-import LinkedinIcon from "../images/icons/linkedin.png";
-import RssIcon from "../images/icons/rss.png";
-import TwitterIcon from "../images/icons/twitter.png";
+import EmailIcon from "../../images/icons/email.png";
+import GithubIcon from "../../images/icons/github.png";
+import LinkedinIcon from "../../images/icons/linkedin.png";
+import RssIcon from "../../images/icons/rss.png";
+import TwitterIcon from "../../images/icons/twitter.png";
 
 const CopyrightWrapper = styled.p({
-  fontSize: unit(1.75),
   display: "flex",
   justifyContent: "center",
+  fontSize: unit(1.75),
 });
 
 const LinksWrapper = styled.div({
@@ -24,31 +24,31 @@ const LinksWrapper = styled.div({
 
 const socialLink = {
   email: {
-    href: (src) => `mailto:${src}`,
+    hrefFn: (src) => `mailto:${src}`,
     title: "Email",
     icon: EmailIcon,
     blank: false,
   },
   github: {
-    href: (src) => src,
+    hrefFn: (src) => src,
     title: "GitHub",
     icon: GithubIcon,
     blank: true,
   },
   twitter: {
-    href: (src) => src,
+    hrefFn: (src) => src,
     title: "Twitter",
     icon: TwitterIcon,
     blank: true,
   },
   linkedin: {
-    href: (src) => src,
+    hrefFn: (src) => src,
     title: "LinkedIn",
     icon: LinkedinIcon,
     blank: true,
   },
   rss: {
-    to: (src) => src,
+    toFn: (src) => src,
     title: "RSS",
     icon: RssIcon,
     blank: false,
@@ -69,7 +69,7 @@ export default function Footer({ title, rss, social }) {
       </CopyrightWrapper>
       <LinksWrapper>
         {Object.keys(link).map((name) => (
-          <SocialLink key={name} link={link[name]} {...socialLink[name]} />
+          <IconLink key={name} link={link[name]} {...socialLink[name]} />
         ))}
       </LinksWrapper>
     </footer>

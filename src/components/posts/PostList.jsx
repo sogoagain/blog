@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 
 import PostItem from "./PostItem";
 
-import { unit } from "../styles/styles";
+import { unit } from "../../styles";
 
 const OrderedList = styled.ol({
   padding: unit(1),
