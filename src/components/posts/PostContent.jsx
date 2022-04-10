@@ -9,7 +9,7 @@ export default function PostContent({ html }) {
     <div
       css={css`
         * {
-          margin: ${unit(1.5)} auto;
+          margin: ${unit(2)} auto;
           color: ${color.article};
           font-size: ${unit(2)};
           line-height: 1.7;
@@ -18,19 +18,19 @@ export default function PostContent({ html }) {
         h1,
         h2,
         h3 {
-          margin: ${unit(3)} auto;
+          margin: ${unit(4)} auto ${unit(2)} auto;
         }
 
         h1 {
-          font-size: ${unit(3)};
+          font-size: ${unit(3.25)};
         }
 
         h2 {
-          font-size: ${unit(2.5)};
+          font-size: ${unit(2.75)};
         }
 
         h3 {
-          font-size: ${unit(2.25)};
+          font-size: ${unit(2.5)};
         }
 
         ol,

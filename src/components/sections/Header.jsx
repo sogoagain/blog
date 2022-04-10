@@ -5,8 +5,6 @@ import styled from "@emotion/styled";
 import Anchor from "../Anchor";
 import IconImage from "../IconImage";
 
-import { unit } from "../../styles";
-
 const HeaderWrapper = styled.header({
   display: "flex",
   flexDirection: "row",
@@ -20,7 +18,6 @@ const Heading1 = styled.h1({
 const AboutWrapper = styled.div({
   display: "flex",
   alignItems: "center",
-  fontSize: unit(2),
 });
 
 function Header({ title, profileImage, about }) {
