@@ -4,7 +4,8 @@ export function unit(level) {
 }
 
 export const color = {
-  primary: "#000",
-  secondary: "#868e96",
-  article: "#222",
+  primary: "#000000",
+  secondary: "#868E96",
+  brand: "#D72323",
+  background: "#FFFFFF",
 };

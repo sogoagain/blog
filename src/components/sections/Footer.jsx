@@ -15,7 +15,6 @@ import TwitterIcon from "../../images/icons/twitter.png";
 const CopyrightWrapper = styled.p({
   display: "flex",
   justifyContent: "center",
-  fontSize: unit(1.75),
 });
 
 const LinksWrapper = styled.div({

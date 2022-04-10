@@ -19,7 +19,7 @@ export default function GlobalStyle() {
         }
 
         body {
-          font-family: "Noto Sans KR", sans-serif;
+          font-family: "Nanum Gothic", sans-serif;
           font-size: ${unit(2)};
           min-width: ${unit(40)};
         }
@@ -30,11 +30,11 @@ export default function GlobalStyle() {
         }
 
         h1 {
-          font-size: ${unit(3)};
+          font-size: ${unit(3.25)};
         }
 
         h2 {
-          font-size: ${unit(2.5)};
+          font-size: ${unit(2.75)};
         }
       `}
     />

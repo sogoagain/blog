@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import Anchor from "../Anchor";
 import IconImage from "../IconImage";
 
-import { unit } from "../../styles";
+import { color, unit } from "../../styles";
 
 const HeaderWrapper = styled.header({
   display: "flex",
@@ -13,28 +13,31 @@ const HeaderWrapper = styled.header({
   alignItems: "center",
 });
 
+const TitleAnchor = styled(Anchor)`
+  color: ${color.brand};
+`;
+
+const AboutAnchor = styled(Anchor)`
+  display: flex;
+  align-items: center;
+`;
+
 const Heading1 = styled.h1({
   flex: "auto",
-});
-
-const AboutWrapper = styled.div({
-  display: "flex",
-  alignItems: "center",
-  fontSize: unit(2),
+  fontSize: unit(2.75),
+  letterSpacing: unit(-0.125),
 });
 
 function Header({ title, profileImage, about }) {
   return (
     <HeaderWrapper>
       <Heading1>
-        <Anchor to={title.to}>{title.text} </Anchor>
+        <TitleAnchor to={title.to}>{title.text}</TitleAnchor>
       </Heading1>
-      <Anchor to={about.to}>
-        <AboutWrapper>
-          <IconImage src={profileImage.src} alt={profileImage.alt} level={4} />
-          {about.text}
-        </AboutWrapper>
-      </Anchor>
+      <AboutAnchor to={about.to}>
+        <IconImage src={profileImage.src} alt={profileImage.alt} level={4} />
+        {about.text}
+      </AboutAnchor>
     </HeaderWrapper>
   );
 }

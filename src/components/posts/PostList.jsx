@@ -4,10 +4,8 @@ import styled from "@emotion/styled";
 
 import PostItem from "./PostItem";
 
-import { unit } from "../../styles";
-
 const OrderedList = styled.ol({
-  padding: unit(1),
+  listStyle: "none",
 });
 
 export default function PostList({ posts, basePath }) {
