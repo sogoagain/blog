@@ -12,7 +12,7 @@ export default function PostContent({ html }) {
           font-family: "Nanum Myeongjo", serif;
           font-size: ${unit(2.25)};
           margin: ${unit(2)} auto;
-          color: ${color.article};
+          color: ${color.primary};
           line-height: 1.7;
         }
 

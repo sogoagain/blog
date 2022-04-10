@@ -18,9 +18,11 @@ const ListItem = styled.li`
 
 const Time = styled.time({
   color: color.secondary,
+  fontSize: unit(1.75),
 });
 
 const Title = styled.h2({
+  fontSize: unit(2.5),
   margin: `${unit(0.5)} 0 ${unit(1)} 0`,
 });
 
