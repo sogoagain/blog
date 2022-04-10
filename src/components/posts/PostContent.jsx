@@ -9,15 +9,20 @@ export default function PostContent({ html }) {
     <div
       css={css`
         * {
+          font-family: "Nanum Myeongjo", serif;
+          font-size: ${unit(2.25)};
           margin: ${unit(2)} auto;
           color: ${color.article};
-          font-size: ${unit(2)};
           line-height: 1.7;
         }
 
         h1,
         h2,
-        h3 {
+        h3,
+        h4,
+        h5,
+        h6 {
+          font-family: "Nanum Gothic", sans-serif;
           margin: ${unit(4)} auto ${unit(2)} auto;
         }
 
@@ -39,11 +44,13 @@ export default function PostContent({ html }) {
         }
 
         li {
+          text-index: ${unit(1)};
           padding-left: ${unit(2)};
         }
 
-        li::marker {
-          font-size: ${unit(1.5)};
+        li:before {
+          content: "";
+          margin-right: -${unit(1)};
         }
 
         a {

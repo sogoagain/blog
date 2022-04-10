@@ -8,7 +8,7 @@ import { unit, color } from "../../styles";
 
 const HeaderWrapper = styled.header({
   padding: unit(2),
-  marginBottom: unit(3),
+  marginBottom: unit(6),
   wordBreak: "keep-all",
   wordWrap: "break-word",
   textAlign: "center",
