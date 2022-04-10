@@ -7,4 +7,5 @@ export const color = {
   primary: "#000000",
   secondary: "#868E96",
   brand: "#D72323",
+  background: "#FFFFFF",
 };

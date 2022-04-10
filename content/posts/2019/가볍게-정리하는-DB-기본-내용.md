@@ -5,7 +5,7 @@ title: "가볍게 정리하는 DB 기본"
 subtitle: "MS-SQL 중심으로 정리해본 DB 기본 내용"
 ---
 
-## DB
+# DB
 
 - 여러 사용자에 의해 공유되어 사용될 목적으로 통합 관리되는 구조화된 데이터의 집합체
 - 대표적인 데이터베이스
@@ -13,7 +13,7 @@ subtitle: "MS-SQL 중심으로 정리해본 DB 기본 내용"
   > - 개체 지향형 데이터베이스
   > - 개체 관계형 데이터베이스
 
-### 데이터베이스 관리 시스템 (DBMS)
+## 데이터베이스 관리 시스템 (DBMS)
 
 - 데이터베이스를 쉽고 빠르게 관리(입력, 조회, 수정 및 삭제 등)할 수 있도록 도와주는 소프트웨어(응용 프로그램)
 - 대표적인 RDBMS
@@ -23,14 +23,14 @@ subtitle: "MS-SQL 중심으로 정리해본 DB 기본 내용"
   > - Informix
   > - DB2
 
-### DB 클라이언트 도구
+## DB 클라이언트 도구
 
 - DBMS는 기본적으로 서버 프로그램이며, DBMS에 접속하여 데이터 관련 작업을 하는 클라이언트 프로그램이 필요
   > - MS의 SQL Server Management Studio
 
 ---
 
-## RDB 관계
+# RDB 관계
 
 - 테이블은 다음의 세 가지 방식으로 관계를 맺음
   1. 1:1
@@ -41,7 +41,7 @@ subtitle: "MS-SQL 중심으로 정리해본 DB 기본 내용"
 
 ---
 
-## 용어 및 TIP
+# 용어 및 TIP
 
 1. 선택한 영역 주석 처리 / 해제: Ctrl + K, C / Ctrl + K, U
 2. \*는 애스터리스크 또는 별표라고 읽는다.
@@ -50,20 +50,20 @@ subtitle: "MS-SQL 중심으로 정리해본 DB 기본 내용"
 
 ---
 
-## SQL (Structured Query Language)
+# SQL (Structured Query Language)
 
 > 발음: 시퀄 또는 에스큐엘
 
 - 사용자가 DBMS와 의사소통 할 때 사용하는 프로그래밍 언어
 
-### INSERT 문
+## INSERT 문
 
 ```sql
 INSERT INTO 테이블(열1, 열2, ..., 열n)
 VALUES (값1, 값2, ..., 값n)
 ```
 
-### SELECT 문
+## SELECT 문
 
 ```sql
 SELECT 열1, 열2, ..., 열n
@@ -72,7 +72,7 @@ FROM 테이블
 [ORDER BY 정렬기준_열 [ASC|DESC]]
 ```
 
-### UPDATE 문
+## UPDATE 문
 
 ```sql
 UPDATE 테이블
@@ -80,14 +80,14 @@ SET 열1 = '값1', 열2 = '값2', ..., 열n = '값n'
 [WHERE 조건]
 ```
 
-### DELETE 문
+## DELETE 문
 
 ```sql
 DELETE FROM 테이블
 [WHERE 조건]
 ```
 
-### JOIN 문
+## JOIN 문
 
 ```sql
 SELECT a.열1, a.열2, ..., a.열n, b.열1, b.열2, ..., b.열3
@@ -103,7 +103,7 @@ ON a.열x = b.열x
 
 ---
 
-## 저장 프로시저 (Stored Procedure)
+# 저장 프로시저 (Stored Procedure)
 
 - 일련의 SQL 구문을 마치 하나의 함수처럼 실행하기 위해 만들어 둔 SQL 구문의 집합
 - 장점
@@ -114,7 +114,7 @@ ON a.열x = b.열x
 
 ---
 
-## 트랜잭션 (Transaction)
+# 트랜잭션 (Transaction)
 
 - DB에서 더 이상 쪼갤 수 없는 하나로 묶여진 프로세스 처리(조회, 입력, 수정, 삭제) 단위
   > - 트랜잭션 시작: BEGIN TRANSACTION
@@ -122,7 +122,7 @@ ON a.열x = b.열x
   > - 트랜잭션 취소: ROLLBACK
   > - 트랜잭션 예외 처리: TRY...CATCH (SQL Server 2005 이후)
 
-### 저장 프로시저 생성 및 트랜잭션 처리
+## 저장 프로시저 생성 및 트랜잭션 처리
 
 ```sql
 CREATE PROCEDURE 프로시저명

@@ -5,7 +5,7 @@ title: "[실수노트] 캐싱된 메서드는 변경 불가능한(Immutable) 객
 subtitle: "Spring에서 @Cacheable을 사용할 때 주의할 점"
 ---
 
-## 상황
+# 상황
 
 호출될 때마다 같은 값을 반환할 것으로 기대되는 Service의 한 메서드를 캐싱 처리 하였다. 캐싱 처리한 메서드는 카테고리 데이터를 DB에서 가져와 리스트 형태로 반환하는 메서드였다. 카테고리 데이터가 자주 바뀌지 않아 긴시간 동안 같은 결과값을 반환하는데 매번 DB를 조회하는 것은 리소스를 낭비하는 것이기에 캐싱 처리를 하였다.
 
@@ -13,7 +13,7 @@ subtitle: "Spring에서 @Cacheable을 사용할 때 주의할 점"
 
 예를들면 \['태블릿', '휴대전화'\] 2개 카테고리만 출력되어야 하는데 \['태블릿, '휴대전화', '이벤트', '이벤트', '이벤트', '이벤트'\]와 같이 출력되는 오류가 발생하였다.
 
-## 문제
+# 문제
 
 캐싱된 메서드는 Service단 메서드로써 아래와 같이 Repository에서 모든 데이터를 가져와 List 형식으로 반환한다.
 
@@ -88,7 +88,7 @@ void getAll_AddingCategoryToList_AddedListIsReturned() {
 
 즉, 내가 겪은 상황의 경우 Controller의 readAllWithEventCategory() 요청이 호출될 때 마다 'eventCategory'라는 임시 객체를 메모리 상에 캐싱된 리스트 객체에 추가해버리니 호출 횟수만큼 List에는 'eventCategory'가 중복되어 추가되었고 CategoryService의 getAll()를 호출하는 모든 곳에서 문제가 발생하였다.
 
-## 해결책
+# 해결책
 
 캐싱된 메서드는 변경 불가능한(Immutable) 객체를 반환하도록 정의한다. List의 경우에 아래 코드와 같이 Collections.unmodifiableList 메서드를 통해 데이터 추가/삭제/변경이 제한되는 List로 만들어 반환토록 한다.
 
@@ -114,6 +114,6 @@ public Header<List<Category>> readAllWithEventCategory() {
 }
 ```
 
-## 실천방안
+# 실천방안
 
 메서드 캐싱은 항상 같은 결과값을 반환하는 것으로 기대되는 곳에서만 사용하도록 하며 캐싱된 메서드에서는 변경 불가능한 객체(Immutable)를 반환하도록 정의한다. 또한 캐싱된 메서드의 반환값에 대해서 변경이 필요하다면 꼭 필요한 변경인지, 변경을 우회할 수 있는 더 좋은 방법은 없는지 고민해본다.
