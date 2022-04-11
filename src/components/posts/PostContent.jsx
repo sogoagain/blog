@@ -47,8 +47,8 @@ export default function PostContent({ html }) {
         ul {
           list-style-position: inside;
           & li {
-            padding-left: ${unit(2)};
             margin: ${unit(1)} auto;
+            padding-left: ${unit(2)};
             & p {
               display: inline;
             }
@@ -71,6 +71,8 @@ export default function PostContent({ html }) {
         }
 
         table {
+          font-family: "Nanum Gothic", sans-serif;
+          font-size: ${unit(2)};
           width: 95%;
           border-collapse: collapse;
           & thead tr {
@@ -85,10 +87,6 @@ export default function PostContent({ html }) {
             border: 1px solid ${color.secondary};
             padding: ${unit(1)};
           }
-          & * {
-            font-family: "Nanum Gothic", sans-serif;
-            font-size: ${unit(2)};
-          }
         }
 
         .gatsby-highlight {
@@ -96,13 +94,13 @@ export default function PostContent({ html }) {
           & pre[class*="language-"] {
             border-radius: ${unit(2)};
           }
-        }
 
-        code[class*="language-"],
-        pre[class*="language-"] * {
-          font-size: ${unit(2)};
-          font-family: "D2Coding", monospace;
-          word-break: normal;
+          & code[class*="language-"],
+          pre[class*="language-"] {
+            font-size: ${unit(2)};
+            font-family: "D2Coding", monospace;
+            word-break: normal;
+          }
         }
       `}
       data-testid="post-content-element"

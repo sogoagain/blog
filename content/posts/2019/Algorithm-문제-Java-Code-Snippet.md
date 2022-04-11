@@ -33,8 +33,8 @@ allCases.removeIf(i -> !Arrays.equals(result, simulate(i, ball)));
 
 ```java
 public int getMinimumAverageProcessingTime(int[][] jobs) {
-Queue<Job> scheduleQueue = new PriorityQueue<>(Comparator.comparing(j -> j.requestedTime));
-Arrays.stream(jobs).forEach(j -> scheduleQueue.add(new Job(j[0], j[1])));
+    Queue<Job> scheduleQueue = new PriorityQueue<>(Comparator.comparing(j -> j.requestedTime));
+    Arrays.stream(jobs).forEach(j -> scheduleQueue.add(new Job(j[0], j[1])));
 }
 ```
 
