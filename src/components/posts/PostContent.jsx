@@ -20,6 +20,8 @@ export default function PostContent({ html }) {
         h6 {
           font-family: "Nanum Gothic", sans-serif;
           margin: ${unit(4)} auto ${unit(2)} auto;
+          word-break: keep-all;
+          word-wrap: break-word;
         }
 
         h1 {
