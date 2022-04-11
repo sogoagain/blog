@@ -36,6 +36,10 @@ export default function GlobalStyle() {
         h2 {
           font-size: ${unit(2.75)};
         }
+
+        footer {
+          font-size: ${unit(1.75)};
+        }
       `}
     />
   );

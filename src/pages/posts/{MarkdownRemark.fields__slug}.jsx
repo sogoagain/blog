@@ -5,6 +5,8 @@ import { graphql } from "gatsby";
 import LayoutContainer from "../../container/LayoutContainer";
 import Post from "../../components/posts/Post";
 
+import "katex/dist/katex.min.css";
+
 export default function PostPage({
   data: {
     markdownRemark: {
