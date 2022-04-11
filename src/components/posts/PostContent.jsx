@@ -11,7 +11,6 @@ export default function PostContent({ html }) {
         font-family: "Nanum Myeongjo", serif;
         font-size: ${unit(2.25)};
         line-height: 1.7;
-        word-break: keep-all;
 
         h1,
         h2,
@@ -21,6 +20,8 @@ export default function PostContent({ html }) {
         h6 {
           font-family: "Nanum Gothic", sans-serif;
           margin: ${unit(4)} auto ${unit(2)} auto;
+          word-break: keep-all;
+          word-wrap: break-word;
         }
 
         h1 {
@@ -99,7 +100,6 @@ export default function PostContent({ html }) {
           pre[class*="language-"] {
             font-size: ${unit(2)};
             font-family: "D2Coding", monospace;
-            word-break: normal;
           }
         }
       `}
