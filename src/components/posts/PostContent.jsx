@@ -46,19 +46,10 @@ export default function PostContent({ html }) {
 
         ol,
         ul {
-          list-style-position: inside;
+          padding-left: ${unit(4)};
           & li {
             margin: ${unit(1)} auto;
-            padding-left: ${unit(2)};
-            & p {
-              display: inline;
-            }
           }
-        }
-
-        ul > li:before {
-          content: "";
-          margin-right: -${unit(1)};
         }
 
         a {
