@@ -225,7 +225,7 @@ long multiply (int *a, int *b, int *c, int size, int s1, int s2) {
 
 행렬의 크기가 1024 이상이 되면 프로그램 실행시간이 측정하기 힘들 정도로 긴 시간동안 프로그램이 수행되었다. 따라서 1024 이하 크기에 대한 연산 수행시간을 측정하였다.
 
-![summary_exec_time](/images/SimpleScalar를-이용한-Cache-Simulation/summary_exec_time.png)
+![알고리즘별 수행 시간 측정](./images/summary_exec_time.png)
 
 # Cache miss rate 측정
 
@@ -245,11 +245,11 @@ sim-cache를 이용해 Cache miss rate를 측정하였다. 시뮬레이션 환�
 
 ## Direct Mapped Cache
 
-![direct_cache](/images/SimpleScalar를-이용한-Cache-Simulation/direct_cache.png)
+![Direct Mapped Cache 실험 결과](./images/direct_cache.png)
 
 ## 4-way Set Associate
 
-![4way_cache](/images/SimpleScalar를-이용한-Cache-Simulation/4way_cache.png)
+![4-way Set Associate 실험 결과](./images/four-way_cache.png)
 
 # 분석 및 고찰
 
