@@ -7,9 +7,8 @@ import PostContent from "./PostContent";
 
 import { unit } from "../../styles";
 
-const PostWrapper = styled.article({
-  padding: `${unit(4)} ${unit(2)}`,
-  margin: "0 auto",
+const PostWrapper = styled.div({
+  marginBottom: unit(8),
 });
 
 export default function Post({ title, subtitle, date, html }) {
