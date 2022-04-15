@@ -82,11 +82,8 @@ export default function PostContent({ html }) {
         }
 
         .gatsby-highlight {
+          margin: ${unit(2)} auto;
           padding: 0 ${unit(2)};
-          & pre[class*="language-"] {
-            border-radius: ${unit(2)};
-          }
-
           & code[class*="language-"],
           pre[class*="language-"] {
             font-size: ${unit(2)};

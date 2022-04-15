@@ -23,7 +23,7 @@ subtitle: "디자인패턴으로 코드의 아름다움뿐만 아니라 성능�
 
   - 음원 개체가 정지되어 있거나, 움직이는 속도가 느리면 아래의 그림과 같이 연산 중복이 발생
 
-    ![Operation_Duplication](/images/Unity3D에서-Observer패턴을-이용한-연산량-감소/Operation_Duplication.png)
+    ![움직이는 속도가 느리면 연산 중복이 발생한다](./images/operation_duplication.png)
 
     - 음원 개체가 이전과 같은 위치이기 때문에 연산 결과가 동일함에도 프레임이 변경되었기 때문에 불필요 연산 수행
 
@@ -42,7 +42,7 @@ subtitle: "디자인패턴으로 코드의 아름다움뿐만 아니라 성능�
 
 # 클래스 관계도
 
-![Class_Diagram](/images/Unity3D에서-Observer패턴을-이용한-연산량-감소/Class_Diagram.png)
+![Observer 패턴을 적용한 클래스 관계도](./images/observer_class_diagram.png)
 
 # 주요 소스코드
 
@@ -75,11 +75,11 @@ void Update()
 
 - 동일 기능 수행 시 비교 결과
 
-![result1](/images/Unity3D에서-Observer패턴을-이용한-연산량-감소/result1.png)
+![동일 기능 수행 시 Observer 패턴을 적용하면 연산량이 줄어든다](./images/same_operation_result.png)
 
 - 동일 연산량 수행 시 비교 결과
 
-![result1](/images/Unity3D에서-Observer패턴을-이용한-연산량-감소/result2.png)
+![동일 연산량 수행 시 Observer 패턴을 적용하면 FPS가 안정적이다](./images/same_compuration_result.png)
 
 - 결과 분석
   - 동일 수행에 대한 연산량이 약 7배 감소
