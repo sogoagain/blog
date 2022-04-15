@@ -3,7 +3,7 @@ import React from "react";
 import { graphql } from "gatsby";
 
 import LayoutContainer from "../../container/LayoutContainer";
-import Post from "../../components/posts/Post";
+import PostContainer from "../../container/PostContainer";
 
 import "katex/dist/katex.min.css";
 
@@ -17,7 +17,12 @@ export default function PostPage({
 }) {
   return (
     <LayoutContainer>
-      <Post title={title} subtitle={subtitle} date={date} html={html} />
+      <PostContainer
+        title={title}
+        subtitle={subtitle}
+        date={date}
+        html={html}
+      />
     </LayoutContainer>
   );
 }

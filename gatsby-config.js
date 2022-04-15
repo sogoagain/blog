@@ -9,6 +9,7 @@ module.exports = {
       ...properties.social,
     },
     rss: properties.rss,
+    utterances: properties.utterances,
   },
   plugins: [
     "gatsby-plugin-emotion",
