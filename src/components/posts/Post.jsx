@@ -3,7 +3,7 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import PostHeader from "./PostHeader";
-import PostContent from "./PostContent";
+import PostStyle from "./PostStyle";
 
 import { unit } from "../../styles";
 
@@ -15,7 +15,7 @@ export default function Post({ title, subtitle, date, html }) {
   return (
     <PostWrapper>
       <PostHeader title={title} subtitle={subtitle} date={date} />
-      <PostContent html={html} />
+      <PostStyle html={html} />
     </PostWrapper>
   );
 }

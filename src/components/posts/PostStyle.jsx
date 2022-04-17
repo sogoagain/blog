@@ -4,13 +4,12 @@ import { css } from "@emotion/react";
 
 import { unit, color } from "../../styles";
 
-export default function PostContent({ html }) {
+export default function PostStyle({ html }) {
   return (
     <div
       css={css`
-        font-family: "Nanum Myeongjo", serif;
-        font-size: ${unit(2.25)};
-        line-height: 1.7;
+        font-size: ${unit(2)};
+        line-height: 1.8;
 
         h1,
         h2,
@@ -18,22 +17,21 @@ export default function PostContent({ html }) {
         h4,
         h5,
         h6 {
-          font-family: "Nanum Gothic", sans-serif;
           margin: ${unit(4)} auto ${unit(2)} auto;
           word-break: keep-all;
           word-wrap: break-word;
         }
 
         h1 {
-          font-size: ${unit(3.25)};
+          font-size: ${unit(3)};
         }
 
         h2 {
-          font-size: ${unit(2.75)};
+          font-size: ${unit(2.5)};
         }
 
         h3 {
-          font-size: ${unit(2.5)};
+          font-size: ${unit(2.25)};
         }
 
         p,
@@ -63,7 +61,6 @@ export default function PostContent({ html }) {
         }
 
         table {
-          font-family: "Nanum Gothic", sans-serif;
           font-size: ${unit(2)};
           width: 95%;
           border-collapse: collapse;
