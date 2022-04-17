@@ -26,7 +26,12 @@ export default function GlobalStyle() {
 
         a {
           text-decoration: none;
+          text-underline-offset: 0.2rem;
           color: ${color.primary};
+          &:hover,
+          &:focus {
+            color: ${color.brand};
+          }
         }
 
         h1 {
