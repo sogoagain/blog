@@ -18,8 +18,6 @@ export default function PostStyle({ html }) {
         h5,
         h6 {
           margin: ${unit(4)} auto ${unit(2)} auto;
-          word-break: keep-all;
-          word-wrap: break-word;
         }
 
         h1 {
