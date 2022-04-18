@@ -42,6 +42,17 @@ export default function GlobalStyle() {
           font-size: ${unit(2.75)};
         }
 
+        header,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          word-break: keep-all;
+          word-wrap: break-word;
+        }
+
         footer {
           font-size: ${unit(1.75)};
         }
