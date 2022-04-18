@@ -34,7 +34,7 @@ function Header({ title, profileImage, about }) {
       <Heading1>
         <TitleAnchor to={title.to}>{title.text}</TitleAnchor>
       </Heading1>
-      <AboutAnchor to={about.to}>
+      <AboutAnchor href={about.href} target="_blank" rel="noreferrer">
         <IconImage src={profileImage.src} alt={profileImage.alt} level={4} />
         {about.text}
       </AboutAnchor>

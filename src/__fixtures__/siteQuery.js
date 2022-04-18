@@ -18,6 +18,8 @@ const siteQuery = {
         crossorigin: "anonymous",
         async: true,
       },
+      about:
+        "https://sogoagain.notion.site/About-599f1c0b47314c30800c706265b0a7bd",
     },
   },
 };

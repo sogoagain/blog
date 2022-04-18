@@ -28,6 +28,7 @@ export default function HeaderContainer() {
       siteMetadata: {
         title,
         social: { github },
+        about,
       },
     },
   } = useStaticQuery(graphql`
@@ -38,6 +39,7 @@ export default function HeaderContainer() {
           social {
             github
           }
+          about
         }
       }
     }
@@ -71,7 +73,7 @@ export default function HeaderContainer() {
         }}
         about={{
           text: "소개",
-          to: "/about",
+          href: about,
         }}
       />
     </HeaderSection>
