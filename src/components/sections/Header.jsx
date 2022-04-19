@@ -20,6 +20,7 @@ const TitleAnchor = styled(Anchor)`
 const AboutAnchor = styled(Anchor)`
   display: flex;
   align-items: center;
+  min-height: ${unit(4)};
 `;
 
 const Heading1 = styled.h1({
@@ -35,7 +36,9 @@ function Header({ title, profileImage, about }) {
         <TitleAnchor to={title.to}>{title.text}</TitleAnchor>
       </Heading1>
       <AboutAnchor href={about.href} target="_blank" rel="noreferrer">
-        <IconImage src={profileImage.src} alt={profileImage.alt} level={4} />
+        {profileImage.src ? (
+          <IconImage src={profileImage.src} alt={profileImage.alt} level={4} />
+        ) : null}
         {about.text}
       </AboutAnchor>
     </HeaderWrapper>

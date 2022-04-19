@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -11,8 +11,6 @@ import Header from "../components/sections/Header";
 import { loadProfileImageSrc } from "../features/profileSlice";
 
 import { unit } from "../styles";
-
-import ProfileImage from "../images/profile.png";
 
 const HeaderSection = styled.div({
   position: "sticky",
@@ -50,15 +48,9 @@ export default function HeaderContainer() {
   } = useStaticQuery(query);
 
   const dispatch = useDispatch();
-  const { image } = useSelector((state) => state.profile);
-
-  const [profileImage, setProfileImage] = useState(ProfileImage);
-
-  useEffect(() => {
-    if (image.src) {
-      setProfileImage(image.src);
-    }
-  }, [image]);
+  const {
+    image: { src },
+  } = useSelector((state) => state.profile);
 
   useEffect(() => {
     dispatch(loadProfileImageSrc(github));
@@ -73,7 +65,7 @@ export default function HeaderContainer() {
         }}
         profileImage={{
           alt: "프로필 이미지",
-          src: profileImage,
+          src,
         }}
         about={{
           text: "소개",

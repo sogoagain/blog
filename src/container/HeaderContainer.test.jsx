@@ -39,10 +39,10 @@ describe("HeaderContainer", () => {
       );
     });
 
-    it("기본 프로필 이미지를 출력한다", async () => {
-      const imageEl = await screen.getByAltText("프로필 이미지");
+    it("프로필 이미지 element가 존재하지 않는다", async () => {
+      const imageEl = await screen.queryByAltText("프로필 이미지");
 
-      expect(imageEl).toHaveAttribute("src", "test-file-stub");
+      expect(imageEl).not.toHaveAttribute("src", "test-file-stub");
     });
   });
 });
