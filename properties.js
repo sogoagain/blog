@@ -1,10 +1,11 @@
 module.exports = {
   site: {
     title: "SOGOAGAIN",
-    url: `https://blog.sogoagain.com`,
+    titleTemplate: "%s · SOGOAGAIN",
+    description: "SOGOAGAIN 블로그",
+    siteUrl: `https://blog.sogoagain.com`,
+    image: "/profile.png",
     author: "sogoagain",
-    s3Bucket: "sogoagain-blog",
-    postsBasePath: "/posts",
   },
   social: {
     email: "imyong0@gmail.com",
@@ -12,7 +13,15 @@ module.exports = {
     twitter: "sogoagain",
     linkedin: "sogoagain",
   },
-  rss: "/rss.xml",
+  link: {
+    postsBasePath: "/posts",
+    rss: "/rss.xml",
+    about:
+      "https://sogoagain.notion.site/About-599f1c0b47314c30800c706265b0a7bd",
+  },
+  deploy: {
+    s3Bucket: "sogoagain-blog",
+  },
   utterances: {
     src: "https://utteranc.es/client.js",
     repo: "sogoagain/blog-comments",
@@ -22,5 +31,4 @@ module.exports = {
     crossorigin: "anonymous",
     async: true,
   },
-  about: "https://sogoagain.notion.site/About-599f1c0b47314c30800c706265b0a7bd",
 };

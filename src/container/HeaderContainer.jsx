@@ -22,28 +22,32 @@ const HeaderSection = styled.div({
   top: 0,
 });
 
+const query = graphql`
+  query {
+    site {
+      siteMetadata {
+        title
+        social {
+          github
+        }
+        link {
+          about
+        }
+      }
+    }
+  }
+`;
+
 export default function HeaderContainer() {
   const {
     site: {
       siteMetadata: {
         title,
         social: { github },
-        about,
+        link: { about },
       },
     },
-  } = useStaticQuery(graphql`
-    query {
-      site {
-        siteMetadata {
-          title
-          social {
-            github
-          }
-          about
-        }
-      }
-    }
-  `);
+  } = useStaticQuery(query);
 
   const dispatch = useDispatch();
   const { image } = useSelector((state) => state.profile);

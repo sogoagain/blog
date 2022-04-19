@@ -14,6 +14,24 @@ const PostSection = styled.article({
   margin: "0 auto",
 });
 
+const query = graphql`
+  query {
+    site {
+      siteMetadata {
+        utterances {
+          src
+          repo
+          issue_term
+          label
+          theme
+          crossorigin
+          async
+        }
+      }
+    }
+  }
+`;
+
 export default function PostContainer({ title, subtitle, date, html }) {
   const {
     site: {
@@ -21,23 +39,7 @@ export default function PostContainer({ title, subtitle, date, html }) {
         utterances: { src, repo, issue_term, label, theme, crossorigin, async },
       },
     },
-  } = useStaticQuery(graphql`
-    query {
-      site {
-        siteMetadata {
-          utterances {
-            src
-            repo
-            issue_term
-            label
-            theme
-            crossorigin
-            async
-          }
-        }
-      }
-    }
-  `);
+  } = useStaticQuery(query);
 
   return (
     <PostSection>

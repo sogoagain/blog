@@ -2,15 +2,16 @@ const properties = require("./properties");
 
 module.exports = {
   siteMetadata: {
-    title: properties.site.title,
-    siteUrl: properties.site.url,
-    author: properties.site.author,
+    ...properties.site,
     social: {
       ...properties.social,
     },
-    rss: properties.rss,
-    utterances: properties.utterances,
-    about: properties.about,
+    link: {
+      ...properties.link,
+    },
+    utterances: {
+      ...properties.utterances,
+    },
   },
   plugins: [
     "gatsby-plugin-emotion",
@@ -75,7 +76,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-s3`,
       options: {
-        bucketName: properties.site.s3Bucket,
+        bucketName: properties.deploy.s3Bucket,
       },
     },
     {
@@ -96,7 +97,7 @@ module.exports = {
           {
             serialize: ({ query: { site, allMarkdownRemark } }) =>
               allMarkdownRemark.edges.map((edge) => {
-                const postUrl = `${site.siteMetadata.siteUrl}${properties.postsBasePath}${edge.node.fields.slug}`;
+                const postUrl = `${site.siteMetadata.siteUrl}${properties.link.postsBasePath}${edge.node.fields.slug}`;
                 return {
                   ...edge.node.frontmatter,
                   description: edge.node.frontmatter.subtitle,
@@ -122,7 +123,7 @@ module.exports = {
                 }
               }
             `,
-            output: properties.rss,
+            output: properties.link.rss,
             title: `${properties.site.title} RSS Feed`,
           },
         ],
