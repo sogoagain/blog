@@ -1,5 +1,7 @@
 import React from "react";
 
+import { waitFor } from "@testing-library/react";
+
 import { useStaticQuery } from "gatsby";
 
 import { render, screen } from "../testUtils";
@@ -23,7 +25,11 @@ describe("IndexPage", () => {
       ...POST_LIST_QUERY,
     });
 
-    render(<IndexPage />);
+    render(<IndexPage location={{ pathname: "/" }} />);
+  });
+
+  it("SEO를 적용한다", async () => {
+    await waitFor(() => expect(document.title).toBe("SOGOAGAIN 블로그"));
   });
 
   it("header를 출력한다", () => {

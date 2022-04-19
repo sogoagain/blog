@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "gatsby";
 
 import LayoutContainer from "../container/LayoutContainer";
+import SeoContainer from "../container/SeoContainer";
 
 const pageStyles = {
   color: "#232129",
@@ -15,25 +16,17 @@ const headingStyles = {
   maxWidth: 320,
 };
 
-const paragraphStyles = {
-  marginBottom: 48,
-};
-
-function NotFoundPage() {
+function NotFoundPage({ location }) {
   return (
     <LayoutContainer>
+      <SeoContainer
+        title="404"
+        description="페이지를 찾을 수 없습니다"
+        pathname={location.pathname}
+      />
       <div style={pageStyles}>
-        <title>Not found</title>
-        <h1 style={headingStyles}>Page not found</h1>
-        <p style={paragraphStyles}>
-          Sorry{" "}
-          <span role="img" aria-label="Pensive emoji">
-            😔
-          </span>{" "}
-          we couldn’t find what you were looking for.
-          <br />
-          <Link to="/">Go home</Link>.
-        </p>
+        <h1 style={headingStyles}>페이지를 찾을 수 없습니다</h1>
+        <Link to="/">돌아가기</Link>
       </div>
     </LayoutContainer>
   );
