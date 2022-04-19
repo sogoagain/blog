@@ -14,27 +14,35 @@ const FooterSection = styled.div({
   padding: unit(2),
 });
 
-export default function FooterContainer() {
-  const {
-    site: {
-      siteMetadata: { title, rss, social },
-    },
-  } = useStaticQuery(graphql`
-    query {
-      site {
-        siteMetadata {
-          title
+const query = graphql`
+  query {
+    site {
+      siteMetadata {
+        title
+        social {
+          github
+          twitter
+          linkedin
+          email
+        }
+        link {
           rss
-          social {
-            github
-            twitter
-            linkedin
-            email
-          }
         }
       }
     }
-  `);
+  }
+`;
+
+export default function FooterContainer() {
+  const {
+    site: {
+      siteMetadata: {
+        title,
+        social,
+        link: { rss },
+      },
+    },
+  } = useStaticQuery(query);
 
   const socialLink = {
     email: social.email,

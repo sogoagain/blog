@@ -1,5 +1,7 @@
 import React from "react";
 
+import { waitFor } from "@testing-library/react";
+
 import { useStaticQuery } from "gatsby";
 
 import { render, screen } from "../../testUtils";
@@ -22,7 +24,16 @@ describe("PostPage", () => {
       ...SITE_QUERY,
     });
 
-    render(<PostPage data={POST_QUERY} />);
+    render(
+      <PostPage
+        data={POST_QUERY}
+        location={{ pathname: "/posts/2017/leblancs-law/" }}
+      />
+    );
+  });
+
+  it("SEO를 적용한다", async () => {
+    await waitFor(() => expect(document.title).toBe("르블랑의 법칙"));
   });
 
   it("header를 출력한다", () => {

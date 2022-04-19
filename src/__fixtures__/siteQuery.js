@@ -2,12 +2,16 @@ const siteQuery = {
   site: {
     siteMetadata: {
       title: "SOGOAGAIN",
-      rss: "/rss.xml",
       social: {
         github: "sogoagain",
         twitter: "sogoagain",
         linkedin: "sogoagain",
         email: "imyong0@gmail.com",
+      },
+      link: {
+        rss: "/rss.xml",
+        about:
+          "https://sogoagain.notion.site/About-599f1c0b47314c30800c706265b0a7bd",
       },
       utterances: {
         src: "https://utteranc.es/client.js",
@@ -18,8 +22,6 @@ const siteQuery = {
         crossorigin: "anonymous",
         async: true,
       },
-      about:
-        "https://sogoagain.notion.site/About-599f1c0b47314c30800c706265b0a7bd",
     },
   },
 };

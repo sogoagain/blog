@@ -14,25 +14,27 @@ const PostsSection = styled.section({
   wordWrap: "break-word",
 });
 
-export default function PostsContainer() {
-  const {
-    allMarkdownRemark: { nodes },
-  } = useStaticQuery(graphql`
-    query {
-      allMarkdownRemark(sort: { fields: frontmatter___date, order: DESC }) {
-        nodes {
-          frontmatter {
-            date
-            subtitle
-            title
-          }
-          fields {
-            slug
-          }
+const query = graphql`
+  query {
+    allMarkdownRemark(sort: { fields: frontmatter___date, order: DESC }) {
+      nodes {
+        frontmatter {
+          date
+          subtitle
+          title
+        }
+        fields {
+          slug
         }
       }
     }
-  `);
+  }
+`;
+
+export default function PostsContainer() {
+  const {
+    allMarkdownRemark: { nodes },
+  } = useStaticQuery(query);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {

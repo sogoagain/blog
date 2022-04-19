@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -12,8 +12,6 @@ import { loadProfileImageSrc } from "../features/profileSlice";
 
 import { unit } from "../styles";
 
-import ProfileImage from "../images/profile.png";
-
 const HeaderSection = styled.div({
   position: "sticky",
   padding: `${unit(1)} ${unit(2)}`,
@@ -22,39 +20,37 @@ const HeaderSection = styled.div({
   top: 0,
 });
 
+const query = graphql`
+  query {
+    site {
+      siteMetadata {
+        title
+        social {
+          github
+        }
+        link {
+          about
+        }
+      }
+    }
+  }
+`;
+
 export default function HeaderContainer() {
   const {
     site: {
       siteMetadata: {
         title,
         social: { github },
-        about,
+        link: { about },
       },
     },
-  } = useStaticQuery(graphql`
-    query {
-      site {
-        siteMetadata {
-          title
-          social {
-            github
-          }
-          about
-        }
-      }
-    }
-  `);
+  } = useStaticQuery(query);
 
   const dispatch = useDispatch();
-  const { image } = useSelector((state) => state.profile);
-
-  const [profileImage, setProfileImage] = useState(ProfileImage);
-
-  useEffect(() => {
-    if (image.src) {
-      setProfileImage(image.src);
-    }
-  }, [image]);
+  const {
+    image: { src },
+  } = useSelector((state) => state.profile);
 
   useEffect(() => {
     dispatch(loadProfileImageSrc(github));
@@ -69,7 +65,7 @@ export default function HeaderContainer() {
         }}
         profileImage={{
           alt: "프로필 이미지",
-          src: profileImage,
+          src,
         }}
         about={{
           text: "소개",

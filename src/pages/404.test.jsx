@@ -1,5 +1,7 @@
 import React from "react";
 
+import { waitFor } from "@testing-library/react";
+
 import { useStaticQuery } from "gatsby";
 
 import { render, screen } from "../testUtils";
@@ -23,17 +25,21 @@ describe("NotFoundPage", () => {
       ...POST_LIST_QUERY,
     });
 
-    render(<NotFoundPage />);
+    render(<NotFoundPage location={{ pathname: "/404" }} />);
+  });
+
+  it("SEO를 적용한다", async () => {
+    await waitFor(() => expect(document.title).toBe("404"));
   });
 
   it("페이지 제목을 표기한다", () => {
-    const titleEl = screen.getByText("Not found");
+    const titleEl = screen.getByText("페이지를 찾을 수 없습니다");
 
     expect(titleEl).toBeInTheDocument();
   });
 
   it("홈으로 돌아가기 버튼을 제공한다", () => {
-    const linkEl = screen.getByText("Go home");
+    const linkEl = screen.getByText("돌아가기");
 
     expect(linkEl).toHaveAttribute("href", "/");
   });

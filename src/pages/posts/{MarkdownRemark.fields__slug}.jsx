@@ -4,6 +4,7 @@ import { graphql } from "gatsby";
 
 import LayoutContainer from "../../container/LayoutContainer";
 import PostContainer from "../../container/PostContainer";
+import SeoContainer from "../../container/SeoContainer";
 
 import "katex/dist/katex.min.css";
 
@@ -14,9 +15,16 @@ export default function PostPage({
       html,
     },
   },
+  location,
 }) {
   return (
     <LayoutContainer>
+      <SeoContainer
+        title={title}
+        description={subtitle}
+        article
+        pathname={location.pathname}
+      />
       <PostContainer
         title={title}
         subtitle={subtitle}
