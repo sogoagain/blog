@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import { graphql, useStaticQuery } from "gatsby";
+
+import Scrambler from "scrambling-text";
 
 import styled from "@emotion/styled";
 
@@ -46,6 +48,8 @@ export default function HeaderContainer() {
       },
     },
   } = useStaticQuery(query);
+  const [scrambledTitle, setScrambledTitle] = useState(title);
+  const scramblerRef = useRef(new Scrambler());
 
   const dispatch = useDispatch();
   const {
@@ -53,6 +57,9 @@ export default function HeaderContainer() {
   } = useSelector((state) => state.profile);
 
   useEffect(() => {
+    scramblerRef.current.scramble(scrambledTitle, setScrambledTitle, {
+      characters: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
+    });
     dispatch(loadProfileImageSrc(github));
   }, []);
 
@@ -60,7 +67,7 @@ export default function HeaderContainer() {
     <HeaderSection>
       <Header
         title={{
-          text: title,
+          text: scrambledTitle,
           to: "/",
         }}
         profileImage={{
