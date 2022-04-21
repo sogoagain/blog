@@ -21,7 +21,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-manifest",
       options: {
-        icon: "static/profile.png",
+        icon: "static/logo.png",
       },
     },
     "gatsby-plugin-mdx",
