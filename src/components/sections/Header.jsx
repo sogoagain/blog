@@ -25,8 +25,8 @@ const AboutAnchor = styled(Anchor)`
 
 const Heading1 = styled.h1({
   flex: "auto",
-  fontSize: unit(2.75),
-  letterSpacing: unit(-0.125),
+  fontFamily: "D2Coding, monospace",
+  fontSize: unit(3),
 });
 
 function Header({ title, profileImage, about }) {

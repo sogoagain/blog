@@ -10,10 +10,13 @@ import Header from "../components/sections/Header";
 
 import { loadProfileImageSrc } from "../features/profileSlice";
 
+import useScrambleText from "../hooks/useScrambleText";
+
 import { unit } from "../styles";
 
 const HeaderSection = styled.div({
   position: "sticky",
+  marginBottom: unit(2),
   padding: `${unit(1)} ${unit(2)}`,
   backdropFilter: `blur(${unit(0.4)})`,
   backgroundColor: "rgba(255, 255, 255, 0.8)",
@@ -52,6 +55,8 @@ export default function HeaderContainer() {
     image: { src },
   } = useSelector((state) => state.profile);
 
+  const scrambledTitle = useScrambleText(title);
+
   useEffect(() => {
     dispatch(loadProfileImageSrc(github));
   }, []);
@@ -60,7 +65,7 @@ export default function HeaderContainer() {
     <HeaderSection>
       <Header
         title={{
-          text: title,
+          text: scrambledTitle,
           to: "/",
         }}
         profileImage={{
