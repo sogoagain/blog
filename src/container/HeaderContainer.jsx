@@ -21,6 +21,7 @@ const HeaderSection = styled.div({
   backdropFilter: `blur(${unit(0.4)})`,
   backgroundColor: "rgba(255, 255, 255, 0.8)",
   top: 0,
+  zIndex: 1,
 });
 
 const query = graphql`
