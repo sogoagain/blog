@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { graphql, useStaticQuery } from "gatsby";
 
+import { StaticImage } from "gatsby-plugin-image";
+
 import styled from "@emotion/styled";
 
 import PostList from "../components/posts/PostList";
@@ -47,8 +49,11 @@ export default function PostsContainer() {
   }, [nodes]);
 
   return (
-    <PostsSection>
-      <PostList posts={posts} basePath="/posts" />
-    </PostsSection>
+    <>
+      <StaticImage src="../images/hero.png" alt="hero 이미지" />
+      <PostsSection>
+        <PostList posts={posts} basePath="/posts" />
+      </PostsSection>
+    </>
   );
 }

@@ -16,6 +16,7 @@ import { unit } from "../styles";
 
 const HeaderSection = styled.div({
   position: "sticky",
+  marginBottom: unit(2),
   padding: `${unit(1)} ${unit(2)}`,
   backdropFilter: `blur(${unit(0.4)})`,
   backgroundColor: "rgba(255, 255, 255, 0.8)",
