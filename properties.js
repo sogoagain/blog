@@ -31,4 +31,7 @@ module.exports = {
     crossorigin: "anonymous",
     async: true,
   },
+  gtag: {
+    trackingIds: ["G-8E6LZKQXFC"],
+  },
 };

@@ -2,12 +2,14 @@ import React from "react";
 
 import { Link } from "gatsby";
 
+import { OutboundLink } from "gatsby-plugin-google-gtag";
+
 export default function Anchor({ href, to, children, ...rest }) {
   if (href) {
     return (
-      <a href={href} {...rest}>
+      <OutboundLink href={href} {...rest}>
         {children}
-      </a>
+      </OutboundLink>
     );
   }
   return (
