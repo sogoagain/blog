@@ -50,7 +50,11 @@ export default function PostsContainer() {
 
   return (
     <>
-      <StaticImage src="../images/hero.png" alt="hero 이미지" />
+      <StaticImage
+        src="../images/hero.png"
+        alt="프로그래밍 언어 문법으로 구성된 hero 이미지"
+        quality={100}
+      />
       <PostsSection>
         <PostList posts={posts} basePath="/posts" />
       </PostsSection>
