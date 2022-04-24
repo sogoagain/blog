@@ -3,55 +3,43 @@
 
 <p align="center">
   <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
+    <img alt="Gatsby" src="https://blog.sogoagain.com/logo.png" width="320" />
   </a>
 </p>
+
 <h1 align="center">
-  Gatsby minimal starter
+  SOGOAGAIN 블로그
 </h1>
 
-## 🚀 Quick start
+## 개발하기 🚀 
 
-1.  **Create a Gatsby site.**
+1. 환경 설정 파일
 
-    Use the Gatsby CLI to create a new site, specifying the minimal starter.
+  - `properties.js`
 
-    ```shell
-    # create a new Gatsby site using the minimal starter
-    npm init gatsby
-    ```
-
-2.  **Start developing.**
-
-    Navigate into your new site’s directory and start it up.
+2.  **테스트 코드 실행**
 
     ```shell
-    cd my-gatsby-site/
-    npm run develop
+    npm run test
+    npm run test:watch
+    npm run test:coverage
     ```
 
-3.  **Open the code and start customizing!**
+3.  **개발 서버 실행**
 
-    Your site is now running at http://localhost:8000!
+    ```shell
+    npm run start
+    ```
 
-    Edit `src/pages/index.js` to see your site update in real-time!
+4.  **prettier & lint**
 
-4.  **Learn more**
+    ```shell
+    npm run format
+    npm run lint
+    ```
 
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+5.  **빌드하기**
 
-    - [Tutorials](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Guides](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-## 🚀 Quick start (Gatsby Cloud)
-
-Deploy this starter with one click on [Gatsby Cloud](https://www.gatsbyjs.com/cloud/):
-
-[<img src="https://www.gatsbyjs.com/deploynow.svg" alt="Deploy to Gatsby Cloud">](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/gatsbyjs/gatsby-starter-minimal)
+    ```shell
+    npm run build
+    ```
