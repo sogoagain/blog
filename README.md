@@ -2,7 +2,7 @@
 [![CD](https://github.com/sogoagain/blog/actions/workflows/cd.yml/badge.svg)](https://github.com/sogoagain/blog/actions/workflows/cd.yml)
 
 <p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
+  <a href="https://blog.sogoagain.com/">
     <img alt="SOGOAGAIN 블로그 로고" src="https://blog.sogoagain.com/logo.png" width="320" />
   </a>
 </p>
