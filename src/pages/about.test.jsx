@@ -6,18 +6,23 @@ import { useStaticQuery } from "gatsby";
 
 import { render, screen } from "../testUtils";
 
+import { fetchReadingList } from "../services/blog";
 import { fetchGithubUser } from "../services/github";
 
 import AboutPage from "./about";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
 import ABOUT_QUERY from "../__fixtures__/aboutQuery";
+import READING_LIST from "../__fixtures__/readingList";
 import GITHUB_USER from "../__fixtures__/githubUser";
 
+jest.mock("../services/blog");
 jest.mock("../services/github");
 
 describe("AboutPage", () => {
   beforeEach(() => {
+    fetchReadingList.mockClear();
+    fetchReadingList.mockResolvedValue(READING_LIST);
     fetchGithubUser.mockClear();
     fetchGithubUser.mockResolvedValue(GITHUB_USER);
     useStaticQuery.mockReturnValue({
@@ -45,6 +50,12 @@ describe("AboutPage", () => {
     const aboutEl = screen.getByText("안녕하세요");
 
     expect(aboutEl).toBeInTheDocument();
+  });
+
+  it("독서목록을 출력한다", () => {
+    const bookEls = screen.getAllByRole("listitem");
+
+    expect(bookEls).toHaveLength(READING_LIST.books.length);
   });
 
   it("footer를 출력한다", () => {
