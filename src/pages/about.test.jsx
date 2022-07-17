@@ -11,7 +11,7 @@ import { fetchGithubUser } from "../services/github";
 import AboutPage from "./about";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
-import POST_LIST_QUERY from "../__fixtures__/postListQuery";
+import ABOUT_QUERY from "../__fixtures__/aboutQuery";
 import GITHUB_USER from "../__fixtures__/githubUser";
 
 jest.mock("../services/github");
@@ -22,14 +22,13 @@ describe("AboutPage", () => {
     fetchGithubUser.mockResolvedValue(GITHUB_USER);
     useStaticQuery.mockReturnValue({
       ...SITE_QUERY,
-      ...POST_LIST_QUERY,
     });
 
-    render(<AboutPage location={{ pathname: "/" }} />);
+    render(<AboutPage data={ABOUT_QUERY} location={{ pathname: "/" }} />);
   });
 
   it("SEO를 적용한다", async () => {
-    await waitFor(() => expect(document.title).toBe("SOGOAGAIN 블로그"));
+    await waitFor(() => expect(document.title).toBe("About"));
   });
 
   it("header를 출력한다", () => {
@@ -39,6 +38,12 @@ describe("AboutPage", () => {
 
     expect(titleEl).toBeInTheDocument();
     expect(imageEl).toBeInTheDocument();
+    expect(aboutEl).toBeInTheDocument();
+  });
+
+  it("자기소개 내용을 출력한다", () => {
+    const aboutEl = screen.getByText("안녕하세요");
+
     expect(aboutEl).toBeInTheDocument();
   });
 
