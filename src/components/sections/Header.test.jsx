@@ -15,7 +15,7 @@ describe("<Header/>", () => {
   };
   const about = {
     text: "소개",
-    href: "https://sogoagain.notion.site/About-599f1c0b47314c30800c706265b0a7bd",
+    to: "/about",
   };
 
   function renderHeader(imageSrc) {

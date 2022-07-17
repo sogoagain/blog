@@ -74,7 +74,7 @@ export default function HeaderContainer() {
         }}
         about={{
           text: "소개",
-          href: about,
+          to: "/about",
         }}
       />
     </HeaderSection>
