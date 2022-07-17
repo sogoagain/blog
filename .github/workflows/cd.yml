@@ -21,7 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install
-        run: npm ci
+        run: npm i
       - name: Lint
         run: npm run lint
       - name: Test

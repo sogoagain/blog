@@ -27,7 +27,7 @@ jobs:
         if: github.event_name != 'push' || steps.pr.outputs.exists == 'false'
       - name: Install
         if: github.event_name != 'push' || steps.pr.outputs.exists == 'false'
-        run: npm ci
+        run: npm i
       - name: Lint
         if: github.event_name != 'push' || steps.pr.outputs.exists == 'false'
         run: npm run lint
