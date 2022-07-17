@@ -1,20 +1,29 @@
+import { createStore } from "../testUtils";
+
 import readingListReducer, {
   appendBooks,
   setPage,
   setLoading,
+  setError,
+  loadReadingList,
 } from "./readingListSlice";
 
+import { fetchReadingList } from "../services/blog";
+
 import READING_LIST from "../__fixtures__/readingList";
+
+jest.mock("../services/blog");
 
 describe("reading list reducer", () => {
   const initialReadingListState = {
     books: [],
     page: {
       pageSize: 10,
-      hasMore: false,
+      hasMore: true,
       nextCursor: null,
     },
-    loading: true,
+    loading: false,
+    error: false,
   };
 
   describe("appendBooks", () => {
@@ -98,7 +107,97 @@ describe("reading list reducer", () => {
 
       const state = readingListReducer(previousState, setLoading(true));
 
-      expect(state.loading).toEqual(true);
+      expect(state.loading).toBe(true);
+    });
+  });
+
+  describe("setError", () => {
+    it("error 상태를 변경한다", () => {
+      const previousState = initialReadingListState;
+
+      const state = readingListReducer(previousState, setError(true));
+
+      expect(state.error).toBe(true);
+    });
+  });
+});
+
+describe("reading list actions", () => {
+  let store;
+
+  beforeEach(() => {
+    store = createStore();
+  });
+
+  describe("loadReadingList", () => {
+    beforeEach(() => {
+      fetchReadingList.mockClear();
+    });
+
+    context("더 불러올 목록이 있고", () => {
+      context("독서목록을 성공적으로 불러오면", () => {
+        beforeEach(() => {
+          fetchReadingList.mockResolvedValue(READING_LIST);
+        });
+
+        it("독서목록 상세 정보를 설정한다", async () => {
+          await store.dispatch(loadReadingList(5));
+
+          const { readingList } = store.getState();
+
+          expect(readingList.books.length).toBe(5);
+          expect(readingList.page.pageSize).toBe(5);
+          expect(readingList.page.hasMore).toBe(true);
+          expect(readingList.page.nextCursor).toBe(
+            READING_LIST.page.nextCursor
+          );
+          expect(readingList.error).toBe(false);
+        });
+      });
+    });
+
+    context("더 불러올 목록이 없다면", () => {
+      beforeEach(async () => {
+        fetchReadingList.mockResolvedValue({
+          books: [],
+          page: {
+            pageSize: 5,
+            hasMore: false,
+            nextCursor: null,
+          },
+        });
+        await store.dispatch(loadReadingList(5));
+        fetchReadingList.mockResolvedValue(READING_LIST);
+      });
+
+      it("독서목록을 불러오지 않는다", async () => {
+        await store.dispatch(loadReadingList(5));
+
+        const { readingList } = store.getState();
+
+        expect(readingList.books.length).toBe(0);
+        expect(readingList.error).toBe(false);
+      });
+    });
+
+    context("독서목록을 불러오는데 실패하면", () => {
+      beforeEach(() => {
+        fetchReadingList.mockRejectedValue(
+          new Error("독서목록을 불러오지 못했습니다.")
+        );
+      });
+
+      it("error 상태를 true로 변경한다", async () => {
+        const { readingList: previousState } = store.getState();
+
+        await store.dispatch(loadReadingList(5));
+
+        const { readingList } = store.getState();
+
+        expect(readingList.books).toBe(previousState.books);
+        expect(readingList.page).toBe(previousState.page);
+        expect(readingList.error).toBe(true);
+      });
     });
   });
 });

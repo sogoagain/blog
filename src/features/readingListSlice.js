@@ -1,15 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { fetchReadingList } from "../services/blog";
+
 const { actions, reducer } = createSlice({
   name: "readingList",
   initialState: {
     books: [],
     page: {
       pageSize: 10,
-      hasMore: false,
+      hasMore: true,
       nextCursor: null,
     },
-    loading: true,
+    loading: false,
+    error: false,
   },
   reducers: {
     appendBooks: (state, { payload: books }) => {
@@ -38,9 +41,39 @@ const { actions, reducer } = createSlice({
       ...state,
       loading,
     }),
+    setError: (state, { payload: error }) => ({
+      ...state,
+      error,
+    }),
   },
 });
 
-export const { appendBooks, setPage, setLoading } = actions;
+export const { appendBooks, setPage, setLoading, setError } = actions;
+
+export function loadReadingList({ pageSize }) {
+  return async (dispatch, getState) => {
+    const {
+      readingList: { page },
+    } = getState();
+
+    if (!page.hasMore) {
+      return;
+    }
+
+    dispatch(setLoading(true));
+    try {
+      const readingList = await fetchReadingList({
+        pageSize: pageSize || page.pageSize,
+        startCursor: page.nextCursor,
+      });
+      dispatch(appendBooks(readingList.books));
+      dispatch(setPage(readingList.page));
+      dispatch(setError(false));
+    } catch (err) {
+      dispatch(setError(true));
+    }
+    dispatch(setLoading(false));
+  };
+}
 
 export default reducer;
