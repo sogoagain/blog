@@ -18,7 +18,10 @@ const PostsSection = styled.section({
 
 const query = graphql`
   query {
-    allMarkdownRemark(sort: { fields: frontmatter___date, order: DESC }) {
+    allMarkdownRemark(
+      sort: { fields: frontmatter___date, order: DESC }
+      filter: { fileAbsolutePath: { regex: "/(posts)/" } }
+    ) {
       nodes {
         frontmatter {
           date
