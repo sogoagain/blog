@@ -84,7 +84,7 @@ describe("reading list reducer", () => {
         ])
       );
 
-      expect(state.books.length).toBe(3);
+      expect(state.books).toHaveLength(3);
     });
   });
 
@@ -145,7 +145,7 @@ describe("reading list actions", () => {
 
           const { readingList } = store.getState();
 
-          expect(readingList.books.length).toBe(5);
+          expect(readingList.books).toHaveLength(5);
           expect(readingList.page.pageSize).toBe(5);
           expect(readingList.page.hasMore).toBe(true);
           expect(readingList.page.nextCursor).toBe(
@@ -175,7 +175,7 @@ describe("reading list actions", () => {
 
         const { readingList } = store.getState();
 
-        expect(readingList.books.length).toBe(0);
+        expect(readingList.books).toHaveLength(0);
         expect(readingList.error).toBe(false);
       });
     });

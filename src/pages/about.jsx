@@ -7,6 +7,7 @@ import styled from "@emotion/styled";
 import Post from "../components/posts/Post";
 
 import LayoutContainer from "../container/LayoutContainer";
+import ReadingListContainer from "../container/ReadingListContainer";
 import SeoContainer from "../container/SeoContainer";
 
 import { unit } from "../styles";
@@ -34,6 +35,7 @@ export default function AboutPage({
       />
       <AboutSection>
         <Post title={title} html={html} />
+        <ReadingListContainer />
       </AboutSection>
     </LayoutContainer>
   );

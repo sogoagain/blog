@@ -31,9 +31,6 @@ const query = graphql`
         social {
           github
         }
-        link {
-          about
-        }
       }
     }
   }
@@ -45,7 +42,6 @@ export default function HeaderContainer() {
       siteMetadata: {
         title,
         social: { github },
-        link: { about },
       },
     },
   } = useStaticQuery(query);

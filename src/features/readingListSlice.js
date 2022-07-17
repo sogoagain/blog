@@ -50,7 +50,7 @@ const { actions, reducer } = createSlice({
 
 export const { appendBooks, setPage, setLoading, setError } = actions;
 
-export function loadReadingList({ pageSize }) {
+export function loadReadingList(pageSize) {
   return async (dispatch, getState) => {
     const {
       readingList: { page },
