@@ -14,6 +14,10 @@ const PostSection = styled.article({
   margin: "0 auto",
 });
 
+const PostWrapper = styled.div({
+  marginBottom: unit(8),
+});
+
 const query = graphql`
   query {
     site {
@@ -43,7 +47,9 @@ export default function PostContainer({ title, subtitle, date, html }) {
 
   return (
     <PostSection>
-      <Post title={title} subtitle={subtitle} date={date} html={html} />
+      <PostWrapper>
+        <Post title={title} subtitle={subtitle} date={date} html={html} />
+      </PostWrapper>
       <Comment
         utterances={{
           src,

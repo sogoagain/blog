@@ -7,7 +7,7 @@ const { actions, reducer } = createSlice({
   initialState: {
     books: [],
     page: {
-      pageSize: 10,
+      pageSize: 9,
       hasMore: true,
       nextCursor: null,
     },
