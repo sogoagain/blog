@@ -22,7 +22,7 @@ const LoadMoreWrapper = styled.div({
   justifyContent: "center",
 });
 
-export default function HeaderContainer() {
+export default function ReadingListContainer() {
   const dispatch = useDispatch();
   const {
     books,
