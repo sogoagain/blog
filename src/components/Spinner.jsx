@@ -9,7 +9,6 @@ const spin = keyframes`
 `;
 
 const Spinner = styled.div({
-  display: "inline-block",
   width: unit(5),
   height: unit(5),
   border: `${unit(0.4)} solid rgb(15 15 15 / 10%)`,

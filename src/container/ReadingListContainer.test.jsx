@@ -1,10 +1,16 @@
 import React from "react";
 
-import { render, screen, waitFor, fireEvent } from "../testUtils";
+import { Provider } from "react-redux";
+
+import { render as rtlRender } from "@testing-library/react";
+
+import { render, createStore, screen, waitFor, fireEvent } from "../testUtils";
 
 import { fetchReadingList } from "../services/blog";
 
 import ReadingListContainer from "./ReadingListContainer";
+
+import { loadReadingList } from "../features/readingListSlice";
 
 import READING_LIST from "../__fixtures__/readingList";
 
@@ -68,9 +74,26 @@ describe("ReadingListContainer", () => {
     });
 
     it("오류 문구를 출력한다", () => {
-      const errorEl = screen.getByText("잠시 후 다시 시도해주세요.");
+      const errorEl = screen.getByText(
+        "독서목록을 불러오는데 오류가 발생했습니다. 잠시 후 다시 확인해주세요."
+      );
 
       expect(errorEl).toBeInTheDocument();
+    });
+  });
+
+  context("독서목록을 불러왔었다면", () => {
+    it("렌더링 시 추가로 불러오지 않는다", async () => {
+      const store = createStore();
+      await store.dispatch(loadReadingList());
+
+      rtlRender(
+        <Provider store={store}>
+          <ReadingListContainer />
+        </Provider>
+      );
+
+      expect(fetchReadingList).toBeCalledTimes(1);
     });
   });
 
