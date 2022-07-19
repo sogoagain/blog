@@ -68,10 +68,10 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `posts`,
-        path: `${__dirname}/content/posts`,
+        name: `content`,
+        path: `${__dirname}/content`,
       },
-      __key: "posts",
+      __key: "content",
     },
     {
       resolve: `gatsby-plugin-s3`,
@@ -108,7 +108,8 @@ module.exports = {
             query: `
               {
                 allMarkdownRemark(
-                  sort: { order: DESC, fields: [frontmatter___date] },
+                  sort: { order: DESC, fields: [frontmatter___date] }
+                  filter: {fileAbsolutePath: {regex: "/(posts)/"}}
                 ) {
                   edges {
                     node {

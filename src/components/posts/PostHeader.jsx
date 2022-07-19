@@ -30,8 +30,8 @@ export default function PostHeader({ title, subtitle, date }) {
   return (
     <HeaderWrapper>
       <Title>{title}</Title>
-      <SubTitle>{subtitle}</SubTitle>
-      <Time dateTime={yyyyMMddToISOString(date)}>{date}</Time>
+      {subtitle && <SubTitle>{subtitle}</SubTitle>}
+      {date && <Time dateTime={yyyyMMddToISOString(date)}>{date}</Time>}
     </HeaderWrapper>
   );
 }

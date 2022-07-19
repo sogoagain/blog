@@ -16,8 +16,6 @@ module.exports = {
   link: {
     postsBasePath: "/posts",
     rss: "/rss.xml",
-    about:
-      "https://sogoagain.notion.site/About-599f1c0b47314c30800c706265b0a7bd",
   },
   deploy: {
     s3Bucket: "sogoagain-blog",
