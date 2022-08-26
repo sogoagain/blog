@@ -76,6 +76,11 @@ export default function PostStyle({ html }) {
           }
         }
 
+        .gatsby-resp-image-wrapper + em {
+          display: block;
+          text-align: center;
+        }
+
         .gatsby-highlight {
           margin: ${unit(2)} auto;
           padding: 0 ${unit(2)};
