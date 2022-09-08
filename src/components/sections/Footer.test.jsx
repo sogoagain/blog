@@ -11,7 +11,6 @@ describe("<Footer/>", () => {
     email: "test@gmail.com",
     github: "https://github.com/sogoagain",
     twitter: "https://twitter.com/sogoagain",
-    linkedin: "https://www.linkedin.com/in/sogoagain",
   };
 
   beforeEach(() => {
@@ -33,11 +32,10 @@ describe("<Footer/>", () => {
   });
 
   it.each`
-    socialName    | link
-    ${"Email"}    | ${`mailto:${social.email}`}
-    ${"GitHub"}   | ${social.github}
-    ${"Twitter"}  | ${social.twitter}
-    ${"LinkedIn"} | ${social.linkedin}
+    socialName   | link
+    ${"Email"}   | ${`mailto:${social.email}`}
+    ${"GitHub"}  | ${social.github}
+    ${"Twitter"} | ${social.twitter}
   `(
     "'$socialName'(으)로 이동하는 '$link'를 출력한다",
     ({ socialName, link }) => {
