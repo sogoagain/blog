@@ -11,7 +11,6 @@ module.exports = {
     email: "imyong0@gmail.com",
     github: "sogoagain",
     twitter: "sogoagain",
-    linkedin: "sogoagain",
   },
   link: {
     postsBasePath: "/posts",

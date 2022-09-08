@@ -8,7 +8,6 @@ import { unit } from "../../styles";
 
 import EmailIcon from "../../images/icons/email.png";
 import GithubIcon from "../../images/icons/github.png";
-import LinkedinIcon from "../../images/icons/linkedin.png";
 import RssIcon from "../../images/icons/rss.png";
 import TwitterIcon from "../../images/icons/twitter.png";
 
@@ -38,12 +37,6 @@ const socialLink = {
     hrefFn: (src) => src,
     title: "Twitter",
     icon: TwitterIcon,
-    blank: true,
-  },
-  linkedin: {
-    hrefFn: (src) => src,
-    title: "LinkedIn",
-    icon: LinkedinIcon,
     blank: true,
   },
   rss: {

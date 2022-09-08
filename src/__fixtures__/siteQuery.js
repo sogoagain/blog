@@ -5,7 +5,6 @@ const siteQuery = {
       social: {
         github: "sogoagain",
         twitter: "sogoagain",
-        linkedin: "sogoagain",
         email: "imyong0@gmail.com",
       },
       link: {

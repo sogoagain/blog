@@ -32,11 +32,10 @@ describe("FooterContainer", () => {
   });
 
   it.each`
-    socialName    | link
-    ${"Email"}    | ${`mailto:${social.email}`}
-    ${"GitHub"}   | ${`https://github.com/${social.github}`}
-    ${"Twitter"}  | ${`https://twitter.com/${social.twitter}`}
-    ${"LinkedIn"} | ${`https://www.linkedin.com/in/${social.linkedin}`}
+    socialName   | link
+    ${"Email"}   | ${`mailto:${social.email}`}
+    ${"GitHub"}  | ${`https://github.com/${social.github}`}
+    ${"Twitter"} | ${`https://twitter.com/${social.twitter}`}
   `(
     "'$socialName'(으)로 이동하는 '$link'를 출력한다",
     ({ socialName, link }) => {

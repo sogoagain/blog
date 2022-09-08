@@ -22,7 +22,6 @@ const query = graphql`
         social {
           github
           twitter
-          linkedin
           email
         }
         link {
@@ -48,7 +47,6 @@ export default function FooterContainer() {
     email: social.email,
     github: `https://github.com/${social.github}`,
     twitter: `https://twitter.com/${social.twitter}`,
-    linkedin: `https://www.linkedin.com/in/${social.linkedin}`,
   };
 
   return (
