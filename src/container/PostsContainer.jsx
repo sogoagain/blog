@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 
 import { graphql, useStaticQuery } from "gatsby";
 
-import { StaticImage } from "gatsby-plugin-image";
-
 import styled from "@emotion/styled";
 
+import Hero from "../components/sections/Hero";
 import PostList from "../components/posts/PostList";
+
+import useScrambleTexts from "../hooks/useScrambleTexts";
 
 import { unit } from "../styles";
 
@@ -40,7 +41,20 @@ export default function PostsContainer() {
   const {
     allMarkdownRemark: { nodes },
   } = useStaticQuery(query);
+
   const [posts, setPosts] = useState([]);
+
+  const scrambledText = useScrambleTexts([
+    "Software",
+    "Developer",
+    "Engineering",
+    "Test Driven Development",
+    "Agile",
+    "eXtreme Programming",
+    "Bitcoin",
+    "Decentralization",
+    "Web",
+  ]);
 
   useEffect(() => {
     setPosts(
@@ -53,11 +67,7 @@ export default function PostsContainer() {
 
   return (
     <>
-      <StaticImage
-        src="../images/hero.png"
-        alt="프로그래밍 언어 문법으로 구성된 hero 이미지"
-        quality={100}
-      />
+      <Hero text={scrambledText} />
       <PostsSection>
         <PostList posts={posts} basePath="/posts" />
       </PostsSection>
