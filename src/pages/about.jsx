@@ -4,8 +4,9 @@ import { graphql } from "gatsby";
 
 import styled from "@emotion/styled";
 
-import Post from "../components/posts/Post";
+import PostStyle from "../components/posts/PostStyle";
 
+import HeroContainer from "../container/HeroContainer";
 import LayoutContainer from "../container/LayoutContainer";
 import ReadingListContainer from "../container/ReadingListContainer";
 import SeoContainer from "../container/SeoContainer";
@@ -13,7 +14,7 @@ import SeoContainer from "../container/SeoContainer";
 import { unit } from "../styles";
 
 const AboutSection = styled.article({
-  padding: `${unit(4)} ${unit(2)}`,
+  padding: `${unit(1)} ${unit(2)}`,
   margin: "0 auto",
 });
 
@@ -33,8 +34,9 @@ export default function AboutPage({
         description={title}
         pathname={location.pathname}
       />
+      <HeroContainer />
       <AboutSection>
-        <Post title={title} html={html} />
+        <PostStyle html={html} />
         <ReadingListContainer />
       </AboutSection>
     </LayoutContainer>

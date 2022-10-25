@@ -4,10 +4,9 @@ import { graphql, useStaticQuery } from "gatsby";
 
 import styled from "@emotion/styled";
 
-import Hero from "../components/sections/Hero";
 import PostList from "../components/posts/PostList";
 
-import useScrambleTexts from "../hooks/useScrambleTexts";
+import HeroContainer from "./HeroContainer";
 
 import { unit } from "../styles";
 
@@ -44,18 +43,6 @@ export default function PostsContainer() {
 
   const [posts, setPosts] = useState([]);
 
-  const scrambledText = useScrambleTexts([
-    "Software",
-    "Developer",
-    "Engineering",
-    "Test Driven Development",
-    "Agile",
-    "eXtreme Programming",
-    "Bitcoin",
-    "Decentralization",
-    "Web",
-  ]);
-
   useEffect(() => {
     setPosts(
       nodes.map(({ frontmatter, fields }) => ({
@@ -67,7 +54,7 @@ export default function PostsContainer() {
 
   return (
     <>
-      <Hero text={scrambledText} />
+      <HeroContainer />
       <PostsSection>
         <PostList posts={posts} basePath="/posts" />
       </PostsSection>

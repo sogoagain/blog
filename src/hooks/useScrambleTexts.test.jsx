@@ -4,7 +4,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 
 import useScrambleTexts from "./useScrambleTexts";
 
-const texts = ["- Friedrich Nietzsche -", "The doer alone learneth."];
+const texts = ["Sofrware", "Agile"];
 
 function Scramble() {
   const scrambledText = useScrambleTexts(texts);
@@ -26,6 +26,10 @@ describe("useScrambleTexts", () => {
     );
     await waitFor(
       () => expect(screen.getByText(texts[1])).toBeInTheDocument(),
+      { timeout: 5000 }
+    );
+    await waitFor(
+      () => expect(screen.getByText(texts[0])).toBeInTheDocument(),
       { timeout: 5000 }
     );
   });
