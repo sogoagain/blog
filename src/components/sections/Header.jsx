@@ -39,7 +39,6 @@ function Header({ title, profileImage, about }) {
         {profileImage.src ? (
           <IconImage src={profileImage.src} alt={profileImage.alt} level={4} />
         ) : null}
-        {about.text}
       </AboutAnchor>
     </HeaderWrapper>
   );

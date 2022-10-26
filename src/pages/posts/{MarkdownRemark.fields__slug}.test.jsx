@@ -39,11 +39,9 @@ describe("PostPage", () => {
   it("header를 출력한다", () => {
     const titleEl = screen.getByText("SOGOAGAIN");
     const imageEl = screen.getByAltText("프로필 이미지");
-    const aboutEl = screen.getByText("소개");
 
     expect(titleEl).toBeInTheDocument();
     expect(imageEl).toBeInTheDocument();
-    expect(aboutEl).toBeInTheDocument();
   });
 
   it("포스트 제목을 출력한다", () => {
