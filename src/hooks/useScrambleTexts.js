@@ -8,24 +8,21 @@ export default function useScrambleTexts(texts) {
   const [scrambledText, setScrambledText] = useState(queue[index]);
 
   const scramblerRef = useRef(null);
+  const timeoutRef = useRef(null);
 
   useEffect(async () => {
     if (!scramblerRef.current) {
-      const initScrambler = async () => {
-        const { default: Scrambler } = await import("scrambling-text");
-        scramblerRef.current = new Scrambler();
-      };
-      await initScrambler();
+      const { default: Scrambler } = await import("scrambling-text");
+      scramblerRef.current = new Scrambler();
     }
 
     scramblerRef.current.scramble(queue[index], setScrambledText, {
-      characters: [
-        ..."abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
-        " ",
-      ],
+      characters: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split(
+        ""
+      ),
     });
 
-    setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
       if (index + 1 === queue.length) {
         setQueue(shuffleArray([...texts]));
         setIndex(0);
@@ -34,6 +31,10 @@ export default function useScrambleTexts(texts) {
       }
     }, 2500);
   }, [index]);
+
+  useEffect(() => {
+    clearTimeout(timeoutRef.current);
+  }, []);
 
   return scrambledText;
 }

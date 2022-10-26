@@ -12,11 +12,10 @@ function Scramble() {
   return <div>{scrambledText}</div>;
 }
 
-describe("useScrambleTexts", () => {
-  beforeEach(() => {
-    jest.useFakeTimers();
-  });
+jest.useFakeTimers();
+jest.spyOn(global, "clearTimeout");
 
+describe("useScrambleTexts", () => {
   it("텍스트들을 랜덤 순서로 섞어서 출력한다", async () => {
     render(<Scramble />);
 
@@ -32,5 +31,13 @@ describe("useScrambleTexts", () => {
       () => expect(screen.getByText(texts[0])).toBeInTheDocument(),
       { timeout: 10000 }
     );
+  });
+
+  it("컴포넌트가 unmount 되면 clearTimeout을 호출한다", () => {
+    const { unmount } = render(<Scramble />);
+
+    unmount();
+
+    expect(clearTimeout).toBeCalled();
   });
 });
