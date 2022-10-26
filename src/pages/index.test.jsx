@@ -35,11 +35,17 @@ describe("IndexPage", () => {
   it("header를 출력한다", () => {
     const titleEl = screen.getByText("SOGOAGAIN");
     const imageEl = screen.getByAltText("프로필 이미지");
-    const aboutEl = screen.getByText("소개");
 
     expect(titleEl).toBeInTheDocument();
     expect(imageEl).toBeInTheDocument();
-    expect(aboutEl).toBeInTheDocument();
+  });
+
+  it("관심사 Hero를 출력한다", () => {
+    const interest = screen.getByText(
+      SITE_QUERY.site.siteMetadata.interests[0]
+    );
+
+    expect(interest).toBeInTheDocument();
   });
 
   it("포스트 목록을 출력한다", () => {

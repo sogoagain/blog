@@ -25,11 +25,9 @@ describe("HeaderContainer", () => {
   it("헤더를 출력한다", async () => {
     const titleEl = screen.getByText("SOGOAGAIN");
     const imageEl = await screen.getByAltText("프로필 이미지");
-    const aboutEl = screen.getByText("소개");
 
     expect(titleEl).toBeInTheDocument();
     expect(imageEl).toBeInTheDocument();
-    expect(aboutEl).toBeInTheDocument();
   });
 
   context("github 프로필 이미지를 불러오지 못하면", () => {

@@ -3,6 +3,7 @@ const properties = require("./properties");
 module.exports = {
   siteMetadata: {
     ...properties.site,
+    interests: [...properties.interests],
     social: {
       ...properties.social,
     },

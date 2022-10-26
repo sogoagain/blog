@@ -14,7 +14,6 @@ describe("<Header/>", () => {
     src: "https://avatars.githubusercontent.com/u/23417465?v=4",
   };
   const about = {
-    text: "소개",
     to: "/about",
   };
 
@@ -60,8 +59,8 @@ describe("<Header/>", () => {
   it("소개 페이지 링크를 출력한다", () => {
     renderHeader(profileImage.src);
 
-    const aboutEl = screen.getByText(about.text);
+    const imageEl = screen.getByAltText(profileImage.alt);
 
-    expect(aboutEl.closest("a")).toHaveAttribute("href", about.to);
+    expect(imageEl.closest("a")).toHaveAttribute("href", about.to);
   });
 });

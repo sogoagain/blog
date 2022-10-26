@@ -6,13 +6,25 @@ import { render, screen } from "../testUtils";
 
 import PostsContainer from "./PostsContainer";
 
+import SITE_QUERY from "../__fixtures__/siteQuery";
 import POST_LIST_QUERY from "../__fixtures__/postListQuery";
 
 describe("PostsContainer", () => {
   beforeEach(() => {
-    useStaticQuery.mockReturnValue(POST_LIST_QUERY);
+    useStaticQuery.mockReturnValue({
+      ...SITE_QUERY,
+      ...POST_LIST_QUERY,
+    });
 
     render(<PostsContainer />);
+  });
+
+  it("관심사 Hero를 출력한다", () => {
+    const interest = screen.getByText(
+      SITE_QUERY.site.siteMetadata.interests[0]
+    );
+
+    expect(interest).toBeInTheDocument();
   });
 
   it("포스트 목록을 출력한다", () => {

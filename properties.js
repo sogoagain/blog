@@ -7,6 +7,17 @@ module.exports = {
     image: "/logo.png",
     author: "sogoagain",
   },
+  interests: [
+    "Software",
+    "Developer",
+    "Engineering",
+    "Test Driven Development",
+    "Agile",
+    "eXtreme Programming",
+    "Bitcoin",
+    "Decentralization",
+    "Web",
+  ],
   social: {
     email: "imyong0@gmail.com",
     github: "sogoagain",
