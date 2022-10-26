@@ -46,6 +46,14 @@ describe("AboutPage", () => {
     expect(aboutEl).toBeInTheDocument();
   });
 
+  it("관심사 Hero를 출력한다", () => {
+    const interest = screen.getByText(
+      SITE_QUERY.site.siteMetadata.interests[0]
+    );
+
+    expect(interest).toBeInTheDocument();
+  });
+
   it("자기소개 내용을 출력한다", () => {
     const aboutEl = screen.getByText("안녕하세요");
 

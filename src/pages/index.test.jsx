@@ -42,6 +42,14 @@ describe("IndexPage", () => {
     expect(aboutEl).toBeInTheDocument();
   });
 
+  it("관심사 Hero를 출력한다", () => {
+    const interest = screen.getByText(
+      SITE_QUERY.site.siteMetadata.interests[0]
+    );
+
+    expect(interest).toBeInTheDocument();
+  });
+
   it("포스트 목록을 출력한다", () => {
     const items = screen.getAllByRole("listitem");
 
