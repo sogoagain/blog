@@ -8,4 +8,5 @@ export const color = {
   secondary: "#868E96",
   brand: "#D72323",
   background: "#FFFFFF",
+  bitcoin: "#F7931A",
 };

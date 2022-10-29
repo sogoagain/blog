@@ -51,8 +51,10 @@
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
     "react-redux": "^7.2.6",
+    "react-tsparticles": "^2.3.3",
     "redux": "^4.1.2",
-    "scrambling-text": "^1.2.0"
+    "scrambling-text": "^1.2.0",
+    "tsparticles": "^2.3.4"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.2",
