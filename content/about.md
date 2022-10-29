@@ -1,6 +1,6 @@
 ---
 date: "2022-07-17"
-title: "SOGOAGAIN 소개"
+title: "About"
 ---
 
 ## 견고한 시스템을 개발하는 개발자입니다.

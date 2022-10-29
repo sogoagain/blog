@@ -24,25 +24,25 @@ const socialLink = {
   email: {
     hrefFn: (src) => `mailto:${src}`,
     title: "Email",
-    icon: EmailIcon,
+    icon: { src: EmailIcon, level: 2 },
     blank: false,
   },
   github: {
     hrefFn: (src) => src,
     title: "GitHub",
-    icon: GithubIcon,
+    icon: { src: GithubIcon, level: 2 },
     blank: true,
   },
   twitter: {
     hrefFn: (src) => src,
     title: "Twitter",
-    icon: TwitterIcon,
+    icon: { src: TwitterIcon, level: 2 },
     blank: true,
   },
   rss: {
     toFn: (src) => src,
     title: "RSS",
-    icon: RssIcon,
+    icon: { src: RssIcon, level: 2 },
     blank: false,
   },
 };

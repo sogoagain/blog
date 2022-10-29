@@ -18,14 +18,14 @@ export default function IconLink({ link, hrefFn, toFn, title, icon, blank }) {
   if (blank) {
     return (
       <AnchorWrapper href={href} to={to} target="_blank" rel="noreferrer">
-        <IconImage src={icon} alt={title} level={2} />
+        <IconImage src={icon.src} alt={title} level={icon.level} />
       </AnchorWrapper>
     );
   }
 
   return (
     <AnchorWrapper href={href} to={to}>
-      <IconImage src={icon} alt={title} level={2} />
+      <IconImage src={icon.src} alt={title} level={icon.level} />
     </AnchorWrapper>
   );
 }

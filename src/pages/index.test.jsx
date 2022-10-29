@@ -34,10 +34,12 @@ describe("IndexPage", () => {
 
   it("header를 출력한다", () => {
     const titleEl = screen.getByText("SOGOAGAIN");
-    const imageEl = screen.getByAltText("프로필 이미지");
+    const supportImageEl = screen.getByAltText("Support");
+    const aboutImageEl = screen.getByAltText("About");
 
     expect(titleEl).toBeInTheDocument();
-    expect(imageEl).toBeInTheDocument();
+    expect(supportImageEl).toBeInTheDocument();
+    expect(aboutImageEl).toBeInTheDocument();
   });
 
   it("관심사 Hero를 출력한다", () => {
