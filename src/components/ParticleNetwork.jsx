@@ -47,7 +47,7 @@ export default function ParticleNetwork() {
         },
         particles: {
           color: {
-            value: color.bitcoin,
+            value: color.brand,
           },
           links: {
             color: color.bitcoin,
@@ -77,7 +77,7 @@ export default function ParticleNetwork() {
             value: 80,
           },
           opacity: {
-            value: 0.5,
+            value: 0.3,
           },
           shape: {
             type: "circle",

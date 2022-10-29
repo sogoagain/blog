@@ -1,14 +1,16 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import { graphql, useStaticQuery } from "gatsby";
 
 import styled from "@emotion/styled";
 
-import QRCode from "qrcode";
+import QRCodeStyling from "qr-code-styling";
 
 import Anchor from "../components/Anchor";
 
-import { unit } from "../styles";
+import BitcoinIcon from "../images/icons/bitcoin.png";
+
+import { unit, color } from "../styles";
 
 const BitcoinAddressSection = styled.section({
   padding: `${unit(3)} ${unit(2)}`,
@@ -33,17 +35,28 @@ export default function BitcoinAddressContainer() {
       siteMetadata: { bitcoinAddress },
     },
   } = useStaticQuery(query);
-  const qrCanvasEl = useRef(null);
+
+  const qrRef = useRef(null);
+
+  const qrCode = new QRCodeStyling({
+    width: 240,
+    height: 240,
+    type: "svg",
+    data: bitcoinAddress,
+    image: BitcoinIcon,
+    dotsOptions: { type: "extra-rounded", color: color.primary },
+    backgroundOptions: { color: color.background },
+    cornersSquareOptions: { type: "extra-rounded", color: color.bitcoin },
+    cornersDotOptions: { color: color.bitcoin },
+  });
 
   useEffect(() => {
-    QRCode.toCanvas(qrCanvasEl.current, bitcoinAddress, {
-      errorCorrectionLevel: "H",
-    });
+    qrCode.append(qrRef.current);
   }, []);
 
   return (
     <BitcoinAddressSection>
-      <canvas data-testid="bitcoin-qr-element" ref={qrCanvasEl} />
+      <div data-testid="bitcoin-qr-element" ref={qrRef} />
       <Anchor href={`bitcoin:${bitcoinAddress}`} target="_blank">
         {bitcoinAddress}
       </Anchor>
