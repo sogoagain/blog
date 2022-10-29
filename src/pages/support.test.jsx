@@ -16,6 +16,8 @@ import GITHUB_USER from "../__fixtures__/githubUser";
 jest.mock("../services/github");
 
 describe("BitcoinPage", () => {
+  let container;
+
   beforeEach(() => {
     fetchGithubUser.mockClear();
     fetchGithubUser.mockResolvedValue(GITHUB_USER);
@@ -23,7 +25,8 @@ describe("BitcoinPage", () => {
       ...SITE_QUERY,
     });
 
-    render(<SupportPage location={{ pathname: "/support" }} />);
+    const result = render(<SupportPage location={{ pathname: "/support" }} />);
+    container = result.container;
   });
 
   it("SEO를 적용한다", async () => {
@@ -48,6 +51,12 @@ describe("BitcoinPage", () => {
 
     expect(qrEl).toBeInTheDocument();
     expect(addressEl).toBeInTheDocument();
+  });
+
+  it("배경화면에 파티클 효과를 출력한다", () => {
+    const particleEl = container.querySelector("#particle-network");
+
+    expect(particleEl).toBeInTheDocument();
   });
 
   it("footer를 출력한다", () => {
