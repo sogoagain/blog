@@ -33,7 +33,9 @@ describe("PostPage", () => {
   });
 
   it("SEO를 적용한다", async () => {
-    await waitFor(() => expect(document.title).toBe("르블랑의 법칙"));
+    await waitFor(() =>
+      expect(document.title).toBe("르블랑의 법칙 · SOGOAGAIN")
+    );
   });
 
   it("header를 출력한다", () => {

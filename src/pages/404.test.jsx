@@ -29,7 +29,7 @@ describe("NotFoundPage", () => {
   });
 
   it("SEO를 적용한다", async () => {
-    await waitFor(() => expect(document.title).toBe("404"));
+    await waitFor(() => expect(document.title).toBe("404 · SOGOAGAIN"));
   });
 
   it("페이지 제목을 표기한다", () => {

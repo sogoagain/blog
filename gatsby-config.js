@@ -13,6 +13,7 @@ module.exports = {
     utterances: {
       ...properties.utterances,
     },
+    bitcoinAddress: properties.bitcoinAddress,
   },
   plugins: [
     "gatsby-plugin-emotion",

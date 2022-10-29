@@ -2,6 +2,8 @@ const siteQuery = {
   site: {
     siteMetadata: {
       title: "SOGOAGAIN",
+      description: "SOGOAGAIN 블로그",
+      titleTemplate: "%s · SOGOAGAIN",
       interests: ["Software"],
       social: {
         email: "imyong0@gmail.com",
@@ -21,6 +23,7 @@ const siteQuery = {
         crossorigin: "anonymous",
         async: true,
       },
+      bitcoinAddress: "3FX1cWgBBnHSzrGrdfvRZxibZip4sbgdMD",
     },
   },
 };
