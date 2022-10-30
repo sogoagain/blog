@@ -5,7 +5,7 @@ import { loadFull } from "tsparticles";
 
 import { color } from "../styles";
 
-export default function ParticleNetwork() {
+export default function ParticleNetworkBackground() {
   const particlesInit = useCallback(async (engine) => {
     await loadFull(engine);
   }, []);
@@ -66,7 +66,7 @@ export default function ParticleNetwork() {
               default: "out",
             },
             random: true,
-            speed: 2,
+            speed: 1,
             straight: false,
           },
           number: {
@@ -74,7 +74,7 @@ export default function ParticleNetwork() {
               enable: true,
               area: 800,
             },
-            value: 80,
+            value: 50,
           },
           opacity: {
             value: 0.3,

@@ -10,3 +10,7 @@ export const color = {
   background: "#FFFFFF",
   bitcoin: "#F7931A",
 };
+
+export const base = {
+  pageMinHeight: `calc(100vh - ${unit(17.75)})`,
+};

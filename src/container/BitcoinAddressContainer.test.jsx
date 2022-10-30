@@ -17,6 +17,12 @@ describe("BitcoinAddressContainer", () => {
     render(<BitcoinAddressContainer />);
   });
 
+  it("비트코인 주소 QR 코드를 출력한다", () => {
+    const qrEl = screen.getByTestId("bitcoin-qr-element");
+
+    expect(qrEl).toBeInTheDocument();
+  });
+
   it("비트코인 주소를 출력한다", () => {
     const { bitcoinAddress } = SITE_QUERY.site.siteMetadata;
 
@@ -29,9 +35,14 @@ describe("BitcoinAddressContainer", () => {
     );
   });
 
-  it("비트코인 주소 QR 코드를 출력한다", () => {
-    const qrEl = screen.getByTestId("bitcoin-qr-element");
+  it("사토시 나카모토에게 경의를 표하는 문구를 출력한다", () => {
+    const respectsEl = screen.getByText("Pay my respects to");
+    const satoshiEl = screen.getByText("Satoshi Nakamoto");
 
-    expect(qrEl).toBeInTheDocument();
+    expect(respectsEl).toBeInTheDocument();
+    expect(satoshiEl.closest("a")).toHaveAttribute(
+      "href",
+      "https://bitcoin.org/bitcoin.pdf"
+    );
   });
 });

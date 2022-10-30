@@ -43,6 +43,12 @@ describe("BitcoinPage", () => {
     expect(aboutImageEl).toBeInTheDocument();
   });
 
+  it("후원 문구를 출력한다", () => {
+    const titleEl = screen.getByText("Buy me a 막걸리🌾");
+
+    expect(titleEl).toBeInTheDocument();
+  });
+
   it("비트코인 주소를 출력한다", () => {
     const qrEl = screen.getByTestId("bitcoin-qr-element");
     const addressEl = screen.getByText(
