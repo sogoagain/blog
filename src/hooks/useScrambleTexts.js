@@ -29,7 +29,7 @@ export default function useScrambleTexts(texts) {
       } else {
         setIndex(index + 1);
       }
-    }, 2500);
+    }, 3000);
   }, [index]);
 
   useEffect(() => {
