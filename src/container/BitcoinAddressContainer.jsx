@@ -10,7 +10,7 @@ import BitcoinIcon from "../images/icons/bitcoin.png";
 
 import { unit, color } from "../styles";
 
-const BitcoinAddressSection = styled.section({
+const BitcoinAddressSection = styled.div({
   padding: `${unit(4)} ${unit(2)}`,
   display: "flex",
   flexDirection: "column",

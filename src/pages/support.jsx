@@ -11,7 +11,7 @@ import SeoContainer from "../container/SeoContainer";
 
 import { unit, base } from "../styles";
 
-const SupportSection = styled.article({
+const SupportSection = styled.section({
   minHeight: base.pageMinHeight,
   padding: `${unit(4)} ${unit(2)}`,
   display: "flex",
