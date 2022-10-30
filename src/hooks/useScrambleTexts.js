@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, createRef } from "react";
 
 import { shuffleArray } from "../utils";
 
@@ -7,8 +7,8 @@ export default function useScrambleTexts(texts) {
   const [index, setIndex] = useState(0);
   const [scrambledText, setScrambledText] = useState(queue[index]);
 
-  const scramblerRef = useRef(null);
-  const timeoutRef = useRef(null);
+  const scramblerRef = createRef();
+  const timeoutRef = createRef();
 
   useEffect(async () => {
     if (!scramblerRef.current) {

@@ -6,34 +6,31 @@ import { useStaticQuery } from "gatsby";
 
 import { render, screen } from "../testUtils";
 
-import { fetchReadingList } from "../services/blog";
 import { fetchGithubUser } from "../services/github";
 
-import AboutPage from "./about";
+import SupportPage from "./support";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
-import ABOUT_QUERY from "../__fixtures__/aboutQuery";
-import READING_LIST from "../__fixtures__/readingList";
 import GITHUB_USER from "../__fixtures__/githubUser";
 
-jest.mock("../services/blog");
 jest.mock("../services/github");
 
-describe("AboutPage", () => {
+describe("SupportPage", () => {
+  let container;
+
   beforeEach(() => {
-    fetchReadingList.mockClear();
-    fetchReadingList.mockResolvedValue(READING_LIST);
     fetchGithubUser.mockClear();
     fetchGithubUser.mockResolvedValue(GITHUB_USER);
     useStaticQuery.mockReturnValue({
       ...SITE_QUERY,
     });
 
-    render(<AboutPage data={ABOUT_QUERY} location={{ pathname: "/" }} />);
+    const result = render(<SupportPage location={{ pathname: "/support" }} />);
+    container = result.container;
   });
 
   it("SEO를 적용한다", async () => {
-    await waitFor(() => expect(document.title).toBe("About · SOGOAGAIN"));
+    await waitFor(() => expect(document.title).toBe("Support · SOGOAGAIN"));
   });
 
   it("header를 출력한다", () => {
@@ -46,24 +43,26 @@ describe("AboutPage", () => {
     expect(aboutImageEl).toBeInTheDocument();
   });
 
-  it("관심사 Hero를 출력한다", () => {
-    const interest = screen.getByText(
-      SITE_QUERY.site.siteMetadata.interests[0]
+  it("후원 문구를 출력한다", () => {
+    const titleEl = screen.getByText("Buy me a 막걸리🌾");
+
+    expect(titleEl).toBeInTheDocument();
+  });
+
+  it("비트코인 주소를 출력한다", () => {
+    const qrEl = screen.getByTestId("bitcoin-qr-element");
+    const addressEl = screen.getByText(
+      SITE_QUERY.site.siteMetadata.bitcoinAddress
     );
 
-    expect(interest).toBeInTheDocument();
+    expect(qrEl).toBeInTheDocument();
+    expect(addressEl).toBeInTheDocument();
   });
 
-  it("자기소개 내용을 출력한다", () => {
-    const aboutEl = screen.getByText("안녕하세요");
+  it("배경화면에 파티클 효과를 출력한다", () => {
+    const particleEl = container.querySelector("#particle-network");
 
-    expect(aboutEl).toBeInTheDocument();
-  });
-
-  it("독서목록을 출력한다", () => {
-    const bookEls = screen.getAllByRole("listitem");
-
-    expect(bookEls).toHaveLength(READING_LIST.books.length);
+    expect(particleEl).toBeInTheDocument();
   });
 
   it("footer를 출력한다", () => {

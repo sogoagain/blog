@@ -9,26 +9,26 @@ describe("<Header/>", () => {
     text: "sogoaogain 블로그",
     to: "/",
   };
-  const profileImage = {
-    alt: "프로필 이미지",
-    src: "https://avatars.githubusercontent.com/u/23417465?v=4",
-  };
-  const about = {
-    to: "/about",
-  };
+  const aboutImageSrc = "https://avatars.githubusercontent.com/u/23417465?v=4";
 
-  function renderHeader(imageSrc) {
-    render(
-      <Header
-        title={title}
-        profileImage={{ ...profileImage, src: imageSrc }}
-        about={about}
-      />
-    );
+  function renderHeader(aboutImage) {
+    const links = {
+      support: {
+        link: "/support",
+        title: "Support",
+      },
+      about: {
+        link: "/about",
+        image: aboutImage,
+        title: "About",
+      },
+    };
+
+    render(<Header title={title} links={links} />);
   }
 
   it("블로그 제목을 출력한다", () => {
-    renderHeader(profileImage.src);
+    renderHeader(aboutImageSrc);
 
     const titleEl = screen.getByText(title.text);
 
@@ -36,31 +36,43 @@ describe("<Header/>", () => {
     expect(titleEl).toHaveAttribute("href", title.to);
   });
 
-  context("프로필 이미지 src가 없으면", () => {
-    it("이미지를 출력하지 않는다", () => {
+  context("about.image가 없으면", () => {
+    it("기본 프로필 이미지를 출력한다", () => {
       renderHeader(null);
 
-      const imageEl = screen.queryByAltText(profileImage.alt);
+      const aboutImageEl = screen.getByAltText("About");
 
-      expect(imageEl).not.toBeInTheDocument();
+      expect(aboutImageEl).toBeInTheDocument();
+      expect(aboutImageEl.src).toEqual("http://localhost/test-file-stub");
     });
   });
 
-  context("프로필 이미지 src가 있으면", () => {
-    it("프로필 이미지를 출력한다", () => {
-      renderHeader(profileImage.src);
+  context("about.image가 있으면", () => {
+    it("이미지를 출력한다", () => {
+      renderHeader(aboutImageSrc);
 
-      const imageEl = screen.getByAltText(profileImage.alt);
+      const aboutImageEl = screen.getByAltText("About");
 
-      expect(imageEl).toHaveAttribute("src", profileImage.src);
+      expect(aboutImageEl).toHaveAttribute("src", aboutImageSrc);
+      expect(aboutImageEl.src).toEqual(
+        "https://avatars.githubusercontent.com/u/23417465?v=4"
+      );
     });
+  });
+
+  it("후원 페이지 링크를 출력한다", () => {
+    renderHeader(aboutImageSrc);
+
+    const supportImageEl = screen.getByAltText("Support");
+
+    expect(supportImageEl.closest("a")).toHaveAttribute("href", "/support");
   });
 
   it("소개 페이지 링크를 출력한다", () => {
-    renderHeader(profileImage.src);
+    renderHeader(aboutImageSrc);
 
-    const imageEl = screen.getByAltText(profileImage.alt);
+    const aboutImageEl = screen.getByAltText("About");
 
-    expect(imageEl.closest("a")).toHaveAttribute("href", about.to);
+    expect(aboutImageEl.closest("a")).toHaveAttribute("href", "/about");
   });
 });

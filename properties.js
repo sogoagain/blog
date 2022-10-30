@@ -42,4 +42,5 @@ module.exports = {
   gtag: {
     trackingIds: ["G-8E6LZKQXFC"],
   },
+  bitcoinAddress: "3FX1cWgBBnHSzrGrdfvRZxibZip4sbgdMD",
 };

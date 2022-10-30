@@ -33,15 +33,19 @@ describe("PostPage", () => {
   });
 
   it("SEO를 적용한다", async () => {
-    await waitFor(() => expect(document.title).toBe("르블랑의 법칙"));
+    await waitFor(() =>
+      expect(document.title).toBe("르블랑의 법칙 · SOGOAGAIN")
+    );
   });
 
   it("header를 출력한다", () => {
     const titleEl = screen.getByText("SOGOAGAIN");
-    const imageEl = screen.getByAltText("프로필 이미지");
+    const supportImageEl = screen.getByAltText("Support");
+    const aboutImageEl = screen.getByAltText("About");
 
     expect(titleEl).toBeInTheDocument();
-    expect(imageEl).toBeInTheDocument();
+    expect(supportImageEl).toBeInTheDocument();
+    expect(aboutImageEl).toBeInTheDocument();
   });
 
   it("포스트 제목을 출력한다", () => {

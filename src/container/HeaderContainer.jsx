@@ -60,12 +60,16 @@ export default function HeaderContainer() {
           text: title,
           to: "/",
         }}
-        profileImage={{
-          alt: "프로필 이미지",
-          src,
-        }}
-        about={{
-          to: "/about",
+        links={{
+          support: {
+            link: "/support",
+            title: "Support",
+          },
+          about: {
+            link: "/about",
+            image: src,
+            title: "About",
+          },
         }}
       />
     </HeaderSection>
