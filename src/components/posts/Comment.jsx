@@ -1,7 +1,7 @@
-import React, { createRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 
 export default function Comment({ utterances }) {
-  const ref = createRef();
+  const ref = useRef(null);
 
   useEffect(() => {
     const scriptEl = document.createElement("script");
