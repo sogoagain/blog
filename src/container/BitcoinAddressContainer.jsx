@@ -4,8 +4,6 @@ import { graphql, useStaticQuery } from "gatsby";
 
 import styled from "@emotion/styled";
 
-import QRCodeStyling from "qr-code-styling";
-
 import Anchor from "../components/Anchor";
 
 import BitcoinIcon from "../images/icons/bitcoin.png";
@@ -13,7 +11,7 @@ import BitcoinIcon from "../images/icons/bitcoin.png";
 import { unit, color } from "../styles";
 
 const BitcoinAddressSection = styled.section({
-  padding: `${unit(5)} ${unit(2)}`,
+  padding: `${unit(4)} ${unit(2)}`,
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -50,7 +48,8 @@ export default function BitcoinAddressContainer() {
 
   const qrRef = useRef(null);
 
-  useEffect(() => {
+  useEffect(async () => {
+    const { default: QRCodeStyling } = await import("qr-code-styling");
     const qrCodeStyling = new QRCodeStyling({
       width: 240,
       height: 240,
