@@ -17,9 +17,9 @@ const BitcoinAddressSection = styled.div({
   alignItems: "center",
 });
 
-const AddressAnchorWrapper = styled(Anchor)`
-  margin: ${unit(1)} 0;
-`;
+const AddressWrapper = styled.p({
+  margin: `${unit(1)} 0`,
+});
 
 const EmWrapper = styled.em({
   marginTop: unit(5),
@@ -66,10 +66,10 @@ export default function BitcoinAddressContainer() {
 
   return (
     <BitcoinAddressSection>
-      <div data-testid="bitcoin-qr-element" ref={qrRef} />
-      <AddressAnchorWrapper href={`bitcoin:${bitcoinAddress}`} target="_blank">
-        {bitcoinAddress}
-      </AddressAnchorWrapper>
+      <Anchor href={`bitcoin:${bitcoinAddress}`} target="_blank">
+        <div data-testid="bitcoin-qr-element" ref={qrRef} />
+        <AddressWrapper>{bitcoinAddress}</AddressWrapper>
+      </Anchor>
       <EmWrapper>
         Pay my respects to{" "}
         <SatoshiAnchorWrapper
