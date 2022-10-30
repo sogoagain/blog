@@ -15,7 +15,7 @@ import GITHUB_USER from "../__fixtures__/githubUser";
 
 jest.mock("../services/github");
 
-describe("BitcoinPage", () => {
+describe("SupportPage", () => {
   let container;
 
   beforeEach(() => {
