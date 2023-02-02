@@ -21,9 +21,9 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 };
 
 exports.onPostBuild = async () => {
-  const staticPath = `./public`;
+  const publicPath = `./public`;
   const nip05Path = `.well-known/nostr.json`;
-  const outputPath = path.join(staticPath, nip05Path);
+  const outputPath = path.join(publicPath, nip05Path);
   const outputDir = path.dirname(outputPath);
   if (!(await fs.pathExists(outputDir))) {
     await fs.mkdirp(outputDir);
