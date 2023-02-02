@@ -9,6 +9,11 @@ const siteQuery = {
         email: "imyong0@gmail.com",
         github: "sogoagain",
         twitter: "sogoagain",
+        nostr: {
+          name: "sogoagain",
+          pubkey:
+            "npub1nhffp7hfyy2weckcw7tslaf20qhk7dp59zal2swghx4tpc9ejjxsuqxcf8",
+        },
       },
       link: {
         postsBasePath: "/posts",
