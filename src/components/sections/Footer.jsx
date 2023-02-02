@@ -10,10 +10,12 @@ import EmailIcon from "../../images/icons/email.png";
 import GithubIcon from "../../images/icons/github.png";
 import RssIcon from "../../images/icons/rss.png";
 import TwitterIcon from "../../images/icons/twitter.png";
+import NostrIcon from "../../images/icons/nostr.jpeg";
 
 const CopyrightWrapper = styled.p({
   display: "flex",
   justifyContent: "center",
+  margin: unit(1),
 });
 
 const LinksWrapper = styled.div({
@@ -37,6 +39,12 @@ const socialLink = {
     hrefFn: (src) => src,
     title: "Twitter",
     icon: { src: TwitterIcon, level: 2 },
+    blank: true,
+  },
+  nostr: {
+    hrefFn: (src) => src,
+    title: "Nostr",
+    icon: { src: NostrIcon, level: 2 },
     blank: true,
   },
   rss: {

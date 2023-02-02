@@ -23,6 +23,10 @@ const query = graphql`
           github
           twitter
           email
+          nostr {
+            name
+            pubkey
+          }
         }
         link {
           rss
@@ -47,6 +51,7 @@ export default function FooterContainer() {
     email: social.email,
     github: `https://github.com/${social.github}`,
     twitter: `https://twitter.com/${social.twitter}`,
+    nostr: `https://snort.social/p/${social.nostr.pubkey}`,
   };
 
   return (
