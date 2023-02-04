@@ -2,6 +2,7 @@ const fs = require("fs-extra");
 const path = require("path");
 
 const { createFilePath } = require("gatsby-source-filesystem");
+const { decode } = require("bech32-buffer");
 
 const properties = require("./properties");
 
@@ -20,6 +21,12 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   }
 };
 
+function bech32ToHexPublicKey(nPubKey) {
+  const { data } = decode(nPubKey);
+  const publicKey = Buffer.from(data);
+  return publicKey.toString("hex");
+}
+
 exports.onPostBuild = async () => {
   const publicPath = `./public`;
   const nip05Path = `.well-known/nostr.json`;
@@ -28,6 +35,10 @@ exports.onPostBuild = async () => {
   if (!(await fs.pathExists(outputDir))) {
     await fs.mkdirp(outputDir);
   }
-  const { name, pubkey } = properties.social.nostr;
-  await fs.writeFile(outputPath, JSON.stringify({ names: { [name]: pubkey } }));
+  const { name, nPubKey } = properties.social.nostr;
+  const hexPubKey = bech32ToHexPublicKey(nPubKey);
+  await fs.writeFile(
+    outputPath,
+    JSON.stringify({ names: { [name]: hexPubKey } })
+  );
 };

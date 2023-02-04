@@ -12,6 +12,7 @@ const FooterSection = styled.div({
   display: "flex",
   justifyContent: "center",
   padding: unit(2),
+  marginBottom: unit(2),
 });
 
 const query = graphql`
@@ -25,7 +26,7 @@ const query = graphql`
           email
           nostr {
             name
-            pubkey
+            nPubKey
           }
         }
         link {
@@ -51,7 +52,7 @@ export default function FooterContainer() {
     email: social.email,
     github: `https://github.com/${social.github}`,
     twitter: `https://twitter.com/${social.twitter}`,
-    nostr: `https://snort.social/p/${social.nostr.pubkey}`,
+    nostr: `https://snort.social/p/${social.nostr.nPubKey}`,
   };
 
   return (
