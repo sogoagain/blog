@@ -9,6 +9,7 @@ export const color = {
   brand: "#D72323",
   background: "#FFFFFF",
   bitcoin: "#F7931A",
+  lightning: "#7b1af7",
 };
 
 export const base = {

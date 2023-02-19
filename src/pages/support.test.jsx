@@ -8,12 +8,20 @@ import { render, screen } from "../testUtils";
 
 import { fetchGithubUser } from "../services/github";
 
+import {
+  createLightningInvoice,
+  lookupLightningInvoice,
+} from "../services/blog";
+
 import SupportPage from "./support";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
 import GITHUB_USER from "../__fixtures__/githubUser";
+import LIGHTNING_INVOICE from "../__fixtures__/lightningInvoice";
+import LOOKUP_LIGHTNING_INVOICE from "../__fixtures__/lookupLightningInvoice";
 
 jest.mock("../services/github");
+jest.mock("../services/blog");
 
 describe("SupportPage", () => {
   let container;
@@ -21,6 +29,10 @@ describe("SupportPage", () => {
   beforeEach(() => {
     fetchGithubUser.mockClear();
     fetchGithubUser.mockResolvedValue(GITHUB_USER);
+    createLightningInvoice.mockClear();
+    createLightningInvoice.mockResolvedValue(LIGHTNING_INVOICE);
+    lookupLightningInvoice.mockClear();
+    lookupLightningInvoice.mockResolvedValue(LOOKUP_LIGHTNING_INVOICE);
     useStaticQuery.mockReturnValue({
       ...SITE_QUERY,
     });
@@ -49,14 +61,10 @@ describe("SupportPage", () => {
     expect(titleEl).toBeInTheDocument();
   });
 
-  it("비트코인 주소를 출력한다", () => {
-    const qrEl = screen.getByTestId("bitcoin-qr-element");
-    const addressEl = screen.getByText(
-      SITE_QUERY.site.siteMetadata.bitcoinAddress
-    );
+  it("라이트닝 인보이스를 출력한다", () => {
+    const qrEl = screen.getByTestId("lightning-qr-element");
 
     expect(qrEl).toBeInTheDocument();
-    expect(addressEl).toBeInTheDocument();
   });
 
   it("배경화면에 파티클 효과를 출력한다", () => {

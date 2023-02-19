@@ -28,7 +28,6 @@ const siteQuery = {
         crossorigin: "anonymous",
         async: true,
       },
-      bitcoinAddress: "3FX1cWgBBnHSzrGrdfvRZxibZip4sbgdMD",
     },
   },
 };

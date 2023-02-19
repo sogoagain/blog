@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import PostTitle from "../components/posts/PostTitle";
 import ParticleNetworkBackground from "../components/ParticleNetworkBackground";
 
-import BitcoinAddressContainer from "../container/BitcoinAddressContainer";
+import LightningContainer from "../container/LightningContainer";
 import LayoutContainer from "../container/LayoutContainer";
 import SeoContainer from "../container/SeoContainer";
 
@@ -28,7 +28,7 @@ export default function SupportPage({ location }) {
       <SupportSection>
         <div>
           <PostTitle>Buy me a 막걸리🌾</PostTitle>
-          <BitcoinAddressContainer />
+          <LightningContainer />
         </div>
       </SupportSection>
     </LayoutContainer>
