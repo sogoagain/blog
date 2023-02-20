@@ -12,7 +12,6 @@ const FooterSection = styled.div({
   display: "flex",
   justifyContent: "center",
   padding: unit(2),
-  marginBottom: unit(2),
 });
 
 const query = graphql`
