@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -8,11 +8,10 @@ import Alert from "../components/Alert";
 import Anchor from "../components/Anchor";
 import Button from "../components/Button";
 import CheckmarkAnimation from "../components/CheckmarkAnimation";
+import LightningQr from "../components/LightningQr";
 import Spinner from "../components/Spinner";
 
-import { createInvoice, setExpired } from "../features/lightningSlice";
-
-import LightningIcon from "../images/icons/lightning.png";
+import { createInvoice } from "../features/lightningSlice";
 
 import { unit, color } from "../styles";
 
@@ -43,48 +42,15 @@ export default function LightningContainer() {
     (state) => state.lightning
   );
 
-  const qrRef = useRef(null);
-
   const handleCreateInvoice = () => {
     dispatch(createInvoice());
-  };
-
-  const drawInvoiceQr = async () => {
-    if (qrRef.current) {
-      const svgElement = qrRef.current.querySelector("svg");
-      if (svgElement) {
-        qrRef.current.removeChild(svgElement);
-      }
-    }
-    const { default: QRCodeStyling } = await import("qr-code-styling");
-    const qrCodeStyling = new QRCodeStyling({
-      width: 320,
-      height: 320,
-      type: "svg",
-      data: invoice.payment_request,
-      image: LightningIcon,
-      dotsOptions: { type: "extra-rounded", color: color.primary },
-      backgroundOptions: { color: color.background },
-      cornersSquareOptions: { type: "extra-rounded", color: color.lightning },
-      cornersDotOptions: { color: color.lightning },
-    });
-    qrCodeStyling.append(qrRef.current);
   };
 
   useEffect(async () => {
     if (!invoice.payment_request) {
       dispatch(createInvoice());
-      return;
     }
-    await drawInvoiceQr();
   }, []);
-
-  useEffect(async () => {
-    if (!invoice.payment_request) {
-      return;
-    }
-    await drawInvoiceQr();
-  }, [invoice.payment_request]);
 
   return (
     <LightningSection>
@@ -92,17 +58,17 @@ export default function LightningContainer() {
       {error && (
         <Alert message="라이트닝 인보이스를 발행하지 못했습니다. 잠시 후 다시 확인해주세요." />
       )}
-      <Anchor
-        style={{
-          display: loading || settled || error ? "none" : undefined,
-          filter: expired ? `blur(${unit(1)})` : undefined,
-        }}
-        href={`lightning:${invoice.payment_request}`}
-        target="_blank"
-      >
-        <div data-testid="lightning-qr-element" ref={qrRef} />
-        <p>{invoice.value.toLocaleString("en-US")} sats</p>
-      </Anchor>
+      {!loading && !settled && !error && (
+        <Anchor
+          style={{
+            filter: expired ? `blur(${unit(1)})` : undefined,
+          }}
+          href={`lightning:${invoice.payment_request}`}
+          target="_blank"
+        >
+          <LightningQr invoice={invoice} />
+        </Anchor>
+      )}
       {!loading && settled && (
         <ThanksWrapper>
           <h1>⚡️ 감사합니다! 🤙</h1>
