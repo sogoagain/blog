@@ -54,7 +54,7 @@ describe("LightningContainer", () => {
 
     context("인보이스가 만료되면", () => {
       it("다시 발급하기 버튼을 출력한다", async () => {
-        await new Promise((resolve) => setTimeout(resolve, 3001));
+        await new Promise((resolve) => setTimeout(resolve, 4001));
 
         const reissueButtonEl = screen.getByText("다시 발급하기");
 
@@ -73,7 +73,7 @@ describe("LightningContainer", () => {
 
       it("감사 인사를 출력한다", async () => {
         await act(async () => {
-          await new Promise((resolve) => setTimeout(resolve, 3001));
+          await new Promise((resolve) => setTimeout(resolve, 4001));
         });
         const thanksEl = screen.getByText("⚡️ 감사합니다! 🤙");
 

@@ -90,11 +90,11 @@ export function createInvoice() {
 
       setTimeout(() => {
         dispatch(setExpired(true));
-      }, invoice.expiry * 1000);
+      }, (invoice.expiry - 1) * 1000);
 
       const intervalId = setInterval(
         () => lookupInvoice(intervalId)(dispatch, getState),
-        2000
+        3000
       );
     } catch (err) {
       dispatch(setError(true));

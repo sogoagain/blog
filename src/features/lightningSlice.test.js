@@ -124,7 +124,7 @@ describe("lightning actions", () => {
         beforeEach(() => {
           createLightningInvoice.mockResolvedValue({
             ...LIGHTNING_INVOICE,
-            expiry: 1,
+            expiry: 2,
           });
         });
 
@@ -151,7 +151,7 @@ describe("lightning actions", () => {
         it("settled 상태를 true로 변경한다", async () => {
           await store.dispatch(createInvoice());
 
-          await new Promise((resolve) => setTimeout(resolve, 3001));
+          await new Promise((resolve) => setTimeout(resolve, 4001));
 
           const {
             lightning: { settled },
@@ -171,7 +171,7 @@ describe("lightning actions", () => {
         it("settled 상태를 false로 설정한다", async () => {
           await store.dispatch(createInvoice());
 
-          await new Promise((resolve) => setTimeout(resolve, 3001));
+          await new Promise((resolve) => setTimeout(resolve, 4001));
 
           const {
             lightning: { settled },
