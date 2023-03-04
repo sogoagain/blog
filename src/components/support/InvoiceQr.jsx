@@ -34,10 +34,10 @@ export default function InvoiceQr({ invoice }) {
   }, []);
 
   return (
-    <>
+    <div>
       <div data-testid="lightning-qr-element" ref={qrRef} />
       <TextWrapper>{invoice.value.toLocaleString("en-US")} sats</TextWrapper>
       <TextWrapper>for {invoice.memo}</TextWrapper>
-    </>
+    </div>
   );
 }
