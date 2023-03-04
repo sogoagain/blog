@@ -11,9 +11,15 @@ export async function fetchReadingList({ pageSize, startCursor }) {
   return data;
 }
 
-export async function createLightningInvoice() {
+export async function createLightningInvoice({ amount, memo }) {
   const url = `https://api.sogoagain.com/v1/blog/lightning/invoices`;
-  const response = await fetch(url, { method: "POST" });
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ amount, memo }),
+  });
 
   if (!response.ok) {
     throw new Error("인보이스를 발행하지 못했습니다.");

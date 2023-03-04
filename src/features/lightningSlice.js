@@ -16,10 +16,15 @@ const { actions, reducer } = createSlice({
       r_hash: null,
       payment_request: null,
     },
+    fields: {
+      amount: "",
+      memo: "",
+    },
     settled: false,
     expired: false,
     loading: false,
     error: false,
+    intervalId: null,
   },
   reducers: {
     setInvoice: (state, { payload: invoice }) => ({
@@ -27,6 +32,13 @@ const { actions, reducer } = createSlice({
       invoice: {
         ...state.invoice,
         ...invoice,
+      },
+    }),
+    setField: (state, { payload: { name, value } }) => ({
+      ...state,
+      fields: {
+        ...state.fields,
+        [name]: value,
       },
     }),
     setSettled: (state, { payload: settled }) => ({
@@ -45,13 +57,36 @@ const { actions, reducer } = createSlice({
       ...state,
       error,
     }),
+    setIntervalId: (state, { payload: intervalId }) => ({
+      ...state,
+      intervalId,
+    }),
   },
 });
 
-export const { setInvoice, setSettled, setExpired, setLoading, setError } =
-  actions;
+export const {
+  setInvoice,
+  setField,
+  setSettled,
+  setExpired,
+  setLoading,
+  setError,
+  setIntervalId,
+} = actions;
 
-function lookupInvoice(intervalId) {
+export function pauseInvoiceLookup() {
+  return (dispatch, getState) => {
+    const {
+      lightning: { intervalId },
+    } = getState();
+    if (intervalId) {
+      clearInterval(intervalId);
+      dispatch(setIntervalId(null));
+    }
+  };
+}
+
+function lookupInvoice() {
   return async (dispatch, getState) => {
     const {
       lightning: {
@@ -61,7 +96,7 @@ function lookupInvoice(intervalId) {
     } = getState();
 
     if (expired) {
-      clearInterval(intervalId);
+      dispatch(pauseInvoiceLookup());
       return;
     }
 
@@ -69,7 +104,7 @@ function lookupInvoice(intervalId) {
       const { settled } = await lookupLightningInvoice({ r_hash });
       if (settled) {
         dispatch(setSettled(settled));
-        clearInterval(intervalId);
+        dispatch(pauseInvoiceLookup());
       }
     } catch (err) {
       dispatch(setSettled(false));
@@ -77,11 +112,37 @@ function lookupInvoice(intervalId) {
   };
 }
 
+export function resumeInvoiceLookup() {
+  return (dispatch, getState) => {
+    const {
+      lightning: { settled, expired },
+    } = getState();
+
+    if (settled || expired) {
+      return;
+    }
+
+    const intervalId = setInterval(() => {
+      dispatch(setIntervalId(intervalId));
+      dispatch(lookupInvoice());
+    }, 2000);
+  };
+}
+
 export function createInvoice() {
   return async (dispatch, getState) => {
+    const {
+      lightning: {
+        fields: { amount, memo },
+      },
+    } = getState();
+
     dispatch(setLoading(true));
     try {
-      const invoice = await createLightningInvoice();
+      const invoice = await createLightningInvoice({
+        amount: parseInt(amount, 10),
+        memo,
+      });
       batch(() => {
         dispatch(setInvoice(invoice));
         dispatch(setSettled(false));
@@ -91,11 +152,6 @@ export function createInvoice() {
       setTimeout(() => {
         dispatch(setExpired(true));
       }, (invoice.expiry - 1) * 1000);
-
-      const intervalId = setInterval(
-        () => lookupInvoice(intervalId)(dispatch, getState),
-        3000
-      );
     } catch (err) {
       dispatch(setError(true));
     }

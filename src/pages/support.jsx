@@ -3,7 +3,8 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import PostTitle from "../components/posts/PostTitle";
-import ParticleNetworkBackground from "../components/ParticleNetworkBackground";
+import ParticleNetwork from "../components/support/ParticleNetwork";
+import RespectSatoshi from "../components/support/RespectSatoshi";
 
 import LightningContainer from "../container/LightningContainer";
 import LayoutContainer from "../container/LayoutContainer";
@@ -15,8 +16,9 @@ const SupportSection = styled.section({
   minHeight: base.pageMinHeight,
   padding: `${unit(4)} ${unit(2)}`,
   display: "flex",
+  flexDirection: "column",
   alignItems: "center",
-  justifyContent: "center",
+  justifyContent: "space-between",
   textAlign: "center",
 });
 
@@ -24,12 +26,11 @@ export default function SupportPage({ location }) {
   return (
     <LayoutContainer>
       <SeoContainer title="Support" pathname={location.pathname} />
-      <ParticleNetworkBackground />
+      <ParticleNetwork />
       <SupportSection>
-        <div>
-          <PostTitle>Buy me a 막걸리🌾</PostTitle>
-          <LightningContainer />
-        </div>
+        <PostTitle>ZAP ⚡</PostTitle>
+        <LightningContainer />
+        <RespectSatoshi />
       </SupportSection>
     </LayoutContainer>
   );

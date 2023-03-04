@@ -8,6 +8,7 @@ import lightningReducer, {
   setLoading,
   setError,
   createInvoice,
+  resumeInvoiceLookup,
 } from "./lightningSlice";
 
 import {
@@ -101,13 +102,11 @@ describe("lightning actions", () => {
   describe("createInvoice", () => {
     beforeEach(() => {
       createLightningInvoice.mockClear();
-      lookupLightningInvoice.mockClear();
     });
 
     context("인보이스를 성공적으로 발행한다면", () => {
       beforeEach(() => {
         createLightningInvoice.mockResolvedValue(LIGHTNING_INVOICE);
-        lookupLightningInvoice.mockResolvedValue(LOOKUP_LIGHTNING_INVOICE);
       });
 
       it("인보이스 정보를 설정한다", async () => {
@@ -140,16 +139,49 @@ describe("lightning actions", () => {
           expect(expired).toEqual(true);
         });
       });
+    });
 
+    context("인보이스 발행에 실패한다면", () => {
+      beforeEach(() => {
+        createLightningInvoice.mockRejectedValue(
+          new Error("인보이스를 발행하지 못했습니다.")
+        );
+      });
+
+      it("error 상태를 true로 변경한다", async () => {
+        const { lightning: previousState } = store.getState();
+
+        await store.dispatch(createInvoice());
+
+        const { lightning } = store.getState();
+
+        expect(lightning.invoice).toBe(previousState.invoice);
+        expect(lightning.settled).toBe(previousState.settled);
+        expect(lightning.error).toBe(true);
+      });
+    });
+  });
+
+  describe("resumeInvoiceLookup", () => {
+    beforeEach(() => {
+      createLightningInvoice.mockClear();
+      lookupLightningInvoice.mockClear();
+      createLightningInvoice.mockResolvedValue(LIGHTNING_INVOICE);
+      lookupLightningInvoice.mockResolvedValue(LOOKUP_LIGHTNING_INVOICE);
+    });
+
+    context("인보이스가 유효할 때", () => {
       context("인보이스가 정산되었다면", () => {
         beforeEach(() => {
           lookupLightningInvoice.mockResolvedValue({
+            ...LOOKUP_LIGHTNING_INVOICE,
             settled: true,
           });
         });
 
         it("settled 상태를 true로 변경한다", async () => {
           await store.dispatch(createInvoice());
+          store.dispatch(resumeInvoiceLookup());
 
           await new Promise((resolve) => setTimeout(resolve, 4001));
 
@@ -170,6 +202,7 @@ describe("lightning actions", () => {
 
         it("settled 상태를 false로 설정한다", async () => {
           await store.dispatch(createInvoice());
+          store.dispatch(resumeInvoiceLookup());
 
           await new Promise((resolve) => setTimeout(resolve, 4001));
 
@@ -182,23 +215,13 @@ describe("lightning actions", () => {
       });
     });
 
-    context("인보이스 발행에 실패한다면", () => {
-      beforeEach(() => {
-        createLightningInvoice.mockRejectedValue(
-          new Error("인보이스를 발행하지 못했습니다.")
-        );
-      });
-
-      it("error 상태를 true로 변경한다", async () => {
-        const { lightning: previousState } = store.getState();
-
+    context("인보이스가 만료되었을 때", () => {
+      it("정산 여부를 확인하지 않는다", async () => {
         await store.dispatch(createInvoice());
+        store.dispatch(setExpired(true));
+        store.dispatch(resumeInvoiceLookup());
 
-        const { lightning } = store.getState();
-
-        expect(lightning.invoice).toBe(previousState.invoice);
-        expect(lightning.settled).toBe(previousState.settled);
-        expect(lightning.error).toBe(true);
+        expect(lookupLightningInvoice).not.toBeCalled();
       });
     });
   });

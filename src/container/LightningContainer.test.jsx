@@ -24,6 +24,16 @@ import LOOKUP_LIGHTNING_INVOICE from "../__fixtures__/lookupLightningInvoice";
 jest.mock("../services/blog");
 
 describe("LightningContainer", () => {
+  function requestInvoice() {
+    fireEvent.change(screen.getByPlaceholderText("1000"), {
+      target: { value: "9409" },
+    });
+    fireEvent.change(screen.getByPlaceholderText("PIZZA 🍕"), {
+      target: { value: "오 ~ 막걸리 좋아요!" },
+    });
+    fireEvent.submit(screen.getByRole("button", { name: "인보이스 발급하기" }));
+  }
+
   beforeEach(() => {
     createLightningInvoice.mockClear();
     createLightningInvoice.mockResolvedValue(LIGHTNING_INVOICE);
@@ -34,6 +44,7 @@ describe("LightningContainer", () => {
   context("인보이스를 성공적으로 발행했을 때", () => {
     beforeEach(() => {
       render(<LightningContainer />);
+      requestInvoice();
     });
 
     it("라이트닝 인보이스 QR 코드를 출력한다", () => {
@@ -75,7 +86,7 @@ describe("LightningContainer", () => {
         await act(async () => {
           await new Promise((resolve) => setTimeout(resolve, 4001));
         });
-        const thanksEl = screen.getByText("⚡️ 감사합니다! 🤙");
+        const thanksEl = screen.getByText("감사합니다 🎉");
 
         expect(thanksEl).toBeInTheDocument();
       });
@@ -88,6 +99,7 @@ describe("LightningContainer", () => {
         new Error("인보이스를 발행하지 못했습니다.")
       );
       render(<LightningContainer />);
+      requestInvoice();
     });
 
     it("오류 문구를 출력한다", () => {
@@ -112,18 +124,5 @@ describe("LightningContainer", () => {
 
       expect(createLightningInvoice).toBeCalledTimes(1);
     });
-  });
-
-  it("사토시 나카모토에게 경의를 표하는 문구를 출력한다", () => {
-    render(<LightningContainer />);
-
-    const respectsEl = screen.getByText("Pay my respects to");
-    const satoshiEl = screen.getByText("Satoshi Nakamoto");
-
-    expect(respectsEl).toBeInTheDocument();
-    expect(satoshiEl.closest("a")).toHaveAttribute(
-      "href",
-      "https://bitcoin.org/bitcoin.pdf"
-    );
   });
 });

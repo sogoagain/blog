@@ -55,22 +55,33 @@ describe("SupportPage", () => {
     expect(aboutImageEl).toBeInTheDocument();
   });
 
-  it("후원 문구를 출력한다", () => {
-    const titleEl = screen.getByText("Buy me a 막걸리🌾");
+  it("페이지 제목을 출력한다", () => {
+    const titleEl = screen.getByText("ZAP ⚡");
 
     expect(titleEl).toBeInTheDocument();
   });
 
-  it("라이트닝 인보이스를 출력한다", () => {
-    const qrEl = screen.getByTestId("lightning-qr-element");
+  it("라이트닝 인보이스를 발급하는 form을 출력한다", () => {
+    const inputEl = screen.getByPlaceholderText("1000");
 
-    expect(qrEl).toBeInTheDocument();
+    expect(inputEl).toBeInTheDocument();
   });
 
   it("배경화면에 파티클 효과를 출력한다", () => {
     const particleEl = container.querySelector("#particle-network");
 
     expect(particleEl).toBeInTheDocument();
+  });
+
+  it("사토시 나카모토에게 경의를 표하는 문구를 출력한다", () => {
+    const respectsEl = screen.getByText("Pay my respects to");
+    const satoshiEl = screen.getByText("Satoshi Nakamoto");
+
+    expect(respectsEl).toBeInTheDocument();
+    expect(satoshiEl.closest("a")).toHaveAttribute(
+      "href",
+      "https://bitcoin.org/bitcoin.pdf"
+    );
   });
 
   it("footer를 출력한다", () => {
