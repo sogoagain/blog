@@ -39,6 +39,9 @@ describe("LightningContainer", () => {
     createLightningInvoice.mockResolvedValue(LIGHTNING_INVOICE);
     lookupLightningInvoice.mockClear();
     lookupLightningInvoice.mockResolvedValue(LOOKUP_LIGHTNING_INVOICE);
+    navigator.clipboard = {
+      writeText: jest.fn(),
+    };
   });
 
   context("인보이스를 성공적으로 발행했을 때", () => {
@@ -61,6 +64,18 @@ describe("LightningContainer", () => {
       const amountEl = screen.getByText("9,409 sats");
 
       expect(amountEl).toBeInTheDocument();
+    });
+
+    it("인보이스 텍스트를 복사할 수 있다", async () => {
+      await act(async () => {
+        await fireEvent.click(
+          screen.getByRole("button", { name: "인보이스 복사하기" })
+        );
+      });
+
+      expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
+        "lnbc498132jhakjs..."
+      );
     });
 
     context("인보이스가 만료되면", () => {

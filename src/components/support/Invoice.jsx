@@ -1,16 +1,29 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import styled from "@emotion/styled";
+
+import Alert from "../Alert";
+import Anchor from "../Anchor";
+import Button from "../Button";
 
 import LightningIcon from "../../images/icons/lightning.png";
 
 import { unit, color } from "../../styles";
 
-const TextWrapper = styled.p({
-  margin: `${unit(2)} 0`,
+const BlurWrapper = styled.div({
+  filter: `blur(${unit(1)})`,
 });
 
-export default function Invoice({ invoice }) {
+const TextWrapper = styled.p({
+  margin: `${unit(1)} 0`,
+});
+
+const CopyWrapper = styled.div({
+  marginTop: unit(3),
+});
+
+export default function Invoice({ invoice, expired }) {
+  const [copyStatus, setCopyStatus] = useState(null);
   const qrRef = useRef(null);
 
   const drawInvoiceQr = async () => {
@@ -33,11 +46,34 @@ export default function Invoice({ invoice }) {
     await drawInvoiceQr();
   }, []);
 
+  const handleCopyClick = async () => {
+    await navigator.clipboard.writeText(invoice.payment_request);
+    setCopyStatus("복사되었습니다!");
+  };
+
+  if (expired) {
+    return (
+      <BlurWrapper>
+        <div data-testid="lightning-qr-element" ref={qrRef} />
+        <TextWrapper>{invoice.value.toLocaleString("en-US")} sats</TextWrapper>
+        <TextWrapper>{invoice.memo}</TextWrapper>
+      </BlurWrapper>
+    );
+  }
+
   return (
-    <>
-      <div data-testid="lightning-qr-element" ref={qrRef} />
-      <TextWrapper>{invoice.value.toLocaleString("en-US")} sats</TextWrapper>
-      <TextWrapper>{invoice.memo}</TextWrapper>
-    </>
+    <div>
+      <Anchor href={`lightning:${invoice.payment_request}`} target="_blank">
+        <div data-testid="lightning-qr-element" ref={qrRef} />
+        <TextWrapper>{invoice.value.toLocaleString("en-US")} sats</TextWrapper>
+        <TextWrapper>for {invoice.memo}</TextWrapper>
+      </Anchor>
+      <CopyWrapper>
+        {copyStatus && <Alert message={copyStatus} />}
+        <Button type="button" onClick={handleCopyClick}>
+          인보이스 복사하기
+        </Button>
+      </CopyWrapper>
+    </div>
   );
 }
