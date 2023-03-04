@@ -28,7 +28,7 @@ export default function SupportPage({ location }) {
       <SeoContainer title="Support" pathname={location.pathname} />
       <ParticleNetwork />
       <SupportSection>
-        <PostTitle>ZAP ⚡</PostTitle>
+        <PostTitle>Zap ⚡</PostTitle>
         <LightningContainer />
         <RespectSatoshi />
       </SupportSection>
