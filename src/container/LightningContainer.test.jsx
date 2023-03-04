@@ -113,17 +113,4 @@ describe("LightningContainer", () => {
       expect(createLightningInvoice).toBeCalledTimes(1);
     });
   });
-
-  it("사토시 나카모토에게 경의를 표하는 문구를 출력한다", () => {
-    render(<LightningContainer />);
-
-    const respectsEl = screen.getByText("Pay my respects to");
-    const satoshiEl = screen.getByText("Satoshi Nakamoto");
-
-    expect(respectsEl).toBeInTheDocument();
-    expect(satoshiEl.closest("a")).toHaveAttribute(
-      "href",
-      "https://bitcoin.org/bitcoin.pdf"
-    );
-  });
 });

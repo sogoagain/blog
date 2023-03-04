@@ -7,7 +7,7 @@ import Anchor from "../Anchor";
 import { unit, color } from "../../styles";
 
 const EmWrapper = styled.em({
-  marginTop: unit(5),
+  marginTop: unit(2),
 });
 
 const SatoshiAnchorWrapper = styled(Anchor)`

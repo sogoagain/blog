@@ -4,7 +4,7 @@ import LightningIcon from "../../images/icons/lightning.png";
 
 import { color } from "../../styles";
 
-export default function LightningQr({ invoice }) {
+export default function Invoice({ invoice }) {
   const qrRef = useRef(null);
 
   const drawInvoiceQr = async () => {

@@ -6,7 +6,7 @@ import Alert from "../Alert";
 import Anchor from "../Anchor";
 import Button from "../Button";
 import Spinner from "../Spinner";
-import LightningQr from "./LightningQr";
+import Invoice from "./Invoice";
 import PaymentCompleted from "./PaymentCompleted";
 
 import { unit } from "../../styles";
@@ -37,7 +37,7 @@ export default function Lightning({
     return (
       <>
         <BlurWrapper>
-          <LightningQr invoice={invoice} />
+          <Invoice invoice={invoice} />
         </BlurWrapper>
         <Alert message="인보이스가 만료되었습니다." />
         <Button type="button" onClick={onCreateInvoice}>
@@ -50,7 +50,7 @@ export default function Lightning({
   if (!settled) {
     return (
       <Anchor href={`lightning:${invoice.payment_request}`} target="_blank">
-        <LightningQr invoice={invoice} />
+        <Invoice invoice={invoice} />
       </Anchor>
     );
   }
