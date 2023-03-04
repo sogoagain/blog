@@ -56,7 +56,7 @@ describe("SupportPage", () => {
   });
 
   it("페이지 제목을 출력한다", () => {
-    const titleEl = screen.getByText("ZAP ⚡");
+    const titleEl = screen.getByText("Zap ⚡");
 
     expect(titleEl).toBeInTheDocument();
   });

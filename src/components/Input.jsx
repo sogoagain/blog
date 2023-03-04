@@ -9,6 +9,7 @@ const Input = styled("input")`
   border-bottom: 1px solid black;
   text-align: center;
   padding: ${unit(1)};
+  font-size: ${unit(3)};
   -webkit-text-size-adjust: none;
 `;
 
