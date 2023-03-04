@@ -3,9 +3,9 @@ import React, { useCallback } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 
-import { color } from "../styles";
+import { color } from "../../styles";
 
-export default function ParticleNetworkBackground() {
+export default function ParticleNetwork() {
   const particlesInit = useCallback(async (engine) => {
     await loadFull(engine);
   }, []);

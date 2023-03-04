@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 
-import LightningIcon from "../images/icons/lightning.png";
+import LightningIcon from "../../images/icons/lightning.png";
 
-import { color } from "../styles";
+import { color } from "../../styles";
 
 export default function LightningQr({ invoice }) {
   const qrRef = useRef(null);

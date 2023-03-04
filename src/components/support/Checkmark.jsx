@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export default function CheckmarkAnimation({ duration, size, color }) {
+export default function Checkmark({ duration, size, color }) {
   const [pathLength, setPathLength] = useState(0);
 
   useEffect(() => {

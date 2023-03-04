@@ -3,7 +3,7 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import PostTitle from "../components/posts/PostTitle";
-import ParticleNetworkBackground from "../components/ParticleNetworkBackground";
+import ParticleNetwork from "../components/support/ParticleNetwork";
 
 import LightningContainer from "../container/LightningContainer";
 import LayoutContainer from "../container/LayoutContainer";
@@ -24,7 +24,7 @@ export default function SupportPage({ location }) {
   return (
     <LayoutContainer>
       <SeoContainer title="Support" pathname={location.pathname} />
-      <ParticleNetworkBackground />
+      <ParticleNetwork />
       <SupportSection>
         <div>
           <PostTitle>Buy me a 막걸리🌾</PostTitle>
