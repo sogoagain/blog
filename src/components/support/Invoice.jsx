@@ -1,8 +1,14 @@
 import React, { useEffect, useRef } from "react";
 
+import styled from "@emotion/styled";
+
 import LightningIcon from "../../images/icons/lightning.png";
 
-import { color } from "../../styles";
+import { unit, color } from "../../styles";
+
+const TextWrapper = styled.p({
+  margin: `${unit(2)} 0`,
+});
 
 export default function Invoice({ invoice }) {
   const qrRef = useRef(null);
@@ -30,7 +36,8 @@ export default function Invoice({ invoice }) {
   return (
     <>
       <div data-testid="lightning-qr-element" ref={qrRef} />
-      <p>{invoice.value.toLocaleString("en-US")} sats</p>
+      <TextWrapper>{invoice.value.toLocaleString("en-US")} sats</TextWrapper>
+      <TextWrapper>{invoice.memo}</TextWrapper>
     </>
   );
 }

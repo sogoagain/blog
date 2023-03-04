@@ -5,7 +5,6 @@ import styled from "@emotion/styled";
 import Alert from "../Alert";
 import Anchor from "../Anchor";
 import Button from "../Button";
-import Spinner from "../Spinner";
 import Invoice from "./Invoice";
 import PaymentCompleted from "./PaymentCompleted";
 
@@ -16,19 +15,11 @@ const BlurWrapper = styled.div({
 });
 
 export default function Lightning({
-  lightning: { invoice, settled, expired, loading, error },
+  invoice,
+  settled,
+  expired,
   onCreateInvoice,
 }) {
-  if (loading) {
-    return <Spinner />;
-  }
-
-  if (error) {
-    return (
-      <Alert message="라이트닝 인보이스를 발행하지 못했습니다. 잠시 후 다시 확인해주세요." />
-    );
-  }
-
   if (settled) {
     return <PaymentCompleted />;
   }

@@ -62,7 +62,10 @@ describe("blog", () => {
       });
 
       it("인보이스 정보를 반환한다", async () => {
-        const invoice = await createLightningInvoice();
+        const invoice = await createLightningInvoice({
+          amount: 9409,
+          memo: "오 ~ 막걸리 좋아요!",
+        });
 
         expect(invoice).toEqual(LIGHTNING_INVOICE);
       });
@@ -76,7 +79,10 @@ describe("blog", () => {
 
       it("Error 객체를 던진다", async () => {
         try {
-          await createLightningInvoice();
+          await createLightningInvoice({
+            amount: 9409,
+            memo: "오 ~ 막걸리 좋아요!",
+          });
         } catch (err) {
           expect(err.message).toEqual("인보이스를 발행하지 못했습니다.");
         }

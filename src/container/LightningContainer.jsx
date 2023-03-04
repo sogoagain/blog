@@ -2,9 +2,13 @@ import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
+import Alert from "../components/Alert";
+import Spinner from "../components/Spinner";
+import InvoiceForm from "../components/support/InvoiceForm";
 import Lightning from "../components/support/Lightning";
 
 import {
+  setField,
   createInvoice,
   pauseInvoiceLookup,
   resumeInvoiceLookup,
@@ -12,28 +16,61 @@ import {
 
 export default function LightningContainer() {
   const dispatch = useDispatch();
-  const lightning = useSelector((state) => state.lightning);
+  const { invoice, loading, error, settled, expired, fields } = useSelector(
+    (state) => state.lightning
+  );
+
+  const handleChange = ({ name, value }) => {
+    dispatch(setField({ name, value }));
+  };
+
+  const handleSubmit = () => {
+    dispatch(createInvoice());
+  };
 
   const handleCreateInvoice = () => {
     dispatch(createInvoice());
   };
 
   useEffect(() => {
-    if (lightning.invoice.payment_request) {
+    if (invoice.payment_request) {
       dispatch(resumeInvoiceLookup());
     }
-  }, [lightning.invoice.payment_request]);
+  }, [invoice.payment_request]);
 
-  useEffect(() => {
-    if (!lightning.invoice.payment_request) {
-      dispatch(createInvoice());
-    }
-    return () => {
+  useEffect(
+    () => () => {
       dispatch(pauseInvoiceLookup());
-    };
-  }, []);
+    },
+    []
+  );
+
+  if (loading) {
+    return <Spinner />;
+  }
+
+  if (error) {
+    return (
+      <Alert message="라이트닝 인보이스를 발행하지 못했습니다. 잠시 후 다시 확인해주세요." />
+    );
+  }
+
+  if (!invoice.payment_request) {
+    return (
+      <InvoiceForm
+        fields={fields}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      />
+    );
+  }
 
   return (
-    <Lightning lightning={lightning} onCreateInvoice={handleCreateInvoice} />
+    <Lightning
+      invoice={invoice}
+      settled={settled}
+      expired={expired}
+      onCreateInvoice={handleCreateInvoice}
+    />
   );
 }

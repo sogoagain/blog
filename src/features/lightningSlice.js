@@ -16,6 +16,10 @@ const { actions, reducer } = createSlice({
       r_hash: null,
       payment_request: null,
     },
+    fields: {
+      amount: "",
+      memo: "",
+    },
     settled: false,
     expired: false,
     loading: false,
@@ -28,6 +32,13 @@ const { actions, reducer } = createSlice({
       invoice: {
         ...state.invoice,
         ...invoice,
+      },
+    }),
+    setField: (state, { payload: { name, value } }) => ({
+      ...state,
+      fields: {
+        ...state.fields,
+        [name]: value,
       },
     }),
     setSettled: (state, { payload: settled }) => ({
@@ -55,6 +66,7 @@ const { actions, reducer } = createSlice({
 
 export const {
   setInvoice,
+  setField,
   setSettled,
   setExpired,
   setLoading,
@@ -118,10 +130,19 @@ export function resumeInvoiceLookup() {
 }
 
 export function createInvoice() {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const {
+      lightning: {
+        fields: { amount, memo },
+      },
+    } = getState();
+
     dispatch(setLoading(true));
     try {
-      const invoice = await createLightningInvoice();
+      const invoice = await createLightningInvoice({
+        amount: parseInt(amount, 10),
+        memo,
+      });
       batch(() => {
         dispatch(setInvoice(invoice));
         dispatch(setSettled(false));
