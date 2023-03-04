@@ -24,7 +24,7 @@ export default function PaymentCompleted({ amount }) {
       <TextWrapper>저에게 큰 힘이 됩니다! 🙏</TextWrapper>
       <Player
         autoplay
-        keepLastFrame
+        loop
         src={BitcoinSuccess}
         style={{ height: unit(40), width: unit(40) }}
       />
