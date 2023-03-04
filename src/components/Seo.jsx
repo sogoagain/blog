@@ -10,6 +10,10 @@ export default function Seo({ seo }) {
       title={seo.title}
       titleTemplate={seo.titleTemplate}
     >
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+      />
       <meta name="description" content={seo.description} />
       <meta name="image" content={seo.image} />
       {seo.url && <meta property="og:url" content={seo.url} />}
