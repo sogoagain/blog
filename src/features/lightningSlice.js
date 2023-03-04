@@ -20,6 +20,7 @@ const { actions, reducer } = createSlice({
     expired: false,
     loading: false,
     error: false,
+    intervalId: null,
   },
   reducers: {
     setInvoice: (state, { payload: invoice }) => ({
@@ -45,13 +46,35 @@ const { actions, reducer } = createSlice({
       ...state,
       error,
     }),
+    setIntervalId: (state, { payload: intervalId }) => ({
+      ...state,
+      intervalId,
+    }),
   },
 });
 
-export const { setInvoice, setSettled, setExpired, setLoading, setError } =
-  actions;
+export const {
+  setInvoice,
+  setSettled,
+  setExpired,
+  setLoading,
+  setError,
+  setIntervalId,
+} = actions;
 
-function lookupInvoice(intervalId) {
+export function pauseInvoiceLookup() {
+  return (dispatch, getState) => {
+    const {
+      lightning: { intervalId },
+    } = getState();
+    if (intervalId) {
+      clearInterval(intervalId);
+      dispatch(setIntervalId(null));
+    }
+  };
+}
+
+function lookupInvoice() {
   return async (dispatch, getState) => {
     const {
       lightning: {
@@ -61,7 +84,7 @@ function lookupInvoice(intervalId) {
     } = getState();
 
     if (expired) {
-      clearInterval(intervalId);
+      dispatch(pauseInvoiceLookup());
       return;
     }
 
@@ -69,7 +92,7 @@ function lookupInvoice(intervalId) {
       const { settled } = await lookupLightningInvoice({ r_hash });
       if (settled) {
         dispatch(setSettled(settled));
-        clearInterval(intervalId);
+        dispatch(pauseInvoiceLookup());
       }
     } catch (err) {
       dispatch(setSettled(false));
@@ -77,8 +100,25 @@ function lookupInvoice(intervalId) {
   };
 }
 
+export function resumeInvoiceLookup() {
+  return (dispatch, getState) => {
+    const {
+      lightning: { settled, expired },
+    } = getState();
+
+    if (settled || expired) {
+      return;
+    }
+
+    const intervalId = setInterval(() => {
+      dispatch(setIntervalId(intervalId));
+      dispatch(lookupInvoice());
+    }, 2000);
+  };
+}
+
 export function createInvoice() {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     dispatch(setLoading(true));
     try {
       const invoice = await createLightningInvoice();
@@ -91,11 +131,6 @@ export function createInvoice() {
       setTimeout(() => {
         dispatch(setExpired(true));
       }, (invoice.expiry - 1) * 1000);
-
-      const intervalId = setInterval(
-        () => lookupInvoice(intervalId)(dispatch, getState),
-        3000
-      );
     } catch (err) {
       dispatch(setError(true));
     }

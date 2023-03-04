@@ -47,11 +47,9 @@ export default function Lightning({
     );
   }
 
-  if (!settled) {
-    return (
-      <Anchor href={`lightning:${invoice.payment_request}`} target="_blank">
-        <Invoice invoice={invoice} />
-      </Anchor>
-    );
-  }
+  return (
+    <Anchor href={`lightning:${invoice.payment_request}`} target="_blank">
+      <Invoice invoice={invoice} />
+    </Anchor>
+  );
 }

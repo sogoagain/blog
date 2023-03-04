@@ -4,7 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Lightning from "../components/support/Lightning";
 
-import { createInvoice } from "../features/lightningSlice";
+import {
+  createInvoice,
+  pauseInvoiceLookup,
+  resumeInvoiceLookup,
+} from "../features/lightningSlice";
 
 export default function LightningContainer() {
   const dispatch = useDispatch();
@@ -14,10 +18,19 @@ export default function LightningContainer() {
     dispatch(createInvoice());
   };
 
-  useEffect(async () => {
+  useEffect(() => {
+    if (lightning.invoice.payment_request) {
+      dispatch(resumeInvoiceLookup());
+    }
+  }, [lightning.invoice.payment_request]);
+
+  useEffect(() => {
     if (!lightning.invoice.payment_request) {
       dispatch(createInvoice());
     }
+    return () => {
+      dispatch(pauseInvoiceLookup());
+    };
   }, []);
 
   return (
