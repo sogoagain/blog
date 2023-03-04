@@ -6,7 +6,6 @@ import Alert from "../Alert";
 import Anchor from "../Anchor";
 import Button from "../Button";
 import Invoice from "./Invoice";
-import PaymentCompleted from "./PaymentCompleted";
 
 import { unit } from "../../styles";
 
@@ -14,16 +13,7 @@ const BlurWrapper = styled.div({
   filter: `blur(${unit(1)})`,
 });
 
-export default function Lightning({
-  invoice,
-  settled,
-  expired,
-  onCreateInvoice,
-}) {
-  if (settled) {
-    return <PaymentCompleted />;
-  }
-
+export default function Lightning({ invoice, expired, onCreateInvoice }) {
   if (expired) {
     return (
       <>

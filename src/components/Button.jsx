@@ -9,12 +9,13 @@ const Button = styled("button")`
   appearance: none;
   padding: ${unit(1)} ${unit(2)};
   border-radius: ${unit(1)};
+  border: 1px solid black;
   cursor: pointer;
-  border: 0;
   transition: all 100ms linear;
 
   &:hover {
     color: ${color.brand};
+    border: 1px solid ${color.brand};
   }
 `;
 

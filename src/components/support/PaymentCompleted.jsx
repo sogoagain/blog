@@ -2,19 +2,32 @@ import React from "react";
 
 import styled from "@emotion/styled";
 
-import Checkmark from "./Checkmark";
+import { Player } from "@lottiefiles/react-lottie-player";
 
-import { unit, color } from "../../styles";
+import BitcoinSuccess from "./bitcoin_success.json";
 
-const ThanksWrapper = styled.div({
-  margin: `${unit(10)} 0`,
+import { unit } from "../../styles";
+
+const HeaderWrapper = styled.h2({
+  marginBottom: unit(3),
 });
 
-export default function PaymentCompleted() {
+const TextWrapper = styled.p({
+  margin: `${unit(1)} 0`,
+});
+
+export default function PaymentCompleted({ amount }) {
   return (
-    <ThanksWrapper>
-      <h1>⚡️ 감사합니다! 🤙</h1>
-      <Checkmark duration={800} size={50} color={color.lightning} />
-    </ThanksWrapper>
+    <div>
+      <HeaderWrapper>감사합니다 🎉</HeaderWrapper>
+      <TextWrapper>소중한 {amount.toLocaleString("en-US")} sats</TextWrapper>
+      <TextWrapper>저에게 큰 힘이 됩니다! 🙏</TextWrapper>
+      <Player
+        autoplay
+        keepLastFrame
+        src={BitcoinSuccess}
+        style={{ height: unit(40), width: unit(40) }}
+      />
+    </div>
   );
 }

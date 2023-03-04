@@ -86,7 +86,7 @@ describe("LightningContainer", () => {
         await act(async () => {
           await new Promise((resolve) => setTimeout(resolve, 4001));
         });
-        const thanksEl = screen.getByText("⚡️ 감사합니다! 🤙");
+        const thanksEl = screen.getByText("감사합니다 🎉");
 
         expect(thanksEl).toBeInTheDocument();
       });

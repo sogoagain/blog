@@ -6,6 +6,7 @@ import Alert from "../components/Alert";
 import Spinner from "../components/Spinner";
 import InvoiceForm from "../components/support/InvoiceForm";
 import Lightning from "../components/support/Lightning";
+import PaymentCompleted from "../components/support/PaymentCompleted";
 
 import {
   setField,
@@ -63,6 +64,10 @@ export default function LightningContainer() {
         onSubmit={handleSubmit}
       />
     );
+  }
+
+  if (settled) {
+    return <PaymentCompleted amount={invoice.value} />;
   }
 
   return (
