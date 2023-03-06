@@ -1,19 +1,18 @@
 ---
-date: "2022-07-17"
+date: "2023-03-06"
 title: "About"
 ---
 
-## 견고한 시스템을 개발하는 개발자입니다.
+## 소프트웨어 개발에 관해 이야기합니다.
 
-- TDD(테스트 주도 개발) 방법론을 실천하며 자동화된 테스트를 개발 과정에 적극적으로 활용합니다.
-- 애자일, 그 중에서도 eXtreme Programming에 관심이 많습니다.
+- 견고한 시스템을 만듭니다.
+- 테스트 코드를 먼저 작성하는 것이 당연하다고 생각합니다.
+- 애자일, 그 중에서도 eXtreme Programming을 좋아합니다.
 
-## 비트코인에 관심이 많습니다.
+## 비트코인에 관해 이야기합니다.
 
-- [Bitcoin 프로젝트 Contributor](https://github.com/bitcoin/bitcoin/pulls?q=is%3Apr+is%3Aclosed+author%3Asogoagain) 입니다.
+- [Bitcoin Core](https://github.com/bitcoin/bitcoin/pulls?q=is%3Apr+is%3Aclosed+author%3Asogoagain) 프로젝트 기여자입니다.
+- 화폐 혁명으로서 비트코인이 많은 문제를 해결하리라 생각합니다.
+- 겸손한 마음으로 탐구하며 배우고 있습니다.
 
-## 투자 시장에서 경험치를 쌓고 있습니다.
-
-- Python을 활용하여 암호화폐 트레이딩 봇을 개발/운영한 경험이 있습니다.
-
-## 독서목록
+## 독서 목록
