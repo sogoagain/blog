@@ -5,8 +5,8 @@ import styled from "@emotion/styled";
 import { color, unit } from "../../styles";
 
 const HeroWrapper = styled.div({
-  height: unit(30),
-  backgroundColor: color.brand,
+  height: unit(20),
+  backgroundColor: color.background,
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -15,7 +15,7 @@ const HeroWrapper = styled.div({
 const HeroText = styled.h1({
   fontFamily: "D2Coding, monospace",
   fontSize: unit(4),
-  color: color.background,
+  color: color.brand,
   textAlign: "center",
 });
 
