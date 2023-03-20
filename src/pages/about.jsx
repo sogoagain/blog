@@ -2,21 +2,11 @@ import React from "react";
 
 import { graphql } from "gatsby";
 
-import styled from "@emotion/styled";
-
 import PostStyle from "../components/posts/PostStyle";
 
-import HeroContainer from "../container/HeroContainer";
 import LayoutContainer from "../container/LayoutContainer";
 import ReadingListContainer from "../container/ReadingListContainer";
 import SeoContainer from "../container/SeoContainer";
-
-import { unit } from "../styles";
-
-const AboutSection = styled.article({
-  padding: `${unit(1)} ${unit(2)}`,
-  margin: "0 auto",
-});
 
 export default function AboutPage({
   data: {
@@ -34,11 +24,10 @@ export default function AboutPage({
         description={title}
         pathname={location.pathname}
       />
-      <HeroContainer />
-      <AboutSection>
+      <article>
         <PostStyle html={html} />
         <ReadingListContainer />
-      </AboutSection>
+      </article>
     </LayoutContainer>
   );
 }

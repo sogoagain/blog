@@ -6,15 +6,27 @@ import Footer from "./Footer";
 
 describe("<Footer/>", () => {
   const title = "SOGOAGAIN";
-  const rss = "/rss.xml";
-  const social = {
-    email: "test@gmail.com",
-    github: "https://github.com/sogoagain",
-    twitter: "https://twitter.com/sogoagain",
-  };
+  const links = [
+    {
+      text: "Email",
+      href: `mailto:test@gmail.com`,
+    },
+    {
+      text: "GitHub",
+      href: `https://github.com/sogoagain`,
+    },
+    {
+      text: "Twitter",
+      href: `https://twitter.com/sogoagain`,
+    },
+    {
+      text: "Nostr",
+      href: `https://snort.social/p/1234`,
+    },
+  ];
 
   beforeEach(() => {
-    render(<Footer title={title} rss={rss} social={social} />);
+    render(<Footer title={title} links={links} />);
   });
 
   it("블로그 제작 정보를 출력한다", () => {
@@ -24,25 +36,15 @@ describe("<Footer/>", () => {
     expect(copyrightEl).toBeInTheDocument();
   });
 
-  it("RSS 링크를 출력한다", () => {
-    const rssEl = screen.getByAltText("RSS");
-
-    expect(rssEl).toBeInTheDocument();
-    expect(rssEl.closest("a")).toHaveAttribute("href", "/rss.xml");
-  });
-
   it.each`
-    socialName   | link
-    ${"Email"}   | ${`mailto:${social.email}`}
-    ${"GitHub"}  | ${social.github}
-    ${"Twitter"} | ${social.twitter}
-  `(
-    "'$socialName'(으)로 이동하는 '$link'를 출력한다",
-    ({ socialName, link }) => {
-      const socialEl = screen.getByAltText(socialName);
+    text         | link
+    ${"Email"}   | ${`mailto:test@gmail.com`}
+    ${"GitHub"}  | ${`https://github.com/sogoagain`}
+    ${"Twitter"} | ${`https://twitter.com/sogoagain`}
+    ${"Nostr"}   | ${`https://snort.social/p/1234`}
+  `("'$text'(으)로 이동하는 '$link'를 출력한다", ({ text, link }) => {
+    const linkEl = screen.getByText(text);
 
-      expect(socialEl).toBeInTheDocument();
-      expect(socialEl.closest("a")).toHaveAttribute("href", link);
-    }
-  );
+    expect(linkEl).toHaveAttribute("href", link);
+  });
 });

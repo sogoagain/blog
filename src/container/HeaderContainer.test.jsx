@@ -1,79 +1,49 @@
 import React from "react";
 
-import { waitFor } from "@testing-library/react";
-
 import { useStaticQuery } from "gatsby";
 
 import { render, screen } from "../testUtils";
 
-import { fetchGithubUser } from "../services/github";
-
 import HeaderContainer from "./HeaderContainer";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
-import GITHUB_USER from "../__fixtures__/githubUser";
 
 jest.mock("../services/github");
 
 describe("HeaderContainer", () => {
   beforeEach(() => {
-    fetchGithubUser.mockClear();
-    fetchGithubUser.mockResolvedValue(GITHUB_USER);
     useStaticQuery.mockReturnValue(SITE_QUERY);
   });
 
-  it("타이틀을 출력한다", async () => {
+  it("홈 페이지 링크를 출력한다", async () => {
     render(<HeaderContainer />);
 
-    const titleEl = screen.getByText("SOGOAGAIN");
+    const titleEl = screen.getByText("홈");
 
-    expect(titleEl).toBeInTheDocument();
+    expect(titleEl).toHaveAttribute("href", "/");
   });
 
-  it("후원 페이지 링크를 출력한다", () => {
+  it("비트코인 페이지 링크를 출력한다", () => {
     render(<HeaderContainer />);
 
-    const supportImageEl = screen.getByAltText("Support");
+    const bitcoinEl = screen.getByText("비트코인");
 
-    expect(supportImageEl.closest("a")).toHaveAttribute("href", "/support");
+    expect(bitcoinEl).toHaveAttribute("href", "/bitcoin");
   });
 
   it("소개 페이지 링크를 출력한다", () => {
     render(<HeaderContainer />);
 
-    const aboutImageEl = screen.getByAltText("About");
+    const aboutEl = screen.getByText("소개");
 
-    expect(aboutImageEl.closest("a")).toHaveAttribute("href", "/about");
+    expect(aboutEl).toHaveAttribute("href", "/about");
   });
 
-  context("github 프로필 이미지를 불러오면", () => {
-    it("불러온 프로필 이미지를 출력한다", async () => {
-      render(<HeaderContainer />);
+  it("RSS 링크를 출력한다", () => {
+    render(<HeaderContainer />);
 
-      await waitFor(() => {
-        const profileImageEl = screen.getByAltText("About");
-        expect(profileImageEl.src).toEqual(
-          "https://github.com/images/error/octocat_happy.gif"
-        );
-      });
-    });
-  });
+    const rssEl = screen.getByText("RSS");
 
-  context("github 프로필 이미지를 불러오지 못하면", () => {
-    beforeEach(() => {
-      fetchGithubUser.mockClear();
-      fetchGithubUser.mockRejectedValue(
-        new Error("Github User 데이터를 가져오지 못했습니다.")
-      );
-    });
-
-    it("기본 프로필 이미지를 출력한다", async () => {
-      render(<HeaderContainer />);
-
-      await waitFor(() => {
-        const profileImageEl = screen.getByAltText("About");
-        expect(profileImageEl.src).toEqual("http://localhost/test-file-stub");
-      });
-    });
+    expect(rssEl).toHaveAttribute("href", "/rss.xml");
   });
 });

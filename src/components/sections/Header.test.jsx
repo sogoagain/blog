@@ -5,74 +5,48 @@ import { render, screen } from "@testing-library/react";
 import Header from "./Header";
 
 describe("<Header/>", () => {
-  const title = {
-    text: "sogoaogain 블로그",
-    to: "/",
-  };
-  const aboutImageSrc = "https://avatars.githubusercontent.com/u/23417465?v=4";
+  const menus = [
+    { text: "홈", to: "/" },
+    {
+      text: "비트코인",
+      to: "/bitcoin",
+    },
+    {
+      text: "소개",
+      to: "/about",
+    },
+    { text: "RSS", to: "/rss.xml" },
+  ];
 
-  function renderHeader(aboutImage) {
-    const links = {
-      support: {
-        link: "/support",
-        title: "Support",
-      },
-      about: {
-        link: "/about",
-        image: aboutImage,
-        title: "About",
-      },
-    };
+  it("홈 페이지 링크를 출력한다", () => {
+    render(<Header menus={menus} />);
 
-    render(<Header title={title} links={links} />);
-  }
+    const titleEl = screen.getByText("홈");
 
-  it("블로그 제목을 출력한다", () => {
-    renderHeader(aboutImageSrc);
-
-    const titleEl = screen.getByText(title.text);
-
-    expect(titleEl).toBeInTheDocument();
-    expect(titleEl).toHaveAttribute("href", title.to);
+    expect(titleEl).toHaveAttribute("href", "/");
   });
 
-  context("about.image가 없으면", () => {
-    it("기본 프로필 이미지를 출력한다", () => {
-      renderHeader(null);
+  it("비트코인 페이지 링크를 출력한다", () => {
+    render(<Header menus={menus} />);
 
-      const aboutImageEl = screen.getByAltText("About");
+    const bitcoinEl = screen.getByText("비트코인");
 
-      expect(aboutImageEl).toBeInTheDocument();
-      expect(aboutImageEl.src).toEqual("http://localhost/test-file-stub");
-    });
-  });
-
-  context("about.image가 있으면", () => {
-    it("이미지를 출력한다", () => {
-      renderHeader(aboutImageSrc);
-
-      const aboutImageEl = screen.getByAltText("About");
-
-      expect(aboutImageEl).toHaveAttribute("src", aboutImageSrc);
-      expect(aboutImageEl.src).toEqual(
-        "https://avatars.githubusercontent.com/u/23417465?v=4"
-      );
-    });
-  });
-
-  it("후원 페이지 링크를 출력한다", () => {
-    renderHeader(aboutImageSrc);
-
-    const supportImageEl = screen.getByAltText("Support");
-
-    expect(supportImageEl.closest("a")).toHaveAttribute("href", "/support");
+    expect(bitcoinEl).toHaveAttribute("href", "/bitcoin");
   });
 
   it("소개 페이지 링크를 출력한다", () => {
-    renderHeader(aboutImageSrc);
+    render(<Header menus={menus} />);
 
-    const aboutImageEl = screen.getByAltText("About");
+    const aboutEl = screen.getByText("소개");
 
-    expect(aboutImageEl.closest("a")).toHaveAttribute("href", "/about");
+    expect(aboutEl).toHaveAttribute("href", "/about");
+  });
+
+  it("RSS 링크를 출력한다", () => {
+    render(<Header menus={menus} />);
+
+    const rssEl = screen.getByText("RSS");
+
+    expect(rssEl).toHaveAttribute("href", "/rss.xml");
   });
 });

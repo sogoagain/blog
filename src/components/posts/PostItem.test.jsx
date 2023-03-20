@@ -8,18 +8,12 @@ describe("<PostItem/>", () => {
   const post = {
     slug: "/2021/doubling-ratio/",
     date: "2021-01-20",
-    subtitle: "내가 작성한 로직의 복잡도는 얼마나 될까?",
     title: "더블링 테스트, 알고리즘 복잡도를 실험으로 예측하는 방법",
   };
 
   beforeEach(() => {
     render(
-      <PostItem
-        title={post.title}
-        subtitle={post.subtitle}
-        date={post.date}
-        to={`/posts${post.slug}`}
-      />
+      <PostItem title={post.title} date={post.date} to={`/posts${post.slug}`} />
     );
   });
 
@@ -27,12 +21,6 @@ describe("<PostItem/>", () => {
     const titleEl = screen.getByText(post.title);
 
     expect(titleEl).toBeInTheDocument();
-  });
-
-  it("부제목을 출력한다", () => {
-    const subtitleEl = screen.getByText(post.subtitle);
-
-    expect(subtitleEl).toBeInTheDocument();
   });
 
   it("작성 일자를 출력한다", () => {
@@ -43,11 +31,10 @@ describe("<PostItem/>", () => {
   });
 
   it("링크를 출력한다", () => {
-    const linkEl = screen.getByRole("listitem").firstChild;
+    const linkEl = screen.getByRole("link", {
+      name: "더블링 테스트, 알고리즘 복잡도를 실험으로 예측하는 방법",
+    });
 
-    expect(linkEl.closest("a")).toHaveAttribute(
-      "href",
-      "/posts/2021/doubling-ratio/"
-    );
+    expect(linkEl).toHaveAttribute("href", "/posts/2021/doubling-ratio/");
   });
 });

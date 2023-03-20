@@ -39,13 +39,13 @@ describe("PostPage", () => {
   });
 
   it("header를 출력한다", () => {
-    const titleEl = screen.getByText("SOGOAGAIN");
-    const supportImageEl = screen.getByAltText("Support");
-    const aboutImageEl = screen.getByAltText("About");
+    const titleEl = screen.getByText("홈");
+    const bitcoinEl = screen.getByText("비트코인");
+    const aboutEl = screen.getByText("소개");
 
     expect(titleEl).toBeInTheDocument();
-    expect(supportImageEl).toBeInTheDocument();
-    expect(aboutImageEl).toBeInTheDocument();
+    expect(bitcoinEl).toBeInTheDocument();
+    expect(aboutEl).toBeInTheDocument();
   });
 
   it("포스트 제목을 출력한다", () => {
@@ -75,11 +75,8 @@ describe("PostPage", () => {
   });
 
   it("footer를 출력한다", () => {
-    const year = new Date().getFullYear();
-    const copyrightEl = screen.getByText(
-      `${SITE_QUERY.site.siteMetadata.title} ©${year}`
-    );
+    const goTopEl = screen.getByText("↑ 처음으로");
 
-    expect(copyrightEl).toBeInTheDocument();
+    expect(goTopEl).toBeInTheDocument();
   });
 });

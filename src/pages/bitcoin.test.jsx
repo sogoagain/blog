@@ -13,7 +13,7 @@ import {
   lookupLightningInvoice,
 } from "../services/blog";
 
-import SupportPage from "./support";
+import BitcoinPage from "./bitcoin";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
 import GITHUB_USER from "../__fixtures__/githubUser";
@@ -23,7 +23,7 @@ import LOOKUP_LIGHTNING_INVOICE from "../__fixtures__/lookupLightningInvoice";
 jest.mock("../services/github");
 jest.mock("../services/blog");
 
-describe("SupportPage", () => {
+describe("BitcoinPage", () => {
   let container;
 
   beforeEach(() => {
@@ -37,7 +37,7 @@ describe("SupportPage", () => {
       ...SITE_QUERY,
     });
 
-    const result = render(<SupportPage location={{ pathname: "/support" }} />);
+    const result = render(<BitcoinPage location={{ pathname: "/support" }} />);
     container = result.container;
   });
 
@@ -46,13 +46,13 @@ describe("SupportPage", () => {
   });
 
   it("header를 출력한다", () => {
-    const titleEl = screen.getByText("SOGOAGAIN");
-    const supportImageEl = screen.getByAltText("Support");
-    const aboutImageEl = screen.getByAltText("About");
+    const titleEl = screen.getByText("홈");
+    const bitcoinEl = screen.getByText("비트코인");
+    const aboutEl = screen.getByText("소개");
 
     expect(titleEl).toBeInTheDocument();
-    expect(supportImageEl).toBeInTheDocument();
-    expect(aboutImageEl).toBeInTheDocument();
+    expect(bitcoinEl).toBeInTheDocument();
+    expect(aboutEl).toBeInTheDocument();
   });
 
   it("페이지 제목을 출력한다", () => {
@@ -85,11 +85,8 @@ describe("SupportPage", () => {
   });
 
   it("footer를 출력한다", () => {
-    const year = new Date().getFullYear();
-    const copyrightEl = screen.getByText(
-      `${SITE_QUERY.site.siteMetadata.title} ©${year}`
-    );
+    const goTopEl = screen.getByText("↑ 처음으로");
 
-    expect(copyrightEl).toBeInTheDocument();
+    expect(goTopEl).toBeInTheDocument();
   });
 });

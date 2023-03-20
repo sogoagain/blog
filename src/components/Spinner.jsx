@@ -9,11 +9,11 @@ const spin = keyframes`
 `;
 
 const Spinner = styled.div({
-  width: unit(5),
-  height: unit(5),
-  border: `${unit(0.4)} solid rgb(15 15 15 / 10%)`,
+  width: unit(2),
+  height: unit(2),
+  border: `${unit(0.2)} solid rgb(15 15 15 / 10%)`,
   borderRadius: "50%",
-  borderTopColor: color.brand,
+  borderTopColor: color.primary,
   animation: `${spin} 1s ease-in-out infinite`,
 });
 

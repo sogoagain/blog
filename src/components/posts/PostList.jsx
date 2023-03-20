@@ -6,6 +6,7 @@ import PostItem from "./PostItem";
 
 const OrderedList = styled.ol({
   listStyle: "none",
+  paddingLeft: 0,
 });
 
 export default function PostList({ posts, basePath }) {

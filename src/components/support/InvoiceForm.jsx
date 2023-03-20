@@ -1,25 +1,5 @@
 import React from "react";
 
-import styled from "@emotion/styled";
-
-import Input from "../Input";
-import Button from "../Button";
-
-import { unit } from "../../styles";
-
-const FormWrapper = styled.form({
-  minHeight: unit(40),
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  textAlign: "center",
-});
-
-const FormElementWrapper = styled.div({
-  marginBottom: unit(4),
-});
-
 export default function InvoiceForm({
   fields: { amount, memo },
   onChange,
@@ -35,9 +15,9 @@ export default function InvoiceForm({
   };
 
   return (
-    <FormWrapper onSubmit={handleSubmit}>
-      <FormElementWrapper>
-        <Input
+    <form onSubmit={handleSubmit}>
+      <div>
+        <input
           name="amount"
           type="number"
           placeholder="1000"
@@ -50,10 +30,10 @@ export default function InvoiceForm({
           required
         />
         <span>sats</span>
-      </FormElementWrapper>
-      <FormElementWrapper>
+      </div>
+      <div>
         <span>for</span>
-        <Input
+        <input
           name="memo"
           type="text"
           placeholder="PIZZA 🍕"
@@ -62,8 +42,8 @@ export default function InvoiceForm({
           onChange={(e) => handleChange("memo", e.target.value)}
           required
         />
-      </FormElementWrapper>
-      <Button type="submit">인보이스 발급하기</Button>
-    </FormWrapper>
+      </div>
+      <button type="submit">인보이스 발급하기</button>
+    </form>
   );
 }

@@ -11,7 +11,7 @@ module.exports = {
     "Software",
     "Developer",
     "Engineering",
-    "Test Driven Development",
+    "TDD",
     "Agile",
     "eXtreme Programming",
     "Bitcoin",

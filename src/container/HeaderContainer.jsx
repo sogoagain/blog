@@ -1,33 +1,15 @@
-import React, { useEffect } from "react";
-
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 
 import { graphql, useStaticQuery } from "gatsby";
 
-import styled from "@emotion/styled";
-
 import Header from "../components/sections/Header";
-
-import { loadProfileImageSrc } from "../features/profileSlice";
-
-import { unit } from "../styles";
-
-const HeaderSection = styled.div({
-  position: "sticky",
-  padding: `${unit(1)} ${unit(2)}`,
-  backdropFilter: `blur(${unit(0.4)})`,
-  backgroundColor: "rgba(255, 255, 255, 0.8)",
-  top: 0,
-  zIndex: 1,
-});
 
 const query = graphql`
   query {
     site {
       siteMetadata {
-        title
-        social {
-          github
+        link {
+          rss
         }
       }
     }
@@ -38,40 +20,23 @@ export default function HeaderContainer() {
   const {
     site: {
       siteMetadata: {
-        title,
-        social: { github },
+        link: { rss },
       },
     },
   } = useStaticQuery(query);
 
-  const dispatch = useDispatch();
-  const {
-    image: { src },
-  } = useSelector((state) => state.profile);
+  const menus = [
+    { text: "홈", to: "/" },
+    {
+      text: "비트코인",
+      to: "/bitcoin",
+    },
+    {
+      text: "소개",
+      to: "/about",
+    },
+    { text: "RSS", to: rss },
+  ];
 
-  useEffect(() => {
-    dispatch(loadProfileImageSrc(github));
-  }, []);
-
-  return (
-    <HeaderSection>
-      <Header
-        title={{
-          text: title,
-          to: "/",
-        }}
-        links={{
-          support: {
-            link: "/support",
-            title: "Support",
-          },
-          about: {
-            link: "/about",
-            image: src,
-            title: "About",
-          },
-        }}
-      />
-    </HeaderSection>
-  );
+  return <Header menus={menus} />;
 }

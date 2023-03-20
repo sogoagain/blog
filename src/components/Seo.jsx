@@ -10,6 +10,7 @@ export default function Seo({ seo }) {
       title={seo.title}
       titleTemplate={seo.titleTemplate}
     >
+      <meta name="color-scheme" content="light" />
       <meta
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
