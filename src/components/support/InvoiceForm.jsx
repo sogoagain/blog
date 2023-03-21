@@ -1,5 +1,11 @@
 import React from "react";
 
+import styled from "@emotion/styled";
+
+const InputWrapper = styled.div`
+  margin: 0 0 0.5rem;
+`;
+
 export default function InvoiceForm({
   fields: { amount, memo },
   onChange,
@@ -16,7 +22,7 @@ export default function InvoiceForm({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
+      <InputWrapper>
         <input
           name="amount"
           type="number"
@@ -29,10 +35,10 @@ export default function InvoiceForm({
           }}
           required
         />
-        <span>sats</span>
-      </div>
-      <div>
-        <span>for</span>
+        <span> sats</span>
+      </InputWrapper>
+      <InputWrapper>
+        <span>for </span>
         <input
           name="memo"
           type="text"
@@ -42,7 +48,7 @@ export default function InvoiceForm({
           onChange={(e) => handleChange("memo", e.target.value)}
           required
         />
-      </div>
+      </InputWrapper>
       <button type="submit">인보이스 발급하기</button>
     </form>
   );

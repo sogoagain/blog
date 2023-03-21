@@ -61,7 +61,7 @@ describe("LightningContainer", () => {
     });
 
     it("사토시 수량을 출력한다", () => {
-      const amountEl = screen.getByText("9,409 sats");
+      const amountEl = screen.getByText("9,409 sats for 오 ~ 막걸리 좋아요!");
 
       expect(amountEl).toBeInTheDocument();
     });

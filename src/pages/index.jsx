@@ -9,7 +9,7 @@ export default function IndexPage({ location }) {
   return (
     <LayoutContainer>
       <SeoContainer titleTemplate="%s 블로그" pathname={location.pathname} />
-      <h1>so, go again</h1>
+      <h1>SOGOAGAIN</h1>
       <p>
         <HeroContainer />
       </p>

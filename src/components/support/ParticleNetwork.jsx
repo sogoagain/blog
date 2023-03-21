@@ -3,8 +3,6 @@ import React, { useCallback } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 
-import { color } from "../../styles";
-
 export default function ParticleNetwork() {
   const particlesInit = useCallback(async (engine) => {
     await loadFull(engine);
@@ -47,10 +45,10 @@ export default function ParticleNetwork() {
         },
         particles: {
           color: {
-            value: color.brand,
+            value: "#9e9eff",
           },
           links: {
-            color: color.bitcoin,
+            color: "#9e9eff",
             distance: 150,
             enable: true,
             opacity: 0.5,
