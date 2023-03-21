@@ -6,8 +6,6 @@ import { useStaticQuery } from "gatsby";
 
 import { render, screen } from "../testUtils";
 
-import { fetchGithubUser } from "../services/github";
-
 import {
   createLightningInvoice,
   lookupLightningInvoice,
@@ -16,19 +14,15 @@ import {
 import BitcoinPage from "./bitcoin";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
-import GITHUB_USER from "../__fixtures__/githubUser";
 import LIGHTNING_INVOICE from "../__fixtures__/lightningInvoice";
 import LOOKUP_LIGHTNING_INVOICE from "../__fixtures__/lookupLightningInvoice";
 
-jest.mock("../services/github");
 jest.mock("../services/blog");
 
 describe("BitcoinPage", () => {
   let container;
 
   beforeEach(() => {
-    fetchGithubUser.mockClear();
-    fetchGithubUser.mockResolvedValue(GITHUB_USER);
     createLightningInvoice.mockClear();
     createLightningInvoice.mockResolvedValue(LIGHTNING_INVOICE);
     lookupLightningInvoice.mockClear();

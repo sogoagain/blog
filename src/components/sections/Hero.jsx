@@ -1,13 +1,11 @@
 import React from "react";
 
-import styled from "@emotion/styled";
-
-const HeroText = styled.h1({
-  fontFamily: "monospace",
-});
-
 function Hero({ text }) {
-  return <HeroText>{text}</HeroText>;
+  return (
+    <strong>
+      <code>{text}</code>
+    </strong>
+  );
 }
 
 export default Hero;

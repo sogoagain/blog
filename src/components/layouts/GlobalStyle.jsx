@@ -45,6 +45,7 @@ export default function GlobalStyle() {
           margin: 4px 15px;
         }
         img {
+          border: 1px solid lightgrey;
           height: auto;
           max-width: 100%;
           width: auto;
@@ -63,6 +64,20 @@ export default function GlobalStyle() {
         }
         figcaption {
           color: slategrey;
+        }
+        code {
+          border: 1px solid;
+          padding: 0.1rem 0.3rem;
+          tab-size: 4;
+        }
+        pre {
+          border: 1px solid;
+        }
+        pre code {
+          border: 0;
+          display: block;
+          overflow-x: auto;
+          padding: 0.3rem 0.6rem;
         }
         table {
           border-collapse: collapse;
@@ -84,6 +99,19 @@ export default function GlobalStyle() {
           border-top: 1px dashed grey;
           margin: 2rem 0;
           padding: 1rem 15px;
+        }
+        @supports (color-scheme: dark light) {
+          @media screen and (prefers-color-scheme: dark) {
+            a:link {
+              color: #9e9eff;
+            }
+            a:visited {
+              color: #d0adf0;
+            }
+            a:active {
+              color: red;
+            }
+          }
         }
       `}
     />

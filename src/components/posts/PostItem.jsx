@@ -13,7 +13,9 @@ const ListItem = styled.li`
 export default function PostItem({ title, date, to }) {
   return (
     <ListItem>
-      <time dateTime={yyyyMMddToISOString(date)}>{date}</time>
+      <small>
+        <time dateTime={yyyyMMddToISOString(date)}>{date}</time>
+      </small>
       <br />
       <Anchor to={to}>{title}</Anchor>
     </ListItem>

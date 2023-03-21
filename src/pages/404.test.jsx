@@ -6,20 +6,13 @@ import { useStaticQuery } from "gatsby";
 
 import { render, screen } from "../testUtils";
 
-import { fetchGithubUser } from "../services/github";
-
 import NotFoundPage from "./404";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
 import POST_LIST_QUERY from "../__fixtures__/postListQuery";
-import GITHUB_USER from "../__fixtures__/githubUser";
-
-jest.mock("../services/github");
 
 describe("NotFoundPage", () => {
   beforeEach(() => {
-    fetchGithubUser.mockClear();
-    fetchGithubUser.mockResolvedValue(GITHUB_USER);
     useStaticQuery.mockReturnValue({
       ...SITE_QUERY,
       ...POST_LIST_QUERY,

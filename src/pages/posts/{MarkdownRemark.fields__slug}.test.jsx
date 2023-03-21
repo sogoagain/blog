@@ -6,20 +6,13 @@ import { useStaticQuery } from "gatsby";
 
 import { render, screen } from "../../testUtils";
 
-import { fetchGithubUser } from "../../services/github";
-
 import PostPage from "./{MarkdownRemark.fields__slug}";
 
-import GITHUB_USER from "../../__fixtures__/githubUser";
 import POST_QUERY from "../../__fixtures__/postQuery";
 import SITE_QUERY from "../../__fixtures__/siteQuery";
 
-jest.mock("../../services/github");
-
 describe("PostPage", () => {
   beforeEach(() => {
-    fetchGithubUser.mockClear();
-    fetchGithubUser.mockResolvedValue(GITHUB_USER);
     useStaticQuery.mockReturnValue({
       ...SITE_QUERY,
     });

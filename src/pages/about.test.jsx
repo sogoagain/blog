@@ -7,24 +7,19 @@ import { useStaticQuery } from "gatsby";
 import { render, screen } from "../testUtils";
 
 import { fetchReadingList } from "../services/blog";
-import { fetchGithubUser } from "../services/github";
 
 import AboutPage from "./about";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
 import ABOUT_QUERY from "../__fixtures__/aboutQuery";
 import READING_LIST from "../__fixtures__/readingList";
-import GITHUB_USER from "../__fixtures__/githubUser";
 
 jest.mock("../services/blog");
-jest.mock("../services/github");
 
 describe("AboutPage", () => {
   beforeEach(() => {
     fetchReadingList.mockClear();
     fetchReadingList.mockResolvedValue(READING_LIST);
-    fetchGithubUser.mockClear();
-    fetchGithubUser.mockResolvedValue(GITHUB_USER);
     useStaticQuery.mockReturnValue({
       ...SITE_QUERY,
     });
