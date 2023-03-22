@@ -8,7 +8,7 @@ import HeaderContainer from "./HeaderContainer";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
 
-describe("HeaderContainer", () => {
+describe("<HeaderContainer/>", () => {
   beforeEach(() => {
     useStaticQuery.mockReturnValue(SITE_QUERY);
   });

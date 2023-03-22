@@ -8,7 +8,7 @@ import FooterContainer from "./FooterContainer";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
 
-describe("FooterContainer", () => {
+describe("<FooterContainer/>", () => {
   const { title } = SITE_QUERY.site.siteMetadata;
 
   beforeEach(() => {

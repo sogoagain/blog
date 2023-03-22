@@ -16,7 +16,7 @@ import READING_LIST from "../__fixtures__/readingList";
 
 jest.mock("../services/blog");
 
-describe("ReadingListContainer", () => {
+describe("<ReadingListContainer/>", () => {
   beforeEach(() => {
     fetchReadingList.mockClear();
     fetchReadingList.mockResolvedValue(READING_LIST);

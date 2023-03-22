@@ -11,7 +11,7 @@ import IndexPage from "./index";
 import SITE_QUERY from "../__fixtures__/siteQuery";
 import POST_LIST_QUERY from "../__fixtures__/postListQuery";
 
-describe("IndexPage", () => {
+describe("<IndexPage/>", () => {
   beforeEach(() => {
     useStaticQuery.mockReturnValue({
       ...SITE_QUERY,

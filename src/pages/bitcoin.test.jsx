@@ -20,7 +20,7 @@ import LOOKUP_LIGHTNING_INVOICE from "../__fixtures__/lookupLightningInvoice";
 
 jest.mock("../services/blog");
 
-describe("BitcoinPage", () => {
+describe("<BitcoinPage/>", () => {
   let container;
 
   beforeEach(() => {

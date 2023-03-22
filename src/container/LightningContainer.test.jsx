@@ -23,7 +23,7 @@ import LOOKUP_LIGHTNING_INVOICE from "../__fixtures__/lookupLightningInvoice";
 
 jest.mock("../services/blog");
 
-describe("LightningContainer", () => {
+describe("<LightningContainer/>", () => {
   function requestInvoice() {
     fireEvent.change(screen.getByPlaceholderText("1000"), {
       target: { value: "9409" },

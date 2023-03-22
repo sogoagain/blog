@@ -21,9 +21,9 @@ const Image = styled.img`
   margin-right: 1rem;
 `;
 
-const Detail = styled.div`
-  display: flex;
-  flex-direction: column;
+const Content = styled.div`
+  max-width: calc(100% - 100px - 1rem); // 이미지 너비와 마진을 고려한 최대 너비
+  word-wrap: break-word; // 긴 단어가 줄바꿈 되도록 설정
 `;
 
 export default function ReadingList({ books }) {
@@ -32,7 +32,7 @@ export default function ReadingList({ books }) {
       {books.map((book) => (
         <Item key={book.id}>
           <Image src={book.image} alt={book.title} />
-          <Detail>
+          <Content>
             <p>
               <strong>{book.title}</strong>
             </p>
@@ -43,7 +43,7 @@ export default function ReadingList({ books }) {
                 book.review.text
               )}
             </p>
-          </Detail>
+          </Content>
         </Item>
       ))}
     </List>

@@ -9,7 +9,7 @@ import PostsContainer from "./PostsContainer";
 import SITE_QUERY from "../__fixtures__/siteQuery";
 import POST_LIST_QUERY from "../__fixtures__/postListQuery";
 
-describe("PostsContainer", () => {
+describe("<PostsContainer/>", () => {
   beforeEach(() => {
     useStaticQuery.mockReturnValue({
       ...SITE_QUERY,
