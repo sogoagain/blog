@@ -2,8 +2,6 @@ import React, { useEffect, useRef } from "react";
 
 import LightningIcon from "../../images/icons/lightning.png";
 
-import { color } from "../../styles";
-
 export default function InvoiceQr({ invoice }) {
   const qrRef = useRef(null);
 
@@ -15,10 +13,10 @@ export default function InvoiceQr({ invoice }) {
       type: "svg",
       data: invoice.payment_request,
       image: LightningIcon,
-      dotsOptions: { type: "extra-rounded", color: color.primary },
-      backgroundOptions: { color: color.background },
-      cornersSquareOptions: { type: "extra-rounded", color: color.lightning },
-      cornersDotOptions: { color: color.lightning },
+      dotsOptions: { type: "extra-rounded", color: "#000000" },
+      backgroundOptions: { color: "#FFFFFF" },
+      cornersSquareOptions: { type: "extra-rounded", color: "#7b1af7" },
+      cornersDotOptions: { color: "#7b1af7" },
     });
     qrCodeStyling.append(qrRef.current);
   };

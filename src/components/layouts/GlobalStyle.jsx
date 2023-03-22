@@ -98,7 +98,7 @@ export default function GlobalStyle() {
         footer {
           border-top: 1px dashed grey;
           margin: 2rem 0;
-          padding: 1rem 15px;
+          padding: 1rem 0;
         }
         @supports (color-scheme: dark light) {
           @media screen and (prefers-color-scheme: dark) {

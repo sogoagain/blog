@@ -27,6 +27,7 @@ export default function HeaderContainer() {
 
   const menus = [
     { text: "홈", to: "/" },
+    { text: "독서목록", to: "/books" },
     {
       text: "비트코인",
       to: "/bitcoin",

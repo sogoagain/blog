@@ -13,10 +13,7 @@ export default function Spinner({ loadingText = "불러오는 중" }) {
 
   return (
     <div>
-      <code>
-        <span>{loadingText}</span>
-        <span>{dots}</span>
-      </code>
+      <code>{loadingText + dots}</code>
     </div>
   );
 }

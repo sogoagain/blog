@@ -31,7 +31,7 @@ export default function BitcoinPage({
   );
 }
 
-export const aboutQuery = graphql`
+export const bitcoinQuery = graphql`
   query {
     markdownRemark(fields: { slug: { eq: "/bitcoin/" } }) {
       frontmatter {

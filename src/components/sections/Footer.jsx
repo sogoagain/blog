@@ -3,21 +3,12 @@ import React from "react";
 import Anchor from "../Anchor";
 
 export default function Footer({ title, links }) {
-  const year = new Date().getFullYear();
-
-  const linkList = [];
-
-  for (let i = 0; i < links.length; i += 1) {
-    const { text, href, to } = links[i];
-    linkList.push(
-      <Anchor key={href} href={href} to={to}>
-        {text}
-      </Anchor>
-    );
-    if (i < links.length - 1) {
-      linkList.push(<span key={`separator-${i}`}> | </span>);
-    }
-  }
+  const linkList = links.flatMap(({ text, href }, i) => [
+    <Anchor key={`${href}-anchor`} href={href}>
+      {text}
+    </Anchor>,
+    i < links.length - 1 ? <span key={`${href}-separator`}> | </span> : null,
+  ]);
 
   return (
     <footer role="contentinfo">
@@ -47,7 +38,7 @@ export default function Footer({ title, links }) {
         입니다.
         <br />
         <span>
-          {title} &copy;{year}
+          {title} &copy;{new Date().getFullYear()}
         </span>
       </small>
     </footer>

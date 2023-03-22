@@ -7,7 +7,7 @@ import Anchor from "../Anchor";
 import { yyyyMMddToISOString } from "../../utils";
 
 const ListItem = styled.li`
-  margin: 0 15px 10px;
+  margin: 0 0 1rem;
 `;
 
 export default function PostItem({ title, date, to }) {

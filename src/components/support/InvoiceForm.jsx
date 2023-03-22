@@ -3,7 +3,11 @@ import React from "react";
 import styled from "@emotion/styled";
 
 const InputWrapper = styled.div`
-  margin: 0 0 0.5rem;
+  margin: 0 0 1rem;
+`;
+
+const Input = styled.input`
+  width: 140px;
 `;
 
 export default function InvoiceForm({
@@ -23,7 +27,7 @@ export default function InvoiceForm({
   return (
     <form onSubmit={handleSubmit}>
       <InputWrapper>
-        <input
+        <Input
           name="amount"
           type="number"
           placeholder="1000"
@@ -36,10 +40,8 @@ export default function InvoiceForm({
           required
         />
         <span> sats</span>
-      </InputWrapper>
-      <InputWrapper>
-        <span>for </span>
-        <input
+        <span> for </span>
+        <Input
           name="memo"
           type="text"
           placeholder="PIZZA 🍕"

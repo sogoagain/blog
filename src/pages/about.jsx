@@ -2,10 +2,9 @@ import React from "react";
 
 import { graphql } from "gatsby";
 
-import PostStyle from "../components/posts/PostStyle";
+import Post from "../components/posts/Post";
 
 import LayoutContainer from "../container/LayoutContainer";
-import ReadingListContainer from "../container/ReadingListContainer";
 import SeoContainer from "../container/SeoContainer";
 
 export default function AboutPage({
@@ -24,10 +23,7 @@ export default function AboutPage({
         description={title}
         pathname={location.pathname}
       />
-      <article>
-        <PostStyle html={html} />
-        <ReadingListContainer />
-      </article>
+      <Post title={title} html={html} />
     </LayoutContainer>
   );
 }

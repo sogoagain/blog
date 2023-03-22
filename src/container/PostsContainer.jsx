@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { graphql, useStaticQuery } from "gatsby";
 
@@ -29,16 +29,13 @@ export default function PostsContainer() {
     allMarkdownRemark: { nodes },
   } = useStaticQuery(query);
 
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    setPosts(
-      nodes.map(({ frontmatter, fields }) => ({
+  return (
+    <PostList
+      posts={nodes.map(({ frontmatter, fields }) => ({
         ...frontmatter,
         ...fields,
-      }))
-    );
-  }, [nodes]);
-
-  return <PostList posts={posts} basePath="/posts" />;
+      }))}
+      basePath="/posts"
+    />
+  );
 }
