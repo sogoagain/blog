@@ -5,17 +5,6 @@ import { Link } from "gatsby";
 import LayoutContainer from "../container/LayoutContainer";
 import SeoContainer from "../container/SeoContainer";
 
-const pageStyles = {
-  color: "#232129",
-  padding: "96px",
-};
-
-const headingStyles = {
-  marginTop: 0,
-  marginBottom: 64,
-  maxWidth: 320,
-};
-
 function NotFoundPage({ location }) {
   return (
     <LayoutContainer>
@@ -24,10 +13,8 @@ function NotFoundPage({ location }) {
         description="페이지를 찾을 수 없습니다"
         pathname={location.pathname}
       />
-      <div style={pageStyles}>
-        <h1 style={headingStyles}>페이지를 찾을 수 없습니다</h1>
-        <Link to="/">돌아가기</Link>
-      </div>
+      <h1>페이지를 찾을 수 없습니다</h1>
+      <Link to="/">홈으로 돌아가기</Link>
     </LayoutContainer>
   );
 }

@@ -1,77 +1,46 @@
 import React from "react";
 
-import styled from "@emotion/styled";
+import Anchor from "../Anchor";
 
-import IconLink from "../IconLink";
-
-import { unit } from "../../styles";
-
-import EmailIcon from "../../images/icons/email.png";
-import GithubIcon from "../../images/icons/github.png";
-import RssIcon from "../../images/icons/rss.png";
-import TwitterIcon from "../../images/icons/twitter.png";
-import NostrIcon from "../../images/icons/nostr.jpeg";
-
-const CopyrightWrapper = styled.p({
-  display: "flex",
-  justifyContent: "center",
-  margin: unit(1),
-});
-
-const LinksWrapper = styled.div({
-  padding: unit(1),
-});
-
-const socialLink = {
-  email: {
-    hrefFn: (src) => `mailto:${src}`,
-    title: "Email",
-    icon: { src: EmailIcon, level: 2 },
-    blank: false,
-  },
-  github: {
-    hrefFn: (src) => src,
-    title: "GitHub",
-    icon: { src: GithubIcon, level: 2 },
-    blank: true,
-  },
-  twitter: {
-    hrefFn: (src) => src,
-    title: "Twitter",
-    icon: { src: TwitterIcon, level: 2 },
-    blank: true,
-  },
-  nostr: {
-    hrefFn: (src) => src,
-    title: "Nostr",
-    icon: { src: NostrIcon, level: 2 },
-    blank: true,
-  },
-  rss: {
-    toFn: (src) => src,
-    title: "RSS",
-    icon: { src: RssIcon, level: 2 },
-    blank: false,
-  },
-};
-
-export default function Footer({ title, rss, social }) {
-  const link = {
-    ...social,
-    rss,
-  };
-  const year = new Date().getFullYear();
+export default function Footer({ title, links }) {
+  const linkList = links.flatMap(({ text, href }, i) => [
+    <Anchor key={`${href}-anchor`} href={href}>
+      {text}
+    </Anchor>,
+    i < links.length - 1 ? <span key={`${href}-separator`}> | </span> : null,
+  ]);
 
   return (
-    <footer>
-      <CopyrightWrapper>
-        {title} &copy;{year}
-      </CopyrightWrapper>
-      <LinksWrapper>
-        {Object.keys(link).map((name) => (
-          <IconLink key={name} link={link[name]} {...socialLink[name]} />
-        ))}
-      </LinksWrapper>
+    <footer role="contentinfo">
+      <span>
+        <Anchor to="#">↑ 처음으로</Anchor>
+        <br />
+        <br />
+      </span>
+      <small>
+        {linkList}
+        <br />
+        <br />
+        <Anchor href="https://git.sr.ht/~bt/barf">barf</Anchor>의 디자인을
+        기반으로 제작하였습니다.
+        <br />
+        컨텐츠의 라이선스는{" "}
+        <Anchor href="https://creativecommons.org/licenses/by/4.0/deed.ko">
+          CC-BY
+        </Anchor>{" "}
+        입니다.
+        <br />
+        <Anchor href="https://github.com/sogoagain/blog">코드</Anchor>의
+        라이선스는{" "}
+        <Anchor href="https://github.com/sogoagain/blog/blob/main/LICENSE">
+          MIT
+        </Anchor>{" "}
+        입니다.
+        <br />
+        <span>
+          {title} &copy;{new Date().getFullYear()}
+        </span>
+      </small>
     </footer>
   );
 }

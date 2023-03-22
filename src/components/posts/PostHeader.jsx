@@ -1,34 +1,13 @@
 import React from "react";
 
-import styled from "@emotion/styled";
-
-import PostTitle from "./PostTitle";
-
 import { yyyyMMddToISOString } from "../../utils";
-
-import { unit, color } from "../../styles";
-
-const HeaderWrapper = styled.header({
-  padding: unit(2),
-  marginBottom: unit(6),
-  textAlign: "center",
-});
-
-const SubTitle = styled.h2({
-  marginBottom: unit(1),
-  color: color.secondary,
-});
-
-const Time = styled.time({
-  color: color.secondary,
-});
 
 export default function PostHeader({ title, subtitle, date }) {
   return (
-    <HeaderWrapper>
-      <PostTitle>{title}</PostTitle>
-      {subtitle && <SubTitle>{subtitle}</SubTitle>}
-      {date && <Time dateTime={yyyyMMddToISOString(date)}>{date}</Time>}
-    </HeaderWrapper>
+    <header>
+      <h1>{title}</h1>
+      {subtitle && <h2>{subtitle}</h2>}
+      {date && <time dateTime={yyyyMMddToISOString(date)}>{date}</time>}
+    </header>
   );
 }

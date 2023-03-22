@@ -47,7 +47,7 @@ export default function LightningContainer() {
   );
 
   if (loading) {
-    return <Spinner />;
+    return <Spinner loadingText="발급 중" />;
   }
 
   if (error) {

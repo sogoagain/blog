@@ -37,11 +37,10 @@ describe("<PostList/>", () => {
   });
 
   it("포스트 링크를 출력한다", () => {
-    const linkEl = screen.getAllByRole("listitem")[0].firstChild;
+    const linkEl = screen.getByRole("link", {
+      name: "더블링 테스트, 알고리즘 복잡도를 실험으로 예측하는 방법",
+    });
 
-    expect(linkEl.closest("a")).toHaveAttribute(
-      "href",
-      "/posts/2021/doubling-ratio/"
-    );
+    expect(linkEl).toHaveAttribute("href", "/posts/2021/doubling-ratio/");
   });
 });

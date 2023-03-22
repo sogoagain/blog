@@ -2,8 +2,6 @@ import React from "react";
 
 import { graphql, useStaticQuery } from "gatsby";
 
-import Hero from "../components/sections/Hero";
-
 import useScrambleTexts from "../hooks/useScrambleTexts";
 
 const query = graphql`
@@ -16,7 +14,7 @@ const query = graphql`
   }
 `;
 
-export default function HeroContainer() {
+export default function InterestsContainer() {
   const {
     site: {
       siteMetadata: { interests },
@@ -25,5 +23,9 @@ export default function HeroContainer() {
 
   const scrambledText = useScrambleTexts(interests);
 
-  return <Hero text={scrambledText} />;
+  return (
+    <strong>
+      <code>{scrambledText}</code>
+    </strong>
+  );
 }

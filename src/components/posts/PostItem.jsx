@@ -6,38 +6,18 @@ import Anchor from "../Anchor";
 
 import { yyyyMMddToISOString } from "../../utils";
 
-import { unit, color } from "../../styles";
-
 const ListItem = styled.li`
-  display: "flex";
-  margin-bottom: ${unit(4)};
-  &:last-child {
-    margin-bottom: 0;
-  }
+  margin: 0 0 1rem;
 `;
 
-const Time = styled.time({
-  color: color.secondary,
-  fontSize: unit(1.75),
-});
-
-const Title = styled.h2({
-  fontSize: unit(2.5),
-  margin: `${unit(0.5)} 0 ${unit(1)} 0`,
-});
-
-const SubTitle = styled.p({
-  color: color.secondary,
-});
-
-export default function PostItem({ title, subtitle, date, to }) {
+export default function PostItem({ title, date, to }) {
   return (
     <ListItem>
-      <Anchor to={to}>
-        <Time dateTime={yyyyMMddToISOString(date)}>{date}</Time>
-        <Title>{title}</Title>
-        <SubTitle>{subtitle}</SubTitle>
-      </Anchor>
+      <small>
+        <time dateTime={yyyyMMddToISOString(date)}>{date}</time>
+      </small>
+      <br />
+      <Anchor to={to}>{title}</Anchor>
     </ListItem>
   );
 }

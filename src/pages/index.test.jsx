@@ -6,20 +6,13 @@ import { useStaticQuery } from "gatsby";
 
 import { render, screen } from "../testUtils";
 
-import { fetchGithubUser } from "../services/github";
-
 import IndexPage from "./index";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
 import POST_LIST_QUERY from "../__fixtures__/postListQuery";
-import GITHUB_USER from "../__fixtures__/githubUser";
 
-jest.mock("../services/github");
-
-describe("IndexPage", () => {
+describe("<IndexPage/>", () => {
   beforeEach(() => {
-    fetchGithubUser.mockClear();
-    fetchGithubUser.mockResolvedValue(GITHUB_USER);
     useStaticQuery.mockReturnValue({
       ...SITE_QUERY,
       ...POST_LIST_QUERY,
@@ -33,13 +26,13 @@ describe("IndexPage", () => {
   });
 
   it("header를 출력한다", () => {
-    const titleEl = screen.getByText("SOGOAGAIN");
-    const supportImageEl = screen.getByAltText("Support");
-    const aboutImageEl = screen.getByAltText("About");
+    const titleEl = screen.getByText("홈");
+    const bitcoinEl = screen.getByText("비트코인");
+    const aboutEl = screen.getByText("소개");
 
     expect(titleEl).toBeInTheDocument();
-    expect(supportImageEl).toBeInTheDocument();
-    expect(aboutImageEl).toBeInTheDocument();
+    expect(bitcoinEl).toBeInTheDocument();
+    expect(aboutEl).toBeInTheDocument();
   });
 
   it("관심사 Hero를 출력한다", () => {
@@ -57,20 +50,16 @@ describe("IndexPage", () => {
   });
 
   it("포스트 링크를 출력한다", () => {
-    const linkEl = screen.getAllByRole("listitem")[0].firstChild;
+    const linkEl = screen.getByRole("link", {
+      name: "더블링 테스트, 알고리즘 복잡도를 실험으로 예측하는 방법",
+    });
 
-    expect(linkEl.closest("a")).toHaveAttribute(
-      "href",
-      "/posts/2021/doubling-ratio/"
-    );
+    expect(linkEl).toHaveAttribute("href", "/posts/2021/doubling-ratio/");
   });
 
   it("footer를 출력한다", () => {
-    const year = new Date().getFullYear();
-    const copyrightEl = screen.getByText(
-      `${SITE_QUERY.site.siteMetadata.title} ©${year}`
-    );
+    const goTopEl = screen.getByText("↑ 처음으로");
 
-    expect(copyrightEl).toBeInTheDocument();
+    expect(goTopEl).toBeInTheDocument();
   });
 });

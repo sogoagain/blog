@@ -2,23 +2,13 @@ import React from "react";
 
 import styled from "@emotion/styled";
 
-import Input from "../Input";
-import Button from "../Button";
+const InputWrapper = styled.div`
+  margin: 0 0 1rem;
+`;
 
-import { unit } from "../../styles";
-
-const FormWrapper = styled.form({
-  minHeight: unit(40),
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  textAlign: "center",
-});
-
-const FormElementWrapper = styled.div({
-  marginBottom: unit(4),
-});
+const Input = styled.input`
+  width: 140px;
+`;
 
 export default function InvoiceForm({
   fields: { amount, memo },
@@ -35,8 +25,8 @@ export default function InvoiceForm({
   };
 
   return (
-    <FormWrapper onSubmit={handleSubmit}>
-      <FormElementWrapper>
+    <form onSubmit={handleSubmit}>
+      <InputWrapper>
         <Input
           name="amount"
           type="number"
@@ -49,10 +39,8 @@ export default function InvoiceForm({
           }}
           required
         />
-        <span>sats</span>
-      </FormElementWrapper>
-      <FormElementWrapper>
-        <span>for</span>
+        <span> sats</span>
+        <span> for </span>
         <Input
           name="memo"
           type="text"
@@ -62,8 +50,8 @@ export default function InvoiceForm({
           onChange={(e) => handleChange("memo", e.target.value)}
           required
         />
-      </FormElementWrapper>
-      <Button type="submit">인보이스 발급하기</Button>
-    </FormWrapper>
+      </InputWrapper>
+      <button type="submit">인보이스 발급하기</button>
+    </form>
   );
 }

@@ -9,19 +9,19 @@ import { render, screen } from "../testUtils";
 import AboutPage from "./about";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
-import ABOUT_QUERY from "../__fixtures__/aboutQuery";
+import PROJECTS_QUERY from "../__fixtures__/projectsQuery";
 
-describe("<AboutPage/>", () => {
+describe("<ProjectsPage/>", () => {
   beforeEach(() => {
     useStaticQuery.mockReturnValue({
       ...SITE_QUERY,
     });
 
-    render(<AboutPage data={ABOUT_QUERY} location={{ pathname: "/" }} />);
+    render(<AboutPage data={PROJECTS_QUERY} location={{ pathname: "/" }} />);
   });
 
   it("SEO를 적용한다", async () => {
-    await waitFor(() => expect(document.title).toBe("소개 · SOGOAGAIN"));
+    await waitFor(() => expect(document.title).toBe("프로젝트 · SOGOAGAIN"));
   });
 
   it("header를 출력한다", () => {
@@ -32,7 +32,7 @@ describe("<AboutPage/>", () => {
     expect(bitcoinEl).toBeInTheDocument();
   });
 
-  it("자기소개 내용을 출력한다", () => {
+  it("프로젝트 내용을 출력한다", () => {
     const aboutEl = screen.getByText("안녕하세요");
 
     expect(aboutEl).toBeInTheDocument();

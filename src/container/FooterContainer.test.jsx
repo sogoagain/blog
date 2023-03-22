@@ -8,8 +8,8 @@ import FooterContainer from "./FooterContainer";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
 
-describe("FooterContainer", () => {
-  const { title, rss, social } = SITE_QUERY.site.siteMetadata;
+describe("<FooterContainer/>", () => {
+  const { title } = SITE_QUERY.site.siteMetadata;
 
   beforeEach(() => {
     useStaticQuery.mockReturnValue(SITE_QUERY);
@@ -24,25 +24,15 @@ describe("FooterContainer", () => {
     expect(copyrightEl).toBeInTheDocument();
   });
 
-  it("RSS 링크를 출력한다", () => {
-    const rssEl = screen.getByAltText("RSS");
-
-    expect(rssEl).toBeInTheDocument();
-    expect(rssEl.closest("a")).toHaveAttribute("href", rss);
-  });
-
   it.each`
-    socialName   | link
-    ${"Email"}   | ${`mailto:${social.email}`}
-    ${"GitHub"}  | ${`https://github.com/${social.github}`}
-    ${"Twitter"} | ${`https://twitter.com/${social.twitter}`}
-  `(
-    "'$socialName'(으)로 이동하는 '$link'를 출력한다",
-    ({ socialName, link }) => {
-      const socialEl = screen.getByAltText(socialName);
+    text         | link
+    ${"Email"}   | ${`mailto:imyong0@gmail.com`}
+    ${"GitHub"}  | ${`https://github.com/sogoagain`}
+    ${"Twitter"} | ${`https://twitter.com/sogoagain`}
+    ${"Nostr"}   | ${`https://snort.social/p/npub1nhffp7hfyy2weckcw7tslaf20qhk7dp59zal2swghx4tpc9ejjxsuqxcf8`}
+  `("'$text'(으)로 이동하는 '$link'를 출력한다", ({ text, link }) => {
+    const linkEl = screen.getByText(text);
 
-      expect(socialEl).toBeInTheDocument();
-      expect(socialEl.closest("a")).toHaveAttribute("href", link);
-    }
-  );
+    expect(linkEl).toHaveAttribute("href", link);
+  });
 });

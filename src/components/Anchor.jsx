@@ -7,7 +7,12 @@ import { OutboundLink } from "gatsby-plugin-google-gtag";
 export default function Anchor({ href, to, children, ...rest }) {
   if (href) {
     return (
-      <OutboundLink href={href} {...rest}>
+      <OutboundLink
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        {...rest}
+      >
         {children}
       </OutboundLink>
     );

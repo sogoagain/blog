@@ -1,20 +1,19 @@
-import styled from "@emotion/styled";
+import React, { useState, useEffect } from "react";
 
-import { keyframes } from "@emotion/react";
+export default function Spinner({ loadingText = "불러오는 중" }) {
+  const [dots, setDots] = useState("");
 
-import { unit, color } from "../styles";
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDots((prevDots) => (prevDots.length < 3 ? `${prevDots}.` : ""));
+    }, 500);
 
-const spin = keyframes`
-    to { -webkit-transform: rotate(360deg); }
-`;
+    return () => clearInterval(interval);
+  }, []);
 
-const Spinner = styled.div({
-  width: unit(5),
-  height: unit(5),
-  border: `${unit(0.4)} solid rgb(15 15 15 / 10%)`,
-  borderRadius: "50%",
-  borderTopColor: color.brand,
-  animation: `${spin} 1s ease-in-out infinite`,
-});
-
-export default Spinner;
+  return (
+    <div>
+      <code>{loadingText + dots}</code>
+    </div>
+  );
+}

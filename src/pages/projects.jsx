@@ -7,7 +7,7 @@ import Post from "../components/posts/Post";
 import LayoutContainer from "../container/LayoutContainer";
 import SeoContainer from "../container/SeoContainer";
 
-export default function AboutPage({
+export default function ProjectPage({
   data: {
     markdownRemark: {
       frontmatter: { title },
@@ -30,7 +30,7 @@ export default function AboutPage({
 
 export const aboutQuery = graphql`
   query {
-    markdownRemark(fields: { slug: { eq: "/about/" } }) {
+    markdownRemark(fields: { slug: { eq: "/projects/" } }) {
       frontmatter {
         title
       }

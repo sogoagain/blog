@@ -16,7 +16,7 @@ import READING_LIST from "../__fixtures__/readingList";
 
 jest.mock("../services/blog");
 
-describe("ReadingListContainer", () => {
+describe("<ReadingListContainer/>", () => {
   beforeEach(() => {
     fetchReadingList.mockClear();
     fetchReadingList.mockResolvedValue(READING_LIST);
@@ -75,7 +75,7 @@ describe("ReadingListContainer", () => {
 
     it("오류 문구를 출력한다", () => {
       const errorEl = screen.getByText(
-        "독서목록을 불러오는데 오류가 발생했습니다. 잠시 후 다시 확인해주세요."
+        "오류가 발생했습니다. 잠시 후 다시 확인해주세요."
       );
 
       expect(errorEl).toBeInTheDocument();
