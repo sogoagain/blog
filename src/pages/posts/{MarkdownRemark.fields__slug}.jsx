@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { graphql, navigate } from "gatsby";
 
@@ -9,8 +9,13 @@ import SeoContainer from "../../container/SeoContainer";
 import "katex/dist/katex.min.css";
 
 export default function PostPage({ data: { markdownRemark }, location }) {
-  if (markdownRemark === null) {
-    navigate("/404");
+  useEffect(() => {
+    if (markdownRemark === null) {
+      navigate("/404");
+    }
+  }, [markdownRemark]);
+
+  if (!markdownRemark) {
     return null;
   }
 
@@ -18,6 +23,7 @@ export default function PostPage({ data: { markdownRemark }, location }) {
     frontmatter: { title, subtitle, date },
     html,
   } = markdownRemark;
+
   return (
     <LayoutContainer>
       <SeoContainer
