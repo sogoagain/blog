@@ -3,6 +3,7 @@ path: "bitcoin-core-installation-paper-wallet"
 date: "2022-11-19"
 title: "Bitcoin Core - 설치부터 종이지갑에 보관한 비트코인 이체까지"
 subtitle: "제3자 신뢰를 최소화한 비트코인 이용법"
+tags: "비트코인"
 ---
 
 # Not Your Keys, Not Your Bitcoin
