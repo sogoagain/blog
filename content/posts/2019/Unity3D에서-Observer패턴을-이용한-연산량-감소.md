@@ -3,6 +3,7 @@ path: "observer-pattern-in-unity3d"
 date: "2019-02-06"
 title: "Unity3D에서 Observer패턴을 이용한 연산량 감소"
 subtitle: "디자인패턴으로 코드의 아름다움뿐만 아니라 성능까지"
+tags: "객체지향, 디자인패턴"
 ---
 
 # 개요

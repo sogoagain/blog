@@ -3,6 +3,7 @@ path: "sourcetree-publickey-error"
 date: "2019-01-08"
 title: "SourceTree 'Permission denied (publickey)' 에러"
 subtitle: "PC SSH Agent에 key를 등록하는 방법"
+tags: "Git"
 ---
 
 # 상황

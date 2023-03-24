@@ -3,6 +3,7 @@ path: "register-the-same-event-listener-only-once"
 date: "2020-04-29"
 title: "[실수노트] JavaScript에서 동일한 이벤트 리스너는 단 한 번만 등록하자"
 subtitle: "익명 함수와 이벤트 리스너"
+tags: "실수노트, JavaScript"
 ---
 
 # 상황

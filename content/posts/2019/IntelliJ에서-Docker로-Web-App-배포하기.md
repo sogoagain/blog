@@ -3,6 +3,7 @@ path: "using-docker-with-intellij"
 date: "2019-03-08"
 title: "IntelliJ에서 Docker로 Web App 배포하기"
 subtitle: "IntelliJ에서 Docker에 올려진 Tomcat으로 배포"
+tags: "Docker"
 ---
 
 # WAR artifact 빌드

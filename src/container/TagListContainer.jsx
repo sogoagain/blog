@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+
 import { graphql, useStaticQuery } from "gatsby";
+
 import Tag from "../components/Tag";
 
 const query = graphql`
@@ -14,31 +16,31 @@ const query = graphql`
   }
 `;
 
+function getUniqueTags(nodes) {
+  return [
+    ...new Set(
+      nodes.flatMap((node) =>
+        node.frontmatter.tags
+          ? node.frontmatter.tags.split(",").map((tag) => tag.trim())
+          : []
+      )
+    ),
+  ].sort((a, b) => a.localeCompare(b));
+}
+
+function toggleTag(selectedTag, tag) {
+  return selectedTag === tag ? null : tag;
+}
+
 export default function TagListContainer() {
   const {
     allMarkdownRemark: { nodes },
   } = useStaticQuery(query);
 
-  const tags = [
-    ...new Set(
-      nodes.flatMap((node) => {
-        if (node.frontmatter.tags) {
-          return node.frontmatter.tags.split(",").map((tag) => tag.trim());
-        }
-        return [];
-      })
-    ),
-  ];
+  const tags = getUniqueTags(nodes);
+  const [selectedTag, setSelectedTag] = useState([]);
 
-  const [selectedTags, setSelectedTags] = useState([]);
-
-  const handleClick = (tag) => {
-    setSelectedTags((prevSelectedTags) =>
-      prevSelectedTags.includes(tag)
-        ? prevSelectedTags.filter((t) => t !== tag)
-        : [...prevSelectedTags, tag]
-    );
-  };
+  const handleClick = (tag) => setSelectedTag(toggleTag(selectedTag, tag));
 
   return (
     <div>
@@ -46,7 +48,7 @@ export default function TagListContainer() {
         <Tag
           key={`tag-${tag}`}
           text={tag}
-          selected={selectedTags.includes(tag)}
+          selected={selectedTag === tag}
           handleClick={() => handleClick(tag)}
         />
       ))}

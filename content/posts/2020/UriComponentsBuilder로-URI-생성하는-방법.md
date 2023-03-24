@@ -3,6 +3,7 @@ path: "uri-components-builder"
 date: "2020-10-25"
 title: "UriComponentsBuilder로 URI 생성하는 방법"
 subtitle: "Controller에서 URI 작업을 할 때 UriComponentsBuilder를 사용하자"
+tags: "Spring"
 ---
 
 # Controller에서 URI을 불러와 작업하는 경우

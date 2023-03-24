@@ -3,6 +3,7 @@ path: "cache-simulation-with-simplescalar"
 date: "2017-06-27"
 title: "SimpleScalar를 이용한 Cache Simulation"
 subtitle: "행렬 곱셈 연산 수행 시간 분석을 통한 캐시에 대한 이해"
+tags: "캐시"
 ---
 
 # 개요

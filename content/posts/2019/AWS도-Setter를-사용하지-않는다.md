@@ -3,6 +3,7 @@ path: "aws-also-doesnt-use-setters"
 date: "2019-09-25"
 title: "AWS도 Setter를 사용하지 않는다"
 subtitle: "Getter, Setter의 유해성과 캡슐화에 대해서"
+tags: "객체지향"
 ---
 
 # AWS도 Setter를 사용하지 않는다.

@@ -3,6 +3,7 @@ path: "assignment-operator-overloading"
 date: "2017-01-14"
 title: "C++에서 대입 연산자를 오버로딩 하는 괜찮은 방법"
 subtitle: "복사 생성자, 소멸자를 이용한 '='연산자 오버로딩"
+tags: "C++"
 ---
 
 # C++로 LinkedList를 구현할 때의 고민

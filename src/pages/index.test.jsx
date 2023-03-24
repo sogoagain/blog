@@ -27,20 +27,26 @@ describe("<IndexPage/>", () => {
 
   it("header를 출력한다", () => {
     const titleEl = screen.getByText("홈");
-    const bitcoinEl = screen.getByText("비트코인");
     const aboutEl = screen.getByText("소개");
 
     expect(titleEl).toBeInTheDocument();
-    expect(bitcoinEl).toBeInTheDocument();
     expect(aboutEl).toBeInTheDocument();
   });
 
-  it("관심사 Hero를 출력한다", () => {
+  it("관심사를 출력한다", () => {
     const interest = screen.getByText(
       SITE_QUERY.site.siteMetadata.interests[0]
     );
 
     expect(interest).toBeInTheDocument();
+  });
+
+  it("태그 목록을 출력한다", () => {
+    ["C++", "DB", "독서"].forEach((tag) => {
+      const tagEl = screen.getByText(tag);
+
+      expect(tagEl).toBeInTheDocument();
+    });
   });
 
   it("포스트 목록을 출력한다", () => {
