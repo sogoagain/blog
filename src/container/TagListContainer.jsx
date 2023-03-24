@@ -32,9 +32,12 @@ export default function TagListContainer() {
   const dispatch = useDispatch();
   const { selected } = useSelector((state) => state.tag);
 
-  const tags = [...new Set(group.flatMap((item) => item.tag.trim()))].sort(
-    (a, b) => a.localeCompare(b)
-  );
+  const tags = group
+    .sort((a, b) => {
+      const totalCountDiff = b.totalCount - a.totalCount;
+      return totalCountDiff === 0 ? a.tag.localeCompare(b.tag) : totalCountDiff;
+    })
+    .flatMap((item) => item.tag.trim());
 
   const handleClick = (tag) => {
     dispatch(toggleTag(tag));
