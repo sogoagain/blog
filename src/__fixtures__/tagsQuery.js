@@ -1,9 +1,22 @@
 const tagsQeury = {
   allMarkdownRemark: {
-    nodes: [
-      { frontmatter: { tags: "tag1, tag2" } },
-      { frontmatter: { tags: "tag3" } },
-      { frontmatter: { tags: "tag4, tag2" } },
+    group: [
+      {
+        tag: "C++",
+        totalCount: 2,
+      },
+      {
+        tag: "DB",
+        totalCount: 2,
+      },
+      {
+        tag: "Docker",
+        totalCount: 1,
+      },
+      {
+        tag: "Git",
+        totalCount: 2,
+      },
     ],
   },
 };

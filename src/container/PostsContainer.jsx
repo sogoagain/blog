@@ -1,5 +1,7 @@
 import React from "react";
 
+import { useSelector } from "react-redux";
+
 import { graphql, useStaticQuery } from "gatsby";
 
 import PostList from "../components/posts/PostList";
@@ -15,6 +17,7 @@ const query = graphql`
           date
           subtitle
           title
+          tags
         }
         fields {
           slug
@@ -28,10 +31,15 @@ export default function PostsContainer() {
   const {
     allMarkdownRemark: { nodes },
   } = useStaticQuery(query);
+  const { selected } = useSelector((state) => state.tag);
+
+  const filteredPosts = selected
+    ? nodes.filter(({ frontmatter }) => frontmatter.tags.includes(selected))
+    : nodes;
 
   return (
     <PostList
-      posts={nodes.map(({ frontmatter, fields }) => ({
+      posts={filteredPosts.map(({ frontmatter, fields }) => ({
         ...frontmatter,
         ...fields,
       }))}

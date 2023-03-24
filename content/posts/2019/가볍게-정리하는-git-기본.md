@@ -3,7 +3,7 @@ path: "git-basics"
 date: "2019-06-12"
 title: "가볍게 정리하는 Git 기본"
 subtitle: "CLI 명령어 중심으로"
-tags: "Git"
+tags: ["Git"]
 ---
 
 # Git 기본 내용 정리

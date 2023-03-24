@@ -18,7 +18,7 @@ describe("<TagListContainer/>", () => {
   });
 
   it("태그 목록을 출력한다", () => {
-    ["tag1", "tag2", "tag3", "tag4"].forEach((tag) => {
+    ["C++", "DB", "Docker", "Git"].forEach((tag) => {
       const tagEl = screen.getByText(tag);
 
       expect(tagEl).toBeInTheDocument();
@@ -26,10 +26,10 @@ describe("<TagListContainer/>", () => {
   });
 
   it("태그를 클릭하면 선택되고, 다른 태그를 클릭하면 이전 태그는 선택 해제된다", () => {
-    const tag1 = screen.getByText("tag1");
-    const tag2 = screen.getByText("tag2");
-    const tag3 = screen.getByText("tag3");
-    const tag4 = screen.getByText("tag4");
+    const tag1 = screen.getByText("C++");
+    const tag2 = screen.getByText("DB");
+    const tag3 = screen.getByText("Docker");
+    const tag4 = screen.getByText("Git");
 
     expect(tag1.closest("label").querySelector("input")).not.toBeChecked();
     expect(tag2.closest("label").querySelector("input")).not.toBeChecked();

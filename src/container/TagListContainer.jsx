@@ -10,8 +10,6 @@ import Tag from "../components/Tag";
 
 import { toggleTag } from "../features/tagSlice";
 
-import { getUniqueTags } from "../utils";
-
 const TagListWrapper = styled.div`
   user-select: none;
 `;
@@ -19,10 +17,9 @@ const TagListWrapper = styled.div`
 const query = graphql`
   query {
     allMarkdownRemark {
-      nodes {
-        frontmatter {
-          tags
-        }
+      group(field: frontmatter___tags) {
+        tag: fieldValue
+        totalCount
       }
     }
   }
@@ -30,10 +27,14 @@ const query = graphql`
 
 export default function TagListContainer() {
   const {
-    allMarkdownRemark: { nodes },
+    allMarkdownRemark: { group },
   } = useStaticQuery(query);
   const dispatch = useDispatch();
   const { selected } = useSelector((state) => state.tag);
+
+  const tags = [...new Set(group.flatMap((item) => item.tag.trim()))].sort(
+    (a, b) => a.localeCompare(b)
+  );
 
   const handleClick = (tag) => {
     dispatch(toggleTag(tag));
@@ -41,7 +42,7 @@ export default function TagListContainer() {
 
   return (
     <TagListWrapper>
-      {getUniqueTags(nodes).map((tag) => (
+      {tags.map((tag) => (
         <Tag
           key={`tag-${tag}`}
           text={tag}

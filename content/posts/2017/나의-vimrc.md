@@ -3,7 +3,7 @@ path: "my-vimrc"
 date: "2017-01-29"
 title: "나의 vimrc"
 subtitle: "vim을 좀더 예쁘고 편하게"
-tags: "설정"
+tags: ["설정"]
 ---
 
 # 나의 Vimrc 설정

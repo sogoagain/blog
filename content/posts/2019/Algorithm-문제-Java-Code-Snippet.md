@@ -3,7 +3,7 @@ path: "java-code-snippet-used-in-ps"
 date: "2019-05-01"
 title: "Algorithm 문제 Java Code Snippet"
 subtitle: "Collection, 람다 그리고 stream을 중심으로"
-tags: "알고리즘, Java"
+tags: ["알고리즘", "Java"]
 ---
 
 # 알고리즘 문제 풀이 시 자주 사용 되는 Code Snippet 정리

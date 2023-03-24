@@ -10,15 +10,3 @@ export function shuffleArray(origin) {
   }
   return array;
 }
-
-export function getUniqueTags(nodes) {
-  return [
-    ...new Set(
-      nodes.flatMap((node) =>
-        node.frontmatter.tags
-          ? node.frontmatter.tags.split(",").map((tag) => tag.trim())
-          : []
-      )
-    ),
-  ].sort((a, b) => a.localeCompare(b));
-}

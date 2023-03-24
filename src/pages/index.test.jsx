@@ -4,18 +4,22 @@ import { waitFor } from "@testing-library/react";
 
 import { useStaticQuery } from "gatsby";
 
-import { render, screen } from "../testUtils";
+import { render, screen, fireEvent } from "../testUtils";
 
 import IndexPage from "./index";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
 import POST_LIST_QUERY from "../__fixtures__/postListQuery";
+import TAGS_QUERY from "../__fixtures__/tagsQuery";
 
 describe("<IndexPage/>", () => {
   beforeEach(() => {
     useStaticQuery.mockReturnValue({
       ...SITE_QUERY,
-      ...POST_LIST_QUERY,
+      allMarkdownRemark: {
+        ...POST_LIST_QUERY.allMarkdownRemark,
+        ...TAGS_QUERY.allMarkdownRemark,
+      },
     });
 
     render(<IndexPage location={{ pathname: "/" }} />);
@@ -42,7 +46,7 @@ describe("<IndexPage/>", () => {
   });
 
   it("태그 목록을 출력한다", () => {
-    ["C++", "DB", "독서"].forEach((tag) => {
+    ["C++", "DB", "Docker", "Git"].forEach((tag) => {
       const tagEl = screen.getByText(tag);
 
       expect(tagEl).toBeInTheDocument();
@@ -53,6 +57,19 @@ describe("<IndexPage/>", () => {
     const items = screen.getAllByRole("listitem");
 
     expect(items).toHaveLength(POST_LIST_QUERY.allMarkdownRemark.nodes.length);
+  });
+
+  it("선택한 태그에 따라 포스트를 필터링한다", () => {
+    const tag = screen.getByText("C++");
+    fireEvent.click(tag);
+
+    const items = screen.getAllByRole("listitem");
+
+    const filteredPosts = POST_LIST_QUERY.allMarkdownRemark.nodes.filter(
+      (post) => post.frontmatter.tags.includes("C++")
+    );
+
+    expect(items).toHaveLength(filteredPosts.length);
   });
 
   it("포스트 링크를 출력한다", () => {
