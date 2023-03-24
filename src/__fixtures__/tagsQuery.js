@@ -15,7 +15,7 @@ const tagsQeury = {
       },
       {
         tag: "Git",
-        totalCount: 2,
+        totalCount: 4,
       },
     ],
   },
