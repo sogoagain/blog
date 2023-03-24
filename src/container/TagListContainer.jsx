@@ -1,8 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
+
+import { useDispatch, useSelector } from "react-redux";
 
 import { graphql, useStaticQuery } from "gatsby";
 
+import styled from "@emotion/styled";
+
 import Tag from "../components/Tag";
+
+import { toggleTag } from "../features/tagSlice";
+
+import { getUniqueTags } from "../utils";
+
+const TagListWrapper = styled.div`
+  user-select: none;
+`;
 
 const query = graphql`
   query {
@@ -16,42 +28,27 @@ const query = graphql`
   }
 `;
 
-function getUniqueTags(nodes) {
-  return [
-    ...new Set(
-      nodes.flatMap((node) =>
-        node.frontmatter.tags
-          ? node.frontmatter.tags.split(",").map((tag) => tag.trim())
-          : []
-      )
-    ),
-  ].sort((a, b) => a.localeCompare(b));
-}
-
-function toggleTag(selectedTag, tag) {
-  return selectedTag === tag ? null : tag;
-}
-
 export default function TagListContainer() {
   const {
     allMarkdownRemark: { nodes },
   } = useStaticQuery(query);
+  const dispatch = useDispatch();
+  const { selected } = useSelector((state) => state.tag);
 
-  const tags = getUniqueTags(nodes);
-  const [selectedTag, setSelectedTag] = useState([]);
-
-  const handleClick = (tag) => setSelectedTag(toggleTag(selectedTag, tag));
+  const handleClick = (tag) => {
+    dispatch(toggleTag(tag));
+  };
 
   return (
-    <div>
-      {tags.map((tag) => (
+    <TagListWrapper>
+      {getUniqueTags(nodes).map((tag) => (
         <Tag
           key={`tag-${tag}`}
           text={tag}
-          selected={selectedTag === tag}
+          selected={selected === tag}
           handleClick={() => handleClick(tag)}
         />
       ))}
-    </div>
+    </TagListWrapper>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-const CheckboxContainer = styled.label`
+const CheckboxWrapper = styled.label`
   display: inline-block;
   margin: 0 0.5rem 0.5rem 0;
   cursor: pointer;
@@ -27,13 +27,13 @@ const CheckboxLabel = styled.span`
 
 export default function Tag({ text, selected, handleClick }) {
   return (
-    <CheckboxContainer>
+    <CheckboxWrapper>
       <CheckboxInput
         type="checkbox"
         checked={selected}
         onChange={handleClick}
       />
       <CheckboxLabel selected={selected}>{text}</CheckboxLabel>
-    </CheckboxContainer>
+    </CheckboxWrapper>
   );
 }
