@@ -3,6 +3,7 @@ path: "cached-method-with-immutable-object"
 date: "2019-12-06"
 title: "[실수노트] 캐싱된 메서드는 변경 불가능한(Immutable) 객체를 반환토록 하자"
 subtitle: "Spring에서 @Cacheable을 사용할 때 주의할 점"
+tags: ["실수노트", "Spring"]
 ---
 
 # 상황

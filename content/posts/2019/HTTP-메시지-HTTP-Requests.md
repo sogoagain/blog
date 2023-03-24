@@ -3,6 +3,7 @@ path: "http-request-message"
 date: "2019-08-03"
 title: "HTTP 메시지 - HTTP Requests"
 subtitle: "클라이언트가 웹 서버로 보내는 HTTP 요청 메시지"
+tags: ["HTTP"]
 ---
 
 # HTTP 요청

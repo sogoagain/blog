@@ -3,6 +3,7 @@ path: "null-safety-in-kotlin"
 date: "2019-08-20"
 title: "코틀린(Kotlin)에서의 null 안전 처리"
 subtitle: "Kotlin에서 null을 안전하게 처리하는 4가지 방법"
+tags: ["Kotlin"]
 ---
 
 # 코틀린 타입 시스템에서의 null

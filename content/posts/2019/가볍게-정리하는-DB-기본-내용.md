@@ -3,6 +3,7 @@ path: "database-basics"
 date: "2019-01-22"
 title: "가볍게 정리하는 DB 기본"
 subtitle: "MS-SQL 중심으로 정리해본 DB 기본 내용"
+tags: ["DB"]
 ---
 
 # DB

@@ -3,6 +3,7 @@ path: "extreme-programming"
 date: "2020-08-12"
 title: "극단(extreme)으로 가기 위한 철학"
 subtitle: "익스트림 프로그래밍 - 변화를 포용하라"
+tags: ["독서", "애자일"]
 ---
 
 # "익스트림 프로그래밍 : 변화를 포용하라"를 읽고

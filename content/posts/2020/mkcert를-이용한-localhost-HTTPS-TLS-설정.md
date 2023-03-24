@@ -3,6 +3,7 @@ path: "https-using-mkcert"
 date: "2020-12-04"
 title: "mkcert를 이용한 localhost HTTPS(TLS) 설정"
 subtitle: "Local 환경에 CA를 구성하고 인증서를 발급해보자"
+tags: ["TLS"]
 ---
 
 최근 인증 관련 API를 개발하고 있는데, 해당 인증 Spec이 Https 프로토콜 위에서 작동되어야 한다.

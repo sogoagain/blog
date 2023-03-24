@@ -4,18 +4,22 @@ import { waitFor } from "@testing-library/react";
 
 import { useStaticQuery } from "gatsby";
 
-import { render, screen } from "../testUtils";
+import { render, screen, fireEvent } from "../testUtils";
 
 import IndexPage from "./index";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
 import POST_LIST_QUERY from "../__fixtures__/postListQuery";
+import TAGS_QUERY from "../__fixtures__/tagsQuery";
 
 describe("<IndexPage/>", () => {
   beforeEach(() => {
     useStaticQuery.mockReturnValue({
       ...SITE_QUERY,
-      ...POST_LIST_QUERY,
+      allMarkdownRemark: {
+        ...POST_LIST_QUERY.allMarkdownRemark,
+        ...TAGS_QUERY.allMarkdownRemark,
+      },
     });
 
     render(<IndexPage location={{ pathname: "/" }} />);
@@ -27,15 +31,13 @@ describe("<IndexPage/>", () => {
 
   it("header를 출력한다", () => {
     const titleEl = screen.getByText("홈");
-    const bitcoinEl = screen.getByText("비트코인");
     const aboutEl = screen.getByText("소개");
 
     expect(titleEl).toBeInTheDocument();
-    expect(bitcoinEl).toBeInTheDocument();
     expect(aboutEl).toBeInTheDocument();
   });
 
-  it("관심사 Hero를 출력한다", () => {
+  it("관심사를 출력한다", () => {
     const interest = screen.getByText(
       SITE_QUERY.site.siteMetadata.interests[0]
     );
@@ -43,10 +45,31 @@ describe("<IndexPage/>", () => {
     expect(interest).toBeInTheDocument();
   });
 
+  it("태그 목록을 출력한다", () => {
+    ["C++", "DB", "Docker", "Git"].forEach((tag) => {
+      const tagEl = screen.getByText(tag);
+
+      expect(tagEl).toBeInTheDocument();
+    });
+  });
+
   it("포스트 목록을 출력한다", () => {
     const items = screen.getAllByRole("listitem");
 
     expect(items).toHaveLength(POST_LIST_QUERY.allMarkdownRemark.nodes.length);
+  });
+
+  it("선택한 태그에 따라 포스트를 필터링한다", () => {
+    const tag = screen.getByText("C++");
+    fireEvent.click(tag);
+
+    const items = screen.getAllByRole("listitem");
+
+    const filteredPosts = POST_LIST_QUERY.allMarkdownRemark.nodes.filter(
+      (post) => post.frontmatter.tags.includes("C++")
+    );
+
+    expect(items).toHaveLength(filteredPosts.length);
   });
 
   it("포스트 링크를 출력한다", () => {

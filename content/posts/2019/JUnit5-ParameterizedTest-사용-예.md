@@ -3,6 +3,7 @@ path: "junit5-parameterizedtest"
 date: "2019-06-17"
 title: "JUnit5, @ParameterizedTest 사용 예"
 subtitle: "하나의 테스트 메서드에 여러 테스트 케이스 수행하기"
+tags: ["테스트"]
 ---
 
 # JUnit5에서 ParameterizedTest를 사용하여 여러번의 테스트 케이스 수행하기
