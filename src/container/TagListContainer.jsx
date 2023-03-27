@@ -35,7 +35,9 @@ export default function TagListContainer() {
   const tags = group
     .sort((a, b) => {
       const totalCountDiff = b.totalCount - a.totalCount;
-      return totalCountDiff === 0 ? a.tag.localeCompare(b.tag) : totalCountDiff;
+      return totalCountDiff === 0
+        ? a.tag.localeCompare(b.tag, "ko")
+        : totalCountDiff;
     })
     .flatMap((item) => item.tag.trim());
 
