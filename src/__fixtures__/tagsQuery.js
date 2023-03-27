@@ -17,6 +17,10 @@ const tagsQeury = {
         tag: "Git",
         totalCount: 4,
       },
+      {
+        tag: "설정",
+        totalCount: 2,
+      },
     ],
   },
 };
