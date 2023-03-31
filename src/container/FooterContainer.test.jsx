@@ -26,7 +26,7 @@ describe("<FooterContainer/>", () => {
 
   it.each`
     text         | link
-    ${"Email"}   | ${`mailto:imyong0@gmail.com`}
+    ${"Email"}   | ${`mailto:sogoagain@proton.me`}
     ${"GitHub"}  | ${`https://github.com/sogoagain`}
     ${"Twitter"} | ${`https://twitter.com/sogoagain`}
     ${"Nostr"}   | ${`https://snort.social/p/npub1nhffp7hfyy2weckcw7tslaf20qhk7dp59zal2swghx4tpc9ejjxsuqxcf8`}

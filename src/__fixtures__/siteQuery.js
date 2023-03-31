@@ -6,7 +6,7 @@ const siteQuery = {
       titleTemplate: "%s · SOGOAGAIN",
       interests: ["Software"],
       social: {
-        email: "imyong0@gmail.com",
+        email: "sogoagain@proton.me",
         github: "sogoagain",
         twitter: "sogoagain",
         nostr: {
