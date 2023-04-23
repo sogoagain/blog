@@ -201,7 +201,7 @@ make deploy
 
 ## 환경설정
 
-실행하기 전 아래의 명령어를 이용해 빈 설정 파일(`bitcoin.conf`)을 생성한다.
+실행하기 전 아래의 명령어를 이용해 비어있는 설정 파일(`bitcoin.conf`)을 생성한다.
 
 ```sh
 mkdir -p "/Users/${USER}/Library/Application Support/Bitcoin"
