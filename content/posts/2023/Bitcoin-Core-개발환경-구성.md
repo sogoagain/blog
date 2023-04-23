@@ -260,7 +260,7 @@ tail -f $HOME/Library/Application\ Support/Bitcoin/debug.log
 
 # 마치며
 
-이제 로컬 환경에서 Bitcoin Core를 개발하고 컴파일하고 테스트하고 빌드하고 실행할 수 있게 되었다. 즉, Bitcoin Core를 개발할 준비가 끝난 것이다. 이는 코드 정복을 위한 첫걸음으로 이후에는 구성한 개발 환경을 토대로 Bitcoin Core 코드를 분석해 나갈 것이며 그 과정에서 알게 된 내용을 정리해 공유할 예정이다.
+이제 로컬 환경에서 Bitcoin Core의 코드를 수정하고 컴파일하고 테스트하고 빌드하고 실행할 수 있게 되었다. 즉, Bitcoin Core를 개발할 준비가 끝난 것이다. 이는 코드 정복을 위한 첫걸음으로 이후에는 구성한 개발 환경을 토대로 Bitcoin Core 코드를 분석해 나갈 것이며 그 과정에서 알게 된 내용을 정리해 공유할 예정이다.
 
 # 참고문헌
 
