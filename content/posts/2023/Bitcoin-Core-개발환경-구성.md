@@ -192,12 +192,6 @@ make check
 make deploy
 ```
 
-배포 중 `ModuleNotFoundError: No module named 'ds_store'` 오류가 발생한다면 아래의 명령어를 통해 `ds_store` 파이썬 패키지를 설치해 오류를 해결할 수 있다.
-
-```sh
-pip3 install ds_store
-```
-
 # Bitcoin Core 실행하기
 
 ## 실행파일
