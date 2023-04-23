@@ -152,7 +152,7 @@ pip3 install ds_store mac_alias
 
 ## 1. 구성
 
-Bitcoin Core를 구성하는 방법은 다양하다. 아래의 명령어를 통해 설정 옵션들을 확인할 수 있다.
+Bitcoin Core를 구성하는 방법은 다양하다. 아래의 명령어를 통해 구성을 위한 옵션들을 확인할 수 있다.
 
 ```sh
 ./configure -help
