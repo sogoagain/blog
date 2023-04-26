@@ -3,7 +3,7 @@ path: "bitcoin-core-dev-setup"
 date: "2023-04-23"
 title: "Bitcoin Core 개발환경 구성하기"
 subtitle: "Bitcoin Core 코드 정복을 위한 첫걸음"
-tags: ["비트코인", "설정"]
+tags: ["비트코인", "Bitcoin Core", "설정"]
 ---
 
 # 배경
