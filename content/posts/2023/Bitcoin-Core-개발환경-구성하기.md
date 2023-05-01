@@ -267,7 +267,7 @@ tail -f $HOME/Library/Application\ Support/Bitcoin/debug.log
 - [macOS Build Guide](https://github.com/bitcoin/bitcoin/blob/master/doc/build-osx.md)
 - [Automake](https://ko.wikipedia.org/wiki/Automake)
 - [Libtool](https://ko.wikipedia.org/wiki/Libtool)
-- [Boost (C++ 라이브러리)](https://ko.wikipedia.org/wiki/Boost_(C%2B%2B_%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC))
+- [Boost (C++ 라이브러리)](https://ko.wikipedia.org/wiki/Boost_(C++_라이브러리))
 - [pkg-config](https://ko.wikipedia.org/wiki/Pkg-config)
 - [libevent 분석](https://www.minzkn.com/moniwiki/wiki.php/libevent#s-1.1)
 - [ZeroMQ](https://ko.wikipedia.org/wiki/ZeroMQ)
