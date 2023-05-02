@@ -1,5 +1,5 @@
 ---
-path: "bitcoin-core-functional-test-writing-guide"
+path: "bitcoin-core-functional-testing"
 date: "2023-05-02"
 title: "Bitcoin Core - 기능 테스트 작성하기"
 subtitle: "실행할 수 있는 요구사항 문서로 기능을 확인하고 검증하기"
