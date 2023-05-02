@@ -8,13 +8,15 @@ tags: [ "비트코인", "Bitcoin Core" ]
 
 # 실행할 수 있는 요구사항 문서, 테스트 코드
 
-테스트 코드는 프로그래밍 활동에서 굉장히 중요한 부분을 차지한다. 그 이유는 '테스트 코드'라는 단어의 의미를 생각해 보면 알 수 있다. '테스트'는 프로그램이 요구사항대로 동작하는지 확인하는 행위고 '코드'는 프로그래밍 언어로 작성된 명령문이다. 즉, '테스트 코드'는 프로그램으로 구현해야 할 요구사항을 코드로 명료하게 기술한 문서다. '테스트 코드'가 요구사항 문서이기 때문에 이를 통해 해당 프로그램이 어떤 기능을 제공해야 하는지 파악할 수 있다. 그뿐만 아니라 테스트 코드는 코드로 작성되었기 때문에 실행할 수 있는 문서다. 그래서 언제든지 테스트 코드를 실행해 구현한 프로그램이 요구사항을 만족하고 있는지 적은 비용으로 항시 검증할 수 있다. 실행할 수 있는 요구사항 문서가 중요하지 않게 취급될 일 없다.
+테스트 코드는 프로그래밍 활동에서 굉장히 중요한 부분을 차지한다. 그 이유는 '테스트 코드'라는 단어의 의미를 생각해 보면 알 수 있다. '테스트'는 프로그램이 요구사항대로 동작하는지 확인하는 행위고 '코드'는 프로그래밍 언어로 작성된 명령문이다. 즉, '테스트 코드'는 프로그램으로 구현해야 할 요구사항을 코드로 명료하게 기술한 문서다.
 
-Bitcoin Core 역시 다양한 테스트 코드를 작성하고 있어 Bitcoin Core가 제공하는 기능을 파악하는데 이러한 테스트 코드들을 활용할 수 있다. Bitcoin Core에는 퍼징(Fuzz testing), 기능 테스트(Functional testing), 유틸리티 테스트(Utility testing), 단위 테스트(Unit testing)와 같은 다양한 유형의 테스트 코드가 작성되어 있는데 이번 글에서는 기능 테스트에 대해 소개하고자 한다. 먼저 기능 테스트를 작성하는데 기반이 되는 구조를 살펴보고 간단한 예제를 통해 실제 사용 사례를 소개하고자 한다.
+테스트 코드는 요구사항 문서로서 해당 프로그램이 제공해야 할 기능을 파악하는 데 도움이 된다. 또한, 프로그래밍 언어로 작성되어 있어 실행이 가능하다. 따라서 언제든 테스트 코드를 실행하여 구현된 프로그램이 요구사항을 충족하는지 손쉽고 저렴한 비용으로 확인할 수 있다. 실행할 수 있는 요구사항 문서를 중요하지 않게 취급한다면 이상한 일일 것이다.
+
+Bitcoin Core 역시 다양한 테스트 코드를 작성하고 있어 Bitcoin Core가 제공하는 기능을 파악하는데 이러한 테스트 코드들을 활용할 수 있다. Bitcoin Core에는 퍼징(Fuzz testing), 기능 테스트(Functional testing), 유틸리티 테스트(Utility testing), 단위 테스트(Unit testing)와 같은 다양한 유형의 테스트 코드가 작성되어 있는데 이번 글에서는 기능 테스트에 대해 소개하고자 한다. 먼저 기능 테스트를 작성하는데 기반이 되는 구조를 살펴보고 간단한 예제를 통해 실제 작성 사례를 소개하고자 한다.
 
 # Bitcoin Core의 기능 테스트 (Functional testing)
 
-일반적으로 기능 테스트는 블랙박스 테스트 기법의 일종이다. 즉, 기능 테스트는 해당 시스템이 '무엇'을 하는지에 대해 기술하며 내부 구조에 대해서는 드러내지 않는다. Bitcoin Core에서는 기능 테스트를 통해 `bitcoind`, `bitcoin-qt`와 RPC 및 P2P 인터페이스를 이용해 상호 작용하며 기능들을 테스트한다. 테스트 시 실제로 노드를 구동하여 기능을 검증하는 통합 테스트다.
+일반적으로 기능 테스트는 블랙박스 테스트 기법의 일종이다. 즉, 기능 테스트는 해당 시스템이 '무엇'을 하는지에 대해 기술하며 내부 구조에 대해서는 드러내지 않는다. Bitcoin Core는 기능 테스트에서 `bitcoind`, `bitcoin-qt`로 실행한 노드와 RPC 및 P2P 인터페이스를 이용해 상호 작용하며 기능들을 테스트한다. Bitcoin Core의 기능 테스트는 실제로 노드를 구동하여 기능을 검증하는 통합 테스트다.
 
 기능 테스트는 `/test/functional` 경로에 `Python` 프로그래밍 언어로 작성한다.
 
@@ -29,7 +31,7 @@ Bitcoin Core 역시 다양한 테스트 코드를 작성하고 있어 Bitcoin Co
 #### `set_test_params()`
 
 - 노드의 수, 체인의 상태 등 기능 테스트의 기본 설정 파라미터들을 변경할 수 있다.
-- 예를 들어 아래와 같이 `setup_clean_chain` 파라미터를 `True`로 설정하여 프리마이닝 된 체인 없이 제네시스 블록부터 체인을 구성하도록 할 수 있고 `num_nodes`의 값을 `2`로 설정해 구동할 노드의 숫자를 지정할 수 있다. 또한 각 노드가 실행될 때 사용할 인수를 지정할 수 있다.
+- 예를 들어 아래와 같이 `self.setup_clean_chain` 파라미터를 `True`로 설정하여 프리마이닝 된 체인 없이 제네시스 블록부터 체인을 구성하도록 할 수 있고 `self.num_nodes`에 값을 설정해 구동할 노드의 숫자를 지정할 수 있다. 또한 각 노드가 실행될 때 사용할 인수를 지정할 수 있다.
   - 참고로 `setup_clean_chain` 파라미터의 기본값은 `False`이며 테스트 시작 시 프리마이닝 된 200개 블록으로 블록체인을 구성한다.
 
 ```Python
@@ -84,7 +86,7 @@ Bitcoin Core 역시 다양한 테스트 코드를 작성하고 있어 Bitcoin Co
 - 재정의하지 않는다면 다음과 같이 노드들이 선형적으로 연결된 토폴로지로 구성된다. 대부분의 경우 이 구성으로도 충분하다.
   - `node0` <-> `node1` <-> `node2` <-> ...
 - 이 메서드를 재정의한다면 아래와 같이 `self.setup_nodes()`와 같은 메서드를 호출하여 노드들을 구동하고 `self.nodes`에 할당한 뒤 서로를 연결하고 동기화해 주어야 한다.
-- 아래 예시에서는 `node0`과 `node1`을 연결시킨 뒤 `node0`, `node1`, `node2`를 동시화한다. 이때 `node2`는 어떤 노드와도 연결되어 있지 않아 블록, 멤풀 등의 정보가 동기화되지 않을 것이다.
+- 아래 예시에서는 `node0`과 `node1`을 연결시킨 뒤 `node0`, `node1`, `node2`를 동기화한다. 이때 `node2`는 어떤 노드와도 연결되어 있지 않아 블록, 멤풀 등의 정보가 동기화되지 않을 것이다.
 
 ```Python
     def setup_network(self):
@@ -110,7 +112,7 @@ Bitcoin Core 역시 다양한 테스트 코드를 작성하고 있어 Bitcoin Co
 
 ## `TestNode` 클래스
 
-`BitcoinTestFramework`를 상속받아 작성한 테스트 코드에서 노드가 실제로 구동된다고 하였는데 정말 노드가 구동되는 것일까? 그렇다면 그 노드는 어떻게 구동되는 것일까? 이러한 질문의 답은 테스트 대상이 되는 노드를 표현하는 `TestNode` 클래스에서 그 답을 찾을 수 있다.
+`BitcoinTestFramework`를 상속받아 작성한 테스트 코드에서 노드가 실제로 구동된다고 하였는데 정말 노드가 구동되는 것일까? 그렇다면 그 노드는 어떻게 구동되는 것일까? 이 질문들에 대한 답은 테스트 대상이 되는 노드를 표현하는 `TestNode` 클래스에서 그 답을 찾을 수 있다.
 
 ### 역할
 
@@ -127,9 +129,11 @@ Bitcoin Core 역시 다양한 테스트 코드를 작성하고 있어 Bitcoin Co
 
 `TestNode`는 `Python`의 `subprocess` 모듈을 이용해 노드를 실행한다. `subprocess` 모듈은 새로운 프로세스를 생성하고, 프로세스의 입력/출력/에러 파이프에 연결하고, 반환 코드를 얻을 수 있도록 도와주는 모듈이다.
 
+> [subprocess — 서브 프로세스 관리](https://docs.python.org/ko/3/library/subprocess.html)
+
 #### 노드 구동
 
-아래는 `TesNode` 클래스의 `start()` 메서드다. 해당 메서드에서 `subprocess` 모듈의 `Popen` 클래스의 생성자를 호출함으로써 Bitcoin Core 노드를 새로운 프로세스로 실행하는 것을 확인할 수 있다. 또한, 노드의 실행 상태를 나타내는 필드인 `running`의 값을 `True`로 설정해 노드가 실행 중인 것을 상태로 관리한다.
+아래는 `TesNode` 클래스의 `start()` 메서드다. 해당 메서드에서 `subprocess` 모듈의 `Popen` 클래스 생성자를 호출함으로써 Bitcoin Core 노드를 새로운 프로세스로 실행한다. 또한, 노드의 실행 상태를 나타내는 필드인 `running`의 값을 `True`로 설정해 노드가 실행 중인 것을 상태로 관리한다.
 
 ```Python
     def start(self, extra_args=None, *, cwd=None, stdout=None, stderr=None, **kwargs):
@@ -143,9 +147,11 @@ Bitcoin Core 역시 다양한 테스트 코드를 작성하고 있어 Bitcoin Co
 
 #### 노드 종료
 
-`TestNode` 클래스의 `stop_node()` 메서드가 호출되면 구동 중이던 노드를 종료한다. `self.stop()`을 호출하여 노드를 종료하는데 이는 `bitcoind`의 `stop` 이라는 RPC를 호출해 구동되던 노드를 종료시키는 코드다. `TestNode` 클래스의 메서드를 찾아보아도 `def node()`와 같이 정의된 메서드는 찾을 수 없을 것이다. 구현된 코드가 없는데 어떻게 이 코드가 Bitcoin Core 노드의 `stop` RPC를 호출하는 것일까?
+`TestNode` 클래스의 `stop_node()` 메서드가 호출되면 구동 중이던 노드를 종료한다. `self.stop()`을 호출하여 노드를 종료하는데 이는 `bitcoind`의 `stop` 이라는 RPC를 호출해 구동되던 노드를 종료시키는 코드다.
 
-> 참고: [stop (24.0.0 RPC)](https://bitcoincore.org/en/doc/24.0.0/rpc/control/stop/)
+> [stop (24.0.0 RPC)](https://bitcoincore.org/en/doc/24.0.0/rpc/control/stop/)
+
+`TestNode` 클래스의 코드를 아무리 둘러보아도 `def node()`와 같이 정의된 메서드는 찾을 수 없을 것이다. 구현된 코드가 없는데 어떻게 이 코드가 Bitcoin Core 노드의 `stop` RPC를 호출하는 것일까?
 
 ```Python
     def stop_node(self, expected_stderr='', *, wait=0, wait_until_stopped=True):
@@ -163,7 +169,7 @@ Bitcoin Core 역시 다양한 테스트 코드를 작성하고 있어 Bitcoin Co
 
 ### RPC 연결
 
-`TestNode`는 노드와 관련된 테스트 로직 작성을 쉽게 하기 위해 구현되지 않은 메서드를 호출하게 되면 노드와의 RPC 연결을 통해 메서드 이름으로 프로시저를 호출하도록 구현해 놓았다.
+`TestNode`는 노드와 관련된 테스트 로직을 쉽게 작성할 수 있도록 구현되지 않은 메서드를 호출하면 노드와의 RPC 연결을 통해 호출된 메서드 이름으로 프로시저를 호출하도록 구현해 놓았다.
 
 `Python`에서 객체의 속성에 접근하려고 시도할 때 해당 속성이 없는 경우 `__getattr__` 메서드가 호출되는데 `TestNode` 클래스는 이러한 점을 이용해 아래와 같이 `__getattr__` 메서드를 재정의해 호출된 속성 이름으로 실행 중인 노드에 CLI 혹은 RPC 명령을 보내도록 구현했다.
 
@@ -185,7 +191,7 @@ Bitcoin Core 역시 다양한 테스트 코드를 작성하고 있어 Bitcoin Co
 
 ### 인바운드 P2P 연결
 
-`TestNode` 클래스의 `add_p2p_connection()` 메서드를 통해 노드에 인바운드 P2P 연결을 추가할 수 있다. `add_p2p_connection()`는 P2P 연결 후 `self.p2ps` 필드에 P2P 연결 내역을 추가하고 연결 내역을 반환한다.
+`TestNode` 클래스의 `add_p2p_connection()` 메서드를 통해 노드에 인바운드 P2P 연결을 추가할 수 있다. `add_p2p_connection()`은 P2P 연결 후 `self.p2ps` 필드에 P2P 연결 내역을 추가하고 연결 내역을 반환한다.
 
 ```Python
     def add_p2p_connection(self, p2p_conn, *, wait_for_verack=True, **kwargs):
@@ -196,7 +202,7 @@ Bitcoin Core 역시 다양한 테스트 코드를 작성하고 있어 Bitcoin Co
 
 `TestNode` 클래스의 `add_outbound_p2p_connection()` 메서드를 통해 노드에 아웃바운드 P2P 연결을 추가할 수 있다.  `add_outbound_p2p_connection()` 메서드도 P2P 연결 후 `self.p2ps` 필드에 P2P 연결 내역을 추가하고 연결 내역을 반환한다.
 
-`connection_type` 파라미터로 넘기는 연결 유형이 "outbound-full-relay", "block-relay-only", "addr-fetch", "feeler" 중 하나여야 한다. 또한 연결된 피어마다 파라미터로 넘기는 `p2p_idx` 값이 달라야 한다. 이전 피어와 연결을 끊은 뒤 다음 피어 연결에 `p2p_idx` 값을 재사용해야 한다면 race condition을 피하고자 이전 피어와 연결이 완전히 끊어질 때까지 기다려야 한다.
+`connection_type` 파라미터로 넘기는 연결 유형이 "outbound-full-relay", "block-relay-only", "addr-fetch", "feeler" 중 하나여야 한다. 또한 연결된 피어마다 파라미터로 넘기는 `p2p_idx` 값이 달라야 한다. 이전 피어와 연결을 끊은 뒤 다음 피어 연결에 `p2p_idx` 값을 재사용해야 한다면 이전 피어와 연결이 완전히 끊어질 때까지 기다려 경쟁 상태를 피해야 한다.
 
 ```Python
     def add_outbound_p2p_connection(self, p2p_conn, *, wait_for_verack=True, p2p_idx, connection_type="outbound-full-relay", **kwargs):
@@ -221,7 +227,7 @@ Bitcoin Core 역시 다양한 테스트 코드를 작성하고 있어 Bitcoin Co
 ## 테스트 코드
 
 이제 각 테스트 시나리오 단계와 매칭되는 코드를 살펴보자. 전체 테스트 코드는 아래 링크에서 확인할 수 있다.
-[bitcoin-core_simple-functional-test.py](https://gist.github.com/sogoagain/d645de960aa4959219e83f928889d64b)
+- [bitcoin-core_simple-functional-test.py](https://gist.github.com/sogoagain/d645de960aa4959219e83f928889d64b)
 
 ### 1. 노드 3개를 제네시스 블록부터 시작하는 환경에서 구동한다.
 
@@ -249,7 +255,11 @@ Bitcoin Core 역시 다양한 테스트 코드를 작성하고 있어 Bitcoin Co
 
 `self.generate()` 메서드를 이용해 `node0`이 블록을 채굴하도록 한다. `nblocks` 파라미터의 값을 '1'로 넘겨 하나의 블록만 생성하도록 한다. `assert_equal()` 함수를 이용해 `node0`에 `getblockcount` RPC를 호출해 그 값이 '1'과 같은지 검증한다.
 
-`node0`에 `getwalletinfo` RPC를 호출해 지갑 정보를 가져온다. 그리고 잔액이 예상과 같이 50BTC가 맞는지 검증한다.
+> [getblockcount (24.0.0 RPC)](https://bitcoincore.org/en/doc/24.0.0/rpc/blockchain/getblockcount/)
+
+`node0`에 `getwalletinfo` RPC를 호출해 지갑 정보를 가져온다. 가져온 지갑 정보에서 잔액이 예상과 같이 50BTC가 맞는지 검증한다.
+
+> [getwalletinfo (24.0.0 RPC)](https://bitcoincore.org/en/doc/24.0.0/rpc/wallet/getwalletinfo/)
 
 ```Python
         # Generate 1 block and test block count and immature balance
@@ -260,14 +270,18 @@ Bitcoin Core 역시 다양한 테스트 코드를 작성하고 있어 Bitcoin Co
         assert_equal(walletinfo_node0['balance'], 50)
 ```
 
-그런데, 위와 같이 코드를 작성해 실행해 보면 테스트가 실패할 것이다. 그 이유는 채굴 보상으로 받은 잔액은 바로 사용할 수 없고 100개의 블록이 더 채굴된 뒤에 사용이 가능하기 때문이다. 즉, 테스트 시나리오가 요구사항과 다르게 작성되었다. 테스트 시나리오 작성 시에는 이러한 정보를 몰랐기 때문에 잘못 작성하게 되었다. 이렇듯 테스트 코드를 작성함으로써 기존에 갖고 있던 지식을 검증해 볼 수 있으며 Bitcoin Core 기능에 대해 더 깊이 이해가 가능하다.
+그런데, 위와 같이 코드를 작성해 실행해 보면 테스트가 실패할 것이다. 그 이유는 채굴 보상으로 받은 잔액은 바로 사용할 수 없고 100개의 블록이 더 채굴된 뒤에 사용이 가능하기 때문이다.
+
+테스트 시나리오를 작성할 당시에는 이러한 정보를 몰랐기 때문에 테스트 시나리오가 실제 요구사항과 다르게 작성된 것이다. 지금과 같이 피드백을 즉시 받을 수 있는 것이 테스트 코드의 큰 장점이다. 테스트 코드를 작성함으로써 적은 비용으로 기존에 갖고 있던 지식을 실험해 보며 검증해 볼 수 있고 이를 통해 Bitcoin Core에 대해 더 깊이 이해할 수 있는 것이다.
 
 참고로 채굴 보상이 묶이는 블록의 수는 [`consensus.h`](https://github.com/bitcoin/bitcoin/blob/be0325c6a62505d63bc07320b05e31618ef9bbb1/src/consensus/consensus.h#L19)에 정의되어 있다.
 
 ![consensus.h에 정의된 COINBASE_MATURITY](./images/consensus-coinbase-maturity.png)
 *consensus.h에 정의된 COINBASE_MATURITY*
 
-위와 같은 이유로 `node0`이 블록을 하나 채굴했지만 지갑의 사용 가능한 잔액(`balance`)은 '0'이다. 대신, 아직 사용할 수 없는 블록 보상의 잔액을 나타내는 `immature_balance` 값이 '50'인 상황이다. 따라서 아래와 지갑 잔액의 검증문을 수정하고 이후 1BTC를 전송하기 위해 100개의 블록을 더 채굴하는 코드를 추가해야 한다.
+위와 같은 이유로 `node0`이 블록을 하나 채굴했지만 사용 가능한 잔액(`balance`)은 '0'이다. 대신, 아직 사용할 수 없는 블록 보상의 잔액을 나타내는 `immature_balance` 값은 '50'이다. 따라서 아래와 같이 지갑 잔액의 검증문을 수정하고 이후 1BTC를 전송하기 위해 100개의 블록을 더 채굴하는 코드를 추가해야 한다. 수정한 코드에서는 잔액을 조회할 때 `getbalance` RPC를 호출하였다.
+
+> [getbalance (24.0.0 RPC)](https://bitcoincore.org/en/doc/24.0.0/rpc/wallet/getbalance/)
 
 ```Python
         # Generate 1 block and test block count and immature balance
@@ -284,11 +298,13 @@ Bitcoin Core 역시 다양한 테스트 코드를 작성하고 있어 Bitcoin Co
         assert_equal(self.nodes[0].getbalance(), 50)
 ```
 
-이제 블록체인을 구성하는 블록의 총개수는 101개가 되었고 `node0`의 사용할 수 있는 잔액은 50BTC다.
+이제 블록체인을 구성하는 블록의 총개수는 101개가 되었고 `node0`이 사용할 수 있는 잔액은 50BTC다.
 
 ### 4. `node0`이 생성한 블록을 `node1`, `node2`에 전파한다.
 
 `self.sync_blocks()` 메서드를 이용해 채굴한 블록을 전파한다. `node1`, `node2`에 `getbestblockhash` RPC를 호출해 마지막 채굴한 블록의 해시와 같은지 확인해 전파가 잘 이루어졌는지 검증한다.
+
+> [getbestblockhash (24.0.0 RPC)](https://bitcoincore.org/en/doc/24.0.0/rpc/blockchain/getbestblockhash/)
 
 ```Python
         # Sync nodes and test best block hash
@@ -301,14 +317,20 @@ Bitcoin Core 역시 다양한 테스트 코드를 작성하고 있어 Bitcoin Co
 
 `node0`에 `listunspent` RPC를 호출하여 사용할 수 있는 utxo 목록을 조회한다. 조회된 목록에는 하나의 utxo만 존재할 것이며 해당 utxo는 첫 블록의 코인 베이스 거래이므로 총 101번의 컨펌이 이루어졌을 것이다. 관련해 검증 로직을 작성한다.
 
-지불할 수 있는 utxo가 있음을 확인했으니 `node0`에 `sendtoaddress` RPC를 호출하여 `node1`에 1BTC를 보내는 거래를 생성한다.
+> [listunspent (24.0.0 RPC)](https://bitcoincore.org/en/doc/24.0.0/rpc/wallet/listunspent/)
 
 ```Python
         # Test unspent transaction outputs
         utxos = self.nodes[0].listunspent()
         assert_equal(len(utxos), 1)
         assert_equal(utxos[0]['confirmations'], 101)
+```
 
+지불할 수 있는 utxo가 있음을 확인했으니 `node0`에 `sendtoaddress` RPC를 호출하여 `node1`에 1BTC를 보내는 거래를 생성한다.
+
+> [sendtoaddress (24.0.0 RPC)](https://bitcoincore.org/en/doc/24.0.0/rpc/wallet/sendtoaddress/)
+
+```Python
         # Send 1 BTC from node0 to node1
         txid = self.nodes[0].sendtoaddress(address=self.nodes[1].getnewaddress(), amount=1)
 ```
@@ -316,6 +338,8 @@ Bitcoin Core 역시 다양한 테스트 코드를 작성하고 있어 Bitcoin Co
 ### 6. `node0`이 생성한 거래를 `node1`, `node2`에 전파한다.
 
 `self.sync_mempools()` 메서드를 이용해 `node1`, `node2`에 거래를 전파한다. 거래가 잘 전파되었는지 확인하기 위해 각 노드에 `getrawmempool` RPC를 호출하여 멤풀에 포함된 거래 목록을 받고 그 안에 1BTC를 전송한 거래의 id가 포함되어 있는지 검증한다. 
+
+> [getrawmempool (24.0.0 RPC)](https://bitcoincore.org/en/doc/24.0.0/rpc/blockchain/getrawmempool/)
 
 ```Python
         # Sync nodes and test mempool
@@ -336,29 +360,33 @@ Bitcoin Core 역시 다양한 테스트 코드를 작성하고 있어 Bitcoin Co
 
 ### 8. `node2`가 생성한 블록을 `node1`, `node2`에 전파한다.
 
-`self.sync_blocks()` 메서드를 이용해 생성한 블록을 `node1`, `node2`에 전파한다. 이전에 작성한 코드와 동일하게 `getbestblockhash` RPC를 호출하여 마지막으로 채굴한 블록의 해시와 각 노드의 체인에서 가장 유력한 블록의 해시를 비교하여 검증한다.
-
-마지막으로 각 노드의 잔액을 검증한다.
-  - `node0`은 50BTC에서 1BTC를 전송하여 약 49BTC가 남았으나 거래 과정에서 블록이 하나 더 생겼기에 사용할 수 있는 50BTC의 블록 보상이 추가되어 총 약 99BTC를 잔액으로 갖게 되었다.
-  - `node1`은 1BTC를 전달받았으므로 1BTC의 잔액을 갖게 되었다.
-  - `node2`는 블록을 하나 채굴하였으나 아직 100개의 블록이 뒤에 붙지 않았기 때문에 현재 사용할 수 있는 잔액은 없다.
+`self.sync_blocks()` 메서드를 이용해 생성한 블록을 `node1`, `node2`에 전파한다. 이전에 작성한 코드와 동일하게 `getbestblockhash` RPC를 호출하여 마지막으로 채굴한 블록의 해시와 각 노드의 체인에서 가장 유력한 블록의 해시가 동일한지 검증한다.
 
 ```Python
         # Sync nodes and test best block hash
         self.sync_blocks(self.nodes[0:2])
         assert_equal(self.nodes[0].getbestblockhash(), blocks[0])
         assert_equal(self.nodes[1].getbestblockhash(), blocks[0])
+```
 
+마지막으로 각 노드의 잔액을 검증한다.
+  - `node0`은 50BTC에서 1BTC를 지불하여 약 49BTC가 남았으나 거래 과정에서 블록이 하나 더 생겼기에 사용할 수 있는 블록 보상 50BTC가 추가되어 총 약 99BTC를 잔액으로 갖게 되었다.
+  - `node1`은 1BTC를 전달받았으므로 1BTC의 잔액을 갖게 되었다.
+  - `node2`는 블록을 하나 채굴하였으나 아직 100개의 블록이 뒤에 붙지 않았기 때문에 현재 사용할 수 있는 잔액은 없다.
+
+```Python
         # Test nodes' balances
         assert_approx(self.nodes[0].getbalance(), 99, 0.001)
         assert_equal(self.nodes[1].getbalance(), 1)
         assert_equal(self.nodes[2].getbalance(), 0)
 ```
 
+# 끝으로
+
+이번 글에서는 프로덕션 코드를 분석하기 전 Bitcoin Core의 요구 사항을 파악할 수 있는 기능 테스트에 대해 알아보았다. 소프트웨어를 개발할 때 프로덕션 코드를 작성하기 전 테스트 코드를 먼저 작성하는 '테스트 주도 개발'(Test-driven development, TDD)이 필수라고 생각하는 입장에서 테스트 코드의 중요성은 계속 강조해도 모자람이 없다. Bitcoin Core뿐만 아니라 다양한 애플리케이션을 개발할 때 테스트 코드를 작성하는 능력은 기본기이기 때문에 자세히 살펴볼수록 좋다고 생각한다.
+
+이제 Bitcoin Core 기능에 대해 궁금증이 생겼을 때 손쉽게 시뮬레이션하여 검증할 수 있는 도구를 획득하였다. 이 도구를 바탕으로 본격적으로 Bitcoin Core의 프로덕션 코드를 분석해 보고자 한다.
+
 # 참고문헌
 
-https://ko.wikipedia.org/wiki/퍼징
-https://ko.wikipedia.org/wiki/기능_테스트
-https://ko.wikipedia.org/wiki/유닛_테스트
-https://docs.python.org/ko/3/library/subprocess.html
-https://bitcoincore.org/en/doc/24.0.0/rpc/control/stop/
+- [기능 테스트](https://ko.wikipedia.org/wiki/기능_테스트)
