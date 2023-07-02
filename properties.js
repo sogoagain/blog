@@ -20,7 +20,7 @@ module.exports = {
     "Lightning Network",
   ],
   social: {
-    email: "sogoagain@proton.me",
+    email: "sogoagain@sogoagain.com",
     github: "sogoagain",
     twitter: "sogoagain",
     nostr: {
