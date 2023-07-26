@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useStaticQuery, graphql } from "gatsby";
+import { graphql, useStaticQuery } from "gatsby";
 
 import Seo from "../components/Seo";
 
@@ -13,9 +13,6 @@ const query = graphql`
         description
         siteUrl
         image
-        social {
-          twitter
-        }
       }
     }
   }
@@ -37,7 +34,6 @@ export default function SeoContainer({
         description: defaultDescription,
         siteUrl,
         image: defaultImage,
-        social: { twitter },
       },
     },
   } = useStaticQuery(query);
@@ -48,7 +44,6 @@ export default function SeoContainer({
     description: description || defaultDescription,
     image: `${siteUrl}${image || defaultImage}`,
     url: `${siteUrl}${pathname}`,
-    twitterUsername: twitter,
     article,
   };
 

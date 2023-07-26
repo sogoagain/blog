@@ -16,10 +16,6 @@ describe("<Footer/>", () => {
       href: `https://github.com/sogoagain`,
     },
     {
-      text: "Twitter",
-      href: `https://twitter.com/sogoagain`,
-    },
-    {
       text: "Nostr",
       href: `https://snort.social/p/1234`,
     },
@@ -37,11 +33,10 @@ describe("<Footer/>", () => {
   });
 
   it.each`
-    text         | link
-    ${"Email"}   | ${`mailto:test@gmail.com`}
-    ${"GitHub"}  | ${`https://github.com/sogoagain`}
-    ${"Twitter"} | ${`https://twitter.com/sogoagain`}
-    ${"Nostr"}   | ${`https://snort.social/p/1234`}
+    text        | link
+    ${"Email"}  | ${`mailto:test@gmail.com`}
+    ${"GitHub"} | ${`https://github.com/sogoagain`}
+    ${"Nostr"}  | ${`https://snort.social/p/1234`}
   `("'$text'(으)로 이동하는 '$link'를 출력한다", ({ text, link }) => {
     const linkEl = screen.getByText(text);
 

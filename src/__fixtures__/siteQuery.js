@@ -8,7 +8,6 @@ const siteQuery = {
       social: {
         email: "sogoagain@sogoagain.com",
         github: "sogoagain",
-        twitter: "sogoagain",
         nostr: {
           name: "sogoagain",
           nPubKey:

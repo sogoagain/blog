@@ -25,11 +25,10 @@ describe("<FooterContainer/>", () => {
   });
 
   it.each`
-    text         | link
-    ${"Email"}   | ${`mailto:sogoagain@sogoagain.com`}
-    ${"GitHub"}  | ${`https://github.com/sogoagain`}
-    ${"Twitter"} | ${`https://twitter.com/sogoagain`}
-    ${"Nostr"}   | ${`https://snort.social/p/npub1nhffp7hfyy2weckcw7tslaf20qhk7dp59zal2swghx4tpc9ejjxsuqxcf8`}
+    text        | link
+    ${"Email"}  | ${`mailto:sogoagain@sogoagain.com`}
+    ${"GitHub"} | ${`https://github.com/sogoagain`}
+    ${"Nostr"}  | ${`https://snort.social/p/npub1nhffp7hfyy2weckcw7tslaf20qhk7dp59zal2swghx4tpc9ejjxsuqxcf8`}
   `("'$text'(으)로 이동하는 '$link'를 출력한다", ({ text, link }) => {
     const linkEl = screen.getByText(text);
 

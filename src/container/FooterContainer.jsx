@@ -11,7 +11,6 @@ const query = graphql`
         title
         social {
           github
-          twitter
           email
           nostr {
             name
@@ -38,10 +37,6 @@ export default function FooterContainer() {
     {
       text: "GitHub",
       href: `https://github.com/${social.github}`,
-    },
-    {
-      text: "Twitter",
-      href: `https://twitter.com/${social.twitter}`,
     },
     {
       text: "Nostr",
