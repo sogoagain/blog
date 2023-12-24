@@ -23,6 +23,7 @@ title: "소개"
 
 ## 오픈소스 기여
 
+- [Satoshi Nakamoto Institute](https://nakamotoinstitute.org/): 콘텐츠 한국어 번역
 - [mempool.space](https://mempool.space/): 한국어 번역
 - [Damus](https://github.com/damus-io/damus): 한국어 번역
 - [MyBatis](https://github.com/mybatis/mybatis-3/pulls?q=author%3Asogoagain): 코드 기여, 한국어 번역
