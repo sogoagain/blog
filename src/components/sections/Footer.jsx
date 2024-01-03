@@ -38,7 +38,7 @@ export default function Footer({ title, links }) {
         입니다.
         <br />
         <span>
-          {title} &copy;{new Date().getFullYear()}
+          {title} &copy; 2017-{new Date().getFullYear()}
         </span>
       </small>
     </footer>

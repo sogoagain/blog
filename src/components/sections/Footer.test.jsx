@@ -27,7 +27,7 @@ describe("<Footer/>", () => {
 
   it("블로그 제작 정보를 출력한다", () => {
     const year = new Date().getFullYear();
-    const copyrightEl = screen.getByText(`${title} ©${year}`);
+    const copyrightEl = screen.getByText(`${title} © 2017-${year}`);
 
     expect(copyrightEl).toBeInTheDocument();
   });
