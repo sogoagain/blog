@@ -16,7 +16,7 @@ const { actions, reducer } = createSlice({
       pubkey,
     }),
     appendNotes: (state, { payload: note }) => {
-      const newNotes = [...state.notes, note];
+      const newNotes = [...state.notes, { ...note }];
       newNotes.sort((a, b) => b.created_at - a.created_at);
       return {
         ...state,
@@ -51,6 +51,7 @@ export function subscribe(nPubKey) {
           if (event.kind === TEXT_NOTE) {
             if (!event.tags.some((tag) => tag[0] === "p")) {
               const note = {
+                id: event.id,
                 created_at: event.created_at,
                 content: event.content,
               };

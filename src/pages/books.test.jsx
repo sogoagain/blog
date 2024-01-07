@@ -27,7 +27,7 @@ describe("<BooksPage/>", () => {
   });
 
   it("SEO를 적용한다", async () => {
-    await waitFor(() => expect(document.title).toBe("독서목록 · SOGOAGAIN"));
+    await waitFor(() => expect(document.title).toBe("독서 · SOGOAGAIN"));
   });
 
   it("header를 출력한다", () => {

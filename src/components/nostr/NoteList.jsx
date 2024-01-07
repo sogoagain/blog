@@ -13,7 +13,7 @@ export default function NoteList({ notes }) {
   return (
     <List>
       {notes.map((note) => (
-        <Note note={note} />
+        <Note key={note.id} note={note} />
       ))}
     </List>
   );
