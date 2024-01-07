@@ -2,6 +2,11 @@ import React from "react";
 
 import styled from "@emotion/styled";
 
+import Linkify from "linkify-react";
+import "linkify-plugin-hashtag";
+
+import Anchor from "../Anchor";
+
 import { convertUnixTimestampToDate, toISOString } from "../../utils";
 
 const ListItem = styled.li`
@@ -16,12 +21,33 @@ const Content = styled.p`
 
 export default function Note({ note }) {
   const date = convertUnixTimestampToDate(note.created_at);
+  const linkifyOptions = {
+    defaultProtocol: "https",
+    formatHref: (href, type) => {
+      if (type === "hashtag") {
+        return `https://snort.social/t/${href.substring(1)}`;
+      }
+      return href;
+    },
+    render: ({ attributes, content }) => {
+      const { href, ...props } = attributes;
+      return (
+        <Anchor href={href} {...props}>
+          {content}
+        </Anchor>
+      );
+    },
+    validate: true,
+  };
+
   return (
     <ListItem>
       <small>
         <time dateTime={toISOString(date)}>{date}</time>
       </small>
-      <Content>{note.content}</Content>
+      <Content>
+        <Linkify options={linkifyOptions}>{note.content}</Linkify>
+      </Content>
     </ListItem>
   );
 }
