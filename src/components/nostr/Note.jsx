@@ -16,7 +16,7 @@ const ListItem = styled.li`
 const Content = styled.p`
   white-space: pre-wrap;
   word-wrap: break-word;
-  margin: 0.5rem;
+  margin: 0;
 `;
 
 export default function Note({ note }) {

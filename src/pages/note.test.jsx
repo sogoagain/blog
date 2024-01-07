@@ -6,22 +6,21 @@ import { useStaticQuery } from "gatsby";
 
 import { render, screen } from "../testUtils";
 
-import NostrPage from "./nostr";
+import NotePage from "./note";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
-import ABOUT_QUERY from "../__fixtures__/aboutQuery";
 
-describe("<NostrPage/>", () => {
+describe("<NotePage/>", () => {
   beforeEach(() => {
     useStaticQuery.mockReturnValue({
       ...SITE_QUERY,
     });
 
-    render(<NostrPage data={ABOUT_QUERY} location={{ pathname: "/" }} />);
+    render(<NotePage data={SITE_QUERY} location={{ pathname: "/" }} />);
   });
 
   it("SEO를 적용한다", async () => {
-    await waitFor(() => expect(document.title).toBe("Nostr · SOGOAGAIN"));
+    await waitFor(() => expect(document.title).toBe("노트 · SOGOAGAIN"));
   });
 
   it("header를 출력한다", () => {
