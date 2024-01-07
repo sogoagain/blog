@@ -10,7 +10,6 @@ import NostrPage from "./nostr";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
 import ABOUT_QUERY from "../__fixtures__/aboutQuery";
-import NOSTR from "../__fixtures__/nostr";
 
 describe("<NostrPage/>", () => {
   beforeEach(() => {
@@ -33,6 +32,32 @@ describe("<NostrPage/>", () => {
     expect(titleEl).toBeInTheDocument();
     expect(bitcoinEl).toBeInTheDocument();
     expect(aboutEl).toBeInTheDocument();
+  });
+
+  it("노트 목록을 출력한다", () => {
+    const note1 = screen.getByText("노트 1");
+    const note1Date = screen.getByText("2023-12-24");
+
+    const note2 = screen.getByText("노트 2");
+    const note2Date = screen.getByText("2024-01-05");
+
+    const note3 = screen.getByText("노트 3");
+    const note3Date = screen.getByText("2024-01-06");
+
+    expect(note1).toBeInTheDocument();
+    expect(note1Date).toBeInTheDocument();
+
+    expect(note2).toBeInTheDocument();
+    expect(note2Date).toBeInTheDocument();
+
+    expect(note3).toBeInTheDocument();
+    expect(note3Date).toBeInTheDocument();
+  });
+
+  it("노트만 출력한다", () => {
+    const noteEls = screen.getAllByRole("listitem");
+
+    expect(noteEls).toHaveLength(3);
   });
 
   it("footer를 출력한다", () => {
