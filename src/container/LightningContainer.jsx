@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Alert from "../components/Alert";
 import Spinner from "../components/Spinner";
-import InvoiceForm from "../components/support/InvoiceForm";
-import Lightning from "../components/support/Lightning";
-import PaymentCompleted from "../components/support/PaymentCompleted";
+import InvoiceForm from "../components/bitcoin/InvoiceForm";
+import Lightning from "../components/bitcoin/Lightning";
+import PaymentCompleted from "../components/bitcoin/PaymentCompleted";
 
 import {
   setField,

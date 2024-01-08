@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { graphql, useStaticQuery } from "gatsby";
 
-import NoteList from "../components/nostr/NoteList";
+import NoteList from "../components/notes/NoteList";
 
 import { subscribe } from "../features/nostrSlice";
 
