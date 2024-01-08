@@ -6,7 +6,7 @@ import { useStaticQuery } from "gatsby";
 
 import { render, screen } from "../testUtils";
 
-import NotePage from "./note";
+import NotePage from "./notes";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
 

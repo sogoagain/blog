@@ -1,17 +1,26 @@
-import React, { useCallback } from "react";
+import React, { useState, useEffect } from "react";
 
-import Particles from "react-tsparticles";
+import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadFull } from "tsparticles";
 
 export default function ParticleNetwork() {
-  const particlesInit = useCallback(async (engine) => {
-    await loadFull(engine);
+  const [init, setInit] = useState(false);
+
+  useEffect(() => {
+    initParticlesEngine(async (engine) => {
+      await loadFull(engine);
+    }).then(() => {
+      setInit(true);
+    });
   }, []);
+
+  if (!init) {
+    return null;
+  }
 
   return (
     <Particles
       id="particle-network"
-      init={particlesInit}
       options={{
         background: {
           opacity: 0,
@@ -72,7 +81,7 @@ export default function ParticleNetwork() {
               enable: true,
               area: 800,
             },
-            value: 50,
+            value: 150,
           },
           opacity: {
             value: 0.3,
