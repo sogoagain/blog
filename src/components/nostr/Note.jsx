@@ -9,10 +9,6 @@ import Anchor from "../Anchor";
 
 import { convertUnixTimestampToDate, toISOString } from "../../utils";
 
-const ListItem = styled.li`
-  margin: 0 0 2rem;
-`;
-
 const Content = styled.p`
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -41,13 +37,14 @@ export default function Note({ note }) {
   };
 
   return (
-    <ListItem>
+    <li>
       <small>
         <time dateTime={toISOString(date)}>{date}</time>
       </small>
       <Content>
         <Linkify options={linkifyOptions}>{note.content}</Linkify>
       </Content>
-    </ListItem>
+      <hr />
+    </li>
   );
 }
