@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-
 import { shuffleArray } from "../utils";
 
 export default function useScrambleTexts(texts) {
@@ -10,31 +9,45 @@ export default function useScrambleTexts(texts) {
   const scramblerRef = useRef(null);
   const timeoutRef = useRef(null);
 
-  useEffect(async () => {
-    if (!scramblerRef.current) {
-      const { default: Scrambler } = await import("scrambling-text");
-      scramblerRef.current = new Scrambler();
-    }
+  useEffect(() => {
+    let isMounted = true;
 
-    scramblerRef.current.scramble(queue[index], setScrambledText, {
-      characters: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split(
-        ""
-      ),
-    });
+    const scramble = async () => {
+      if (!scramblerRef.current) {
+        const { default: Scrambler } = await import("scrambling-text");
+        scramblerRef.current = new Scrambler();
+      }
+
+      scramblerRef.current.scramble(
+        queue[index],
+        (text) => {
+          if (isMounted) {
+            setScrambledText(text);
+          }
+        },
+        {
+          characters:
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
+        }
+      );
+    };
+
+    scramble();
 
     timeoutRef.current = setTimeout(() => {
-      if (index + 1 === queue.length) {
+      if (isMounted && index + 1 === queue.length) {
         setQueue(shuffleArray([...texts]));
         setIndex(0);
       } else {
         setIndex(index + 1);
       }
     }, 3000);
-  }, [index]);
 
-  useEffect(() => {
-    clearTimeout(timeoutRef.current);
-  }, []);
+    return () => {
+      isMounted = false;
+      clearTimeout(timeoutRef.current);
+    };
+  }, [index]);
 
   return scrambledText;
 }
