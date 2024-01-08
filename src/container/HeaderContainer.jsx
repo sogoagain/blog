@@ -29,15 +29,9 @@ export default function HeaderContainer() {
     { text: "홈", to: "/" },
     { text: "노트", to: "/notes" },
     { text: "독서", to: "/books" },
-    {
-      text: "비트코인",
-      to: "/bitcoin",
-    },
+    { text: "비트코인", to: "/bitcoin" },
     { text: "프로젝트", to: "/projects" },
-    {
-      text: "소개",
-      to: "/about",
-    },
+    { text: "소개", to: "/about" },
     { text: "RSS", to: rss },
   ];
 
