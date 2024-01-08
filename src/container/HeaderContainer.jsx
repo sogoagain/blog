@@ -27,16 +27,11 @@ export default function HeaderContainer() {
 
   const menus = [
     { text: "홈", to: "/" },
-    { text: "독서목록", to: "/books" },
+    { text: "노트", to: "/notes" },
+    { text: "독서", to: "/books" },
+    { text: "비트코인", to: "/bitcoin" },
     { text: "프로젝트", to: "/projects" },
-    {
-      text: "비트코인",
-      to: "/bitcoin",
-    },
-    {
-      text: "소개",
-      to: "/about",
-    },
+    { text: "소개", to: "/about" },
     { text: "RSS", to: rss },
   ];
 

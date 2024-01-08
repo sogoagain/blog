@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 
 import { graphql } from "gatsby";
 
-import ParticleNetwork from "../components/support/ParticleNetwork";
+import ParticleNetwork from "../components/bitcoin/ParticleNetwork";
 import Post from "../components/posts/Post";
 
 import LightningContainer from "../container/LightningContainer";

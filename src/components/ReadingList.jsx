@@ -22,8 +22,8 @@ const Image = styled.img`
 `;
 
 const Content = styled.div`
-  max-width: calc(100% - 100px - 1rem); // 이미지 너비와 마진을 고려한 최대 너비
-  word-wrap: break-word; // 긴 단어가 줄바꿈 되도록 설정
+  max-width: calc(100% - 100px - 1rem);
+  word-wrap: break-word;
 `;
 
 export default function ReadingList({ books }) {

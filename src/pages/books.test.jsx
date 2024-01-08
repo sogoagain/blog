@@ -11,7 +11,6 @@ import { fetchReadingList } from "../services/blog";
 import BooksPage from "./books";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
-import ABOUT_QUERY from "../__fixtures__/aboutQuery";
 import READING_LIST from "../__fixtures__/readingList";
 
 jest.mock("../services/blog");
@@ -24,11 +23,11 @@ describe("<BooksPage/>", () => {
       ...SITE_QUERY,
     });
 
-    render(<BooksPage data={ABOUT_QUERY} location={{ pathname: "/" }} />);
+    render(<BooksPage location={{ pathname: "/" }} />);
   });
 
   it("SEO를 적용한다", async () => {
-    await waitFor(() => expect(document.title).toBe("독서목록 · SOGOAGAIN"));
+    await waitFor(() => expect(document.title).toBe("독서 · SOGOAGAIN"));
   });
 
   it("header를 출력한다", () => {

@@ -28,7 +28,7 @@ export default function ProjectPage({
   );
 }
 
-export const aboutQuery = graphql`
+export const projectQuery = graphql`
   query {
     markdownRemark(fields: { slug: { eq: "/projects/" } }) {
       frontmatter {

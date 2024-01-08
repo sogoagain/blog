@@ -1,5 +1,7 @@
 import React from "react";
 
+import { act } from "react-dom/test-utils";
+
 import { waitFor } from "@testing-library/react";
 
 import { useStaticQuery } from "gatsby";
@@ -21,9 +23,7 @@ import LOOKUP_LIGHTNING_INVOICE from "../__fixtures__/lookupLightningInvoice";
 jest.mock("../services/blog");
 
 describe("<BitcoinPage/>", () => {
-  let container;
-
-  beforeEach(() => {
+  beforeEach(async () => {
     createLightningInvoice.mockClear();
     createLightningInvoice.mockResolvedValue(LIGHTNING_INVOICE);
     lookupLightningInvoice.mockClear();
@@ -32,10 +32,11 @@ describe("<BitcoinPage/>", () => {
       ...SITE_QUERY,
     });
 
-    const result = render(
-      <BitcoinPage data={BITCOIN_QUERY} location={{ pathname: "/bitcoin" }} />
+    await act(async () =>
+      render(
+        <BitcoinPage data={BITCOIN_QUERY} location={{ pathname: "/bitcoin" }} />
+      )
     );
-    container = result.container;
   });
 
   it("SEO를 적용한다", async () => {
@@ -63,7 +64,7 @@ describe("<BitcoinPage/>", () => {
   });
 
   it("배경화면에 파티클 효과를 출력한다", () => {
-    const particleEl = container.querySelector("#particle-network");
+    const particleEl = screen.getByText("Particles");
 
     expect(particleEl).toBeInTheDocument();
   });

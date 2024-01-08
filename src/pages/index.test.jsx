@@ -31,9 +31,11 @@ describe("<IndexPage/>", () => {
 
   it("header를 출력한다", () => {
     const titleEl = screen.getByText("홈");
+    const noteEl = screen.getByText("노트");
     const aboutEl = screen.getByText("소개");
 
     expect(titleEl).toBeInTheDocument();
+    expect(noteEl).toBeInTheDocument();
     expect(aboutEl).toBeInTheDocument();
   });
 
