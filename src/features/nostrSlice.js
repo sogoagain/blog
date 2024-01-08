@@ -28,16 +28,31 @@ const { actions, reducer } = createSlice({
 
 export const { setPubkey, appendNotes } = actions;
 
+const EVENT_KIND = {
+  textNote: 1,
+};
+
 export function subscribe(nPubKey) {
   return (dispatch) => {
     const pubkey = bech32ToHexPublicKey(nPubKey);
     dispatch(setPubkey(pubkey));
     const pool = new SimplePool();
+    const handleTextNote = (event) => {
+      if (!event.tags.some((tag) => tag[0] === "p")) {
+        const note = {
+          id: event.id,
+          created_at: event.created_at,
+          content: event.content,
+        };
+        dispatch(appendNotes(note));
+      }
+    };
     const sub = pool.subscribeMany(
       [
         "wss://relay.snort.social",
         "wss://relay.damus.io",
         "wss://nostr.bitcoiner.social",
+        "wss://relay.bitcoinpark.com",
         "wss://relay.nostr.band",
       ],
       [
@@ -47,16 +62,12 @@ export function subscribe(nPubKey) {
       ],
       {
         onevent(event) {
-          const TEXT_NOTE = 1;
-          if (event.kind === TEXT_NOTE) {
-            if (!event.tags.some((tag) => tag[0] === "p")) {
-              const note = {
-                id: event.id,
-                created_at: event.created_at,
-                content: event.content,
-              };
-              dispatch(appendNotes(note));
-            }
+          switch (event.kind) {
+            case EVENT_KIND.textNote:
+              handleTextNote(event);
+              break;
+            default:
+              break;
           }
         },
         oneose() {

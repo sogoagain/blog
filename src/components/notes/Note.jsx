@@ -5,7 +5,8 @@ import styled from "@emotion/styled";
 import Linkify from "linkify-react";
 import "linkify-plugin-hashtag";
 
-import Anchor from "../Anchor";
+import LinkOrImage from "./LinkOrImage";
+import Hashtag from "./Hashtag";
 
 import { convertUnixTimestampToDate, toISOString } from "../../utils";
 
@@ -17,6 +18,12 @@ const Content = styled.p`
 
 export default function Note({ note }) {
   const date = convertUnixTimestampToDate(note.created_at);
+  const renderUrl = ({ attributes: { href, ...props }, content }) => (
+    <LinkOrImage href={href} content={content} {...props} />
+  );
+  const renderHashtag = ({ attributes: { href, ...props }, content }) => (
+    <Hashtag href={href} content={content} {...props} />
+  );
   const linkifyOptions = {
     defaultProtocol: "https",
     formatHref: (href, type) => {
@@ -25,13 +32,9 @@ export default function Note({ note }) {
       }
       return href;
     },
-    render: ({ attributes, content }) => {
-      const { href, ...props } = attributes;
-      return (
-        <Anchor href={href} {...props}>
-          {content}
-        </Anchor>
-      );
+    render: {
+      url: renderUrl,
+      hashtag: renderHashtag,
     },
     validate: true,
   };

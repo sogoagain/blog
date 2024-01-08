@@ -24,3 +24,7 @@ export function bech32ToHexPublicKey(nPubKey) {
     .map((x) => x.toString(16).padStart(2, "0"))
     .join("");
 }
+
+export function isImageUrl(url) {
+  return /\.(jpeg|jpg|gif|png)$/.test(url);
+}
