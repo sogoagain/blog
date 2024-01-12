@@ -28,9 +28,9 @@ module.exports = {
         callbacks.onevent({
           id: "id4",
           kind: 1,
-          content: "대화가 이어진 노트",
+          content: "답글",
           created_at: 1704530364,
-          tags: [["p", "other_pubkey"]],
+          tags: [["e", "event-id"]],
         });
         callbacks.onevent({
           id: "id5",

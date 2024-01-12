@@ -32,13 +32,13 @@ const EVENT_KIND = {
   textNote: 1,
 };
 
-export function subscribe(nPubKey) {
+export function subscribe(relays, nPubKey) {
   return (dispatch) => {
     const pubkey = bech32ToHexPublicKey(nPubKey);
     dispatch(setPubkey(pubkey));
     const pool = new SimplePool();
     const handleTextNote = (event) => {
-      if (!event.tags.some((tag) => tag[0] === "p")) {
+      if (!event.tags.some((tag) => tag[0] === "e")) {
         const note = {
           id: event.id,
           created_at: event.created_at,
@@ -47,34 +47,20 @@ export function subscribe(nPubKey) {
         dispatch(appendNotes(note));
       }
     };
-    const sub = pool.subscribeMany(
-      [
-        "wss://relay.snort.social",
-        "wss://relay.damus.io",
-        "wss://nostr.bitcoiner.social",
-        "wss://relay.bitcoinpark.com",
-        "wss://relay.nostr.band",
-      ],
-      [
-        {
-          authors: [pubkey],
-        },
-      ],
-      {
-        onevent(event) {
-          switch (event.kind) {
-            case EVENT_KIND.textNote:
-              handleTextNote(event);
-              break;
-            default:
-              break;
-          }
-        },
-        oneose() {
-          sub.close();
-        },
-      }
-    );
+    const sub = pool.subscribeMany(relays, [{ authors: [pubkey] }], {
+      onevent(event) {
+        switch (event.kind) {
+          case EVENT_KIND.textNote:
+            handleTextNote(event);
+            break;
+          default:
+            break;
+        }
+      },
+      oneose() {
+        sub.close();
+      },
+    });
   };
 }
 
