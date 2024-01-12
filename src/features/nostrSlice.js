@@ -38,7 +38,7 @@ export function subscribe(relays, nPubKey) {
     dispatch(setPubkey(pubkey));
     const pool = new SimplePool();
     const handleTextNote = (event) => {
-      if (!event.tags.some((tag) => tag[0] === "p")) {
+      if (!event.tags.some((tag) => tag[0] === "e")) {
         const note = {
           id: event.id,
           created_at: event.created_at,
