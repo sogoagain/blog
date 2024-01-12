@@ -27,11 +27,13 @@ module.exports = {
       nPubKey:
         "npub1nhffp7hfyy2weckcw7tslaf20qhk7dp59zal2swghx4tpc9ejjxsuqxcf8",
       relays: [
-        "wss://relay.snort.social",
+        "wss://nostr.oxtr.dev",
+        "wss://relay.nostr.band",
+        "wss://offchain.pub",
         "wss://relay.damus.io",
         "wss://nostr.bitcoiner.social",
-        "wss://relay.bitcoinpark.com",
-        "wss://relay.nostr.band",
+        "wss://relay.mostr.pub",
+        "wss://nos.lol",
       ],
     },
   },
