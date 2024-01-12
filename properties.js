@@ -26,6 +26,13 @@ module.exports = {
       name: "sogoagain",
       nPubKey:
         "npub1nhffp7hfyy2weckcw7tslaf20qhk7dp59zal2swghx4tpc9ejjxsuqxcf8",
+      relays: [
+        "wss://relay.snort.social",
+        "wss://relay.damus.io",
+        "wss://nostr.bitcoiner.social",
+        "wss://relay.bitcoinpark.com",
+        "wss://relay.nostr.band",
+      ],
     },
   },
   link: {

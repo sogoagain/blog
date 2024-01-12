@@ -15,6 +15,7 @@ export const query = graphql`
         social {
           nostr {
             nPubKey
+            relays
           }
         }
       }
@@ -27,7 +28,7 @@ export default function NostrContainer() {
     site: {
       siteMetadata: {
         social: {
-          nostr: { nPubKey },
+          nostr: { nPubKey, relays },
         },
       },
     },
@@ -39,7 +40,7 @@ export default function NostrContainer() {
     if (pubkey) {
       return;
     }
-    dispatch(subscribe(nPubKey));
+    dispatch(subscribe(relays, nPubKey));
   }, []);
 
   return <NoteList notes={notes} />;
