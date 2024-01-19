@@ -28,7 +28,7 @@ export default function Note({ note }) {
     defaultProtocol: "https",
     formatHref: (href, type) => {
       if (type === "hashtag") {
-        return `https://snort.social/t/${href.substring(1)}`;
+        return `https://nostter.app/search?q=${encodeURIComponent(href)}`;
       }
       return href;
     },
