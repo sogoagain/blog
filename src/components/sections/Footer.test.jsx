@@ -17,7 +17,7 @@ describe("<Footer/>", () => {
     },
     {
       text: "Nostr",
-      href: `https://snort.social/p/1234`,
+      href: `https://nostter.app/1234`,
     },
   ];
 
@@ -36,7 +36,7 @@ describe("<Footer/>", () => {
     text        | link
     ${"Email"}  | ${`mailto:test@gmail.com`}
     ${"GitHub"} | ${`https://github.com/sogoagain`}
-    ${"Nostr"}  | ${`https://snort.social/p/1234`}
+    ${"Nostr"}  | ${`https://nostter.app/1234`}
   `("'$text'(으)로 이동하는 '$link'를 출력한다", ({ text, link }) => {
     const linkEl = screen.getByText(text);
 

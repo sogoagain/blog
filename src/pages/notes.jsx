@@ -26,7 +26,7 @@ export default function NotePage({
       <h1>노트</h1>
       <p>
         <strong>
-          from <Anchor href={`https://snort.social/p/${nPubKey}`}>Nostr</Anchor>
+          from <Anchor href={`https://nostter.app/${nPubKey}`}>Nostr</Anchor>
         </strong>
       </p>
       <NostrContainer />
