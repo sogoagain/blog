@@ -33,6 +33,12 @@ describe("<NotePage/>", () => {
     expect(aboutEl).toBeInTheDocument();
   });
 
+  it("사용자 상태를 출력한다", () => {
+    const status = screen.getByText("일반 상태");
+
+    expect(status).toBeInTheDocument();
+  });
+
   it("노트 목록을 출력한다", () => {
     const note1 = screen.getByText("노트 1");
     const note1Date = screen.getByText("2023-12-24");

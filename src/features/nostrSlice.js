@@ -8,12 +8,20 @@ const { actions, reducer } = createSlice({
   name: "nostr",
   initialState: {
     pubkey: null,
+    status: {
+      id: "",
+      content: "",
+    },
     notes: [],
   },
   reducers: {
     setPubkey: (state, { payload: pubkey }) => ({
       ...state,
       pubkey,
+    }),
+    setStatus: (state, { payload: status }) => ({
+      ...state,
+      status: { ...status },
     }),
     appendNotes: (state, { payload: note }) => {
       const newNotes = [...state.notes, { ...note }];
@@ -26,10 +34,11 @@ const { actions, reducer } = createSlice({
   },
 });
 
-export const { setPubkey, appendNotes } = actions;
+export const { setPubkey, setStatus, appendNotes } = actions;
 
 const EVENT_KIND = {
   textNote: 1,
+  userStatus: 30315,
 };
 
 export function subscribe(relays, nPubKey) {
@@ -47,11 +56,23 @@ export function subscribe(relays, nPubKey) {
         dispatch(appendNotes(note));
       }
     };
+    const handleUserStatus = (event) => {
+      if (event.tags.some((tag) => tag[0] === "d" && tag[1] === "general")) {
+        const status = {
+          id: event.id,
+          content: event.content,
+        };
+        dispatch(setStatus(status));
+      }
+    };
     const sub = pool.subscribeMany(relays, [{ authors: [pubkey] }], {
       onevent(event) {
         switch (event.kind) {
           case EVENT_KIND.textNote:
             handleTextNote(event);
+            break;
+          case EVENT_KIND.userStatus:
+            handleUserStatus(event);
             break;
           default:
             break;

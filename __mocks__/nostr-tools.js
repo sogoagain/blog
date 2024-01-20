@@ -39,6 +39,27 @@ module.exports = {
           created_at: 1703415813,
           tags: [],
         });
+        callbacks.onevent({
+          id: "id7",
+          kind: 30315,
+          content: "일반 상태",
+          created_at: 1704425529,
+          tags: [
+            ["d", "general"],
+            ["r", "https://nostr.world"],
+          ],
+        });
+        callbacks.onevent({
+          id: "id8",
+          kind: 30315,
+          content: "음악 상태",
+          created_at: 1704425529,
+          tags: [
+            ["d", "music"],
+            ["r", "spotify:search:Intergalatic%20-%20Beastie%20Boys"],
+            ["expiration", "1692845589"],
+          ],
+        });
       }),
   })),
 };

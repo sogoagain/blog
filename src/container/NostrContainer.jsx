@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { graphql, useStaticQuery } from "gatsby";
 
+import Anchor from "../components/Anchor";
 import NoteList from "../components/notes/NoteList";
 
 import { subscribe } from "../features/nostrSlice";
@@ -34,7 +35,7 @@ export default function NostrContainer() {
     },
   } = useStaticQuery(query);
   const dispatch = useDispatch();
-  const { pubkey, notes } = useSelector((state) => state.nostr);
+  const { pubkey, status, notes } = useSelector((state) => state.nostr);
 
   useEffect(() => {
     if (pubkey) {
@@ -43,5 +44,16 @@ export default function NostrContainer() {
     dispatch(subscribe(relays, nPubKey));
   }, []);
 
-  return <NoteList notes={notes} />;
+  return (
+    <>
+      <p>
+        <strong>
+          <em>{status.content}</em>
+        </strong>
+        <br />
+        from <Anchor href={`https://nostter.app/${nPubKey}`}>Nostr</Anchor>
+      </p>
+      <NoteList notes={notes} />
+    </>
+  );
 }
