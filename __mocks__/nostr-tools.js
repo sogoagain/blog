@@ -6,7 +6,7 @@ module.exports = {
         callbacks.onevent({
           id: "id2",
           kind: 1,
-          content: "노트 2 #Bitcoin",
+          content: "노트 2 #Zaps",
           created_at: 1704425529,
           tags: [],
         });
