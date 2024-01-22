@@ -9,7 +9,7 @@ import PostList from "../components/posts/PostList";
 const query = graphql`
   query {
     allMarkdownRemark(
-      sort: { fields: frontmatter___date, order: DESC }
+      sort: { frontmatter: { date: DESC } }
       filter: { fileAbsolutePath: { regex: "/(posts)/" } }
     ) {
       nodes {
