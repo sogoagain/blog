@@ -17,7 +17,7 @@ const TagListWrapper = styled.div`
 const query = graphql`
   query {
     allMarkdownRemark {
-      group(field: frontmatter___tags) {
+      group(field: { frontmatter: { tags: SELECT } }) {
         tag: fieldValue
         totalCount
       }

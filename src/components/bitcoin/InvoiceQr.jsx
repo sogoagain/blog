@@ -21,8 +21,8 @@ export default function InvoiceQr({ invoice }) {
     qrCodeStyling.append(qrRef.current);
   };
 
-  useEffect(async () => {
-    await drawInvoiceQr();
+  useEffect(() => {
+    drawInvoiceQr();
   }, []);
 
   return (

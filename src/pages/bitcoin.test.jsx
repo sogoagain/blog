@@ -32,11 +32,14 @@ describe("<BitcoinPage/>", () => {
       ...SITE_QUERY,
     });
 
-    await act(async () =>
+    await act(async () => {
       render(
-        <BitcoinPage data={BITCOIN_QUERY} location={{ pathname: "/bitcoin" }} />
-      )
-    );
+        <BitcoinPage
+          data={BITCOIN_QUERY}
+          location={{ pathname: "/bitcoin" }}
+        />,
+      );
+    });
   });
 
   it("SEO를 적용한다", async () => {

@@ -2,6 +2,8 @@ import React from "react";
 
 import { Provider } from "react-redux";
 
+import { act } from "react-dom/test-utils";
+
 import { render as rtlRender } from "@testing-library/react";
 
 import { render, createStore, screen, waitFor, fireEvent } from "../testUtils";
@@ -23,8 +25,10 @@ describe("<ReadingListContainer/>", () => {
   });
 
   context("독서목록을 불러오면", () => {
-    beforeEach(() => {
-      render(<ReadingListContainer />);
+    beforeEach(async () => {
+      await act(async () => {
+        render(<ReadingListContainer />);
+      });
     });
 
     it("독서목록을 출력한다", () => {
@@ -56,7 +60,7 @@ describe("<ReadingListContainer/>", () => {
     context("도서 감상문 텍스트가 존재하면", () => {
       it("감상문만 출력한다", () => {
         const reviewEl = screen.getByText(
-          "개발 천재들이 어떻게 사고하는지 간접적으로나마 알 수 있었다. 그들을 따라가고자 노력하는 중"
+          "개발 천재들이 어떻게 사고하는지 간접적으로나마 알 수 있었다. 그들을 따라가고자 노력하는 중",
         );
 
         expect(reviewEl).toBeInTheDocument();
@@ -66,16 +70,18 @@ describe("<ReadingListContainer/>", () => {
   });
 
   context("독서목록 불러오는 중 에러가 발생하면", () => {
-    beforeEach(() => {
+    beforeEach(async () => {
       fetchReadingList.mockRejectedValue(
-        new Error("독서목록을 불러오지 못했습니다.")
+        new Error("독서목록을 불러오지 못했습니다."),
       );
-      render(<ReadingListContainer />);
+      await act(async () => {
+        render(<ReadingListContainer />);
+      });
     });
 
     it("오류 문구를 출력한다", () => {
       const errorEl = screen.getByText(
-        "오류가 발생했습니다. 잠시 후 다시 확인해주세요."
+        "오류가 발생했습니다. 잠시 후 다시 확인해주세요.",
       );
 
       expect(errorEl).toBeInTheDocument();
@@ -85,25 +91,30 @@ describe("<ReadingListContainer/>", () => {
   context("독서목록을 불러왔었다면", () => {
     it("렌더링 시 추가로 불러오지 않는다", async () => {
       const store = createStore();
-      await store.dispatch(loadReadingList());
+      store.dispatch(loadReadingList());
 
-      rtlRender(
-        <Provider store={store}>
-          <ReadingListContainer />
-        </Provider>
-      );
+      await act(async () => {
+        rtlRender(
+          <Provider store={store}>
+            <ReadingListContainer />
+          </Provider>,
+        );
+      });
 
-      expect(fetchReadingList).toBeCalledTimes(1);
+      expect(fetchReadingList).toHaveBeenCalledTimes(1);
     });
   });
 
   it("'더 불러오기' 버튼을 출력한다", async () => {
-    render(<ReadingListContainer />);
+    await act(async () => {
+      render(<ReadingListContainer />);
+    });
 
     const moreButtonEl = await waitFor(() => screen.getByText("더 불러오기"));
+    await act(async () => {
+      fireEvent.click(moreButtonEl);
+    });
 
-    fireEvent.click(moreButtonEl);
-
-    expect(fetchReadingList).toBeCalledTimes(2);
+    expect(fetchReadingList).toHaveBeenCalledTimes(2);
   });
 });

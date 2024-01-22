@@ -42,11 +42,11 @@ describe("lightning reducer", () => {
 
       const state = lightningReducer(
         previousState,
-        setInvoice(LIGHTNING_INVOICE)
+        setInvoice(LIGHTNING_INVOICE),
       );
 
       expect(state.invoice.payment_request).toEqual(
-        LIGHTNING_INVOICE.payment_request
+        LIGHTNING_INVOICE.payment_request,
       );
     });
   });
@@ -144,7 +144,7 @@ describe("lightning actions", () => {
     context("인보이스 발행에 실패한다면", () => {
       beforeEach(() => {
         createLightningInvoice.mockRejectedValue(
-          new Error("인보이스를 발행하지 못했습니다.")
+          new Error("인보이스를 발행하지 못했습니다."),
         );
       });
 
@@ -196,7 +196,7 @@ describe("lightning actions", () => {
       context("인보이스 정산 정보를 가져오지 못하면", () => {
         beforeEach(() => {
           lookupLightningInvoice.mockRejectedValue(
-            new Error("인보이스 상태를 조회할 수 없습니다.")
+            new Error("인보이스 상태를 조회할 수 없습니다."),
           );
         });
 
@@ -221,7 +221,7 @@ describe("lightning actions", () => {
         store.dispatch(setExpired(true));
         store.dispatch(resumeInvoiceLookup());
 
-        expect(lookupLightningInvoice).not.toBeCalled();
+        expect(lookupLightningInvoice).not.toHaveBeenCalled();
       });
     });
   });
