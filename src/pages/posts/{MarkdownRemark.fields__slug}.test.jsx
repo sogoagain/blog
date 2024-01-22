@@ -24,13 +24,13 @@ describe("<PostPage/>", () => {
         <PostPage
           data={POST_QUERY}
           location={{ pathname: "/posts/2017/leblancs-law/" }}
-        />
+        />,
       );
     });
 
     it("SEO를 적용한다", async () => {
       await waitFor(() =>
-        expect(document.title).toBe("르블랑의 법칙 · SOGOAGAIN")
+        expect(document.title).toBe("르블랑의 법칙 · SOGOAGAIN"),
       );
     });
 
@@ -66,7 +66,7 @@ describe("<PostPage/>", () => {
       const postBodyEl = screen.getByTestId("post-content-element");
 
       expect(postBodyEl).toHaveTextContent(
-        "나는 현재 충분히 아름다운 코드를 짜고 있는가?"
+        "나는 현재 충분히 아름다운 코드를 짜고 있는가?",
       );
     });
 
@@ -85,12 +85,12 @@ describe("<PostPage/>", () => {
         <PostPage
           data={{ markdownRemark: null }}
           location={{ pathname: "/posts/2017/leblancs-law/" }}
-        />
+        />,
       );
     });
 
     it("404 페이지로 이동한다", () => {
-      expect(navigate).toBeCalledWith("/404");
+      expect(navigate).toHaveBeenCalledWith("/404");
     });
   });
 });

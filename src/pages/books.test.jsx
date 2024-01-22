@@ -1,5 +1,7 @@
 import React from "react";
 
+import { act } from "react-dom/test-utils";
+
 import { waitFor } from "@testing-library/react";
 
 import { useStaticQuery } from "gatsby";
@@ -16,14 +18,16 @@ import READING_LIST from "../__fixtures__/readingList";
 jest.mock("../services/blog");
 
 describe("<BooksPage/>", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     fetchReadingList.mockClear();
     fetchReadingList.mockResolvedValue(READING_LIST);
     useStaticQuery.mockReturnValue({
       ...SITE_QUERY,
     });
 
-    render(<BooksPage location={{ pathname: "/" }} />);
+    await act(async () => {
+      render(<BooksPage location={{ pathname: "/" }} />);
+    });
   });
 
   it("SEO를 적용한다", async () => {

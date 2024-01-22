@@ -21,15 +21,15 @@ describe("useScrambleTexts", () => {
 
     await waitFor(
       () => expect(screen.getByText(texts[0])).toBeInTheDocument(),
-      { timeout: 10000 }
+      { timeout: 10000 },
     );
     await waitFor(
       () => expect(screen.getByText(texts[1])).toBeInTheDocument(),
-      { timeout: 10000 }
+      { timeout: 10000 },
     );
     await waitFor(
       () => expect(screen.getByText(texts[0])).toBeInTheDocument(),
-      { timeout: 10000 }
+      { timeout: 10000 },
     );
   });
 
@@ -38,6 +38,6 @@ describe("useScrambleTexts", () => {
 
     unmount();
 
-    expect(clearTimeout).toBeCalled();
+    expect(clearTimeout).toHaveBeenCalled();
   });
 });

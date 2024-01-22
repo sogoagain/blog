@@ -25,5 +25,6 @@ module.exports = {
     "import/prefer-default-export": "off",
     "import/no-extraneous-dependencies": "off",
     camelcase: "off",
+    "react/no-unknown-property": ["error", { ignore: ["css"] }],
   },
 };
