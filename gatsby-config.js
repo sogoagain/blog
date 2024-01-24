@@ -10,8 +10,8 @@ module.exports = {
     link: {
       ...properties.link,
     },
-    utterances: {
-      ...properties.utterances,
+    giscus: {
+      ...properties.giscus,
     },
   },
   plugins: [

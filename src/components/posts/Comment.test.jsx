@@ -5,23 +5,22 @@ import { render, screen } from "@testing-library/react";
 import Comment from "./Comment";
 
 describe("<Comment/>", () => {
-  const utterances = {
-    src: "https://utteranc.es/client.js",
-    repo: "sogoagain/blog-comments",
-    "issue-term": "pathname",
-    label: "comment",
-    theme: "github-light",
-    crossorigin: "anonymous",
-    async: true,
+  const giscus = {
+    repo: "sogoagain/blog",
+    repoId: "R_kgDOGyvI0A",
+    category: "Comments",
+    categoryId: "DIC_kwDOGyvI0M4CcoSF",
+    mapping: "pathname",
+    theme: "preferred_color_scheme",
   };
 
   beforeEach(() => {
-    render(<Comment utterances={utterances} />);
+    render(<Comment giscus={giscus} />);
   });
 
-  it("utterances 스크립트 태그를 출력한다", () => {
-    const scriptEl = screen.getByTestId("utterances");
+  it("giscus 댓글 컴포넌트를 출력한다", () => {
+    const commentEl = screen.getByText("댓글입니다");
 
-    expect(scriptEl).toBeInTheDocument();
+    expect(commentEl).toBeInTheDocument();
   });
 });
