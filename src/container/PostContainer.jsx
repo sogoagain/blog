@@ -9,14 +9,13 @@ const query = graphql`
   query {
     site {
       siteMetadata {
-        utterances {
-          src
+        giscus {
           repo
-          issue_term
-          label
+          repoId
+          category
+          categoryId
+          mapping
           theme
-          crossorigin
-          async
         }
       }
     }
@@ -26,26 +25,14 @@ const query = graphql`
 export default function PostContainer({ title, subtitle, date, html }) {
   const {
     site: {
-      siteMetadata: {
-        utterances: { src, repo, issue_term, label, theme, crossorigin, async },
-      },
+      siteMetadata: { giscus },
     },
   } = useStaticQuery(query);
 
   return (
     <>
       <Post title={title} subtitle={subtitle} date={date} html={html} />
-      <Comment
-        utterances={{
-          src,
-          repo,
-          "issue-term": issue_term,
-          label,
-          theme,
-          crossorigin,
-          async,
-        }}
-      />
+      <Comment giscus={giscus} />
     </>
   );
 }

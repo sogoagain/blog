@@ -21,7 +21,7 @@ describe("<PostContainer/>", () => {
         subtitle={POST_QUERY.markdownRemark.frontmatter.subtitle}
         date={POST_QUERY.markdownRemark.frontmatter.date}
         html={POST_QUERY.markdownRemark.html}
-      />
+      />,
     );
   });
 
@@ -47,13 +47,13 @@ describe("<PostContainer/>", () => {
     const postBodyEl = screen.getByTestId("post-content-element");
 
     expect(postBodyEl).toHaveTextContent(
-      "나는 현재 충분히 아름다운 코드를 짜고 있는가?"
+      "나는 현재 충분히 아름다운 코드를 짜고 있는가?",
     );
   });
 
   it("댓글을 출력한다", () => {
-    const scriptEl = screen.getByTestId("utterances");
+    const commentEl = screen.getByText("댓글입니다");
 
-    expect(scriptEl).toBeInTheDocument();
+    expect(commentEl).toBeInTheDocument();
   });
 });

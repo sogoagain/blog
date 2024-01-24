@@ -1,15 +1,22 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 
-export default function Comment({ utterances }) {
-  const ref = useRef(null);
+import Giscus from "@giscus/react";
 
-  useEffect(() => {
-    const scriptEl = document.createElement("script");
-    Object.entries(utterances).forEach(([key, value]) => {
-      scriptEl.setAttribute(key, value);
-    });
-    ref.current.appendChild(scriptEl);
-  }, []);
-
-  return <div data-testid="utterances" ref={ref} />;
+export default function Comment({ giscus }) {
+  return (
+    <Giscus
+      id="comments"
+      repo={giscus.repo}
+      repoId={giscus.repoId}
+      category={giscus.category}
+      categoryId={giscus.categoryId}
+      mapping={giscus.mapping}
+      strict="0"
+      reactionsEnabled="0"
+      emitMetadata="0"
+      inputPosition="top"
+      theme={giscus.theme}
+      lang="ko"
+    />
+  );
 }

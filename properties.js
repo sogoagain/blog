@@ -44,14 +44,13 @@ module.exports = {
   deploy: {
     s3Bucket: "sogoagain-blog",
   },
-  utterances: {
-    src: "https://utteranc.es/client.js",
-    repo: "sogoagain/blog-comments",
-    "issue-term": "pathname",
-    label: "comment",
-    theme: "preferred-color-scheme",
-    crossorigin: "anonymous",
-    async: true,
+  giscus: {
+    repo: "sogoagain/blog",
+    repoId: "R_kgDOGyvI0A",
+    category: "Comments",
+    categoryId: "DIC_kwDOGyvI0M4CcoSF",
+    mapping: "pathname",
+    theme: "preferred_color_scheme",
   },
   gtag: {
     trackingIds: ["G-8E6LZKQXFC"],
