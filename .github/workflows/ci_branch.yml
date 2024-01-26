@@ -1,19 +1,19 @@
-name: CD
+name: CI - Branch
 
 on:
   push:
-    branches: ["main"]
+    branches-ignore: ["main"]
 
 concurrency:
-  group: "deploy-${{ github.ref }}"
-  cancel-in-progress: false
+  group: "build-branch-${{ github.ref }}"
+  cancel-in-progress: true
 
 defaults:
   run:
     shell: bash
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -46,8 +46,5 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} run test:coverage
       - name: Build
         run: ${{ steps.detect-package-manager.outputs.manager }} run clean && ${{ steps.detect-package-manager.outputs.manager }} run build
-      - name: Deploy
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: echo "::add-mask::${{ secrets.S3_URL }}" && ${{ steps.detect-package-manager.outputs.manager }} run deploy
+  
+  
