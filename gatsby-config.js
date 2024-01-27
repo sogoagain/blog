@@ -121,12 +121,14 @@ module.exports = {
             query: `
               {
                 allMarkdownRemark(
-                  sort: { order: DESC, fields: [frontmatter___date] }
+                  sort: {frontmatter: {date: DESC}}
                   filter: {fileAbsolutePath: {regex: "/(posts)/"}}
                 ) {
                   edges {
                     node {
-                      fields { slug }
+                      fields {
+                        slug
+                      }
                       frontmatter {
                         date
                         title
