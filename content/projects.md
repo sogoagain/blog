@@ -3,6 +3,11 @@ date: "2023-03-22"
 title: "프로젝트"
 ---
 
+## 2024
+
+- [nostlog](https://github.com/sogoagain/nostlog): Next.js 기반의 Nostr 웹 클라이언트
+- [nostr-kt-relay](https://github.com/sogoagain/nostr-kt-relay): Kotlin 기반의 Nostr 릴레이 구현체
+
 ## 2022
 
 - [블로그](https://blog.sogoagain.com/): Gatsby로 개발한 블로그
