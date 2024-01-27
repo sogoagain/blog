@@ -1,19 +1,29 @@
-name: CD
+name: CI - Branch
 
 on:
   push:
-    branches: ["main"]
+    branches-ignore: ["main"]
 
 concurrency:
-  group: "deploy-${{ github.ref }}"
-  cancel-in-progress: false
+  group: "build-branch-${{ github.ref }}"
+  cancel-in-progress: true
 
 defaults:
   run:
     shell: bash
 
 jobs:
-  deploy:
+  check-pr:
+    runs-on: ubuntu-latest
+    outputs:
+      exists_pr: ${{ steps.pr.outputs.exists }}
+    steps:
+      - name: Check PR
+        id: pr
+        uses: sogoagain/check-opened-pr-action@v0.1
+  build:
+    needs: check-pr
+    if: needs.check-pr.outputs.exists_pr == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -31,8 +41,3 @@ jobs:
         run: npm run test:coverage
       - name: Build
         run: npm run clean && npm run build
-      - name: Deploy
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: echo "::add-mask::${{ secrets.S3_URL }}" && npm run deploy
