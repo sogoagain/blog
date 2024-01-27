@@ -13,7 +13,17 @@ defaults:
     shell: bash
 
 jobs:
+  check-pr:
+    runs-on: ubuntu-latest
+    outputs:
+      exists_pr: ${{ steps.pr.outputs.exists }}
+    steps:
+      - name: Check PR
+        id: pr
+        uses: sogoagain/check-opened-pr-action@v0.1
   build:
+    needs: check-pr
+    if: needs.check-pr.outputs.exists_pr == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
