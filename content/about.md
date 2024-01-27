@@ -17,12 +17,14 @@ title: "소개"
 
 ## Nostr
 
-- Nosrt 기반의 모바일 메시지 애플리케이션 개발을 시작했습니다.
+- 릴레이 및 웹 클라이언트를 개발하고 있습니다.
 - 카카오톡 사용자가 라인 사용자에게 메시지를 보낼 수 있는 세상을 꿈꿉니다.
 - 소셜 미디어 프로토콜인 Nostr가 현대 소셜 미디어의 많은 문제를 해결할 것으로 생각합니다.
 
 ## 오픈소스 기여
 
+- [nostlog](https://github.com/sogoagain/nostlog): 개발
+- [nostr-kt-relay](https://github.com/sogoagain/nostr-kt-relay): 개발
 - [Satoshi Nakamoto Institute](https://nakamotoinstitute.org/): 콘텐츠 한국어 번역
 - [mempool.space](https://mempool.space/): 한국어 번역
 - [Damus](https://github.com/damus-io/damus): 한국어 번역
