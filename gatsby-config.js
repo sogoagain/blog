@@ -87,12 +87,6 @@ module.exports = {
       __key: "content",
     },
     {
-      resolve: `gatsby-plugin-s3`,
-      options: {
-        bucketName: properties.deploy.s3Bucket,
-      },
-    },
-    {
       resolve: `gatsby-plugin-feed`,
       options: {
         query: `
