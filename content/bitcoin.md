@@ -11,3 +11,5 @@ title: "비트코인"
 - [mempool.space](https://mempool.space/): 한국어 번역
 - [Damus](https://github.com/damus-io/damus): 한국어 번역
 - [Satoshi Nakamoto Institute](https://nakamotoinstitute.org/): 콘텐츠 한국어 번역
+- [nostr-kt-relay](https://github.com/sogoagain/nostr-kt-relay): 개발
+- [nostlog](https://github.com/sogoagain/nostlog): 개발
