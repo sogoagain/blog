@@ -8,16 +8,14 @@ module.exports = {
     author: "sogoagain",
   },
   interests: [
-    "Web",
-    "Agile",
     "Software",
-    "Developer",
     "Engineering",
+    "Agile",
     "eXtreme Programming",
     "Test Driven Development",
     "Bitcoin",
-    "Decentralization",
     "Lightning Network",
+    "Nostr",
   ],
   social: {
     email: "sogoagain@sogoagain.com",
@@ -40,9 +38,6 @@ module.exports = {
   link: {
     postsBasePath: "/posts",
     rss: "/rss.xml",
-  },
-  deploy: {
-    s3Bucket: "sogoagain-blog",
   },
   giscus: {
     repo: "sogoagain/blog",
