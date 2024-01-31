@@ -4,15 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { graphql, useStaticQuery } from "gatsby";
 
-import styled from "@emotion/styled";
+import TagList from "../components/tags/TagList";
 
-import Tag from "../components/Tag";
-
-import { toggleTag } from "../features/tagSlice";
-
-const TagListWrapper = styled.div`
-  user-select: none;
-`;
+import { toggleTag } from "../features/postsSlice";
 
 const query = graphql`
   query {
@@ -25,12 +19,12 @@ const query = graphql`
   }
 `;
 
-export default function TagListContainer() {
+export default function PostsTagListContainer() {
   const {
     allMarkdownRemark: { group },
   } = useStaticQuery(query);
   const dispatch = useDispatch();
-  const { selected } = useSelector((state) => state.tag);
+  const { selectedTag } = useSelector((state) => state.posts);
 
   const tags = group
     .sort((a, b) => {
@@ -45,16 +39,5 @@ export default function TagListContainer() {
     dispatch(toggleTag(tag));
   };
 
-  return (
-    <TagListWrapper>
-      {tags.map((tag) => (
-        <Tag
-          key={`tag-${tag}`}
-          text={tag}
-          selected={selected === tag}
-          handleClick={() => handleClick(tag)}
-        />
-      ))}
-    </TagListWrapper>
-  );
+  return <TagList tags={tags} selected={selectedTag} onClick={handleClick} />;
 }

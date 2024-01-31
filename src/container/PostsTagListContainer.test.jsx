@@ -4,17 +4,17 @@ import { useStaticQuery } from "gatsby";
 
 import { render, screen, fireEvent } from "../testUtils";
 
-import TagListContainer from "./TagListContainer";
+import PostsTagListContainer from "./PostsTagListContainer";
 
 import TAGS_QUERY from "../__fixtures__/tagsQuery";
 
-describe("<TagListContainer/>", () => {
+describe("<PostsTagListContainer/>", () => {
   beforeEach(() => {
     useStaticQuery.mockReturnValue({
       ...TAGS_QUERY,
     });
 
-    render(<TagListContainer />);
+    render(<PostsTagListContainer />);
   });
 
   it("태그 목록을 출력한다", () => {

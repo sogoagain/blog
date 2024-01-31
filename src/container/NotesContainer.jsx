@@ -7,7 +7,9 @@ import { graphql, useStaticQuery } from "gatsby";
 import Anchor from "../components/Anchor";
 import NoteList from "../components/notes/NoteList";
 
-import { subscribe } from "../features/nostrSlice";
+import NotesHashtagListContainer from "./NotesHashtagListContainer";
+
+import { subscribe, appendHashtag } from "../features/nostrSlice";
 
 export const query = graphql`
   query {
@@ -24,7 +26,7 @@ export const query = graphql`
   }
 `;
 
-export default function NostrContainer() {
+export default function NotesContainer() {
   const {
     site: {
       siteMetadata: {
@@ -34,8 +36,19 @@ export default function NostrContainer() {
       },
     },
   } = useStaticQuery(query);
+
   const dispatch = useDispatch();
-  const { pubkey, status, notes } = useSelector((state) => state.nostr);
+  const { pubkey, status, notes, hashtags, selectedHashtag } = useSelector(
+    (state) => state.nostr,
+  );
+
+  const filteredNotes = selectedHashtag
+    ? notes.filter((note) => hashtags[selectedHashtag].includes(note.id))
+    : notes;
+
+  const handleHashtag = (hashtag, id) => {
+    dispatch(appendHashtag({ hashtag, id }));
+  };
 
   useEffect(() => {
     if (pubkey) {
@@ -53,7 +66,8 @@ export default function NostrContainer() {
         <br />
         from <Anchor href={`https://nostter.app/${nPubKey}`}>Nostr</Anchor>
       </p>
-      <NoteList notes={notes} />
+      <NotesHashtagListContainer />
+      <NoteList notes={filteredNotes} onHashtag={handleHashtag} />
     </>
   );
 }

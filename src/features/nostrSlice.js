@@ -13,6 +13,10 @@ const { actions, reducer } = createSlice({
       content: "",
     },
     notes: [],
+    hashtags: {
+      ETC: [],
+    },
+    selectedHashtag: null,
   },
   reducers: {
     setPubkey: (state, { payload: pubkey }) => ({
@@ -29,12 +33,39 @@ const { actions, reducer } = createSlice({
       return {
         ...state,
         notes: newNotes,
+        hashtags: {
+          ...state.hashtags,
+          ETC: [...state.hashtags.ETC, note.id],
+        },
       };
     },
+    appendHashtag: (state, { payload: { hashtag, id } }) => {
+      const key = hashtag.replace("#", "").toUpperCase();
+      const originIds = state.hashtags[key] ? state.hashtags[key] : [id];
+      const newIds = originIds.includes(id) ? originIds : [...originIds, id];
+      return {
+        ...state,
+        hashtags: {
+          ...state.hashtags,
+          [key]: newIds,
+          ETC: state.hashtags.ETC.filter((etcId) => id !== etcId),
+        },
+      };
+    },
+    toggleHashtag: (state, { payload: hashtag }) => ({
+      ...state,
+      selectedHashtag: state.selectedHashtag === hashtag ? null : hashtag,
+    }),
   },
 });
 
-export const { setPubkey, setStatus, appendNotes } = actions;
+export const {
+  setPubkey,
+  setStatus,
+  appendNotes,
+  appendHashtag,
+  toggleHashtag,
+} = actions;
 
 const EVENT_KIND = {
   textNote: 1,

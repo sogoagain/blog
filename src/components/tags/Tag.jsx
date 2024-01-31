@@ -1,4 +1,5 @@
 import React from "react";
+
 import styled from "@emotion/styled";
 
 const CheckboxWrapper = styled.label`
@@ -25,14 +26,10 @@ const CheckboxLabel = styled.span`
   }
 `;
 
-export default function Tag({ text, selected, handleClick }) {
+export default function Tag({ text, selected, onClick }) {
   return (
     <CheckboxWrapper>
-      <CheckboxInput
-        type="checkbox"
-        checked={selected}
-        onChange={handleClick}
-      />
+      <CheckboxInput type="checkbox" checked={selected} onChange={onClick} />
       <CheckboxLabel selected={selected}>{text}</CheckboxLabel>
     </CheckboxWrapper>
   );

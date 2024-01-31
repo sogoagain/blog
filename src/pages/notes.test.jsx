@@ -4,7 +4,7 @@ import { waitFor } from "@testing-library/react";
 
 import { useStaticQuery } from "gatsby";
 
-import { render, screen } from "../testUtils";
+import { render, screen, fireEvent } from "../testUtils";
 
 import NotePage from "./notes";
 
@@ -39,6 +39,14 @@ describe("<NotePage/>", () => {
     expect(status).toBeInTheDocument();
   });
 
+  it("해시태그 목록을 출력한다", () => {
+    ["ZAPS", "NOTHING", "ETC"].forEach((hashtag) => {
+      const hashtagEl = screen.getByText(hashtag);
+
+      expect(hashtagEl).toBeInTheDocument();
+    });
+  });
+
   it("노트 목록을 출력한다", () => {
     const note1 = screen.getByText("노트 1");
     const note1Date = screen.getByText("2023-12-24");
@@ -57,6 +65,38 @@ describe("<NotePage/>", () => {
 
     expect(note3).toBeInTheDocument();
     expect(note3Date).toBeInTheDocument();
+  });
+
+  it("선택한 해시태그에 따라 노트를 필터링한다", () => {
+    const hashtagEl = screen.getByText("NOTHING");
+    fireEvent.click(hashtagEl);
+
+    const items = screen.getAllByRole("listitem");
+    const note1 = screen.getByText("노트 1");
+
+    expect(items).toHaveLength(1);
+    expect(note1).toBeInTheDocument();
+  });
+
+  it("해시태그 필터를 해제하면 모든 노트를 출력한다", () => {
+    const hashtagEl = screen.getByText("NOTHING");
+    fireEvent.click(hashtagEl);
+    fireEvent.click(hashtagEl);
+
+    const items = screen.getAllByRole("listitem");
+
+    expect(items).toHaveLength(3);
+  });
+
+  it("ETC 해시태그 필터를 선택하면 태그가 없는 노트를 출력한다", () => {
+    const hashtagEl = screen.getByText("ETC");
+    fireEvent.click(hashtagEl);
+
+    const items = screen.getAllByRole("listitem");
+    const note3 = screen.getByText("노트 3");
+
+    expect(items).toHaveLength(1);
+    expect(note3).toBeInTheDocument();
   });
 
   it("노트에 포함된 이미지를 출력한다", () => {
