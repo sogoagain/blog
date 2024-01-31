@@ -38,12 +38,12 @@ export default function NotesContainer() {
   } = useStaticQuery(query);
 
   const dispatch = useDispatch();
-  const { pubkey, status, notes, selected } = useSelector(
+  const { pubkey, status, notes, hashtags, selectedHashtag } = useSelector(
     (state) => state.nostr,
   );
 
-  const filteredNotes = selected.hashtag
-    ? notes.filter((note) => selected.ids.includes(note.id))
+  const filteredNotes = selectedHashtag
+    ? notes.filter((note) => hashtags[selectedHashtag].includes(note.id))
     : notes;
 
   const handleHashtag = (hashtag, id) => {

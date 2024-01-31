@@ -8,7 +8,7 @@ import { toggleHashtag } from "../features/nostrSlice";
 
 export default function NotesHashtagListContainer() {
   const dispatch = useDispatch();
-  const { hashtags, selected } = useSelector((state) => state.nostr);
+  const { hashtags, selectedHashtag } = useSelector((state) => state.nostr);
 
   const tags = Object.keys(hashtags)
     .filter((hashtag) => hashtag !== "ETC")
@@ -20,6 +20,6 @@ export default function NotesHashtagListContainer() {
   };
 
   return (
-    <TagList tags={tags} selected={selected.hashtag} onClick={handleClick} />
+    <TagList tags={tags} selected={selectedHashtag} onClick={handleClick} />
   );
 }

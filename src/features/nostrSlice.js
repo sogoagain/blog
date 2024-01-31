@@ -16,10 +16,7 @@ const { actions, reducer } = createSlice({
     hashtags: {
       ETC: [],
     },
-    selected: {
-      hashtag: null,
-      ids: [],
-    },
+    selectedHashtag: null,
   },
   reducers: {
     setPubkey: (state, { payload: pubkey }) => ({
@@ -57,16 +54,7 @@ const { actions, reducer } = createSlice({
     },
     toggleHashtag: (state, { payload: hashtag }) => ({
       ...state,
-      selected:
-        state.selected.hashtag === hashtag
-          ? {
-              hashtag: null,
-              ids: [],
-            }
-          : {
-              hashtag,
-              ids: state.hashtags[hashtag],
-            },
+      selectedHashtag: state.selectedHashtag === hashtag ? null : hashtag,
     }),
   },
 });
