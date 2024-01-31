@@ -13,6 +13,7 @@ const { actions, reducer } = createSlice({
       content: "",
     },
     notes: [],
+    hashtags: {},
   },
   reducers: {
     setPubkey: (state, { payload: pubkey }) => ({
@@ -31,10 +32,22 @@ const { actions, reducer } = createSlice({
         notes: newNotes,
       };
     },
+    appendHashtag: (state, { payload: { hashtag, id } }) => {
+      const key = hashtag.replace("#", "").toUpperCase();
+      const originIds = state.hashtags[key] ? state.hashtags[key] : [id];
+      const newIds = originIds.includes(id) ? originIds : [...originIds, id];
+      return {
+        ...state,
+        hashtags: {
+          ...state.hashtags,
+          [key]: newIds,
+        },
+      };
+    },
   },
 });
 
-export const { setPubkey, setStatus, appendNotes } = actions;
+export const { setPubkey, setStatus, appendNotes, appendHashtag } = actions;
 
 const EVENT_KIND = {
   textNote: 1,

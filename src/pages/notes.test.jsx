@@ -39,6 +39,14 @@ describe("<NotePage/>", () => {
     expect(status).toBeInTheDocument();
   });
 
+  it("해시태그 목록을 출력한다", () => {
+    ["ZAPS", "NOTHING", "ETC"].forEach((tag) => {
+      const tagEl = screen.getByText(tag);
+
+      expect(tagEl).toBeInTheDocument();
+    });
+  });
+
   it("노트 목록을 출력한다", () => {
     const note1 = screen.getByText("노트 1");
     const note1Date = screen.getByText("2023-12-24");

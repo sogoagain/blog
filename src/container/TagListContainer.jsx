@@ -4,15 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { graphql, useStaticQuery } from "gatsby";
 
-import styled from "@emotion/styled";
-
-import Tag from "../components/Tag";
+import TagList from "../components/tags/TagList";
 
 import { toggleTag } from "../features/tagSlice";
-
-const TagListWrapper = styled.div`
-  user-select: none;
-`;
 
 const query = graphql`
   query {
@@ -45,16 +39,5 @@ export default function TagListContainer() {
     dispatch(toggleTag(tag));
   };
 
-  return (
-    <TagListWrapper>
-      {tags.map((tag) => (
-        <Tag
-          key={`tag-${tag}`}
-          text={tag}
-          selected={selected === tag}
-          handleClick={() => handleClick(tag)}
-        />
-      ))}
-    </TagListWrapper>
-  );
+  return <TagList tags={tags} selected={selected} onClick={handleClick} />;
 }

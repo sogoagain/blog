@@ -16,13 +16,13 @@ const Content = styled.p`
   margin: 0;
 `;
 
-export default function Note({ note }) {
+export default function Note({ note, onHashtag }) {
   const date = convertUnixTimestampToDate(note.created_at);
   const renderUrl = ({ attributes: { href, ...props }, content }) => (
     <LinkOrImage href={href} content={content} {...props} />
   );
   const renderHashtag = ({ attributes: { href, ...props }, content }) => (
-    <Hashtag href={href} content={content} {...props} />
+    <Hashtag href={href} content={content} onHashtag={onHashtag} {...props} />
   );
   const linkifyOptions = {
     defaultProtocol: "https",
