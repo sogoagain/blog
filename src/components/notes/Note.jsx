@@ -22,7 +22,12 @@ export default function Note({ note, onHashtag }) {
     <LinkOrImage href={href} content={content} {...props} />
   );
   const renderHashtag = ({ attributes: { href, ...props }, content }) => (
-    <Hashtag href={href} content={content} onHashtag={onHashtag} {...props} />
+    <Hashtag
+      href={href}
+      content={content}
+      onHashtag={(hashtag) => onHashtag(hashtag, note.id)}
+      {...props}
+    />
   );
   const linkifyOptions = {
     defaultProtocol: "https",

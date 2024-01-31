@@ -14,6 +14,10 @@ const { actions, reducer } = createSlice({
     },
     notes: [],
     hashtags: {},
+    selected: {
+      hashtag: null,
+      ids: [],
+    },
   },
   reducers: {
     setPubkey: (state, { payload: pubkey }) => ({
@@ -44,10 +48,29 @@ const { actions, reducer } = createSlice({
         },
       };
     },
+    toggleHashtag: (state, { payload: hashtag }) => ({
+      ...state,
+      selected:
+        state.selected.hashtag === hashtag
+          ? {
+              hashtag: null,
+              ids: [],
+            }
+          : {
+              hashtag,
+              ids: state.hashtags[hashtag],
+            },
+    }),
   },
 });
 
-export const { setPubkey, setStatus, appendNotes, appendHashtag } = actions;
+export const {
+  setPubkey,
+  setStatus,
+  appendNotes,
+  appendHashtag,
+  toggleHashtag,
+} = actions;
 
 const EVENT_KIND = {
   textNote: 1,

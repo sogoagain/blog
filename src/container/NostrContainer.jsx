@@ -38,10 +38,16 @@ export default function NostrContainer() {
   } = useStaticQuery(query);
 
   const dispatch = useDispatch();
-  const { pubkey, status, notes } = useSelector((state) => state.nostr);
+  const { pubkey, status, notes, selected } = useSelector(
+    (state) => state.nostr,
+  );
 
-  const handleHashtag = (hashtag) => {
-    dispatch(appendHashtag({ hashtag }));
+  const filteredNotes = selected.hashtag
+    ? notes.filter((note) => selected.ids.includes(note.id))
+    : notes;
+
+  const handleHashtag = (hashtag, id) => {
+    dispatch(appendHashtag({ hashtag, id }));
   };
 
   useEffect(() => {
@@ -61,7 +67,7 @@ export default function NostrContainer() {
         from <Anchor href={`https://nostter.app/${nPubKey}`}>Nostr</Anchor>
       </p>
       <HashtagContainer />
-      <NoteList notes={notes} onHashtag={handleHashtag} />
+      <NoteList notes={filteredNotes} onHashtag={handleHashtag} />
     </>
   );
 }

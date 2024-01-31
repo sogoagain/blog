@@ -1,13 +1,22 @@
 import React from "react";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import TagList from "../components/tags/TagList";
 
+import { toggleHashtag } from "../features/nostrSlice";
+
 export default function HashtagContainer() {
-  const { hashtags } = useSelector((state) => state.nostr);
+  const dispatch = useDispatch();
+  const { hashtags, selected } = useSelector((state) => state.nostr);
 
   const tags = [...Object.keys(hashtags).sort(), "ETC"];
 
-  return <TagList tags={tags} selected={null} onClick={() => {}} />;
+  const handleClick = (hashtag) => {
+    dispatch(toggleHashtag(hashtag));
+  };
+
+  return (
+    <TagList tags={tags} selected={selected.hashtag} onClick={handleClick} />
+  );
 }

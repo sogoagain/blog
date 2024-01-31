@@ -4,7 +4,7 @@ import { waitFor } from "@testing-library/react";
 
 import { useStaticQuery } from "gatsby";
 
-import { render, screen } from "../testUtils";
+import { render, screen, fireEvent } from "../testUtils";
 
 import NotePage from "./notes";
 
@@ -40,10 +40,10 @@ describe("<NotePage/>", () => {
   });
 
   it("해시태그 목록을 출력한다", () => {
-    ["ZAPS", "NOTHING", "ETC"].forEach((tag) => {
-      const tagEl = screen.getByText(tag);
+    ["ZAPS", "NOTHING", "ETC"].forEach((hashtag) => {
+      const hashtagEl = screen.getByText(hashtag);
 
-      expect(tagEl).toBeInTheDocument();
+      expect(hashtagEl).toBeInTheDocument();
     });
   });
 
@@ -65,6 +65,25 @@ describe("<NotePage/>", () => {
 
     expect(note3).toBeInTheDocument();
     expect(note3Date).toBeInTheDocument();
+  });
+
+  it("선택한 해시태그에 따라 노트를 필터링한다", () => {
+    const hashtagEl = screen.getByText("NOTHING");
+    fireEvent.click(hashtagEl);
+
+    const items = screen.getAllByRole("listitem");
+
+    expect(items).toHaveLength(1);
+  });
+
+  it("해시태그 필터를 해제하면 모든 노트를 출력한다", () => {
+    const hashtagEl = screen.getByText("NOTHING");
+    fireEvent.click(hashtagEl);
+    fireEvent.click(hashtagEl);
+
+    const items = screen.getAllByRole("listitem");
+
+    expect(items).toHaveLength(3);
   });
 
   it("노트에 포함된 이미지를 출력한다", () => {

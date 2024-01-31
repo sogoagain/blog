@@ -16,7 +16,7 @@ export default function TagList({ tags, selected, onClick }) {
           key={`tag-${tag}`}
           text={tag}
           selected={selected === tag}
-          handleClick={() => onClick(tag)}
+          onClick={() => onClick(tag)}
         />
       ))}
     </TagListWrapper>
