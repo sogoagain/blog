@@ -13,7 +13,9 @@ const { actions, reducer } = createSlice({
       content: "",
     },
     notes: [],
-    hashtags: {},
+    hashtags: {
+      ETC: [],
+    },
     selected: {
       hashtag: null,
       ids: [],
@@ -34,6 +36,10 @@ const { actions, reducer } = createSlice({
       return {
         ...state,
         notes: newNotes,
+        hashtags: {
+          ...state.hashtags,
+          ETC: [...state.hashtags.ETC, note.id],
+        },
       };
     },
     appendHashtag: (state, { payload: { hashtag, id } }) => {
@@ -45,6 +51,7 @@ const { actions, reducer } = createSlice({
         hashtags: {
           ...state.hashtags,
           [key]: newIds,
+          ETC: state.hashtags.ETC.filter((etcId) => id !== etcId),
         },
       };
     },

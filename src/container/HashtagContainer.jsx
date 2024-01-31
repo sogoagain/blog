@@ -10,7 +10,10 @@ export default function HashtagContainer() {
   const dispatch = useDispatch();
   const { hashtags, selected } = useSelector((state) => state.nostr);
 
-  const tags = [...Object.keys(hashtags).sort(), "ETC"];
+  const tags = Object.keys(hashtags)
+    .filter((hashtag) => hashtag !== "ETC")
+    .sort()
+    .concat("ETC");
 
   const handleClick = (hashtag) => {
     dispatch(toggleHashtag(hashtag));

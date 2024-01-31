@@ -72,8 +72,10 @@ describe("<NotePage/>", () => {
     fireEvent.click(hashtagEl);
 
     const items = screen.getAllByRole("listitem");
+    const note1 = screen.getByText("노트 1");
 
     expect(items).toHaveLength(1);
+    expect(note1).toBeInTheDocument();
   });
 
   it("해시태그 필터를 해제하면 모든 노트를 출력한다", () => {
@@ -84,6 +86,17 @@ describe("<NotePage/>", () => {
     const items = screen.getAllByRole("listitem");
 
     expect(items).toHaveLength(3);
+  });
+
+  it("ETC 해시태그 필터를 선택하면 태그가 없는 노트를 출력한다", () => {
+    const hashtagEl = screen.getByText("ETC");
+    fireEvent.click(hashtagEl);
+
+    const items = screen.getAllByRole("listitem");
+    const note3 = screen.getByText("노트 3");
+
+    expect(items).toHaveLength(1);
+    expect(note3).toBeInTheDocument();
   });
 
   it("노트에 포함된 이미지를 출력한다", () => {
