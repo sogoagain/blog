@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const { actions, reducer } = createSlice({
-  name: "tag",
+  name: "posts",
   initialState: {
-    selected: null,
+    selectedTag: null,
   },
   reducers: {
     toggleTag: (state, { payload: tag }) => ({
       ...state,
-      selected: state.selected === tag ? null : tag,
+      selectedTag: state.selectedTag === tag ? null : tag,
     }),
   },
 });

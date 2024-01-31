@@ -6,7 +6,7 @@ import { graphql, useStaticQuery } from "gatsby";
 
 import TagList from "../components/tags/TagList";
 
-import { toggleTag } from "../features/tagSlice";
+import { toggleTag } from "../features/postsSlice";
 
 const query = graphql`
   query {
@@ -24,7 +24,7 @@ export default function TagListContainer() {
     allMarkdownRemark: { group },
   } = useStaticQuery(query);
   const dispatch = useDispatch();
-  const { selected } = useSelector((state) => state.tag);
+  const { selectedTag } = useSelector((state) => state.posts);
 
   const tags = group
     .sort((a, b) => {
@@ -39,5 +39,5 @@ export default function TagListContainer() {
     dispatch(toggleTag(tag));
   };
 
-  return <TagList tags={tags} selected={selected} onClick={handleClick} />;
+  return <TagList tags={tags} selected={selectedTag} onClick={handleClick} />;
 }

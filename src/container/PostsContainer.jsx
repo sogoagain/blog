@@ -31,10 +31,10 @@ export default function PostsContainer() {
   const {
     allMarkdownRemark: { nodes },
   } = useStaticQuery(query);
-  const { selected } = useSelector((state) => state.tag);
+  const { selectedTag } = useSelector((state) => state.posts);
 
-  const filteredPosts = selected
-    ? nodes.filter(({ frontmatter }) => frontmatter.tags.includes(selected))
+  const filteredPosts = selectedTag
+    ? nodes.filter(({ frontmatter }) => frontmatter.tags.includes(selectedTag))
     : nodes;
 
   return (
