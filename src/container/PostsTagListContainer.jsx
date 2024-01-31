@@ -19,7 +19,7 @@ const query = graphql`
   }
 `;
 
-export default function TagListContainer() {
+export default function PostsTagListContainer() {
   const {
     allMarkdownRemark: { group },
   } = useStaticQuery(query);

@@ -7,7 +7,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import Anchor from "../components/Anchor";
 import NoteList from "../components/notes/NoteList";
 
-import HashtagContainer from "./HashtagContainer";
+import NotesHashtagListContainer from "./NotesHashtagListContainer";
 
 import { subscribe, appendHashtag } from "../features/nostrSlice";
 
@@ -26,7 +26,7 @@ export const query = graphql`
   }
 `;
 
-export default function NostrContainer() {
+export default function NotesContainer() {
   const {
     site: {
       siteMetadata: {
@@ -66,7 +66,7 @@ export default function NostrContainer() {
         <br />
         from <Anchor href={`https://nostter.app/${nPubKey}`}>Nostr</Anchor>
       </p>
-      <HashtagContainer />
+      <NotesHashtagListContainer />
       <NoteList notes={filteredNotes} onHashtag={handleHashtag} />
     </>
   );

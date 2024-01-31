@@ -6,7 +6,7 @@ import TagList from "../components/tags/TagList";
 
 import { toggleHashtag } from "../features/nostrSlice";
 
-export default function HashtagContainer() {
+export default function NotesHashtagListContainer() {
   const dispatch = useDispatch();
   const { hashtags, selected } = useSelector((state) => state.nostr);
 
