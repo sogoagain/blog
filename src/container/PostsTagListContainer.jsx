@@ -33,7 +33,7 @@ export default function PostsTagListContainer() {
         ? a.tag.localeCompare(b.tag, "ko")
         : totalCountDiff;
     })
-    .flatMap((item) => item.tag.trim());
+    .flatMap((item) => item.tag.trim().toUpperCase());
 
   const handleClick = (tag) => {
     dispatch(toggleTag(tag));

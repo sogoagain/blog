@@ -41,14 +41,14 @@ describe("<IndexPage/>", () => {
 
   it("관심사를 출력한다", () => {
     const interest = screen.getByText(
-      SITE_QUERY.site.siteMetadata.interests[0]
+      SITE_QUERY.site.siteMetadata.interests[0],
     );
 
     expect(interest).toBeInTheDocument();
   });
 
   it("태그 목록을 출력한다", () => {
-    ["C++", "DB", "Docker", "Git"].forEach((tag) => {
+    ["C++", "DB", "DOCKER", "GIT"].forEach((tag) => {
       const tagEl = screen.getByText(tag);
 
       expect(tagEl).toBeInTheDocument();
@@ -68,7 +68,7 @@ describe("<IndexPage/>", () => {
     const items = screen.getAllByRole("listitem");
 
     const filteredPosts = POST_LIST_QUERY.allMarkdownRemark.nodes.filter(
-      (post) => post.frontmatter.tags.includes("C++")
+      (post) => post.frontmatter.tags.includes("C++"),
     );
 
     expect(items).toHaveLength(filteredPosts.length);

@@ -34,7 +34,9 @@ export default function PostsContainer() {
   const { selectedTag } = useSelector((state) => state.posts);
 
   const filteredPosts = selectedTag
-    ? nodes.filter(({ frontmatter }) => frontmatter.tags.includes(selectedTag))
+    ? nodes.filter(({ frontmatter }) =>
+        frontmatter.tags.map((tag) => tag.toUpperCase()).includes(selectedTag),
+      )
     : nodes;
 
   return (
