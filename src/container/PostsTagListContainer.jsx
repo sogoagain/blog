@@ -27,13 +27,26 @@ export default function PostsTagListContainer() {
   const { selectedTag } = useSelector((state) => state.posts);
 
   const tags = group
+    .reduce((acc, item) => {
+      const tag = item.tag.trim().toUpperCase();
+      const foundIndex = acc.findIndex((el) => el.tag === tag);
+      if (foundIndex >= 0) {
+        acc[foundIndex].totalCount += item.totalCount;
+      } else {
+        acc.push({
+          tag,
+          totalCount: item.totalCount,
+        });
+      }
+      return acc;
+    }, [])
     .sort((a, b) => {
       const totalCountDiff = b.totalCount - a.totalCount;
       return totalCountDiff === 0
         ? a.tag.localeCompare(b.tag, "ko")
         : totalCountDiff;
     })
-    .flatMap((item) => item.tag.trim().toUpperCase());
+    .flatMap((item) => item.tag);
 
   const handleClick = (tag) => {
     dispatch(toggleTag(tag));

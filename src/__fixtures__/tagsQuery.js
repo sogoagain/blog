@@ -3,23 +3,27 @@ const tagsQeury = {
     group: [
       {
         tag: "C++",
-        totalCount: 2,
+        totalCount: 3,
       },
       {
         tag: "DB",
-        totalCount: 2,
+        totalCount: 3,
       },
       {
         tag: "Docker",
         totalCount: 1,
       },
       {
+        tag: "DOCKER",
+        totalCount: 1,
+      },
+      {
         tag: "Git",
-        totalCount: 4,
+        totalCount: 5,
       },
       {
         tag: "설정",
-        totalCount: 2,
+        totalCount: 3,
       },
     ],
   },
