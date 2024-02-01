@@ -12,8 +12,11 @@ export default function NotesHashtagListContainer() {
 
   const tags = Object.keys(hashtags)
     .filter((hashtag) => hashtag !== "ETC")
-    .sort()
-    .concat("ETC");
+    .sort();
+
+  if (hashtags.ETC) {
+    tags.push("ETC");
+  }
 
   const handleClick = (hashtag) => {
     dispatch(toggleHashtag(hashtag));

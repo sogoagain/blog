@@ -13,9 +13,7 @@ const { actions, reducer } = createSlice({
       content: "",
     },
     notes: [],
-    hashtags: {
-      ETC: [],
-    },
+    hashtags: {},
     selectedHashtag: null,
   },
   reducers: {
@@ -33,22 +31,23 @@ const { actions, reducer } = createSlice({
       return {
         ...state,
         notes: newNotes,
-        hashtags: {
-          ...state.hashtags,
-          ETC: [...state.hashtags.ETC, note.id],
-        },
       };
     },
     appendHashtag: (state, { payload: { hashtag, id } }) => {
       const key = hashtag.replace("#", "").toUpperCase();
-      const originIds = state.hashtags[key] ? state.hashtags[key] : [id];
-      const newIds = originIds.includes(id) ? originIds : [...originIds, id];
+      const newIds = state.hashtags[key]
+        ? [...new Set([...state.hashtags[key], id])]
+        : [id];
+      const etcIds =
+        key === "ETC"
+          ? newIds
+          : state.hashtags.ETC.filter((etcId) => etcId !== id);
       return {
         ...state,
         hashtags: {
           ...state.hashtags,
           [key]: newIds,
-          ETC: state.hashtags.ETC.filter((etcId) => id !== etcId),
+          ETC: etcIds,
         },
       };
     },
@@ -84,6 +83,7 @@ export function subscribe(relays, nPubKey) {
           created_at: event.created_at,
           content: event.content,
         };
+        dispatch(appendHashtag({ hashtag: "ETC", id: note.id }));
         dispatch(appendNotes(note));
       }
     };
