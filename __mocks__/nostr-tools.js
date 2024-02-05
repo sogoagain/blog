@@ -60,6 +60,27 @@ module.exports = {
             ["expiration", "1692845589"],
           ],
         });
+        callbacks.onevent({
+          id: "id9",
+          kind: 1,
+          content: "노트 4 #Zaps",
+          created_at: 1705515813,
+          tags: [],
+        });
+        callbacks.onevent({
+          id: "id10",
+          kind: 1,
+          content: "노트 5 #Bitcoin",
+          created_at: 1706465813,
+          tags: [],
+        });
+        callbacks.onevent({
+          id: "id11",
+          kind: 1,
+          content: "노트 6 #테스트",
+          created_at: 1707465813,
+          tags: [],
+        });
       }),
   })),
 };

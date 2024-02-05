@@ -47,6 +47,17 @@ describe("<NotePage/>", () => {
     });
   });
 
+  it("해시태그 목록이 노트 갯수를 기준으로 내림차순, 노트 갯수가 동일하면 한국어 기준 정렬되어 출력된다", () => {
+    const labels = screen
+      .getAllByText(/(BITCOIN|NOTHING|ZAPS|ETC|테스트)/)
+      .map((label) => label.textContent)
+      .filter((text) => !text.startsWith("#"));
+
+    const sortedHashtags = ["ZAPS", "테스트", "BITCOIN", "NOTHING", "ETC"];
+
+    expect(labels).toEqual(sortedHashtags);
+  });
+
   it("노트 목록을 출력한다", () => {
     const note1 = screen.getByText("노트 1");
     const note1Date = screen.getByText("2023-12-24");
@@ -85,7 +96,7 @@ describe("<NotePage/>", () => {
 
     const items = screen.getAllByRole("listitem");
 
-    expect(items).toHaveLength(3);
+    expect(items).toHaveLength(6);
   });
 
   it("ETC 해시태그 필터를 선택하면 태그가 없는 노트를 출력한다", () => {
@@ -104,10 +115,10 @@ describe("<NotePage/>", () => {
     expect(img).toBeInTheDocument();
   });
 
-  it("노트만 출력한다", () => {
+  it("노트들을 출력한다", () => {
     const noteEls = screen.getAllByRole("listitem");
 
-    expect(noteEls).toHaveLength(3);
+    expect(noteEls).toHaveLength(6);
   });
 
   it("footer를 출력한다", () => {
