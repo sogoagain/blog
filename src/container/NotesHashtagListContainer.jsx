@@ -10,9 +10,15 @@ export default function NotesHashtagListContainer() {
   const dispatch = useDispatch();
   const { hashtags, selectedHashtag } = useSelector((state) => state.nostr);
 
-  const tags = Object.keys(hashtags)
-    .filter((hashtag) => hashtag !== "ETC")
-    .sort();
+  const tags = Object.entries(hashtags)
+    .filter(([hashtag]) => hashtag !== "ETC")
+    .sort(([aHashtag, aIds], [bHashtag, bIds]) => {
+      const totalCountDiff = bIds.length - aIds.length;
+      return totalCountDiff === 0
+        ? aHashtag.localeCompare(bHashtag, "ko")
+        : totalCountDiff;
+    })
+    .map(([hashtag]) => hashtag);
 
   if (hashtags.ETC) {
     tags.push("ETC");
