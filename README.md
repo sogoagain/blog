@@ -1,4 +1,3 @@
-[![CI](https://github.com/sogoagain/blog/actions/workflows/ci.yml/badge.svg)](https://github.com/sogoagain/blog/actions/workflows/ci.yml)
 [![CD](https://github.com/sogoagain/blog/actions/workflows/cd.yml/badge.svg)](https://github.com/sogoagain/blog/actions/workflows/cd.yml)
 
 <p align="center">
