@@ -21,14 +21,6 @@ describe("<HeaderContainer/>", () => {
     expect(titleEl).toHaveAttribute("href", "/");
   });
 
-  it("비트코인 페이지 링크를 출력한다", () => {
-    render(<HeaderContainer />);
-
-    const bitcoinEl = screen.getByText("비트코인");
-
-    expect(bitcoinEl).toHaveAttribute("href", "/bitcoin");
-  });
-
   it("소개 페이지 링크를 출력한다", () => {
     render(<HeaderContainer />);
 

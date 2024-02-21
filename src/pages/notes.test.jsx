@@ -25,11 +25,9 @@ describe("<NotePage/>", () => {
 
   it("header를 출력한다", () => {
     const titleEl = screen.getByText("홈");
-    const bitcoinEl = screen.getByText("비트코인");
     const aboutEl = screen.getByText("소개");
 
     expect(titleEl).toBeInTheDocument();
-    expect(bitcoinEl).toBeInTheDocument();
     expect(aboutEl).toBeInTheDocument();
   });
 
