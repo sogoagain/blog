@@ -43,10 +43,10 @@ describe("<AboutPage/>", () => {
 
   it("header를 출력한다", () => {
     const titleEl = screen.getByText("홈");
-    const bitcoinEl = screen.getByText("비트코인");
+    const noteEl = screen.getByText("노트");
 
     expect(titleEl).toBeInTheDocument();
-    expect(bitcoinEl).toBeInTheDocument();
+    expect(noteEl).toBeInTheDocument();
   });
 
   it("자기소개 내용을 출력한다", () => {
