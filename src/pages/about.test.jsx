@@ -1,23 +1,40 @@
 import React from "react";
 
+import { act } from "react-dom/test-utils";
+
 import { waitFor } from "@testing-library/react";
 
 import { useStaticQuery } from "gatsby";
 
 import { render, screen } from "../testUtils";
 
+import {
+  createLightningInvoice,
+  lookupLightningInvoice,
+} from "../services/blog";
+
 import AboutPage from "./about";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
 import ABOUT_QUERY from "../__fixtures__/aboutQuery";
+import LIGHTNING_INVOICE from "../__fixtures__/lightningInvoice";
+import LOOKUP_LIGHTNING_INVOICE from "../__fixtures__/lookupLightningInvoice";
+
+jest.mock("../services/blog");
 
 describe("<AboutPage/>", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
+    createLightningInvoice.mockClear();
+    createLightningInvoice.mockResolvedValue(LIGHTNING_INVOICE);
+    lookupLightningInvoice.mockClear();
+    lookupLightningInvoice.mockResolvedValue(LOOKUP_LIGHTNING_INVOICE);
     useStaticQuery.mockReturnValue({
       ...SITE_QUERY,
     });
 
-    render(<AboutPage data={ABOUT_QUERY} location={{ pathname: "/" }} />);
+    await act(async () => {
+      render(<AboutPage data={ABOUT_QUERY} location={{ pathname: "/" }} />);
+    });
   });
 
   it("SEO를 적용한다", async () => {
@@ -36,6 +53,18 @@ describe("<AboutPage/>", () => {
     const aboutEl = screen.getByText("안녕하세요");
 
     expect(aboutEl).toBeInTheDocument();
+  });
+
+  it("라이트닝 인보이스를 발급하는 form을 출력한다", () => {
+    const inputEl = screen.getByPlaceholderText("1000");
+
+    expect(inputEl).toBeInTheDocument();
+  });
+
+  it("배경화면에 파티클 효과를 출력한다", () => {
+    const particleEl = screen.getByText("Particles");
+
+    expect(particleEl).toBeInTheDocument();
   });
 
   it("footer를 출력한다", () => {
