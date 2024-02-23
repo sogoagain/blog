@@ -35,11 +35,17 @@ exports.onPostBuild = async () => {
   if (!(await fs.pathExists(outputDir))) {
     await fs.mkdirp(outputDir);
   }
-  const { name, nPubKey } = properties.social.nostr;
+  const { name, nPubKey, relays } = properties.social.nostr;
   const hexPubKey = bech32ToHexPublicKey(nPubKey);
   await fs.writeFile(
     outputPath,
-    JSON.stringify({ names: { [name]: hexPubKey } })
+    JSON.stringify({
+      names: {
+        _: hexPubKey,
+        [name]: hexPubKey,
+      },
+      relays: { [hexPubKey]: [...relays] },
+    }),
   );
 };
 
