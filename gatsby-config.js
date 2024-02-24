@@ -18,11 +18,9 @@ module.exports = {
     "gatsby-plugin-emotion",
     "gatsby-plugin-image",
     {
-      resolve: "gatsby-plugin-react-svg",
+      resolve: "gatsby-plugin-svgr",
       options: {
-        rule: {
-          include: /hashtags/,
-        },
+        include: /hashtags/,
       },
     },
     "gatsby-plugin-react-helmet",

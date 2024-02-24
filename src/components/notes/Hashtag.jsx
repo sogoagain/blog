@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 
 import { css } from "@emotion/react";
 
-import BitcoinIcon from "../../images/hashtags/bitcoin.svg";
-import NostrIcon from "../../images/hashtags/nostr.svg";
-import ZapIcon from "../../images/hashtags/zap.svg";
+import { ReactComponent as BitcoinIcon } from "../../images/hashtags/bitcoin.svg";
+import { ReactComponent as NostrIcon } from "../../images/hashtags/nostr.svg";
+import { ReactComponent as ZapIcon } from "../../images/hashtags/zap.svg";
 
 const style = css`
   svg {
