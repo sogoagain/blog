@@ -8,7 +8,7 @@ import { appendHashtag } from "../features/nostrSlice";
 
 export default function NotesContainer() {
   const dispatch = useDispatch();
-  const { notes, hashtags, selectedHashtag } = useSelector(
+  const { notes, hashtags, selectedHashtag, profiles, quotes } = useSelector(
     (state) => state.nostr,
   );
 
@@ -20,5 +20,12 @@ export default function NotesContainer() {
     dispatch(appendHashtag({ hashtag, id }));
   };
 
-  return <NoteList notes={filteredNotes} onHashtag={handleHashtag} />;
+  return (
+    <NoteList
+      notes={filteredNotes}
+      profiles={profiles}
+      quotes={quotes}
+      onHashtag={handleHashtag}
+    />
+  );
 }

@@ -9,11 +9,17 @@ const List = styled.ol`
   padding-left: 0;
 `;
 
-export default function NoteList({ notes, onHashtag }) {
+export default function NoteList({ notes, profiles, quotes, onHashtag }) {
   return (
     <List>
       {notes.map((note) => (
-        <Note key={note.id} note={note} onHashtag={onHashtag} />
+        <Note
+          key={note.id}
+          note={note}
+          profiles={profiles}
+          quotes={quotes}
+          onHashtag={onHashtag}
+        />
       ))}
     </List>
   );

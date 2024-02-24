@@ -1,5 +1,7 @@
 import React from "react";
 
+import { act } from "react-dom/test-utils";
+
 import { waitFor } from "@testing-library/react";
 
 import { useStaticQuery } from "gatsby";
@@ -11,12 +13,14 @@ import NotePage from "./notes";
 import SITE_QUERY from "../__fixtures__/siteQuery";
 
 describe("<NotePage/>", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     useStaticQuery.mockReturnValue({
       ...SITE_QUERY,
     });
 
-    render(<NotePage data={SITE_QUERY} location={{ pathname: "/" }} />);
+    await act(async () => {
+      render(<NotePage data={SITE_QUERY} location={{ pathname: "/" }} />);
+    });
   });
 
   it("SEO를 적용한다", async () => {
@@ -94,7 +98,7 @@ describe("<NotePage/>", () => {
 
     const items = screen.getAllByRole("listitem");
 
-    expect(items).toHaveLength(7);
+    expect(items).toHaveLength(9);
   });
 
   it("ETC 해시태그 필터를 선택하면 태그가 없는 노트를 출력한다", () => {
@@ -104,7 +108,7 @@ describe("<NotePage/>", () => {
     const items = screen.getAllByRole("listitem");
     const note3 = screen.getByText("노트 3");
 
-    expect(items).toHaveLength(2);
+    expect(items).toHaveLength(4);
     expect(note3).toBeInTheDocument();
   });
 
@@ -114,22 +118,58 @@ describe("<NotePage/>", () => {
     expect(img).toBeInTheDocument();
   });
 
-  it("노트에 멘션된 프로필을 출력한다", () => {
-    const mention = screen.getByText("@npub1zatgwjy");
+  context("멘션된 프로필", () => {
+    context("조회하지 못하면", () => {
+      it("npub을 축약해 출력한다", () => {
+        const note = screen.getByText("조회하지 못한 멘션과 인용");
+        const mention = screen.getByText("@npub1zatgwjy");
 
-    expect(mention).toBeInTheDocument();
+        expect(note).toBeInTheDocument();
+        expect(mention).toBeInTheDocument();
+      });
+    });
+
+    context("조회하면", () => {
+      it("사용자 이름을 출력한다", () => {
+        const note = screen.getByText("멘션된 프로필을 조회한 노트");
+        const mention = screen.getByText("@mockusername2");
+
+        expect(note).toBeInTheDocument();
+        expect(mention).toBeInTheDocument();
+      });
+    });
   });
 
-  it("인용된 노트를 출력한다", () => {
-    const quotedNote = screen.getByText("note1l63ccvq...fqlef3q4");
+  context("인용된 노트", () => {
+    context("조회하지 못하면", () => {
+      it("note id를 축약해 출력한다", () => {
+        const note = screen.getByText("조회하지 못한 멘션과 인용");
+        const quotedNote = screen.getByText("note1gesl9am...9qppm3ju");
 
-    expect(quotedNote).toBeInTheDocument();
+        expect(note).toBeInTheDocument();
+        expect(quotedNote).toBeInTheDocument();
+      });
+    });
+
+    context("조회하면", () => {
+      it("인용된 노트를 출력한다", () => {
+        const note = screen.getByText("인용된 노트를 조회한 노트");
+        const quotedNote = screen.getByText("인용된 노트 입니다.");
+        const mentionOfQuotedNote = screen.getByText("@npub1zsewm9p");
+        const writer = screen.getByText("인용글작성자");
+
+        expect(note).toBeInTheDocument();
+        expect(quotedNote).toBeInTheDocument();
+        expect(mentionOfQuotedNote).toBeInTheDocument();
+        expect(writer).toBeInTheDocument();
+      });
+    });
   });
 
   it("노트들을 출력한다", () => {
     const noteEls = screen.getAllByRole("listitem");
 
-    expect(noteEls).toHaveLength(7);
+    expect(noteEls).toHaveLength(9);
   });
 
   it("footer를 출력한다", () => {

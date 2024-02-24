@@ -26,5 +26,5 @@ export function bech32ToHexPublicKey(nPubKey) {
 }
 
 export function isImageUrl(url) {
-  return /\.(jpeg|jpg|gif|png)$/.test(url);
+  return /\.(jpeg|jpg|gif|png|webp)$/.test(url);
 }

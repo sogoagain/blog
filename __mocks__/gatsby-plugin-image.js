@@ -7,6 +7,6 @@ module.exports = {
   StaticImage: jest.fn().mockImplementation(({ ...rest }) =>
     React.createElement("img", {
       ...rest,
-    })
+    }),
   ),
 };
