@@ -91,9 +91,10 @@ const EVENT_KIND = {
   userStatus: 30315,
 };
 
+const pool = new SimplePool();
+
 export function loadProfiles(relays, mentionedPubkeys) {
   return async (dispatch) => {
-    const pool = new SimplePool();
     const events = await pool.querySync(relays, {
       authors: [...mentionedPubkeys],
       kinds: [EVENT_KIND.metadata],
@@ -119,7 +120,6 @@ export function subscribe(relays, nPubKey) {
   return (dispatch) => {
     const pubkey = bech32ToHexPublicKey(nPubKey);
     dispatch(setPubkey(pubkey));
-    const pool = new SimplePool();
     const handleTextNote = (event) => {
       if (!event.tags.some((tag) => tag[0] === "e")) {
         const { content, mentionedPubkeys } =
