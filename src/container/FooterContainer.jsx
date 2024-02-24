@@ -40,7 +40,7 @@ export default function FooterContainer() {
     },
     {
       text: "Nostr",
-      href: `https://nostter.app/${social.nostr.nPubKey}`,
+      href: `nostr:${social.nostr.nPubKey}`,
     },
   ];
 
