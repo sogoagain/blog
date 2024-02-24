@@ -9,6 +9,7 @@ import "linkify-plugin-mention";
 import Anchor from "../Anchor";
 import LinkOrImage from "./LinkOrImage";
 import Hashtag from "./Hashtag";
+import QuotedNote from "./QuotedNote";
 
 import { convertUnixTimestampToDate, toISOString } from "../../utils";
 
@@ -23,6 +24,17 @@ const Content = styled.section`
 
 export default function Note({ note, profiles, quotes, onHashtag }) {
   const date = convertUnixTimestampToDate(note.created_at);
+
+  const linkifyOptions = ({ render }) => ({
+    defaultProtocol: "https",
+    formatHref: {
+      mention: (href) => `nostr:${href.slice(1)}`,
+    },
+    render: {
+      ...render,
+    },
+    validate: true,
+  });
 
   const renderUrl = ({ attributes: { href, ...props }, content }) => (
     <LinkOrImage href={href} content={content} {...props} />
@@ -53,36 +65,17 @@ export default function Note({ note, profiles, quotes, onHashtag }) {
       const quote = quotes[content.slice(1)];
       if (quote) {
         return (
-          <blockquote>
-            <small>
-              <time dateTime={toISOString(date)}>{date}</time>
-            </small>
-            <br />
-            <em>
-              {"Authored by "}
-              <Anchor href={`nostr:${quote.nPubKey}`} {...props}>
-                {getProfileName(quote.nPubKey)}
-              </Anchor>
-            </em>
-            <br />
-            <br />
-            <Linkify
-              options={{
-                defaultProtocol: "https",
-                formatHref: {
-                  mention: (link) => `nostr:${link.slice(1)}`,
-                },
-                render: {
-                  url: renderUrl,
-                  hashtag: renderHashtag,
-                  mention: renderMention,
-                },
-                validate: true,
-              }}
-            >
-              {quote.content}
-            </Linkify>
-          </blockquote>
+          <QuotedNote
+            quote={quote}
+            writer={getProfileName(quote.nPubKey)}
+            linkifyOptions={linkifyOptions({
+              render: {
+                url: renderUrl,
+                hashtag: renderHashtag,
+                mention: renderMention,
+              },
+            })}
+          />
         );
       }
       return (
@@ -100,19 +93,6 @@ export default function Note({ note, profiles, quotes, onHashtag }) {
     );
   };
 
-  const linkifyOptions = {
-    defaultProtocol: "https",
-    formatHref: {
-      mention: (href) => `nostr:${href.slice(1)}`,
-    },
-    render: {
-      url: renderUrl,
-      hashtag: renderHashtag,
-      mention: renderMention,
-    },
-    validate: true,
-  };
-
   return (
     <li>
       <hr />
@@ -120,7 +100,17 @@ export default function Note({ note, profiles, quotes, onHashtag }) {
         <time dateTime={toISOString(date)}>{date}</time>
       </small>
       <Content>
-        <Linkify options={linkifyOptions}>{note.content}</Linkify>
+        <Linkify
+          options={linkifyOptions({
+            render: {
+              url: renderUrl,
+              hashtag: renderHashtag,
+              mention: renderMention,
+            },
+          })}
+        >
+          {note.content}
+        </Linkify>
       </Content>
     </li>
   );
