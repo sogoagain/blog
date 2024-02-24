@@ -13,7 +13,7 @@ export default function NostrStatusContainer({ nPubKey }) {
         <em>{status.content}</em>
       </strong>
       <br />
-      from <Anchor href={`https://nostter.app/${nPubKey}`}>Nostr</Anchor>
+      from <Anchor href={`nostr:${nPubKey}`}>Nostr</Anchor>
     </p>
   );
 }

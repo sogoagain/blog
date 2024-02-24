@@ -28,12 +28,10 @@ export default function Note({ note, onHashtag }) {
     <LinkOrImage href={href} content={content} {...props} />
   );
 
-  const renderHashtag = ({ attributes: { href, ...props }, content }) => (
+  const renderHashtag = ({ content }) => (
     <Hashtag
-      href={href}
       content={content}
       onHashtag={(hashtag) => onHashtag(hashtag, note.id)}
-      {...props}
     />
   );
 
@@ -57,9 +55,7 @@ export default function Note({ note, onHashtag }) {
   const linkifyOptions = {
     defaultProtocol: "https",
     formatHref: {
-      hashtag: (href) =>
-        `https://nostter.app/search?q=${encodeURIComponent(href)}`,
-      mention: (href) => `https://nostter.app${href}`,
+      mention: (href) => `nostr:${href.slice(1)}`,
     },
     render: {
       url: renderUrl,
