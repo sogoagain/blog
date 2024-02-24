@@ -1,4 +1,7 @@
+const nostrTools = jest.requireActual("nostr-tools");
+
 module.exports = {
+  ...nostrTools,
   SimplePool: jest.fn().mockImplementation(() => ({
     subscribeMany: jest
       .fn()
@@ -80,6 +83,23 @@ module.exports = {
           content: "노트 6 #테스트",
           created_at: 1707465813,
           tags: [],
+        });
+        callbacks.onevent({
+          content:
+            "nostr:npub1zatgwjyc77ljzv7jx0pc5rmhadf0eqet0whnyht47y82u5lgz7vsmp5c9u 멘션과 인용 \n\nnostr:note1l63ccvqe60nzy02gw2r5su0qfxkw3n6la8dj0kl7pycy6wex3tfqlef3q4",
+          created_at: 1708746983,
+          id: "fea38c3019d3e6223d4872874871e049ace8cf5fe9db27dbfe09304d3b268ad2",
+          kind: 1,
+          pubkey:
+            "9dd290fae92114ece2d877970ff52a782f6f343428bbf541c8b9aab0e0b9948d",
+          tags: [
+            [
+              "p",
+              "1756874898f7bf2133d233c38a0f77eb52fc832b7baf325d75f10eae53e81799",
+              "",
+              "mention",
+            ],
+          ],
         });
       }),
   })),

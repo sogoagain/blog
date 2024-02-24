@@ -94,7 +94,7 @@ describe("<NotePage/>", () => {
 
     const items = screen.getAllByRole("listitem");
 
-    expect(items).toHaveLength(6);
+    expect(items).toHaveLength(7);
   });
 
   it("ETC 해시태그 필터를 선택하면 태그가 없는 노트를 출력한다", () => {
@@ -104,19 +104,32 @@ describe("<NotePage/>", () => {
     const items = screen.getAllByRole("listitem");
     const note3 = screen.getByText("노트 3");
 
-    expect(items).toHaveLength(1);
+    expect(items).toHaveLength(2);
     expect(note3).toBeInTheDocument();
   });
 
   it("노트에 포함된 이미지를 출력한다", () => {
     const img = screen.getByAltText("Nostr 노트에서 불러온 이미지");
+
     expect(img).toBeInTheDocument();
+  });
+
+  it("노트에 멘션된 프로필을 출력한다", () => {
+    const mention = screen.getByText("@npub1zatgwjy");
+
+    expect(mention).toBeInTheDocument();
+  });
+
+  it("인용된 노트를 출력한다", () => {
+    const quotedNote = screen.getByText("note1l63ccvq...fqlef3q4");
+
+    expect(quotedNote).toBeInTheDocument();
   });
 
   it("노트들을 출력한다", () => {
     const noteEls = screen.getAllByRole("listitem");
 
-    expect(noteEls).toHaveLength(6);
+    expect(noteEls).toHaveLength(7);
   });
 
   it("footer를 출력한다", () => {

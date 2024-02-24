@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { SimplePool } from "nostr-tools";
 
 import { bech32ToHexPublicKey } from "../utils";
+import { parseNoteContent } from "../utils/nostr";
 
 const { actions, reducer } = createSlice({
   name: "nostr",
@@ -78,10 +79,11 @@ export function subscribe(relays, nPubKey) {
     const pool = new SimplePool();
     const handleTextNote = (event) => {
       if (!event.tags.some((tag) => tag[0] === "e")) {
+        const content = parseNoteContent(event);
         const note = {
           id: event.id,
           created_at: event.created_at,
-          content: event.content,
+          content,
         };
         dispatch(appendHashtag({ hashtag: "ETC", id: note.id }));
         dispatch(appendNotes(note));
