@@ -21,7 +21,7 @@ const Content = styled.section`
   }
 `;
 
-export default function Note({ note, profiles, onHashtag }) {
+export default function Note({ note, profiles, quotes, onHashtag }) {
   const date = convertUnixTimestampToDate(note.created_at);
 
   const renderUrl = ({ attributes: { href, ...props }, content }) => (
@@ -36,7 +36,55 @@ export default function Note({ note, profiles, onHashtag }) {
   );
 
   const renderMention = ({ attributes: { href, ...props }, content }) => {
+    function getProfileName(nPubKey) {
+      const profile = profiles[nPubKey];
+      let result = `${nPubKey.slice(0, 12)}`;
+      if (profile) {
+        if (profile.display_name) {
+          result = profile.display_name;
+        } else if (profile.name) {
+          result = profile.name;
+        }
+      }
+      return result;
+    }
+
     if (content.startsWith("@note")) {
+      const quote = quotes[content.slice(1)];
+      if (quote) {
+        return (
+          <blockquote>
+            <small>
+              <time dateTime={toISOString(date)}>{date}</time>
+            </small>
+            <br />
+            <em>
+              {"Authored by "}
+              <Anchor href={`nostr:${quote.nPubKey}`} {...props}>
+                {getProfileName(quote.nPubKey)}
+              </Anchor>
+            </em>
+            <br />
+            <br />
+            <Linkify
+              options={{
+                defaultProtocol: "https",
+                formatHref: {
+                  mention: (link) => `nostr:${link.slice(1)}`,
+                },
+                render: {
+                  url: renderUrl,
+                  hashtag: renderHashtag,
+                  mention: renderMention,
+                },
+                validate: true,
+              }}
+            >
+              {quote.content}
+            </Linkify>
+          </blockquote>
+        );
+      }
       return (
         <blockquote>
           <Anchor href={href} {...props}>
@@ -45,11 +93,9 @@ export default function Note({ note, profiles, onHashtag }) {
         </blockquote>
       );
     }
-    const profile = profiles[content.slice(1)];
-    const mention = profile ? `@${profile.name}` : `${content.slice(0, 13)}`;
     return (
       <Anchor href={href} {...props}>
-        {mention}
+        {`@${getProfileName(content.slice(1))}`}
       </Anchor>
     );
   };

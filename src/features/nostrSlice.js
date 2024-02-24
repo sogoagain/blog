@@ -16,6 +16,7 @@ const { actions, reducer } = createSlice({
     notes: [],
     hashtags: {},
     profiles: {},
+    quotes: {},
     selectedHashtag: null,
   },
   reducers: {
@@ -69,6 +70,22 @@ const { actions, reducer } = createSlice({
         },
       };
     },
+    appendQuotes: (state, { payload: quotes }) => {
+      const newQuotes = quotes.reduce(
+        (acc, quote) => ({
+          ...acc,
+          [quote.noteKey]: quote,
+        }),
+        {},
+      );
+      return {
+        ...state,
+        quotes: {
+          ...state.quotes,
+          ...newQuotes,
+        },
+      };
+    },
     toggleHashtag: (state, { payload: hashtag }) => ({
       ...state,
       selectedHashtag: state.selectedHashtag === hashtag ? null : hashtag,
@@ -82,6 +99,7 @@ export const {
   appendNotes,
   appendHashtag,
   appendProfiles,
+  appendQuotes,
   toggleHashtag,
 } = actions;
 
@@ -108,11 +126,44 @@ export function loadProfiles(relays, mentionedPubkeys) {
       }
       return acc;
     }, {});
-    const profiles = Object.values(latestEvents).map((event) => ({
-      ...JSON.parse(event.content),
-      nPubKey: nip19.npubEncode(event.pubkey),
-    }));
+    const profiles = Object.values(latestEvents).map((event) => {
+      const profile = JSON.parse(event.content);
+      return {
+        id: event.id,
+        created_at: event.created_at,
+        name: profile.name,
+        display_name: profile.display_name,
+        nPubKey: nip19.npubEncode(event.pubkey),
+      };
+    });
     dispatch(appendProfiles(profiles));
+  };
+}
+
+export function loadQuotes(relays, quoteIds) {
+  return async (dispatch) => {
+    const events = await pool.querySync(relays, {
+      ids: [...quoteIds],
+      kinds: [EVENT_KIND.textNote],
+    });
+    const quotes = events.map((event) => {
+      const { content } = refineContentWithReferences(event);
+      return {
+        id: event.id,
+        created_at: event.created_at,
+        content,
+        pubkey: event.pubkey,
+        nPubKey: nip19.npubEncode(event.pubkey),
+        noteKey: nip19.noteEncode(event.id),
+      };
+    });
+    dispatch(
+      loadProfiles(
+        relays,
+        quotes.map((quote) => quote.pubkey),
+      ),
+    );
+    dispatch(appendQuotes(quotes));
   };
 }
 
@@ -122,10 +173,13 @@ export function subscribe(relays, nPubKey) {
     dispatch(setPubkey(pubkey));
     const handleTextNote = (event) => {
       if (!event.tags.some((tag) => tag[0] === "e")) {
-        const { content, mentionedPubkeys } =
+        const { content, mentionedPubkeys, quoteIds } =
           refineContentWithReferences(event);
         if (mentionedPubkeys && mentionedPubkeys.length > 0) {
           dispatch(loadProfiles(relays, mentionedPubkeys));
+        }
+        if (quoteIds && quoteIds.length > 0) {
+          dispatch(loadQuotes(relays, quoteIds));
         }
         const note = {
           id: event.id,
