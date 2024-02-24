@@ -1,5 +1,7 @@
 import React from "react";
 
+import { act } from "react-dom/test-utils";
+
 import { waitFor } from "@testing-library/react";
 
 import { useStaticQuery } from "gatsby";
@@ -11,12 +13,14 @@ import NotePage from "./notes";
 import SITE_QUERY from "../__fixtures__/siteQuery";
 
 describe("<NotePage/>", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     useStaticQuery.mockReturnValue({
       ...SITE_QUERY,
     });
 
-    render(<NotePage data={SITE_QUERY} location={{ pathname: "/" }} />);
+    await act(async () => {
+      render(<NotePage data={SITE_QUERY} location={{ pathname: "/" }} />);
+    });
   });
 
   it("SEO를 적용한다", async () => {
@@ -94,7 +98,7 @@ describe("<NotePage/>", () => {
 
     const items = screen.getAllByRole("listitem");
 
-    expect(items).toHaveLength(7);
+    expect(items).toHaveLength(8);
   });
 
   it("ETC 해시태그 필터를 선택하면 태그가 없는 노트를 출력한다", () => {
@@ -104,7 +108,7 @@ describe("<NotePage/>", () => {
     const items = screen.getAllByRole("listitem");
     const note3 = screen.getByText("노트 3");
 
-    expect(items).toHaveLength(2);
+    expect(items).toHaveLength(3);
     expect(note3).toBeInTheDocument();
   });
 
@@ -120,6 +124,12 @@ describe("<NotePage/>", () => {
     expect(mention).toBeInTheDocument();
   });
 
+  it("노트에 멘션된 프로필의 메타데이터를 조회하였다면 사용자 이름을 출력한다", () => {
+    const mention = screen.getByText("@mockusername2");
+
+    expect(mention).toBeInTheDocument();
+  });
+
   it("인용된 노트를 출력한다", () => {
     const quotedNote = screen.getByText("note1l63ccvq...fqlef3q4");
 
@@ -129,7 +139,7 @@ describe("<NotePage/>", () => {
   it("노트들을 출력한다", () => {
     const noteEls = screen.getAllByRole("listitem");
 
-    expect(noteEls).toHaveLength(7);
+    expect(noteEls).toHaveLength(8);
   });
 
   it("footer를 출력한다", () => {

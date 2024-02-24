@@ -21,7 +21,7 @@ const Content = styled.section`
   }
 `;
 
-export default function Note({ note, onHashtag }) {
+export default function Note({ note, profiles, onHashtag }) {
   const date = convertUnixTimestampToDate(note.created_at);
 
   const renderUrl = ({ attributes: { href, ...props }, content }) => (
@@ -45,9 +45,11 @@ export default function Note({ note, onHashtag }) {
         </blockquote>
       );
     }
+    const profile = profiles[content.slice(1)];
+    const mention = profile ? `@${profile.name}` : `${content.slice(0, 13)}`;
     return (
       <Anchor href={href} {...props}>
-        {`${content.slice(0, 13)}`}
+        {mention}
       </Anchor>
     );
   };

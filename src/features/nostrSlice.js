@@ -108,7 +108,7 @@ export function loadProfiles(relays, mentionedPubkeys) {
       return acc;
     }, {});
     const profiles = Object.values(latestEvents).map((event) => ({
-      ...event,
+      ...JSON.parse(event.content),
       nPubKey: nip19.npubEncode(event.pubkey),
     }));
     dispatch(appendProfiles(profiles));
