@@ -98,23 +98,32 @@ export function subscribe(relays, nPubKey) {
         dispatch(setStatus(status));
       }
     };
-    const sub = pool.subscribeMany(relays, [{ authors: [pubkey] }], {
-      onevent(event) {
-        switch (event.kind) {
-          case EVENT_KIND.textNote:
-            handleTextNote(event);
-            break;
-          case EVENT_KIND.userStatus:
-            handleUserStatus(event);
-            break;
-          default:
-            break;
-        }
+    const sub = pool.subscribeMany(
+      relays,
+      [
+        {
+          authors: [pubkey],
+          kinds: Object.values(EVENT_KIND),
+        },
+      ],
+      {
+        onevent(event) {
+          switch (event.kind) {
+            case EVENT_KIND.textNote:
+              handleTextNote(event);
+              break;
+            case EVENT_KIND.userStatus:
+              handleUserStatus(event);
+              break;
+            default:
+              break;
+          }
+        },
+        oneose() {
+          sub.close();
+        },
       },
-      oneose() {
-        sub.close();
-      },
-    });
+    );
   };
 }
 
