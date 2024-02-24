@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { SimplePool } from "nostr-tools";
+import { SimplePool, nip19 } from "nostr-tools";
 
 import { bech32ToHexPublicKey } from "../utils";
 import { refineContentWithReferences } from "../utils/nostr";
@@ -15,6 +15,7 @@ const { actions, reducer } = createSlice({
     },
     notes: [],
     hashtags: {},
+    profiles: {},
     selectedHashtag: null,
   },
   reducers: {
@@ -52,6 +53,22 @@ const { actions, reducer } = createSlice({
         },
       };
     },
+    appendProfiles: (state, { payload: profiles }) => {
+      const newProfiles = profiles.reduce(
+        (acc, profile) => ({
+          ...acc,
+          [profile.nPubKey]: profile,
+        }),
+        {},
+      );
+      return {
+        ...state,
+        profiles: {
+          ...state.profiles,
+          ...newProfiles,
+        },
+      };
+    },
     toggleHashtag: (state, { payload: hashtag }) => ({
       ...state,
       selectedHashtag: state.selectedHashtag === hashtag ? null : hashtag,
@@ -64,13 +81,39 @@ export const {
   setStatus,
   appendNotes,
   appendHashtag,
+  appendProfiles,
   toggleHashtag,
 } = actions;
 
 const EVENT_KIND = {
+  metadata: 0,
   textNote: 1,
   userStatus: 30315,
 };
+
+export function loadProfiles(relays, mentionedPubkeys) {
+  return async (dispatch) => {
+    const pool = new SimplePool();
+    const events = await pool.querySync(relays, {
+      authors: [...mentionedPubkeys],
+      kinds: [EVENT_KIND.metadata],
+    });
+    const latestEvents = events.reduce((acc, event) => {
+      if (
+        !acc[event.pubkey] ||
+        acc[event.pubkey].created_at < event.created_at
+      ) {
+        acc[event.pubkey] = event;
+      }
+      return acc;
+    }, {});
+    const profiles = Object.values(latestEvents).map((event) => ({
+      ...event,
+      nPubKey: nip19.npubEncode(event.pubkey),
+    }));
+    dispatch(appendProfiles(profiles));
+  };
+}
 
 export function subscribe(relays, nPubKey) {
   return (dispatch) => {
@@ -79,7 +122,11 @@ export function subscribe(relays, nPubKey) {
     const pool = new SimplePool();
     const handleTextNote = (event) => {
       if (!event.tags.some((tag) => tag[0] === "e")) {
-        const content = refineContentWithReferences(event);
+        const { content, mentionedPubkeys } =
+          refineContentWithReferences(event);
+        if (mentionedPubkeys && mentionedPubkeys.length > 0) {
+          dispatch(loadProfiles(relays, mentionedPubkeys));
+        }
         const note = {
           id: event.id,
           created_at: event.created_at,
@@ -103,7 +150,7 @@ export function subscribe(relays, nPubKey) {
       [
         {
           authors: [pubkey],
-          kinds: Object.values(EVENT_KIND),
+          kinds: [EVENT_KIND.textNote, EVENT_KIND.userStatus],
         },
       ],
       {
