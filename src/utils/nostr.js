@@ -1,6 +1,6 @@
 import { parseReferences, nip19 } from "nostr-tools";
 
-export function parseNoteContent(event) {
+export function refineContentWithReferences(event) {
   const references = parseReferences(event);
   let { content } = event;
   for (let i = 0; i < references.length; i += 1) {
