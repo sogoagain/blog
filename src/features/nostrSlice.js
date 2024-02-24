@@ -54,38 +54,20 @@ const { actions, reducer } = createSlice({
         },
       };
     },
-    appendProfiles: (state, { payload: profiles }) => {
-      const newProfiles = profiles.reduce(
-        (acc, profile) => ({
-          ...acc,
-          [profile.nPubKey]: profile,
-        }),
-        {},
-      );
-      return {
-        ...state,
-        profiles: {
-          ...state.profiles,
-          ...newProfiles,
-        },
-      };
-    },
-    appendQuotes: (state, { payload: quotes }) => {
-      const newQuotes = quotes.reduce(
-        (acc, quote) => ({
-          ...acc,
-          [quote.noteKey]: quote,
-        }),
-        {},
-      );
-      return {
-        ...state,
-        quotes: {
-          ...state.quotes,
-          ...newQuotes,
-        },
-      };
-    },
+    appendProfiles: (state, { payload: profiles }) => ({
+      ...state,
+      profiles: {
+        ...state.profiles,
+        ...profiles,
+      },
+    }),
+    appendQuotes: (state, { payload: quotes }) => ({
+      ...state,
+      quotes: {
+        ...state.quotes,
+        ...quotes,
+      },
+    }),
     toggleHashtag: (state, { payload: hashtag }) => ({
       ...state,
       selectedHashtag: state.selectedHashtag === hashtag ? null : hashtag,
@@ -117,25 +99,22 @@ export function loadProfiles(relays, mentionedPubkeys) {
       authors: [...mentionedPubkeys],
       kinds: [EVENT_KIND.metadata],
     });
-    const latestEvents = events.reduce((acc, event) => {
+    const profiles = events.reduce((acc, event) => {
       if (
         !acc[event.pubkey] ||
         acc[event.pubkey].created_at < event.created_at
       ) {
-        acc[event.pubkey] = event;
+        const profile = JSON.parse(event.content);
+        acc[nip19.npubEncode(event.pubkey)] = {
+          id: event.id,
+          created_at: event.created_at,
+          name: profile.name,
+          display_name: profile.display_name,
+          nPubKey: nip19.npubEncode(event.pubkey),
+        };
       }
       return acc;
     }, {});
-    const profiles = Object.values(latestEvents).map((event) => {
-      const profile = JSON.parse(event.content);
-      return {
-        id: event.id,
-        created_at: event.created_at,
-        name: profile.name,
-        display_name: profile.display_name,
-        nPubKey: nip19.npubEncode(event.pubkey),
-      };
-    });
     dispatch(appendProfiles(profiles));
   };
 }
@@ -146,21 +125,21 @@ export function loadQuotes(relays, quoteIds) {
       ids: [...quoteIds],
       kinds: [EVENT_KIND.textNote],
     });
-    const quotes = events.map((event) => {
+    const quotes = events.reduce((acc, event) => {
       const { content } = refineContentWithReferences(event);
-      return {
+      acc[nip19.noteEncode(event.id)] = {
         id: event.id,
         created_at: event.created_at,
         content,
         pubkey: event.pubkey,
         nPubKey: nip19.npubEncode(event.pubkey),
-        noteKey: nip19.noteEncode(event.id),
       };
-    });
+      return acc;
+    }, {});
     dispatch(
       loadProfiles(
         relays,
-        quotes.map((quote) => quote.pubkey),
+        Object.values(quotes).map((quote) => quote.pubkey),
       ),
     );
     dispatch(appendQuotes(quotes));
@@ -171,6 +150,7 @@ export function subscribe(relays, nPubKey) {
   return (dispatch) => {
     const pubkey = bech32ToHexPublicKey(nPubKey);
     dispatch(setPubkey(pubkey));
+
     const handleTextNote = (event) => {
       if (!event.tags.some((tag) => tag[0] === "e")) {
         const { content, mentionedPubkeys, quoteIds } =
@@ -190,6 +170,7 @@ export function subscribe(relays, nPubKey) {
         dispatch(appendNotes(note));
       }
     };
+
     const handleUserStatus = (event) => {
       if (event.tags.some((tag) => tag[0] === "d" && tag[1] === "general")) {
         const status = {
@@ -199,6 +180,7 @@ export function subscribe(relays, nPubKey) {
         dispatch(setStatus(status));
       }
     };
+
     const sub = pool.subscribeMany(
       relays,
       [
