@@ -8,9 +8,9 @@ module.exports = {
         return Promise.resolve([
           {
             content:
-              '{"about":"소개","lud16":"mockusername1@getalby.com","name":"mockusername1","website":"https://blog.mockusername1.com"}',
-            created_at: 1708765612,
-            id: "querySyncId1",
+              '{"about":"소개","lud16":"mockusername2@getalby.com","name":"mockusername2","website":"https://blog.mockusername2.com"}',
+            created_at: 1708765620,
+            id: "querySyncId2",
             kind: 0,
             pubkey:
               "a3feca3ab34fe629959ac9734c57c4ccc52efb8a7588d1a0313869a104696847",
@@ -18,9 +18,9 @@ module.exports = {
           },
           {
             content:
-              '{"about":"소개","lud16":"mockusername2@getalby.com","name":"mockusername2","website":"https://blog.mockusername2.com"}',
-            created_at: 1708765620,
-            id: "querySyncId2",
+              '{"about":"소개","lud16":"mockusername1@getalby.com","name":"mockusername1","website":"https://blog.mockusername1.com"}',
+            created_at: 1708765612,
+            id: "querySyncId1",
             kind: 0,
             pubkey:
               "a3feca3ab34fe629959ac9734c57c4ccc52efb8a7588d1a0313869a104696847",

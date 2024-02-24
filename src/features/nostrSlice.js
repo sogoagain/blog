@@ -100,17 +100,15 @@ export function loadProfiles(relays, mentionedPubkeys) {
       kinds: [EVENT_KIND.metadata],
     });
     const profiles = events.reduce((acc, event) => {
-      if (
-        !acc[event.pubkey] ||
-        acc[event.pubkey].created_at < event.created_at
-      ) {
+      const nPubKey = nip19.npubEncode(event.pubkey);
+      if (!acc[nPubKey] || acc[nPubKey].created_at < event.created_at) {
         const profile = JSON.parse(event.content);
-        acc[nip19.npubEncode(event.pubkey)] = {
+        acc[nPubKey] = {
           id: event.id,
           created_at: event.created_at,
           name: profile.name,
           display_name: profile.display_name,
-          nPubKey: nip19.npubEncode(event.pubkey),
+          nPubKey,
         };
       }
       return acc;
