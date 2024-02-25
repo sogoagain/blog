@@ -10,8 +10,7 @@ const siteQuery = {
         github: "sogoagain",
         nostr: {
           name: "sogoagain",
-          nPubKey:
-            "npub1nhffp7hfyy2weckcw7tslaf20qhk7dp59zal2swghx4tpc9ejjxsuqxcf8",
+          npub: "npub16686greycr3g4dpa8lndgqrrfxs0qdky8xtxp3nnc8z8upegzpkq566g38",
           relays: [
             "wss://nostr.oxtr.dev",
             "wss://relay.nostr.band",

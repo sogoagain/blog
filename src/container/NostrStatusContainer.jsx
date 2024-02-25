@@ -4,16 +4,22 @@ import { useSelector } from "react-redux";
 
 import Anchor from "../components/Anchor";
 
-export default function NostrStatusContainer({ nPubKey }) {
-  const { status } = useSelector((state) => state.nostr);
+export default function NostrStatusContainer({ npub }) {
+  const {
+    events: { userStatus },
+    owner: { status },
+  } = useSelector((state) => state.nostr);
+
+  const ownerStatusEvent = userStatus[status];
+  const content = ownerStatusEvent ? ownerStatusEvent.content : "";
 
   return (
     <p>
       <strong>
-        <em>{status.content}</em>
+        <em>{content}</em>
       </strong>
       <br />
-      from <Anchor href={`nostr:${nPubKey}`}>Nostr</Anchor>
+      from <Anchor href={`nostr:${npub}`}>Nostr</Anchor>
     </p>
   );
 }

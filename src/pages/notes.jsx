@@ -10,14 +10,14 @@ import NostrStatusContainer from "../container/NostrStatusContainer";
 import NotesContainer from "../container/NotesContainer";
 import NotesHashtagListContainer from "../container/NotesHashtagListContainer";
 
-import { subscribe } from "../features/nostrSlice";
+import { loadOwners } from "../features/nostrSlice";
 
 export default function NotePage({
   data: {
     site: {
       siteMetadata: {
         social: {
-          nostr: { nPubKey, relays },
+          nostr: { npub, relays },
         },
       },
     },
@@ -25,20 +25,22 @@ export default function NotePage({
   location,
 }) {
   const dispatch = useDispatch();
-  const { pubkey } = useSelector((state) => state.nostr);
+  const {
+    owner: { pubkey },
+  } = useSelector((state) => state.nostr);
 
   useEffect(() => {
     if (pubkey) {
       return;
     }
-    dispatch(subscribe(relays, nPubKey));
+    dispatch(loadOwners(relays, npub));
   }, []);
 
   return (
     <LayoutContainer>
       <SeoContainer title="노트" pathname={location.pathname} />
       <h1>노트</h1>
-      <NostrStatusContainer nPubKey={nPubKey} />
+      <NostrStatusContainer npub={npub} />
       <NotesHashtagListContainer />
       <NotesContainer />
     </LayoutContainer>
@@ -51,7 +53,7 @@ export const noteQuery = graphql`
       siteMetadata {
         social {
           nostr {
-            nPubKey
+            npub
             relays
           }
         }

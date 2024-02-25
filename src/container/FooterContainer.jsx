@@ -14,7 +14,7 @@ const query = graphql`
           email
           nostr {
             name
-            nPubKey
+            npub
           }
         }
       }
@@ -40,7 +40,7 @@ export default function FooterContainer() {
     },
     {
       text: "Nostr",
-      href: `nostr:${social.nostr.nPubKey}`,
+      href: `nostr:${social.nostr.npub}`,
     },
   ];
 
