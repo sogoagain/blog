@@ -7,7 +7,7 @@ import { refineContentWithReferences } from "../utils/nostr";
 const { actions, reducer } = createSlice({
   name: "nostr",
   initialState: {
-    queue: [],
+    pending: [],
     events: {
       metadata: {},
       textNote: {},
@@ -24,13 +24,13 @@ const { actions, reducer } = createSlice({
     },
   },
   reducers: {
-    enqueueRequest: (state, { payload: filter }) => ({
+    appendPendingRequest: (state, { payload: filter }) => ({
       ...state,
-      queue: [...state.queue, filter],
+      pending: [...state.pending, filter],
     }),
-    dequeueRequest: (state) => ({
+    initPendingRequest: (state) => ({
       ...state,
-      queue: [...state.queue.slice(1)],
+      pending: [],
     }),
     appendMetadataEvent: (state, { payload: event }) => {
       const existingEvent = state.events.metadata[event.pubkey];
@@ -121,8 +121,8 @@ const { actions, reducer } = createSlice({
 });
 
 export const {
-  enqueueRequest,
-  dequeueRequest,
+  appendPendingRequest,
+  initPendingRequest,
   appendMetadataEvent,
   appendTextNoteEvent,
   appendUserStatusEvent,
@@ -141,69 +141,74 @@ const EVENT_KIND = {
 
 const pool = new SimplePool();
 
-function subscribeEvents(relays, filter, onEvent) {
+const handleEvent = (event) =>
+  ({
+    [EVENT_KIND.metadata]: (dispatch) => {
+      const content = JSON.parse(event.content);
+      dispatch(appendMetadataEvent({ ...event, content }));
+    },
+    [EVENT_KIND.textNote]: (dispatch, getState) => {
+      const { content, pubkeysMentioned, idsQuoted } =
+        refineContentWithReferences(event);
+      const {
+        nostr: {
+          events: { metadata, textNote },
+        },
+      } = getState();
+      const pubkeysToLoadProfile = pubkeysMentioned.filter(
+        (pubkey) => !metadata[pubkey],
+      );
+      if (pubkeysToLoadProfile.length > 0) {
+        dispatch(
+          appendPendingRequest({
+            authors: [...pubkeysToLoadProfile],
+            kinds: [EVENT_KIND.metadata],
+          }),
+        );
+      }
+      const idsToLoadTextNote = idsQuoted.filter((id) => !textNote[id]);
+      if (idsToLoadTextNote.length > 0) {
+        dispatch(
+          appendPendingRequest({
+            ids: [...idsToLoadTextNote],
+            kinds: [EVENT_KIND.textNote],
+          }),
+        );
+      }
+      const author = metadata[event.pubkey];
+      if (!author) {
+        dispatch(
+          appendPendingRequest({
+            authors: [event.pubkey],
+            kinds: [EVENT_KIND.metadata],
+          }),
+        );
+      }
+      dispatch(appendTextNoteEvent({ ...event, content }));
+    },
+    [EVENT_KIND.userStatus]: (dispatch) => {
+      dispatch(appendUserStatusEvent(event));
+    },
+  })[event.kind];
+
+function subscribeEvents(relays, filters, onEvent) {
   return (dispatch, getState) => {
-    const sub = pool.subscribeMany([...relays], [{ ...filter }], {
+    const sub = pool.subscribeMany([...relays], [...filters], {
       onevent(event) {
         if (onEvent) {
           onEvent(event);
         }
-        if (event.kind === EVENT_KIND.metadata) {
-          const content = JSON.parse(event.content);
-          dispatch(appendMetadataEvent({ ...event, content }));
-        }
-        if (event.kind === EVENT_KIND.textNote) {
-          const { content, pubkeysMentioned, idsQuoted } =
-            refineContentWithReferences(event);
-          const {
-            nostr: {
-              events: { metadata, textNote },
-            },
-          } = getState();
-          const pubkeysToLoadProfile = pubkeysMentioned.filter(
-            (pubkey) => !metadata[pubkey],
-          );
-          if (pubkeysToLoadProfile && pubkeysToLoadProfile.length > 0) {
-            dispatch(
-              enqueueRequest({
-                authors: [...pubkeysToLoadProfile],
-                kinds: [EVENT_KIND.metadata],
-              }),
-            );
-          }
-          const idsToLoadTextNote = idsQuoted.filter((id) => !textNote[id]);
-          if (idsToLoadTextNote && idsToLoadTextNote.length > 0) {
-            dispatch(
-              enqueueRequest({
-                ids: [...idsToLoadTextNote],
-                kinds: [EVENT_KIND.textNote],
-              }),
-            );
-          }
-          const author = metadata[event.pubkey];
-          if (!author) {
-            dispatch(
-              enqueueRequest({
-                authors: [event.pubkey],
-                kinds: [EVENT_KIND.metadata],
-              }),
-            );
-          }
-          dispatch(appendTextNoteEvent({ ...event, content }));
-        }
-        if (event.kind === EVENT_KIND.userStatus) {
-          dispatch(appendUserStatusEvent(event));
-        }
+        handleEvent(event)(dispatch, getState);
       },
       oneose() {
         const {
-          nostr: { queue },
+          nostr: { pending },
         } = getState();
-        if (queue.length === 0) {
+        if (pending.length === 0) {
           sub.close();
         } else {
-          dispatch(subscribeEvents(relays, queue[0]));
-          dispatch(dequeueRequest());
+          dispatch(initPendingRequest());
+          dispatch(subscribeEvents(relays, pending));
         }
       },
     });
@@ -217,14 +222,16 @@ export function loadOwners(relays, npub) {
     dispatch(
       subscribeEvents(
         relays,
-        {
-          authors: [pubkey],
-          kinds: [
-            EVENT_KIND.metadata,
-            EVENT_KIND.textNote,
-            EVENT_KIND.userStatus,
-          ],
-        },
+        [
+          {
+            authors: [pubkey],
+            kinds: [
+              EVENT_KIND.metadata,
+              EVENT_KIND.textNote,
+              EVENT_KIND.userStatus,
+            ],
+          },
+        ],
         (event) => {
           if (event.pubkey !== pubkey) {
             return;
