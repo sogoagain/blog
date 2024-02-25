@@ -8,22 +8,19 @@ import Anchor from "../Anchor";
 
 import { convertUnixTimestampToDate, toISOString } from "../../utils";
 
-export default function QuotedNote({ quote, writer, linkifyOptions }) {
-  const date = convertUnixTimestampToDate(quote.created_at);
+export default function QuotedNote({ note, npub, author, linkifyOptions }) {
+  const date = convertUnixTimestampToDate(note.created_at);
 
   return (
     <blockquote>
       <small>
-        <time dateTime={toISOString(date)}>{date}</time>
+        <time dateTime={toISOString(date)}>{date}</time>{" "}
+        <em>
+          <Anchor href={`nostr:${npub}`}>{author}</Anchor>
+        </em>
       </small>
       <br />
-      <em>
-        {"Authored by "}
-        <Anchor href={`nostr:${quote.nPubKey}`}>{writer}</Anchor>
-      </em>
-      <br />
-      <br />
-      <Linkify options={linkifyOptions}>{quote.content}</Linkify>
+      <Linkify options={linkifyOptions}>{note.content}</Linkify>
     </blockquote>
   );
 }

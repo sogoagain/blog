@@ -2,6 +2,8 @@ import React from "react";
 
 import styled from "@emotion/styled";
 
+import { nip19 } from "nostr-tools";
+
 import Linkify from "linkify-react";
 import "linkify-plugin-hashtag";
 import "linkify-plugin-mention";
@@ -22,7 +24,7 @@ const Content = styled.section`
   }
 `;
 
-export default function Note({ note, profiles, quotes, onHashtag }) {
+export default function Note({ note, events, onHashtag }) {
   const date = convertUnixTimestampToDate(note.created_at);
 
   const linkifyOptions = ({ render }) => ({
@@ -48,26 +50,30 @@ export default function Note({ note, profiles, quotes, onHashtag }) {
   );
 
   const renderMention = ({ attributes: { href, ...props }, content }) => {
-    function getProfileName(nPubKey) {
-      const profile = profiles[nPubKey];
-      let result = `${nPubKey.slice(0, 12)}`;
+    function getProfileName(npub) {
+      const { data: pubkey } = nip19.decode(npub);
+      const profile = events.metadata[pubkey];
+      let result = `${npub.slice(0, 12)}`;
       if (profile) {
-        if (profile.display_name) {
-          result = profile.display_name;
-        } else if (profile.name) {
-          result = profile.name;
+        if (profile.content.display_name) {
+          result = profile.content.display_name;
+        } else if (profile.content.name) {
+          result = profile.content.name;
         }
       }
       return result;
     }
 
     if (content.startsWith("@note")) {
-      const quote = quotes[content.slice(1)];
+      const { data: id } = nip19.decode(content.slice(1));
+      const quote = events.textNote[id];
       if (quote) {
+        const npub = nip19.npubEncode(quote.pubkey);
         return (
           <QuotedNote
-            quote={quote}
-            writer={getProfileName(quote.nPubKey)}
+            note={quote}
+            npub={npub}
+            author={getProfileName(npub)}
             linkifyOptions={linkifyOptions({
               render: {
                 url: renderUrl,

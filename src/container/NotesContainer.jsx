@@ -8,13 +8,19 @@ import { appendHashtag } from "../features/nostrSlice";
 
 export default function NotesContainer() {
   const dispatch = useDispatch();
-  const { notes, hashtags, selectedHashtag, profiles, quotes } = useSelector(
-    (state) => state.nostr,
-  );
+  const {
+    events: { metadata, textNote },
+    owner: { notes },
+    hashtag: { tags, selected },
+  } = useSelector((state) => state.nostr);
 
-  const filteredNotes = selectedHashtag
-    ? notes.filter((note) => hashtags[selectedHashtag].includes(note.id))
-    : notes;
+  const ownerNotes = notes
+    .map((note) => textNote[note])
+    .sort((a, b) => a.create_at - b.create_at);
+
+  const filteredNotes = selected
+    ? ownerNotes.filter((note) => tags[selected].includes(note.id))
+    : ownerNotes;
 
   const handleHashtag = (hashtag, id) => {
     dispatch(appendHashtag({ hashtag, id }));
@@ -23,8 +29,7 @@ export default function NotesContainer() {
   return (
     <NoteList
       notes={filteredNotes}
-      profiles={profiles}
-      quotes={quotes}
+      events={{ metadata, textNote }}
       onHashtag={handleHashtag}
     />
   );

@@ -22,8 +22,7 @@ module.exports = {
     github: "sogoagain",
     nostr: {
       name: "sogoagain",
-      nPubKey:
-        "npub1nhffp7hfyy2weckcw7tslaf20qhk7dp59zal2swghx4tpc9ejjxsuqxcf8",
+      npub: "npub1nhffp7hfyy2weckcw7tslaf20qhk7dp59zal2swghx4tpc9ejjxsuqxcf8",
       relays: [
         "wss://nostr.oxtr.dev",
         "wss://relay.nostr.band",

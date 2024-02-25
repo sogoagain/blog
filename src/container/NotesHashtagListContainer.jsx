@@ -8,9 +8,11 @@ import { toggleHashtag } from "../features/nostrSlice";
 
 export default function NotesHashtagListContainer() {
   const dispatch = useDispatch();
-  const { hashtags, selectedHashtag } = useSelector((state) => state.nostr);
+  const {
+    hashtag: { tags, selected },
+  } = useSelector((state) => state.nostr);
 
-  const tags = Object.entries(hashtags)
+  const sortedTags = Object.entries(tags)
     .filter(([hashtag]) => hashtag !== "ETC")
     .sort(([aHashtag, aIds], [bHashtag, bIds]) => {
       const totalCountDiff = bIds.length - aIds.length;
@@ -20,8 +22,8 @@ export default function NotesHashtagListContainer() {
     })
     .map(([hashtag]) => hashtag);
 
-  if (hashtags.ETC) {
-    tags.push("ETC");
+  if (tags.ETC) {
+    sortedTags.push("ETC");
   }
 
   const handleClick = (hashtag) => {
@@ -29,6 +31,6 @@ export default function NotesHashtagListContainer() {
   };
 
   return (
-    <TagList tags={tags} selected={selectedHashtag} onClick={handleClick} />
+    <TagList tags={sortedTags} selected={selected} onClick={handleClick} />
   );
 }

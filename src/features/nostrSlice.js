@@ -2,86 +2,134 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { SimplePool, nip19 } from "nostr-tools";
 
-import { bech32ToHexPublicKey } from "../utils";
 import { refineContentWithReferences } from "../utils/nostr";
 
 const { actions, reducer } = createSlice({
   name: "nostr",
   initialState: {
-    pubkey: null,
-    status: {
-      id: "",
-      content: "",
+    queue: [],
+    events: {
+      metadata: {},
+      textNote: {},
+      userStatus: {},
     },
-    notes: [],
-    hashtags: {},
-    profiles: {},
-    quotes: {},
-    selectedHashtag: null,
+    owner: {
+      pubkey: null,
+      notes: [],
+      status: null,
+    },
+    hashtag: {
+      tags: {},
+      selected: null,
+    },
   },
   reducers: {
-    setPubkey: (state, { payload: pubkey }) => ({
+    enqueueRequest: (state, { payload: filter }) => ({
       ...state,
-      pubkey,
+      queue: [...state.queue, filter],
     }),
-    setStatus: (state, { payload: status }) => ({
+    dequeueRequest: (state) => ({
       ...state,
-      status: { ...status },
+      queue: [...state.queue.slice(1)],
     }),
-    appendNotes: (state, { payload: note }) => {
-      const newNotes = [...state.notes, { ...note }];
-      newNotes.sort((a, b) => b.created_at - a.created_at);
+    appendMetadataEvent: (state, { payload: event }) => {
+      const existingEvent = state.events.metadata[event.pubkey];
+      const shouldUpdate = existingEvent
+        ? event.created_at > existingEvent.created_at
+        : true;
       return {
         ...state,
-        notes: newNotes,
+        events: {
+          ...state.events,
+          metadata: {
+            ...state.events.metadata,
+            [event.pubkey]: shouldUpdate ? event : existingEvent,
+          },
+        },
       };
     },
+    appendTextNoteEvent: (state, { payload: event }) => ({
+      ...state,
+      events: {
+        ...state.events,
+        textNote: {
+          ...state.events.textNote,
+          [event.id]: event,
+        },
+      },
+    }),
+    appendUserStatusEvent: (state, { payload: event }) => ({
+      ...state,
+      events: {
+        ...state.events,
+        userStatus: {
+          ...state.events.userStatus,
+          [event.id]: event,
+        },
+      },
+    }),
+    setOwnerPubkey: (state, { payload: pubkey }) => ({
+      ...state,
+      owner: {
+        ...state.owner,
+        pubkey,
+      },
+    }),
+    appendOwnerNotes: (state, { payload: id }) => ({
+      ...state,
+      owner: {
+        ...state.owner,
+        notes: [...state.owner.notes, id],
+      },
+    }),
+    setOwnerStatus: (state, { payload: id }) => ({
+      ...state,
+      owner: {
+        ...state.owner,
+        status: id,
+      },
+    }),
     appendHashtag: (state, { payload: { hashtag, id } }) => {
       const key = hashtag.replace("#", "").toUpperCase();
-      const newIds = state.hashtags[key]
-        ? [...new Set([...state.hashtags[key], id])]
+      const newIds = state.hashtag.tags[key]
+        ? [...new Set([...state.hashtag.tags[key], id])]
         : [id];
       const etcIds =
         key === "ETC"
           ? newIds
-          : state.hashtags.ETC.filter((etcId) => etcId !== id);
+          : state.hashtag.tags.ETC.filter((etcId) => etcId !== id);
       return {
         ...state,
-        hashtags: {
-          ...state.hashtags,
-          [key]: newIds,
-          ETC: etcIds,
+        hashtag: {
+          ...state.hashtag,
+          tags: {
+            ...state.hashtag.tags,
+            [key]: newIds,
+            ETC: etcIds,
+          },
         },
       };
     },
-    appendProfiles: (state, { payload: profiles }) => ({
-      ...state,
-      profiles: {
-        ...state.profiles,
-        ...profiles,
-      },
-    }),
-    appendQuotes: (state, { payload: quotes }) => ({
-      ...state,
-      quotes: {
-        ...state.quotes,
-        ...quotes,
-      },
-    }),
     toggleHashtag: (state, { payload: hashtag }) => ({
       ...state,
-      selectedHashtag: state.selectedHashtag === hashtag ? null : hashtag,
+      hashtag: {
+        ...state.hashtag,
+        selected: state.hashtag.selected === hashtag ? null : hashtag,
+      },
     }),
   },
 });
 
 export const {
-  setPubkey,
-  setStatus,
-  appendNotes,
+  enqueueRequest,
+  dequeueRequest,
+  appendMetadataEvent,
+  appendTextNoteEvent,
+  appendUserStatusEvent,
+  setOwnerPubkey,
+  appendOwnerNotes,
+  setOwnerStatus,
   appendHashtag,
-  appendProfiles,
-  appendQuotes,
   toggleHashtag,
 } = actions;
 
@@ -93,117 +141,113 @@ const EVENT_KIND = {
 
 const pool = new SimplePool();
 
-export function loadProfiles(relays, mentionedPubkeys) {
-  return async (dispatch) => {
-    const events = await pool.querySync(relays, {
-      authors: [...mentionedPubkeys],
-      kinds: [EVENT_KIND.metadata],
+function subscribeEvents(relays, filter, onEvent) {
+  return (dispatch, getState) => {
+    const sub = pool.subscribeMany([...relays], [{ ...filter }], {
+      onevent(event) {
+        if (onEvent) {
+          onEvent(event);
+        }
+        if (event.kind === EVENT_KIND.metadata) {
+          const content = JSON.parse(event.content);
+          dispatch(appendMetadataEvent({ ...event, content }));
+        }
+        if (event.kind === EVENT_KIND.textNote) {
+          const { content, pubkeysMentioned, idsQuoted } =
+            refineContentWithReferences(event);
+          const {
+            nostr: {
+              events: { metadata, textNote },
+            },
+          } = getState();
+          const pubkeysToLoadProfile = pubkeysMentioned.filter(
+            (pubkey) => !metadata[pubkey],
+          );
+          if (pubkeysToLoadProfile && pubkeysToLoadProfile.length > 0) {
+            dispatch(
+              enqueueRequest({
+                authors: [...pubkeysToLoadProfile],
+                kinds: [EVENT_KIND.metadata],
+              }),
+            );
+          }
+          const idsToLoadTextNote = idsQuoted.filter((id) => !textNote[id]);
+          if (idsToLoadTextNote && idsToLoadTextNote.length > 0) {
+            dispatch(
+              enqueueRequest({
+                ids: [...idsToLoadTextNote],
+                kinds: [EVENT_KIND.textNote],
+              }),
+            );
+          }
+          const author = metadata[event.pubkey];
+          if (!author) {
+            dispatch(
+              enqueueRequest({
+                authors: [event.pubkey],
+                kinds: [EVENT_KIND.metadata],
+              }),
+            );
+          }
+          dispatch(appendTextNoteEvent({ ...event, content }));
+        }
+        if (event.kind === EVENT_KIND.userStatus) {
+          dispatch(appendUserStatusEvent(event));
+        }
+      },
+      oneose() {
+        const {
+          nostr: { queue },
+        } = getState();
+        if (queue.length === 0) {
+          sub.close();
+        } else {
+          dispatch(subscribeEvents(relays, queue[0]));
+          dispatch(dequeueRequest());
+        }
+      },
     });
-    const profiles = events.reduce((acc, event) => {
-      const nPubKey = nip19.npubEncode(event.pubkey);
-      if (!acc[nPubKey] || acc[nPubKey].created_at < event.created_at) {
-        const profile = JSON.parse(event.content);
-        acc[nPubKey] = {
-          id: event.id,
-          created_at: event.created_at,
-          name: profile.name,
-          display_name: profile.display_name,
-          nPubKey,
-        };
-      }
-      return acc;
-    }, {});
-    dispatch(appendProfiles(profiles));
   };
 }
 
-export function loadQuotes(relays, quoteIds) {
-  return async (dispatch) => {
-    const events = await pool.querySync(relays, {
-      ids: [...quoteIds],
-      kinds: [EVENT_KIND.textNote],
-    });
-    const quotes = events.reduce((acc, event) => {
-      const { content } = refineContentWithReferences(event);
-      acc[nip19.noteEncode(event.id)] = {
-        id: event.id,
-        created_at: event.created_at,
-        content,
-        pubkey: event.pubkey,
-        nPubKey: nip19.npubEncode(event.pubkey),
-      };
-      return acc;
-    }, {});
-    dispatch(
-      loadProfiles(
-        relays,
-        Object.values(quotes).map((quote) => quote.pubkey),
-      ),
-    );
-    dispatch(appendQuotes(quotes));
-  };
-}
-
-export function subscribe(relays, nPubKey) {
+export function loadOwners(relays, npub) {
   return (dispatch) => {
-    const pubkey = bech32ToHexPublicKey(nPubKey);
-    dispatch(setPubkey(pubkey));
-
-    const handleTextNote = (event) => {
-      if (!event.tags.some((tag) => tag[0] === "e")) {
-        const { content, mentionedPubkeys, quoteIds } =
-          refineContentWithReferences(event);
-        if (mentionedPubkeys && mentionedPubkeys.length > 0) {
-          dispatch(loadProfiles(relays, mentionedPubkeys));
-        }
-        if (quoteIds && quoteIds.length > 0) {
-          dispatch(loadQuotes(relays, quoteIds));
-        }
-        const note = {
-          id: event.id,
-          created_at: event.created_at,
-          content,
-        };
-        dispatch(appendHashtag({ hashtag: "ETC", id: note.id }));
-        dispatch(appendNotes(note));
-      }
-    };
-
-    const handleUserStatus = (event) => {
-      if (event.tags.some((tag) => tag[0] === "d" && tag[1] === "general")) {
-        const status = {
-          id: event.id,
-          content: event.content,
-        };
-        dispatch(setStatus(status));
-      }
-    };
-
-    const sub = pool.subscribeMany(
-      relays,
-      [
+    const { data: pubkey } = nip19.decode(npub);
+    dispatch(setOwnerPubkey(pubkey));
+    dispatch(
+      subscribeEvents(
+        relays,
         {
           authors: [pubkey],
-          kinds: [EVENT_KIND.textNote, EVENT_KIND.userStatus],
+          kinds: [
+            EVENT_KIND.metadata,
+            EVENT_KIND.textNote,
+            EVENT_KIND.userStatus,
+          ],
         },
-      ],
-      {
-        onevent(event) {
+        (event) => {
+          if (event.pubkey !== pubkey) {
+            return;
+          }
           switch (event.kind) {
             case EVENT_KIND.textNote:
-              handleTextNote(event);
+              if (!event.tags.some((tag) => tag[0] === "e")) {
+                dispatch(appendHashtag({ hashtag: "ETC", id: event.id }));
+                dispatch(appendOwnerNotes(event.id));
+              }
               break;
             case EVENT_KIND.userStatus:
-              handleUserStatus(event);
+              if (
+                event.tags.some((tag) => tag[0] === "d" && tag[1] === "general")
+              ) {
+                dispatch(setOwnerStatus(event.id));
+              }
               break;
             default:
               break;
           }
         },
-        oneose() {
-          sub.close();
-        },
-      },
+      ),
     );
   };
 }
