@@ -25,7 +25,7 @@ export default function PostPage({ data: { markdownRemark }, location }) {
   } = markdownRemark;
 
   return (
-    <LayoutContainer>
+    <LayoutContainer location={location}>
       <SeoContainer
         title={title}
         description={subtitle}

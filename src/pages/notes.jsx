@@ -37,7 +37,7 @@ export default function NotePage({
   }, []);
 
   return (
-    <LayoutContainer>
+    <LayoutContainer location={location}>
       <SeoContainer title="노트" pathname={location.pathname} />
       <h1>노트</h1>
       <NostrStatusContainer />

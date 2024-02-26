@@ -26,7 +26,7 @@ describe("<BooksPage/>", () => {
     });
 
     await act(async () => {
-      render(<BooksPage location={{ pathname: "/" }} />);
+      render(<BooksPage location={{ pathname: "/books/" }} />);
     });
   });
 
@@ -35,9 +35,11 @@ describe("<BooksPage/>", () => {
   });
 
   it("header를 출력한다", () => {
+    const bookEl = screen.queryByRole("link", { name: "독서" });
     const postEl = screen.getByText("포스트");
     const aboutEl = screen.getByText("소개");
 
+    expect(bookEl).toBe(null);
     expect(postEl).toBeInTheDocument();
     expect(aboutEl).toBeInTheDocument();
   });

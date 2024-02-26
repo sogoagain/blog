@@ -19,7 +19,7 @@ describe("<NotePage/>", () => {
     });
 
     await act(async () => {
-      render(<NotePage data={SITE_QUERY} location={{ pathname: "/" }} />);
+      render(<NotePage data={SITE_QUERY} location={{ pathname: "/notes" }} />);
     });
   });
 
@@ -28,9 +28,11 @@ describe("<NotePage/>", () => {
   });
 
   it("header를 출력한다", () => {
+    const noteEl = screen.queryByRole("link", { name: "노트" });
     const postEl = screen.getByText("포스트");
     const aboutEl = screen.getByText("소개");
 
+    expect(noteEl).toBe(null);
     expect(postEl).toBeInTheDocument();
     expect(aboutEl).toBeInTheDocument();
   });

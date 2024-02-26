@@ -33,7 +33,9 @@ describe("<AboutPage/>", () => {
     });
 
     await act(async () => {
-      render(<AboutPage data={ABOUT_QUERY} location={{ pathname: "/" }} />);
+      render(
+        <AboutPage data={ABOUT_QUERY} location={{ pathname: "/about" }} />,
+      );
     });
   });
 
@@ -42,9 +44,11 @@ describe("<AboutPage/>", () => {
   });
 
   it("header를 출력한다", () => {
+    const aboutEl = screen.queryByRole("link", { name: "소개" });
     const postEl = screen.getByText("포스트");
     const noteEl = screen.getByText("노트");
 
+    expect(aboutEl).toBe(null);
     expect(postEl).toBeInTheDocument();
     expect(noteEl).toBeInTheDocument();
   });

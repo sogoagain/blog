@@ -8,7 +8,7 @@ import PostsTagListContainer from "../container/PostsTagListContainer";
 
 export default function IndexPage({ location }) {
   return (
-    <LayoutContainer>
+    <LayoutContainer location={location}>
       <SeoContainer titleTemplate="%s 블로그" pathname={location.pathname} />
       <h1>SOGOAGAIN</h1>
       <p>NO PAIN, NO GAIN; SO GO AGAIN.</p>

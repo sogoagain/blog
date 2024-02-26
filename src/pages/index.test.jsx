@@ -30,11 +30,11 @@ describe("<IndexPage/>", () => {
   });
 
   it("header를 출력한다", () => {
-    const postEl = screen.getByText("포스트");
+    const postEl = screen.queryByRole("link", { name: "포스트" });
     const noteEl = screen.getByText("노트");
     const aboutEl = screen.getByText("소개");
 
-    expect(postEl).toBeInTheDocument();
+    expect(postEl).toBe(null);
     expect(noteEl).toBeInTheDocument();
     expect(aboutEl).toBeInTheDocument();
   });

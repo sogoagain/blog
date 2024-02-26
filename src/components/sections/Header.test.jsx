@@ -12,7 +12,7 @@ describe("<Header/>", () => {
   ];
 
   it("포스트 페이지 링크를 출력한다", () => {
-    render(<Header menus={menus} />);
+    render(<Header menus={menus} pathname="/about" />);
 
     const postEl = screen.getByText("포스트");
 
@@ -20,7 +20,7 @@ describe("<Header/>", () => {
   });
 
   it("소개 페이지 링크를 출력한다", () => {
-    render(<Header menus={menus} />);
+    render(<Header menus={menus} pathname="/" />);
 
     const aboutEl = screen.getByText("소개");
 
@@ -28,7 +28,7 @@ describe("<Header/>", () => {
   });
 
   it("RSS 링크를 출력한다", () => {
-    render(<Header menus={menus} />);
+    render(<Header menus={menus} pathname="/" />);
 
     const rssEl = screen.getByText("RSS");
 
