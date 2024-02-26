@@ -42,6 +42,7 @@
     "gatsby-remark-images": "^7.13.0",
     "gatsby-remark-katex": "^7.13.0",
     "gatsby-source-filesystem": "^5.13.0",
+    "gatsby-transformer-json": "^5.13.1",
     "gatsby-transformer-remark": "^6.13.0",
     "gatsby-transformer-sharp": "^5.13.0",
     "linkify-plugin-hashtag": "^4.1.3",

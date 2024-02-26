@@ -28,6 +28,7 @@ export default function HeaderContainer() {
   const menus = [
     { text: "홈", to: "/" },
     { text: "노트", to: "/notes" },
+    { text: "번역", to: "/translations" },
     { text: "독서", to: "/books" },
     { text: "소개", to: "/about" },
     { text: "RSS", to: rss },

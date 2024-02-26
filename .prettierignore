@@ -3,7 +3,8 @@ package.json
 package-lock.json
 public
 node_modules
-content
+content/*
+!content/translations.json
 coverage
 .github
 .vscode
