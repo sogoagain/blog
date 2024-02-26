@@ -14,9 +14,9 @@ describe("<Header/>", () => {
   it("포스트 페이지 링크를 출력한다", () => {
     render(<Header menus={menus} />);
 
-    const titleEl = screen.getByText("포스트");
+    const postEl = screen.getByText("포스트");
 
-    expect(titleEl).toHaveAttribute("href", "/");
+    expect(postEl).toHaveAttribute("href", "/");
   });
 
   it("소개 페이지 링크를 출력한다", () => {
