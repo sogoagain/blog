@@ -6,6 +6,7 @@ import Tag from "./Tag";
 
 const TagListWrapper = styled.div`
   user-select: none;
+  margin-bottom: 1.5rem;
 `;
 
 export default function TagList({ tags, selected, onClick }) {
