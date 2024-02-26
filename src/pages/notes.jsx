@@ -40,7 +40,8 @@ export default function NotePage({
     <LayoutContainer>
       <SeoContainer title="노트" pathname={location.pathname} />
       <h1>노트</h1>
-      <NostrStatusContainer npub={npub} />
+      <NostrStatusContainer />
+      <hr />
       <NotesHashtagListContainer />
       <NotesContainer />
     </LayoutContainer>

@@ -15,9 +15,7 @@ export default function QuotedNote({ note, npub, author, linkifyOptions }) {
     <blockquote>
       <small>
         <time dateTime={toISOString(date)}>{date}</time>{" "}
-        <em>
-          <Anchor href={`nostr:${npub}`}>{author}</Anchor>
-        </em>
+        <Anchor href={`nostr:${npub}`}>{author}</Anchor>
       </small>
       <br />
       <Linkify options={linkifyOptions}>{note.content}</Linkify>

@@ -15,6 +15,11 @@ import QuotedNote from "./QuotedNote";
 
 import { convertUnixTimestampToDate, toISOString } from "../../utils";
 
+const ListItem = styled.li`
+  padding: 2rem 0;
+  border-top: 1px dashed grey;
+`;
+
 const Content = styled.section`
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -100,8 +105,7 @@ export default function Note({ note, events, onHashtag }) {
   };
 
   return (
-    <li>
-      <hr />
+    <ListItem>
       <small>
         <time dateTime={toISOString(date)}>{date}</time>
       </small>
@@ -118,6 +122,6 @@ export default function Note({ note, events, onHashtag }) {
           {note.content}
         </Linkify>
       </Content>
-    </li>
+    </ListItem>
   );
 }
