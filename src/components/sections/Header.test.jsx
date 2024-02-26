@@ -6,15 +6,15 @@ import Header from "./Header";
 
 describe("<Header/>", () => {
   const menus = [
-    { text: "홈", to: "/" },
+    { text: "포스트", to: "/" },
     { text: "소개", to: "/about" },
     { text: "RSS", to: "/rss.xml" },
   ];
 
-  it("홈 페이지 링크를 출력한다", () => {
+  it("포스트 페이지 링크를 출력한다", () => {
     render(<Header menus={menus} />);
 
-    const titleEl = screen.getByText("홈");
+    const titleEl = screen.getByText("포스트");
 
     expect(titleEl).toHaveAttribute("href", "/");
   });

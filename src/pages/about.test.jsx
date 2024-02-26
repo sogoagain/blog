@@ -42,7 +42,7 @@ describe("<AboutPage/>", () => {
   });
 
   it("header를 출력한다", () => {
-    const titleEl = screen.getByText("홈");
+    const titleEl = screen.getByText("포스트");
     const noteEl = screen.getByText("노트");
 
     expect(titleEl).toBeInTheDocument();

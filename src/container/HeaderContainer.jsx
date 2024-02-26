@@ -26,7 +26,7 @@ export default function HeaderContainer() {
   } = useStaticQuery(query);
 
   const menus = [
-    { text: "홈", to: "/" },
+    { text: "포스트", to: "/" },
     { text: "노트", to: "/notes" },
     { text: "번역", to: "/translations" },
     { text: "독서", to: "/books" },
