@@ -9,6 +9,7 @@ export default function TranslationsPage({ location }) {
     <LayoutContainer>
       <SeoContainer title="번역" pathname={location.pathname} />
       <h1>번역</h1>
+      <hr />
       <TranslationsContainer />
     </LayoutContainer>
   );

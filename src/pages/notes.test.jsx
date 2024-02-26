@@ -28,10 +28,10 @@ describe("<NotePage/>", () => {
   });
 
   it("header를 출력한다", () => {
-    const titleEl = screen.getByText("홈");
+    const postEl = screen.getByText("포스트");
     const aboutEl = screen.getByText("소개");
 
-    expect(titleEl).toBeInTheDocument();
+    expect(postEl).toBeInTheDocument();
     expect(aboutEl).toBeInTheDocument();
   });
 

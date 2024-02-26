@@ -13,12 +13,12 @@ describe("<HeaderContainer/>", () => {
     useStaticQuery.mockReturnValue(SITE_QUERY);
   });
 
-  it("홈 페이지 링크를 출력한다", async () => {
+  it("포스트 페이지 링크를 출력한다", async () => {
     render(<HeaderContainer />);
 
-    const titleEl = screen.getByText("홈");
+    const postEl = screen.getByText("포스트");
 
-    expect(titleEl).toHaveAttribute("href", "/");
+    expect(postEl).toHaveAttribute("href", "/");
   });
 
   it("소개 페이지 링크를 출력한다", () => {

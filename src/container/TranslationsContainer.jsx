@@ -6,7 +6,7 @@ import TranslationList from "../components/translations/TranslationList";
 
 const query = graphql`
   query {
-    allTranslationsJson(sort: { fields: date, order: DESC }) {
+    allTranslationsJson(sort: { date: DESC }) {
       nodes {
         date
         title
