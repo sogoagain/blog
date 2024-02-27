@@ -28,6 +28,6 @@ title: "소개"
 - [mempool.space](https://mempool.space/): 번역
 - [Damus](https://github.com/damus-io/damus): 번역
 - [MyBatis](https://github.com/mybatis/mybatis-3/pulls?q=author%3Asogoagain): 코드 기여, 번역
-- [Bitcoin Core](https://github.com/bitcoin/bitcoin): [version 23.0](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-23.0.md), [version 24.0.1](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-24.0.1.md) 코드 기여
+- [Bitcoin Core](https://github.com/bitcoin/bitcoin): 코드 기여 ([v23.0](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-23.0.md), [v24.0.1](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-24.0.1.md))
 - [AutoParams](https://github.com/AutoParams/AutoParams/pulls?q=author%3Asogoagain): 코드 기여
 - [summernote-image-attributes](https://github.com/DiemenDesign/summernote-image-attributes/issues?q=author%3Asogoagain): 번역
