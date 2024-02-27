@@ -24,10 +24,10 @@ title: "소개"
 
 - [nostlog](https://github.com/sogoagain/nostlog): 개발 중
 - [nostr-kt-relay](https://github.com/sogoagain/nostr-kt-relay): 개발 중
-- [Satoshi Nakamoto Institute](https://nakamotoinstitute.org/): 콘텐츠 한국어 번역
-- [mempool.space](https://mempool.space/): 한국어 번역
-- [Damus](https://github.com/damus-io/damus): 한국어 번역
-- [MyBatis](https://github.com/mybatis/mybatis-3/pulls?q=author%3Asogoagain): 코드 기여, 한국어 번역
+- [Satoshi Nakamoto Institute](https://nakamotoinstitute.org/): 콘텐츠 번역
+- [mempool.space](https://mempool.space/): 번역
+- [Damus](https://github.com/damus-io/damus): 번역
+- [MyBatis](https://github.com/mybatis/mybatis-3/pulls?q=author%3Asogoagain): 코드 기여, 번역
 - [Bitcoin Core](https://github.com/bitcoin/bitcoin): [version 23.0](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-23.0.md), [version 24.0.1](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-24.0.1.md) 코드 기여
 - [AutoParams](https://github.com/AutoParams/AutoParams/pulls?q=author%3Asogoagain): 코드 기여
-- [summernote-image-attributes](https://github.com/DiemenDesign/summernote-image-attributes/issues?q=author%3Asogoagain): 한국어 번역
+- [summernote-image-attributes](https://github.com/DiemenDesign/summernote-image-attributes/issues?q=author%3Asogoagain): 번역
