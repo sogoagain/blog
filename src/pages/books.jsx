@@ -6,7 +6,7 @@ import SeoContainer from "../container/SeoContainer";
 
 export default function BooksPage({ location }) {
   return (
-    <LayoutContainer>
+    <LayoutContainer location={location}>
       <SeoContainer title="독서" pathname={location.pathname} />
       <h1>독서</h1>
       <hr />

@@ -14,7 +14,7 @@ describe("<HeaderContainer/>", () => {
   });
 
   it("포스트 페이지 링크를 출력한다", async () => {
-    render(<HeaderContainer />);
+    render(<HeaderContainer pathname="/about" />);
 
     const postEl = screen.getByText("포스트");
 
@@ -22,7 +22,7 @@ describe("<HeaderContainer/>", () => {
   });
 
   it("소개 페이지 링크를 출력한다", () => {
-    render(<HeaderContainer />);
+    render(<HeaderContainer pathname="/" />);
 
     const aboutEl = screen.getByText("소개");
 
@@ -30,7 +30,7 @@ describe("<HeaderContainer/>", () => {
   });
 
   it("RSS 링크를 출력한다", () => {
-    render(<HeaderContainer />);
+    render(<HeaderContainer pathname="/" />);
 
     const rssEl = screen.getByText("RSS");
 

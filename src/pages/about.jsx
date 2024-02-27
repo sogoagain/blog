@@ -25,7 +25,7 @@ export default function AboutPage({
   location,
 }) {
   return (
-    <LayoutContainer>
+    <LayoutContainer location={location}>
       <SeoContainer
         title={title}
         description={title}

@@ -16,7 +16,7 @@ const query = graphql`
   }
 `;
 
-export default function HeaderContainer() {
+export default function HeaderContainer({ pathname }) {
   const {
     site: {
       siteMetadata: {
@@ -34,5 +34,5 @@ export default function HeaderContainer() {
     { text: "RSS", to: rss },
   ];
 
-  return <Header menus={menus} />;
+  return <Header menus={menus} pathname={pathname} />;
 }

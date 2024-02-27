@@ -6,7 +6,7 @@ import TranslationsContainer from "../container/TranslationsContainer";
 
 export default function TranslationsPage({ location }) {
   return (
-    <LayoutContainer>
+    <LayoutContainer location={location}>
       <SeoContainer title="번역" pathname={location.pathname} />
       <h1>번역</h1>
       <hr />

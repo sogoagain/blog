@@ -7,14 +7,15 @@ import SeoContainer from "../container/SeoContainer";
 
 function NotFoundPage({ location }) {
   return (
-    <LayoutContainer>
+    <LayoutContainer location={location}>
       <SeoContainer
         title="404"
         description="페이지를 찾을 수 없습니다"
         pathname={location.pathname}
       />
       <h1>페이지를 찾을 수 없습니다</h1>
-      <Link to="/">홈으로 돌아가기</Link>
+      <hr />
+      <Link to="/">포스트 목록으로 돌아가기</Link>
     </LayoutContainer>
   );
 }
