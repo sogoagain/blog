@@ -15,7 +15,7 @@ function NotFoundPage({ location }) {
       />
       <h1>페이지를 찾을 수 없습니다</h1>
       <hr />
-      <Link to="/">포스트 메뉴로 돌아가기</Link>
+      <Link to="/">포스트 목록으로 돌아가기</Link>
     </LayoutContainer>
   );
 }
