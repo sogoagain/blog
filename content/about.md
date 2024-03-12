@@ -24,7 +24,7 @@ title: "소개"
 
 - [nostlog](https://github.com/sogoagain/nostlog): 개발 중
 - [nostr-kt-relay](https://github.com/sogoagain/nostr-kt-relay): 개발 중
-- [Satoshi Nakamoto Institute](https://nakamotoinstitute.org/): 콘텐츠 번역
+- [Satoshi Nakamoto Institute](https://nakamotoinstitute.org/): 번역
 - [mempool.space](https://mempool.space/): 번역
 - [Damus](https://github.com/damus-io/damus): 번역
 - [MyBatis](https://github.com/mybatis/mybatis-3/pulls?q=author%3Asogoagain): 코드 기여, 번역
