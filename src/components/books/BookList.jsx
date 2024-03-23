@@ -12,7 +12,7 @@ const List = styled.ul`
 const Item = styled.li`
   display: flex;
   align-items: center;
-  margin: 0 0 1rem;
+  margin: 0 0 3rem;
 `;
 
 const Image = styled.img`
@@ -26,23 +26,30 @@ const Content = styled.div`
   word-wrap: break-word;
 `;
 
+const TitleAndAuthor = styled.div`
+  margin-bottom: 1rem;
+`;
+
 export default function BookList({ books }) {
   return (
     <List>
-      {books.map((book) => (
-        <Item key={book.id}>
-          <Image src={book.image} alt={book.title} />
+      {books.map(({ id, image, title, author, review }) => (
+        <Item key={id}>
+          <Image src={image} alt={`${title}(저자: ${author}) 책 표지`} />
           <Content>
-            <p>
-              <strong>{book.title}</strong>
-            </p>
-            <p>
-              {book.review.href ? (
-                <Anchor href={book.review.href}>{book.review.text}</Anchor>
+            <TitleAndAuthor>
+              <strong>{title}</strong>
+              <div>
+                <small>{author}</small>
+              </div>
+            </TitleAndAuthor>
+            <div>
+              {review.href ? (
+                <Anchor href={review.href}>{review.text}</Anchor>
               ) : (
-                book.review.text
+                review.text
               )}
-            </p>
+            </div>
           </Content>
         </Item>
       ))}

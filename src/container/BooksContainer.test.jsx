@@ -49,6 +49,12 @@ describe("<BooksContainer/>", () => {
       expect(titleEl).toBeInTheDocument();
     });
 
+    it("저자를 출력한다", () => {
+      const authorEl = screen.getByText("안데르스 에릭슨, 로버트 풀");
+
+      expect(authorEl).toBeInTheDocument();
+    });
+
     context("도서 감상문 링크가 존재하면", () => {
       it("감상문 링크를 출력한다", () => {
         const linkEls = screen.getAllByRole("link");
