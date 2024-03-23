@@ -5,7 +5,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import Seo from "../components/Seo";
 
 const query = graphql`
-  query SEO {
+  query {
     site {
       siteMetadata {
         title
