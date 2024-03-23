@@ -52,7 +52,7 @@ const books = [
     title: "프로그래머의 뇌",
     image: "https://bookthumb-phinf.pstatic.net/cover/213/967/21396757.jpg",
     review: {
-      text: "개발 천재들이 어떻게 사고하는지 간접적으로나마 알 수 있었다. 그들을 따라가고자 노력하는 중",
+      text: "천재들이 어떻게 사고하는지 간접적으로나마 알 수 있었다. 그들을 따라가고자 노력하는 중",
       href: null,
     },
     keywords: ["개발", "교양"],

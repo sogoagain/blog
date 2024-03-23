@@ -6,6 +6,10 @@ const { actions, reducer } = createSlice({
   name: "books",
   initialState: {
     books: [],
+    keyword: {
+      keywords: {},
+      selected: null,
+    },
     loading: false,
     error: false,
   },
@@ -23,6 +27,29 @@ const { actions, reducer } = createSlice({
         books: Object.values(bookDictionary),
       };
     },
+    appendKeyword: (state, { payload: { keyword, id } }) => {
+      const key = keyword.toUpperCase();
+      const newIds = state.keyword.keywords[key]
+        ? [...new Set([...state.keyword.keywords[key], id])]
+        : [id];
+      return {
+        ...state,
+        keyword: {
+          ...state.keyword,
+          keywords: {
+            ...state.keyword.keywords,
+            [key]: newIds,
+          },
+        },
+      };
+    },
+    toggleKeyword: (state, { payload: keyword }) => ({
+      ...state,
+      keyword: {
+        ...state.keyword,
+        selected: state.keyword.selected === keyword ? null : keyword,
+      },
+    }),
     setLoading: (state, { payload: loading }) => ({
       ...state,
       loading,
@@ -34,7 +61,13 @@ const { actions, reducer } = createSlice({
   },
 });
 
-export const { appendBooks, setLoading, setError } = actions;
+export const {
+  appendBooks,
+  appendKeyword,
+  toggleKeyword,
+  setLoading,
+  setError,
+} = actions;
 
 export function loadBooks() {
   return async (dispatch) => {
@@ -42,6 +75,11 @@ export function loadBooks() {
     try {
       const books = await fetchBooks();
       dispatch(appendBooks(books));
+      books.forEach((book) => {
+        book.keywords.forEach((keyword) => {
+          dispatch(appendKeyword({ keyword, id: book.id }));
+        });
+      });
       dispatch(setError(false));
     } catch (err) {
       dispatch(setError(true));

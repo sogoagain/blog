@@ -9,7 +9,16 @@ import { loadBooks } from "../features/booksSlice";
 
 export default function BooksContainer() {
   const dispatch = useDispatch();
-  const { books, loading, error } = useSelector((state) => state.books);
+  const {
+    books,
+    keyword: { keywords, selected },
+    loading,
+    error,
+  } = useSelector((state) => state.books);
+
+  const filteredBooks = selected
+    ? books.filter((book) => keywords[selected].includes(book.id))
+    : books;
 
   useEffect(() => {
     if (books.length !== 0 || loading) {
@@ -20,7 +29,7 @@ export default function BooksContainer() {
 
   return (
     <>
-      <BookList books={books} />
+      <BookList books={filteredBooks} />
       {error && (
         <Alert message="오류가 발생했습니다. 잠시 후 다시 확인해주세요." />
       )}

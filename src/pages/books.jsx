@@ -1,8 +1,9 @@
 import React from "react";
 
 import LayoutContainer from "../container/LayoutContainer";
-import BooksContainer from "../container/BooksContainer";
 import SeoContainer from "../container/SeoContainer";
+import BooksContainer from "../container/BooksContainer";
+import BooksKeywordListContainer from "../container/BooksKeywordListContainer";
 
 export default function BooksPage({ location }) {
   return (
@@ -10,6 +11,7 @@ export default function BooksPage({ location }) {
       <SeoContainer title="독서" pathname={location.pathname} />
       <h1>독서</h1>
       <hr />
+      <BooksKeywordListContainer />
       <BooksContainer />
     </LayoutContainer>
   );

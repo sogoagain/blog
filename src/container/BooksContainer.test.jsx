@@ -60,7 +60,7 @@ describe("<BooksContainer/>", () => {
     context("도서 감상문 텍스트가 존재하면", () => {
       it("감상문만 출력한다", () => {
         const reviewEl = screen.getByText(
-          "개발 천재들이 어떻게 사고하는지 간접적으로나마 알 수 있었다. 그들을 따라가고자 노력하는 중",
+          "천재들이 어떻게 사고하는지 간접적으로나마 알 수 있었다. 그들을 따라가고자 노력하는 중",
         );
 
         expect(reviewEl).toBeInTheDocument();
