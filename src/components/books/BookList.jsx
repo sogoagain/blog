@@ -2,7 +2,7 @@ import React from "react";
 
 import styled from "@emotion/styled";
 
-import Anchor from "../Anchor";
+import BookReview from "./BookReview";
 
 const List = styled.ul`
   list-style: none;
@@ -30,7 +30,7 @@ const TitleAndAuthor = styled.div`
   margin-bottom: 1rem;
 `;
 
-export default function BookList({ books }) {
+export default function BookList({ books, siteUrl }) {
   return (
     <List>
       {books.map(({ id, image, title, author, review }) => (
@@ -44,11 +44,7 @@ export default function BookList({ books }) {
               </div>
             </TitleAndAuthor>
             <div>
-              {review.href ? (
-                <Anchor href={review.href}>{review.text}</Anchor>
-              ) : (
-                review.text
-              )}
+              <BookReview review={review} siteUrl={siteUrl} />
             </div>
           </Content>
         </Item>

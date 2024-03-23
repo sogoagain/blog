@@ -2,6 +2,8 @@ import React from "react";
 
 import { Provider } from "react-redux";
 
+import { useStaticQuery } from "gatsby";
+
 import { act } from "react-dom/test-utils";
 
 import { render as rtlRender } from "@testing-library/react";
@@ -14,12 +16,17 @@ import BooksContainer from "./BooksContainer";
 
 import { loadBooks } from "../features/booksSlice";
 
+import SITE_QUERY from "../__fixtures__/siteQuery";
 import READING_LIST from "../__fixtures__/books";
 
 jest.mock("../services/blog");
 
 describe("<BooksContainer/>", () => {
   beforeEach(() => {
+    useStaticQuery.mockReturnValue({
+      ...SITE_QUERY,
+    });
+
     fetchBooks.mockClear();
     fetchBooks.mockResolvedValue(READING_LIST);
   });
@@ -38,7 +45,9 @@ describe("<BooksContainer/>", () => {
     });
 
     it("도서 이미지를 출력한다", () => {
-      const coverEl = screen.getByAltText("임백준의 대살개문");
+      const coverEl = screen.getByAltText(
+        "임백준의 대살개문(저자: 임백준) 책 표지",
+      );
 
       expect(coverEl).toBeInTheDocument();
     });
