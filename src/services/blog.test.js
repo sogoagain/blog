@@ -26,12 +26,9 @@ describe("blog", () => {
       });
 
       it("독서목록을 반환한다", async () => {
-        const githubUser = await fetchReadingList({
-          pageSize: 5,
-          nextCursor: "ed6e2135-1fb3-4629-8537-ab4909d631cc",
-        });
+        const readingList = await fetchReadingList();
 
-        expect(githubUser).toEqual(READING_LIST);
+        expect(readingList).toEqual(READING_LIST);
       });
     });
 
@@ -43,10 +40,7 @@ describe("blog", () => {
 
       it("Error 객체를 던진다", async () => {
         try {
-          await fetchReadingList({
-            pageSize: 10,
-            startCursor: null,
-          });
+          await fetchReadingList();
         } catch (err) {
           expect(err.message).toEqual("독서목록을 불러오지 못했습니다.");
         }

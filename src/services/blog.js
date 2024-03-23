@@ -1,6 +1,5 @@
-export async function fetchReadingList({ pageSize, startCursor }) {
-  const queryString = new URLSearchParams({ pageSize, startCursor }).toString();
-  const url = `https://api.sogoagain.com/v1/blog/reading-list?${queryString}`;
+export async function fetchReadingList() {
+  const url = `https://api.sogoagain.com/v1/blog/books`;
   const response = await fetch(url);
 
   if (!response.ok) {

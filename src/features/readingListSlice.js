@@ -6,11 +6,6 @@ const { actions, reducer } = createSlice({
   name: "readingList",
   initialState: {
     books: [],
-    page: {
-      pageSize: 9,
-      hasMore: true,
-      nextCursor: null,
-    },
     loading: false,
     error: false,
   },
@@ -21,22 +16,13 @@ const { actions, reducer } = createSlice({
           ...prev,
           [curr.id]: { ...curr },
         }),
-        {}
+        {},
       );
       return {
         ...state,
         books: Object.values(bookDictionary),
       };
     },
-    setPage: (state, { payload: { pageSize, hasMore, nextCursor } }) => ({
-      ...state,
-      page: {
-        ...state.page,
-        pageSize,
-        hasMore,
-        nextCursor,
-      },
-    }),
     setLoading: (state, { payload: loading }) => ({
       ...state,
       loading,
@@ -48,26 +34,14 @@ const { actions, reducer } = createSlice({
   },
 });
 
-export const { appendBooks, setPage, setLoading, setError } = actions;
+export const { appendBooks, setLoading, setError } = actions;
 
-export function loadReadingList(pageSize) {
-  return async (dispatch, getState) => {
-    const {
-      readingList: { page },
-    } = getState();
-
-    if (!page.hasMore) {
-      return;
-    }
-
+export function loadReadingList() {
+  return async (dispatch) => {
     dispatch(setLoading(true));
     try {
-      const readingList = await fetchReadingList({
-        pageSize: pageSize || page.pageSize,
-        startCursor: page.nextCursor,
-      });
-      dispatch(appendBooks(readingList.books));
-      dispatch(setPage(readingList.page));
+      const readingList = await fetchReadingList();
+      dispatch(appendBooks(readingList));
       dispatch(setError(false));
     } catch (err) {
       dispatch(setError(true));

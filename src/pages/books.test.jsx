@@ -47,7 +47,7 @@ describe("<BooksPage/>", () => {
   it("독서목록을 출력한다", () => {
     const bookEls = screen.getAllByRole("listitem");
 
-    expect(bookEls).toHaveLength(READING_LIST.books.length);
+    expect(bookEls).toHaveLength(READING_LIST.length);
   });
 
   it("footer를 출력한다", () => {

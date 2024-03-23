@@ -6,7 +6,7 @@ import { act } from "react-dom/test-utils";
 
 import { render as rtlRender } from "@testing-library/react";
 
-import { render, createStore, screen, waitFor, fireEvent } from "../testUtils";
+import { render, createStore, screen } from "../testUtils";
 
 import { fetchReadingList } from "../services/blog";
 
@@ -34,7 +34,7 @@ describe("<ReadingListContainer/>", () => {
     it("독서목록을 출력한다", () => {
       const bookEls = screen.getAllByRole("listitem");
 
-      expect(bookEls).toHaveLength(READING_LIST.books.length);
+      expect(bookEls).toHaveLength(READING_LIST.length);
     });
 
     it("도서 이미지를 출력한다", () => {
@@ -103,18 +103,5 @@ describe("<ReadingListContainer/>", () => {
 
       expect(fetchReadingList).toHaveBeenCalledTimes(1);
     });
-  });
-
-  it("'더 불러오기' 버튼을 출력한다", async () => {
-    await act(async () => {
-      render(<ReadingListContainer />);
-    });
-
-    const moreButtonEl = await waitFor(() => screen.getByText("더 불러오기"));
-    await act(async () => {
-      fireEvent.click(moreButtonEl);
-    });
-
-    expect(fetchReadingList).toHaveBeenCalledTimes(2);
   });
 });
