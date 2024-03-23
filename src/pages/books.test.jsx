@@ -8,19 +8,19 @@ import { useStaticQuery } from "gatsby";
 
 import { render, screen } from "../testUtils";
 
-import { fetchReadingList } from "../services/blog";
+import { fetchBooks } from "../services/blog";
 
 import BooksPage from "./books";
 
 import SITE_QUERY from "../__fixtures__/siteQuery";
-import READING_LIST from "../__fixtures__/readingList";
+import READING_LIST from "../__fixtures__/books";
 
 jest.mock("../services/blog");
 
 describe("<BooksPage/>", () => {
   beforeEach(async () => {
-    fetchReadingList.mockClear();
-    fetchReadingList.mockResolvedValue(READING_LIST);
+    fetchBooks.mockClear();
+    fetchBooks.mockResolvedValue(READING_LIST);
     useStaticQuery.mockReturnValue({
       ...SITE_QUERY,
     });

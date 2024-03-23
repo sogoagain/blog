@@ -1,4 +1,4 @@
-export async function fetchReadingList() {
+export async function fetchBooks() {
   const url = `https://api.sogoagain.com/v1/blog/books`;
   const response = await fetch(url);
 

@@ -2,7 +2,7 @@ import React from "react";
 
 import styled from "@emotion/styled";
 
-import Anchor from "./Anchor";
+import Anchor from "../Anchor";
 
 const List = styled.ul`
   list-style: none;
@@ -26,7 +26,7 @@ const Content = styled.div`
   word-wrap: break-word;
 `;
 
-export default function ReadingList({ books }) {
+export default function BookList({ books }) {
   return (
     <List>
       {books.map((book) => (

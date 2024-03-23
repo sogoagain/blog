@@ -1,20 +1,20 @@
 import { createStore } from "../testUtils";
 
-import readingListReducer, {
+import booksReducer, {
   appendBooks,
   setLoading,
   setError,
-  loadReadingList,
-} from "./readingListSlice";
+  loadBooks,
+} from "./booksSlice";
 
-import { fetchReadingList } from "../services/blog";
+import { fetchBooks } from "../services/blog";
 
-import READING_LIST from "../__fixtures__/readingList";
+import READING_LIST from "../__fixtures__/books";
 
 jest.mock("../services/blog");
 
 describe("reading list reducer", () => {
-  const initialReadingListState = {
+  const initialBooksState = {
     books: [],
     loading: false,
     error: false,
@@ -23,7 +23,7 @@ describe("reading list reducer", () => {
   describe("appendBooks", () => {
     it("독서목록을 추가한다", () => {
       const previousState = {
-        ...initialReadingListState,
+        ...initialBooksState,
         books: [
           {
             id: "4b70e3c6-c46a-4574-a9d5-60e8dee699f3",
@@ -50,7 +50,7 @@ describe("reading list reducer", () => {
         ],
       };
 
-      const state = readingListReducer(
+      const state = booksReducer(
         previousState,
         appendBooks([
           {
@@ -84,9 +84,9 @@ describe("reading list reducer", () => {
 
   describe("setLoading", () => {
     it("loading 상태를 변경한다", () => {
-      const previousState = initialReadingListState;
+      const previousState = initialBooksState;
 
-      const state = readingListReducer(previousState, setLoading(true));
+      const state = booksReducer(previousState, setLoading(true));
 
       expect(state.loading).toBe(true);
     });
@@ -94,9 +94,9 @@ describe("reading list reducer", () => {
 
   describe("setError", () => {
     it("error 상태를 변경한다", () => {
-      const previousState = initialReadingListState;
+      const previousState = initialBooksState;
 
-      const state = readingListReducer(previousState, setError(true));
+      const state = booksReducer(previousState, setError(true));
 
       expect(state.error).toBe(true);
     });
@@ -110,42 +110,42 @@ describe("reading list actions", () => {
     store = createStore();
   });
 
-  describe("loadReadingList", () => {
+  describe("loadBooks", () => {
     beforeEach(() => {
-      fetchReadingList.mockClear();
+      fetchBooks.mockClear();
     });
 
     context("독서목록을 성공적으로 불러오면", () => {
       beforeEach(() => {
-        fetchReadingList.mockResolvedValue(READING_LIST);
+        fetchBooks.mockResolvedValue(READING_LIST);
       });
 
       it("독서목록 상세 정보를 설정한다", async () => {
-        await store.dispatch(loadReadingList(5));
+        await store.dispatch(loadBooks(5));
 
-        const { readingList } = store.getState();
+        const { books } = store.getState();
 
-        expect(readingList.books).toHaveLength(5);
-        expect(readingList.error).toBe(false);
+        expect(books.books).toHaveLength(5);
+        expect(books.error).toBe(false);
       });
     });
 
     context("독서목록을 불러오는데 실패하면", () => {
       beforeEach(() => {
-        fetchReadingList.mockRejectedValue(
+        fetchBooks.mockRejectedValue(
           new Error("독서목록을 불러오지 못했습니다."),
         );
       });
 
       it("error 상태를 true로 변경한다", async () => {
-        const { readingList: previousState } = store.getState();
+        const { books: previousState } = store.getState();
 
-        await store.dispatch(loadReadingList(5));
+        await store.dispatch(loadBooks(5));
 
-        const { readingList } = store.getState();
+        const { books } = store.getState();
 
-        expect(readingList.books).toBe(previousState.books);
-        expect(readingList.error).toBe(true);
+        expect(books.books).toBe(previousState.books);
+        expect(books.error).toBe(true);
       });
     });
   });

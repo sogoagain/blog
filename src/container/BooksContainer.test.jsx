@@ -8,26 +8,26 @@ import { render as rtlRender } from "@testing-library/react";
 
 import { render, createStore, screen } from "../testUtils";
 
-import { fetchReadingList } from "../services/blog";
+import { fetchBooks } from "../services/blog";
 
-import ReadingListContainer from "./ReadingListContainer";
+import BooksContainer from "./BooksContainer";
 
-import { loadReadingList } from "../features/readingListSlice";
+import { loadBooks } from "../features/booksSlice";
 
-import READING_LIST from "../__fixtures__/readingList";
+import READING_LIST from "../__fixtures__/books";
 
 jest.mock("../services/blog");
 
-describe("<ReadingListContainer/>", () => {
+describe("<BooksContainer/>", () => {
   beforeEach(() => {
-    fetchReadingList.mockClear();
-    fetchReadingList.mockResolvedValue(READING_LIST);
+    fetchBooks.mockClear();
+    fetchBooks.mockResolvedValue(READING_LIST);
   });
 
   context("독서목록을 불러오면", () => {
     beforeEach(async () => {
       await act(async () => {
-        render(<ReadingListContainer />);
+        render(<BooksContainer />);
       });
     });
 
@@ -71,11 +71,11 @@ describe("<ReadingListContainer/>", () => {
 
   context("독서목록 불러오는 중 에러가 발생하면", () => {
     beforeEach(async () => {
-      fetchReadingList.mockRejectedValue(
+      fetchBooks.mockRejectedValue(
         new Error("독서목록을 불러오지 못했습니다."),
       );
       await act(async () => {
-        render(<ReadingListContainer />);
+        render(<BooksContainer />);
       });
     });
 
@@ -91,17 +91,17 @@ describe("<ReadingListContainer/>", () => {
   context("독서목록을 불러왔었다면", () => {
     it("렌더링 시 추가로 불러오지 않는다", async () => {
       const store = createStore();
-      store.dispatch(loadReadingList());
+      store.dispatch(loadBooks());
 
       await act(async () => {
         rtlRender(
           <Provider store={store}>
-            <ReadingListContainer />
+            <BooksContainer />
           </Provider>,
         );
       });
 
-      expect(fetchReadingList).toHaveBeenCalledTimes(1);
+      expect(fetchBooks).toHaveBeenCalledTimes(1);
     });
   });
 });

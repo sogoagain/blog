@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { fetchReadingList } from "../services/blog";
+import { fetchBooks } from "../services/blog";
 
 const { actions, reducer } = createSlice({
-  name: "readingList",
+  name: "books",
   initialState: {
     books: [],
     loading: false,
@@ -36,12 +36,12 @@ const { actions, reducer } = createSlice({
 
 export const { appendBooks, setLoading, setError } = actions;
 
-export function loadReadingList() {
+export function loadBooks() {
   return async (dispatch) => {
     dispatch(setLoading(true));
     try {
-      const readingList = await fetchReadingList();
-      dispatch(appendBooks(readingList));
+      const books = await fetchBooks();
+      dispatch(appendBooks(books));
       dispatch(setError(false));
     } catch (err) {
       dispatch(setError(true));

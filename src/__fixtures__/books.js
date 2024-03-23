@@ -1,4 +1,4 @@
-const readingList = [
+const books = [
   {
     id: "4b70e3c6-c46a-4574-a9d5-60e8dee699f3",
     title: "임백준의 대살개문",
@@ -61,4 +61,4 @@ const readingList = [
   },
 ];
 
-export default readingList;
+export default books;
