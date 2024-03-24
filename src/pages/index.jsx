@@ -11,12 +11,9 @@ export default function IndexPage({ location }) {
     <LayoutContainer location={location}>
       <SeoContainer titleTemplate="%s 블로그" pathname={location.pathname} />
       <h1>SOGOAGAIN</h1>
-      <p>NO PAIN, NO GAIN; SO GO AGAIN.</p>
-      <p>
-        <InterestsContainer />
-      </p>
-      <hr />
+      <InterestsContainer />
       <PostsTagListContainer />
+      <hr />
       <PostsContainer />
     </LayoutContainer>
   );

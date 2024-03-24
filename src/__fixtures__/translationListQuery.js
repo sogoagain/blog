@@ -10,7 +10,7 @@ const translationListQuery = {
       },
       {
         date: "2013-02-19",
-        title: "연준의 종말: 비트코인을 축적하라",
+        title: "연준을 폐지하라: 비트코인을 축적하라",
         author: "Pierre Rochard",
         source: "Satoshi Nakamoto Institute",
         link: "https://nakamotoinstitute.org/mempool/end-the-fed-hoard-bitcoins/ko/",

@@ -1,6 +1,7 @@
 ---
 date: "2023-07-26"
 title: "소개"
+description: "NO PAIN, NO GAIN; SO GO AGAIN."
 ---
 
 ## 소프트웨어 개발

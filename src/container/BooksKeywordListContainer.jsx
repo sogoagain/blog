@@ -2,11 +2,17 @@ import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 
+import styled from "@emotion/styled";
+
 import TagList from "../components/tags/TagList";
 
 import { toggleKeyword } from "../features/booksSlice";
 
-export default function BooksContainer() {
+const BooksKeywordListWrapper = styled.div`
+  margin-top: 1rem;
+`;
+
+export default function BooksKeywordListContainer() {
   const dispatch = useDispatch();
   const {
     keyword: { keywords, selected },
@@ -26,6 +32,12 @@ export default function BooksContainer() {
   };
 
   return (
-    <TagList tags={sortedKeywords} selected={selected} onClick={handleClick} />
+    <BooksKeywordListWrapper>
+      <TagList
+        tags={sortedKeywords}
+        selected={selected}
+        onClick={handleClick}
+      />
+    </BooksKeywordListWrapper>
   );
 }
