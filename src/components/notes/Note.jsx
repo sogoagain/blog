@@ -17,7 +17,14 @@ import { convertUnixTimestampToDate, toISOString } from "../../utils";
 
 const ListItem = styled.li`
   padding: 2rem 0;
-  border-top: 1px dashed grey;
+  border-bottom: 1px dashed grey;
+  &:first-child {
+    padding-top: 0;
+  }
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
 `;
 
 const Content = styled.section`

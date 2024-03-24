@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 export default function AboutPage({
   data: {
     markdownRemark: {
-      frontmatter: { title },
+      frontmatter: { title, description },
       html,
     },
   },
@@ -32,7 +32,7 @@ export default function AboutPage({
         pathname={location.pathname}
       />
       <ParticleNetwork />
-      <Post title={title} html={html} />
+      <Post title={title} description={description} html={html} />
       <h2>라이트닝 잽 ⚡</h2>
       <Wrapper>
         <LightningContainer />
@@ -46,6 +46,7 @@ export const aboutQuery = graphql`
     markdownRemark(fields: { slug: { eq: "/about/" } }) {
       frontmatter {
         title
+        description
       }
       html
     }

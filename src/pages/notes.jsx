@@ -41,8 +41,8 @@ export default function NotePage({
       <SeoContainer title="노트" pathname={location.pathname} />
       <h1>노트</h1>
       <NostrStatusContainer />
-      <hr />
       <NotesHashtagListContainer />
+      <hr />
       <NotesContainer />
     </LayoutContainer>
   );
