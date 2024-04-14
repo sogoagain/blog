@@ -28,9 +28,9 @@ const { actions, reducer } = createSlice({
       ...state,
       pending: [...state.pending, filter],
     }),
-    setPendingRequests: (state, { payload: pending }) => ({
+    setPendingRequests: (state, { payload: filters }) => ({
       ...state,
-      pending: [...pending],
+      pending: [...filters],
     }),
     appendMetadataEvent: (state, { payload: event }) => {
       const existingEvent = state.events.metadata[event.pubkey];
