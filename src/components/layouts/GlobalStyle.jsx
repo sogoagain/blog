@@ -44,7 +44,8 @@ export default function GlobalStyle() {
           display: block;
           margin: 4px 15px;
         }
-        img {
+        img,
+        video {
           border: 1px solid lightgrey;
           height: auto;
           max-width: 100%;

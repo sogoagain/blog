@@ -59,8 +59,7 @@ module.exports = {
                 id: "subscribeManyId3",
                 kind: 1,
                 pubkey: owner.pk(),
-                content:
-                  "노트 3 https://cdn.nostr.build/i/b0b57f83c413825ec49035f3ed8849e0af3d8866f8e3d006eff7a5c323f8adce.jpg",
+                content: "노트 3 https://cdn.build/i/test.jpg",
                 created_at: 1704530364,
                 tags: [],
               });
@@ -76,7 +75,7 @@ module.exports = {
                 id: "subscribeManyId9",
                 kind: 1,
                 pubkey: owner.pk(),
-                content: "노트 4 #Zaps",
+                content: "노트 4 https://cdn.build/i/test.mp4 #Zaps",
                 created_at: 1705515813,
                 tags: [],
               });

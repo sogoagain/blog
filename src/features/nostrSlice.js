@@ -28,9 +28,9 @@ const { actions, reducer } = createSlice({
       ...state,
       pending: [...state.pending, filter],
     }),
-    initPendingRequest: (state) => ({
+    setPendingRequests: (state, { payload: filters }) => ({
       ...state,
-      pending: [],
+      pending: [...filters],
     }),
     appendMetadataEvent: (state, { payload: event }) => {
       const existingEvent = state.events.metadata[event.pubkey];
@@ -122,7 +122,7 @@ const { actions, reducer } = createSlice({
 
 export const {
   appendPendingRequest,
-  initPendingRequest,
+  setPendingRequests,
   appendMetadataEvent,
   appendTextNoteEvent,
   appendUserStatusEvent,
@@ -207,8 +207,10 @@ function subscribeEvents(relays, filters, onEvent) {
         if (pending.length === 0) {
           sub.close();
         } else {
-          dispatch(initPendingRequest());
-          dispatch(subscribeEvents(relays, pending));
+          const batch = pending.slice(0, 20);
+          const remaining = pending.slice(20);
+          dispatch(setPendingRequests(remaining));
+          dispatch(subscribeEvents(relays, batch));
         }
       },
     });

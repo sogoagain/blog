@@ -9,7 +9,7 @@ import "linkify-plugin-hashtag";
 import "linkify-plugin-mention";
 
 import Anchor from "../Anchor";
-import LinkOrImage from "./LinkOrImage";
+import MediaLink from "./MediaLink";
 import Hashtag from "./Hashtag";
 import QuotedNote from "./QuotedNote";
 
@@ -18,7 +18,7 @@ import { convertUnixTimestampToDate, toISOString } from "../../utils";
 const ListItem = styled.li`
   padding: 2rem 0;
   border-bottom: 1px dashed grey;
-  &:first-child {
+  &:first-of-type {
     padding-top: 0;
   }
   &:last-child {
@@ -51,7 +51,7 @@ export default function Note({ note, events, onHashtag }) {
   });
 
   const renderUrl = ({ attributes: { href, ...props }, content }) => (
-    <LinkOrImage href={href} content={content} {...props} />
+    <MediaLink href={href} content={content} {...props} />
   );
 
   const renderHashtag = ({ content }) => (
