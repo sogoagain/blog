@@ -25,8 +25,8 @@ jest.mock("../services/blog");
 
 describe("<LightningContainer/>", () => {
   function requestInvoice() {
-    fireEvent.change(screen.getByPlaceholderText("1000"), {
-      target: { value: "9409" },
+    fireEvent.change(screen.getByPlaceholderText("2100"), {
+      target: { value: "9a4b0c9d" },
     });
     fireEvent.change(screen.getByPlaceholderText("PIZZA 🍕"), {
       target: { value: "오 ~ 막걸리 좋아요!" },

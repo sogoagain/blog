@@ -60,7 +60,7 @@ describe("<AboutPage/>", () => {
   });
 
   it("라이트닝 인보이스를 발급하는 form을 출력한다", () => {
-    const inputEl = screen.getByPlaceholderText("1000");
+    const inputEl = screen.getByPlaceholderText("2100");
 
     expect(inputEl).toBeInTheDocument();
   });

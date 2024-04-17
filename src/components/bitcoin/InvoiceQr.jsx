@@ -8,8 +8,8 @@ export default function InvoiceQr({ invoice }) {
   const drawInvoiceQr = async () => {
     const { default: QRCodeStyling } = await import("qr-code-styling");
     const qrCodeStyling = new QRCodeStyling({
-      width: 320,
-      height: 320,
+      width: 240,
+      height: 240,
       type: "svg",
       data: invoice.payment_request,
       image: LightningIcon,
