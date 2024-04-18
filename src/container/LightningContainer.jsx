@@ -67,7 +67,7 @@ export default function LightningContainer() {
   }
 
   if (settled) {
-    return <PaymentCompleted amount={invoice.value} />;
+    return <PaymentCompleted />;
   }
 
   return (

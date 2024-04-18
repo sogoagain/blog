@@ -102,14 +102,14 @@ describe("<LightningContainer/>", () => {
         });
       });
 
-      it("감사 인사를 출력한다", async () => {
+      it("전송 완료 애니메이션을 출력한다", async () => {
         await act(async () => {
           await new Promise((resolve) => setTimeout(resolve, 4001));
         });
 
-        const thanksEl = screen.getByText("감사합니다 🎉");
+        const completeEl = screen.getByTestId("lottie-player");
 
-        expect(thanksEl).toBeInTheDocument();
+        expect(completeEl).toBeInTheDocument();
       });
     });
   });
