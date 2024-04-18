@@ -4,7 +4,7 @@ module.exports = {
     titleTemplate: "%s · SOGOAGAIN",
     description: "SOGOAGAIN 블로그",
     siteUrl: `https://blog.sogoagain.com`,
-    image: "/logo.png",
+    image: "/images/logo-light.png",
     author: "sogoagain",
   },
   interests: [

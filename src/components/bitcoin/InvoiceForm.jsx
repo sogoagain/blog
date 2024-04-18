@@ -9,7 +9,7 @@ const InputWrapper = styled.div`
 const InputGroup = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 `;
 
 const Input = styled.input`
@@ -27,15 +27,13 @@ export default function InvoiceForm({
   onSubmit,
 }) {
   const handleChange = (e, name) => {
-    let { value } = e.target;
+    const { value } = e.target;
     if (name === "amount") {
-      let number = value.replace(/[^0-9]/g, "");
-      if (number === "") {
-        number = "0";
-      }
-      value = parseInt(number, 10);
+      const number = value.replace(/[^0-9]/g, "");
+      onChange({ name, value: parseInt(number === "" ? "0" : number, 10) });
+    } else {
+      onChange({ name, value });
     }
-    onChange({ name, value });
   };
 
   const handleSubmit = (e) => {
