@@ -102,6 +102,7 @@ export default function GlobalStyle() {
           padding: 1rem 0;
         }
         button {
+          font-size: 1rem;
           padding: 0.1rem 0.3rem;
           border: 1px solid;
           border-color: inherit;
