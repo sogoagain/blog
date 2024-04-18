@@ -20,9 +20,9 @@ const CheckboxLabel = styled.span`
   background-color: ${(props) => (props.selected ? "black" : "inherit")};
 
   @media screen and (prefers-color-scheme: dark) {
-    background-color: ${(props) => (props.selected ? "white" : "inherit")};
-    color: ${(props) => (props.selected ? "black" : "inherit")};
     border-color: ${(props) => (props.selected ? "white" : "inherit")};
+    color: ${(props) => (props.selected ? "black" : "inherit")};
+    background-color: ${(props) => (props.selected ? "white" : "inherit")};
   }
 `;
 

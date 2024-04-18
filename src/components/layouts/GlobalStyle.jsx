@@ -101,6 +101,19 @@ export default function GlobalStyle() {
           margin: 2rem 0;
           padding: 1rem 0;
         }
+        button {
+          padding: 0.1rem 0.3rem;
+          border: 1px solid;
+          border-color: inherit;
+          color: inherit;
+          background-color: inherit;
+
+          &:hover {
+            border-color: black;
+            color: white;
+            background-color: black;
+          }
+        }
         @supports (color-scheme: dark light) {
           @media screen and (prefers-color-scheme: dark) {
             a:link {
@@ -111,6 +124,17 @@ export default function GlobalStyle() {
             }
             a:active {
               color: red;
+            }
+            button {
+              border-color: inherit;
+              color: inherit;
+              background-color: inherit;
+
+              &:hover {
+                border-color: white;
+                color: black;
+                background-color: white;
+              }
             }
           }
         }

@@ -25,8 +25,8 @@ jest.mock("../services/blog");
 
 describe("<LightningContainer/>", () => {
   function requestInvoice() {
-    fireEvent.change(screen.getByPlaceholderText("1000"), {
-      target: { value: "9409" },
+    fireEvent.change(screen.getByPlaceholderText("2100"), {
+      target: { value: "09a4b0c9d" },
     });
     fireEvent.change(screen.getByPlaceholderText("PIZZA 🍕"), {
       target: { value: "오 ~ 막걸리 좋아요!" },
@@ -102,14 +102,14 @@ describe("<LightningContainer/>", () => {
         });
       });
 
-      it("감사 인사를 출력한다", async () => {
+      it("전송 완료 애니메이션을 출력한다", async () => {
         await act(async () => {
           await new Promise((resolve) => setTimeout(resolve, 4001));
         });
 
-        const thanksEl = screen.getByText("감사합니다 🎉");
+        const completeEl = screen.getByTestId("lottie-player");
 
-        expect(thanksEl).toBeInTheDocument();
+        expect(completeEl).toBeInTheDocument();
       });
     });
   });
@@ -127,7 +127,7 @@ describe("<LightningContainer/>", () => {
 
     it("오류 문구를 출력한다", () => {
       const errorEl = screen.getByText(
-        "라이트닝 인보이스를 발행하지 못했습니다. 잠시 후 다시 확인해주세요.",
+        "인보이스 발행에 실패했습니다. 조금 후에 다시 시도해주세요.",
       );
 
       expect(errorEl).toBeInTheDocument();

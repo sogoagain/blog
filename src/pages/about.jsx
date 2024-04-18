@@ -13,6 +13,7 @@ import SeoContainer from "../container/SeoContainer";
 
 const Wrapper = styled.div`
   margin: 1rem 0;
+  padding: 0 2rem;
 `;
 
 export default function AboutPage({

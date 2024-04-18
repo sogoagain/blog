@@ -7,21 +7,14 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import BitcoinSuccess from "./bitcoin_success.json";
 
 const LottiePlayerWrapper = styled.div`
-  width: 320px;
-  height: 320px;
+  width: 240px;
+  height: 240px;
 `;
 
-export default function PaymentCompleted({ amount }) {
+export default function PaymentCompleted() {
   return (
-    <>
-      <LottiePlayerWrapper>
-        <Player autoplay loop src={BitcoinSuccess} />
-      </LottiePlayerWrapper>
-      <h3>감사합니다 🎉</h3>
-      <p>
-        소중한 {amount.toLocaleString("en-US")} sats <br />
-        저에게 큰 힘이 됩니다! 🙏
-      </p>
-    </>
+    <LottiePlayerWrapper data-testid="lottie-player">
+      <Player autoplay loop src={BitcoinSuccess} />
+    </LottiePlayerWrapper>
   );
 }

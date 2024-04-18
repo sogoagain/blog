@@ -8,7 +8,7 @@ export default function Lightning({ invoice, expired, onCreateInvoice }) {
     return (
       <div>
         <Invoice invoice={invoice} expired={expired} />
-        <Alert message="인보이스가 만료되었습니다." />
+        <Alert message="인보이스가 만료되었습니다. 새로 발행해주세요." />
         <button type="button" onClick={onCreateInvoice}>
           다시 발급하기
         </button>
