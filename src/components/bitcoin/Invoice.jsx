@@ -20,7 +20,7 @@ export default function Invoice({ invoice, expired }) {
 
   const handleCopyClick = async () => {
     await navigator.clipboard.writeText(invoice.payment_request);
-    setCopyStatus("복사하였습니다. 지갑에 붙여 넣으세요.");
+    setCopyStatus("복사 완료! 지갑에 붙여넣어 주세요.");
   };
 
   if (expired) {

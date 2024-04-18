@@ -127,7 +127,7 @@ describe("<LightningContainer/>", () => {
 
     it("오류 문구를 출력한다", () => {
       const errorEl = screen.getByText(
-        "라이트닝 인보이스를 발행하지 못했습니다. 잠시 후 다시 확인해주세요.",
+        "인보이스 발행에 실패했습니다. 조금 후에 다시 시도해주세요.",
       );
 
       expect(errorEl).toBeInTheDocument();

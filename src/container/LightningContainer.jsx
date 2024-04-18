@@ -18,7 +18,7 @@ import {
 export default function LightningContainer() {
   const dispatch = useDispatch();
   const { invoice, loading, error, settled, expired, fields } = useSelector(
-    (state) => state.lightning
+    (state) => state.lightning,
   );
 
   const handleChange = ({ name, value }) => {
@@ -43,7 +43,7 @@ export default function LightningContainer() {
     () => () => {
       dispatch(pauseInvoiceLookup());
     },
-    []
+    [],
   );
 
   if (loading) {
@@ -52,7 +52,7 @@ export default function LightningContainer() {
 
   if (error) {
     return (
-      <Alert message="라이트닝 인보이스를 발행하지 못했습니다. 잠시 후 다시 확인해주세요." />
+      <Alert message="인보이스 발행에 실패했습니다. 조금 후에 다시 시도해주세요." />
     );
   }
 

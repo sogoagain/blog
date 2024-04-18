@@ -49,7 +49,7 @@ export default function BooksContainer() {
     <>
       <BookList books={filteredBooks} siteUrl={siteUrl} />
       {error && (
-        <Alert message="오류가 발생했습니다. 잠시 후 다시 확인해주세요." />
+        <Alert message="처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요." />
       )}
     </>
   );
