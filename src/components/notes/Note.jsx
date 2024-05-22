@@ -38,11 +38,12 @@ const Content = styled.section`
 
 export default function Note({ note, events, onHashtag }) {
   const date = convertUnixTimestampToDate(note.created_at);
+  const NIP19_ID_LENGTH = 63;
 
   const linkifyOptions = ({ render }) => ({
     defaultProtocol: "https",
     formatHref: {
-      mention: (href) => `nostr:${href.slice(1)}`,
+      mention: (href) => `nostr:${href.slice(1, NIP19_ID_LENGTH + 1)}`,
     },
     render: {
       ...render,
@@ -76,8 +77,10 @@ export default function Note({ note, events, onHashtag }) {
       return result;
     }
 
-    if (content.startsWith("@note")) {
-      const { data: id } = nip19.decode(content.slice(1));
+    const reference = content.slice(1, NIP19_ID_LENGTH + 1);
+    const remainingText = content.slice(reference.length + 1);
+    if (reference.startsWith("note")) {
+      const { data: id } = nip19.decode(reference);
       const quote = events.textNote[id];
       if (quote) {
         const npub = nip19.npubEncode(quote.pubkey);
@@ -99,15 +102,19 @@ export default function Note({ note, events, onHashtag }) {
       return (
         <blockquote>
           <Anchor href={href} {...props}>
-            {`${content.slice(1, 13)}...${content.slice(-8)}`}
+            {`${reference.slice(0, 12)}...${reference.slice(-8)}`}
           </Anchor>
+          {remainingText}
         </blockquote>
       );
     }
     return (
-      <Anchor href={href} {...props}>
-        {`@${getProfileName(content.slice(1))}`}
-      </Anchor>
+      <>
+        <Anchor href={href} {...props}>
+          {`@${getProfileName(reference)}`}
+        </Anchor>
+        {remainingText}
+      </>
     );
   };
 
