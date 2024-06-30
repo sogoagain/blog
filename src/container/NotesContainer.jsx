@@ -16,7 +16,7 @@ export default function NotesContainer() {
 
   const ownerNotes = notes
     .map((note) => textNote[note])
-    .sort((a, b) => a.create_at - b.create_at);
+    .sort((a, b) => b.created_at - a.created_at);
 
   const filteredNotes = selected
     ? ownerNotes.filter((note) => tags[selected].includes(note.id))
