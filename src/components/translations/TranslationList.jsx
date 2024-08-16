@@ -3,13 +3,9 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import Anchor from "../Anchor";
+import UnstyledOrderedList from "../UnstyledOrderedList";
 
 import { toISOString } from "../../utils";
-
-const List = styled.ol`
-  list-style: none;
-  padding-left: 0;
-`;
 
 const ListItem = styled.li`
   margin: 0 0 1rem;
@@ -17,7 +13,7 @@ const ListItem = styled.li`
 
 export default function TranslationList({ translations }) {
   return (
-    <List>
+    <UnstyledOrderedList>
       {translations.map(({ date, title, author, source, link }) => (
         <ListItem key={link}>
           <small>
@@ -32,6 +28,6 @@ export default function TranslationList({ translations }) {
           <br />
         </ListItem>
       ))}
-    </List>
+    </UnstyledOrderedList>
   );
 }
