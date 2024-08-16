@@ -7,6 +7,14 @@ module.exports = {
   StaticImage: jest.fn().mockImplementation(({ ...rest }) =>
     React.createElement("img", {
       ...rest,
+      src: "mocked-image-src.jpg",
     }),
   ),
+  GatsbyImage: jest.fn().mockImplementation(({ ...rest }) =>
+    React.createElement("img", {
+      ...rest,
+      src: "mocked-image-src.jpg",
+    }),
+  ),
+  getImage: jest.fn(),
 };
