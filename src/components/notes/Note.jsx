@@ -9,23 +9,12 @@ import "linkify-plugin-hashtag";
 import "linkify-plugin-mention";
 
 import Anchor from "../Anchor";
+import DividedListItem from "../DividedListItem";
 import MediaLink from "./MediaLink";
 import Hashtag from "./Hashtag";
 import QuotedNote from "./QuotedNote";
 
 import { convertUnixTimestampToDate, toISOString } from "../../utils";
-
-const ListItem = styled.li`
-  padding: 2rem 0;
-  border-bottom: 1px dashed grey;
-  &:first-of-type {
-    padding-top: 0;
-  }
-  &:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-`;
 
 const Content = styled.section`
   white-space: pre-wrap;
@@ -119,7 +108,7 @@ export default function Note({ note, events, onHashtag }) {
   };
 
   return (
-    <ListItem>
+    <DividedListItem>
       <small>
         <time dateTime={toISOString(date)}>{date}</time>
       </small>
@@ -136,6 +125,6 @@ export default function Note({ note, events, onHashtag }) {
           {note.content}
         </Linkify>
       </Content>
-    </ListItem>
+    </DividedListItem>
   );
 }

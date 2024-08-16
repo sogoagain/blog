@@ -1,17 +1,12 @@
 import React from "react";
 
-import styled from "@emotion/styled";
-
 import PostItem from "./PostItem";
 
-const List = styled.ol`
-  list-style: none;
-  padding-left: 0;
-`;
+import UnstyledOrderedList from "../UnstyledOrderedList";
 
 export default function PostList({ posts, basePath }) {
   return (
-    <List>
+    <UnstyledOrderedList>
       {posts.map(({ slug, title, subtitle, date }) => (
         <PostItem
           key={slug}
@@ -21,6 +16,6 @@ export default function PostList({ posts, basePath }) {
           to={`${basePath}${slug}`}
         />
       ))}
-    </List>
+    </UnstyledOrderedList>
   );
 }

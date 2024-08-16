@@ -1,16 +1,10 @@
 import React from "react";
 
-import styled from "@emotion/styled";
-
 import { graphql, useStaticQuery } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
 
 import Photo from "../components/photos/Photo";
-
-const List = styled.ol`
-  list-style: none;
-  padding-left: 0;
-`;
+import UnstyledOrderedList from "../components/UnstyledOrderedList";
 
 const query = graphql`
   query {
@@ -45,7 +39,7 @@ export default function PhotosContainer() {
   } = useStaticQuery(query);
 
   return (
-    <List>
+    <UnstyledOrderedList>
       {edges.map(({ node }) =>
         Photo({
           image: getImage(node.childImageSharp.gatsbyImageData),
@@ -53,6 +47,6 @@ export default function PhotosContainer() {
           info: node.fields,
         }),
       )}
-    </List>
+    </UnstyledOrderedList>
   );
 }
