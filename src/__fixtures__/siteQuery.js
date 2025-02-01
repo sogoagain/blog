@@ -11,6 +11,7 @@ const siteQuery = {
         nostr: {
           name: "sogoagain",
           npub: "npub16686greycr3g4dpa8lndgqrrfxs0qdky8xtxp3nnc8z8upegzpkq566g38",
+          primal: "https://primal.net/sogoagain",
           relays: [
             "wss://nostr.oxtr.dev",
             "wss://relay.nostr.band",
