@@ -24,6 +24,7 @@ module.exports = {
       name: "sogoagain",
       npub: "npub1nhffp7hfyy2weckcw7tslaf20qhk7dp59zal2swghx4tpc9ejjxsuqxcf8",
       relays: [
+        "wss://premium.primal.net",
         "wss://nostr.oxtr.dev",
         "wss://relay.nostr.band",
         "wss://offchain.pub",
