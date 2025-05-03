@@ -25,19 +25,19 @@ description: "NO PAIN, NO GAIN; SO GO AGAIN."
 
 ### 개발
 
-* [Scrambling Text JS](https://github.com/sogoagain/scrambling-text-js)
-* [Check opened PR action](https://github.com/sogoagain/check-opened-pr-action)
+- [Scrambling Text JS](https://github.com/sogoagain/scrambling-text-js)
+- [Check opened PR action](https://github.com/sogoagain/check-opened-pr-action)
 
 ### 코드 및 문서 기여
 
-* Next.js: [PR #61087](https://github.com/vercel/next.js/pull/61087)
-* MyBatis: [PR #2627](https://github.com/mybatis/mybatis-3/pull/2627), [PR #2631](https://github.com/mybatis/mybatis-3/pull/2631)
-* Bitcoin Core: [PR #24039](https://github.com/bitcoin/bitcoin/pull/24039), [PR #25530](https://github.com/bitcoin/bitcoin/pull/25530)
-* AutoParams: [PR #57](https://github.com/AutoParams/AutoParams/pull/57), [PR #201](https://github.com/AutoParams/AutoParams/pull/201)
+- Next.js: [PR #61087](https://github.com/vercel/next.js/pull/61087)
+- MyBatis: [PR #2627](https://github.com/mybatis/mybatis-3/pull/2627), [PR #2631](https://github.com/mybatis/mybatis-3/pull/2631)
+- Bitcoin Core: [PR #24039](https://github.com/bitcoin/bitcoin/pull/24039), [PR #25530](https://github.com/bitcoin/bitcoin/pull/25530)
+- AutoParams: [PR #57](https://github.com/AutoParams/AutoParams/pull/57), [PR #201](https://github.com/AutoParams/AutoParams/pull/201)
 
 ### 번역 기여
 
-* [Satoshi Nakamoto Institute](https://nakamotoinstitute.org/ko)
-* [mempool.space](https://mempool.space/ko)
-* [Damus](https://github.com/damus-io/damus)
-* summernote-image-attributes: [PR #57](https://github.com/DennisSuitters/summernote-image-attributes/pull/57)
+- [Satoshi Nakamoto Institute](https://nakamotoinstitute.org/ko)
+- [mempool.space](https://mempool.space/ko)
+- [Damus](https://github.com/damus-io/damus)
+- summernote-image-attributes: [PR #57](https://github.com/DennisSuitters/summernote-image-attributes/pull/57)
