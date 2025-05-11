@@ -26,7 +26,7 @@ describe("<FooterContainer/>", () => {
 
   it.each`
     text        | link
-    ${"Email"}  | ${`mailto:sogoagain@sogoagain.com`}
+    ${"Email"}  | ${`mailto:hello@sogoagain.com`}
     ${"GitHub"} | ${`https://github.com/sogoagain`}
     ${"Nostr"}  | ${`https://primal.net/sogoagain`}
   `("'$text'(으)로 이동하는 '$link'를 출력한다", ({ text, link }) => {

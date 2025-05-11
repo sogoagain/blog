@@ -18,7 +18,7 @@ module.exports = {
     "Nostr",
   ],
   social: {
-    email: "sogoagain@sogoagain.com",
+    email: "hello@sogoagain.com",
     github: "sogoagain",
     nostr: {
       name: "sogoagain",
