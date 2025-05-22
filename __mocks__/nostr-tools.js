@@ -174,6 +174,14 @@ module.exports = {
                 created_at: 1704530364,
                 tags: [["e", "event-id", "", "root"]],
               });
+              callbacks.onevent({
+                id: "subscribeManyId16",
+                kind: 1,
+                pubkey: owner.pk(),
+                content: "답글3",
+                created_at: 1704530364,
+                tags: [["e", "event-id"]],
+              });
             }
             if (kinds.includes(4)) {
               callbacks.onevent({

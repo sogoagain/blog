@@ -241,12 +241,10 @@ export function loadOwners(relays, npub) {
           switch (event.kind) {
             case EVENT_KIND.textNote: {
               const hasETag = event.tags.some((tag) => tag[0] === "e");
-              const isComment = event.tags.some(
-                (tag) =>
-                  tag[0] === "e" &&
-                  (tag.includes("root") || tag.includes("reply")),
+              const isMention = event.tags.some(
+                (tag) => tag[0] === "e" && tag[tag.length - 1] === "mention",
               );
-              const isOwnerNote = !hasETag || (hasETag && !isComment);
+              const isOwnerNote = !hasETag || isMention;
               if (isOwnerNote) {
                 const tTags = event.tags.filter((tag) => tag[0] === "t");
                 if (tTags.length === 0) {
