@@ -74,6 +74,7 @@ describe("<NotePage/>", () => {
 
     const primalRepostNote = screen.getByText(/Primal에서 인용한 노트/);
     const primalRepostNoteDate = screen.getByText("2024-01-06");
+    const primalQuotedNote = screen.getByText("note1txds23y...fq2fk7ch");
 
     expect(note1).toBeInTheDocument();
     expect(note1Date).toBeInTheDocument();
@@ -86,6 +87,7 @@ describe("<NotePage/>", () => {
 
     expect(primalRepostNote).toBeInTheDocument();
     expect(primalRepostNoteDate).toBeInTheDocument();
+    expect(primalQuotedNote).toBeInTheDocument();
   });
 
   it("선택한 해시태그에 따라 노트를 필터링한다", () => {
