@@ -21,14 +21,10 @@ const icons = {
   lightning: <ZapIcon />,
 };
 
-export default function Hashtag({ content, onHashtag }) {
+export default function Hashtag({ content }) {
   const tag = content.toLowerCase().slice(1);
   const iconKey = Object.keys(icons).find((key) => tag.includes(key));
   const icon = iconKey ? icons[iconKey] : null;
-
-  useEffect(() => {
-    onHashtag(content);
-  }, []);
 
   return (
     <span css={style}>

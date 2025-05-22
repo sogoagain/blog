@@ -45,7 +45,7 @@ module.exports = {
                 pubkey: owner.pk(),
                 content: "노트 2 #Zaps",
                 created_at: 1704425529,
-                tags: [],
+                tags: [["t", "Zaps"]],
               });
               callbacks.onevent({
                 id: "subscribeManyId1",
@@ -53,7 +53,7 @@ module.exports = {
                 pubkey: owner.pk(),
                 content: "노트 1 https://blog.sogoagain.com/ #Nothing",
                 created_at: 1703415813,
-                tags: [],
+                tags: [["t", "Nothing"]],
               });
               callbacks.onevent({
                 id: "subscribeManyId3",
@@ -67,9 +67,9 @@ module.exports = {
                 id: "subscribeManyId4",
                 kind: 1,
                 pubkey: owner.pk(),
-                content: "답글",
+                content: "답글1",
                 created_at: 1704530364,
-                tags: [["e", "event-id"]],
+                tags: [["e", "event-id", "", "reply"]],
               });
               callbacks.onevent({
                 id: "subscribeManyId9",
@@ -77,7 +77,7 @@ module.exports = {
                 pubkey: owner.pk(),
                 content: "노트 4 https://cdn.build/i/test.mp4 #Zaps",
                 created_at: 1705515813,
-                tags: [],
+                tags: [["t", "Zaps"]],
               });
               callbacks.onevent({
                 id: "subscribeManyId10",
@@ -85,7 +85,7 @@ module.exports = {
                 pubkey: owner.pk(),
                 content: "노트 5 #Bitcoin",
                 created_at: 1706465813,
-                tags: [],
+                tags: [["t", "Bitcoin"]],
               });
               callbacks.onevent({
                 id: "subscribeManyId11",
@@ -93,7 +93,7 @@ module.exports = {
                 pubkey: owner.pk(),
                 content: "노트 6 #테스트",
                 created_at: 1707465813,
-                tags: [],
+                tags: [["t", "테스트"]],
               });
 
               callbacks.onevent({
@@ -135,7 +135,44 @@ module.exports = {
                 id: "subscribeManyId14",
                 kind: 1,
                 pubkey: owner.pk(),
-                tags: [],
+                tags: [
+                  [
+                    "e",
+                    "note15flz24yq6rtzn474a9k24fna4wv07jw5s3u6uzp0flvcnxmyf9ysx6cp8k",
+                    "",
+                    "mention",
+                  ],
+                ],
+              });
+              callbacks.onevent({
+                content:
+                  "Primal에서 인용한 노트 \n\nnevent1qqs9nxc9gj975ezcrvaz6u3s0j227v56f6cpkm382u6afpvtwx9r9yspp4mhxue69uhkummn9ekx7mqujtpel",
+                created_at: 1708746990,
+                id: "subscribeManyId15",
+                kind: 1,
+                pubkey: owner.pk(),
+                tags: [
+                  [
+                    "e",
+                    "599b05448bea64581b3a2d72307c94af329a4eb01b6e275735d4858b718a3292",
+                    "wss://nos.lol",
+                    "mention",
+                  ],
+                  [
+                    "p",
+                    "58c741aa630c2da35a56a77c1d05381908bd10504fdd2d8b43f725efa6d23196",
+                    "",
+                    "mention",
+                  ],
+                ],
+              });
+              callbacks.onevent({
+                id: "subscribeManyId16",
+                kind: 1,
+                pubkey: owner.pk(),
+                content: "답글2",
+                created_at: 1704530364,
+                tags: [["e", "event-id", "", "root"]],
               });
             }
             if (kinds.includes(4)) {

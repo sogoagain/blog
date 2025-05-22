@@ -97,7 +97,7 @@ const { actions, reducer } = createSlice({
       const etcIds =
         key === "ETC"
           ? newIds
-          : state.hashtag.tags.ETC.filter((etcId) => etcId !== id);
+          : (state.hashtag.tags.ETC || []).filter((etcId) => etcId !== id);
       return {
         ...state,
         hashtag: {
@@ -239,12 +239,27 @@ export function loadOwners(relays, npub) {
             return;
           }
           switch (event.kind) {
-            case EVENT_KIND.textNote:
-              if (!event.tags.some((tag) => tag[0] === "e")) {
-                dispatch(appendHashtag({ hashtag: "ETC", id: event.id }));
+            case EVENT_KIND.textNote: {
+              const hasETag = event.tags.some((tag) => tag[0] === "e");
+              const isComment = event.tags.some(
+                (tag) =>
+                  tag[0] === "e" &&
+                  (tag.includes("root") || tag.includes("reply")),
+              );
+              const isOwnerNote = !hasETag || (hasETag && !isComment);
+              if (isOwnerNote) {
+                const tTags = event.tags.filter((tag) => tag[0] === "t");
+                if (tTags.length === 0) {
+                  dispatch(appendHashtag({ hashtag: "ETC", id: event.id }));
+                } else {
+                  tTags.forEach((tag) => {
+                    dispatch(appendHashtag({ hashtag: tag[1], id: event.id }));
+                  });
+                }
                 dispatch(appendOwnerNotes(event.id));
               }
               break;
+            }
             case EVENT_KIND.userStatus:
               if (
                 event.tags.some((tag) => tag[0] === "d" && tag[1] === "general")
