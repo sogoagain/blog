@@ -27,5 +27,6 @@ module.exports = {
     camelcase: "off",
     "react/no-unknown-property": ["error", { ignore: ["css"] }],
     "jsx-a11y/media-has-caption": "off",
+    "no-console": "off",
   },
 };

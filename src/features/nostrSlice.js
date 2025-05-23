@@ -191,6 +191,33 @@ const handleEvent = (event) =>
     },
   })[event.kind];
 
+const handleOwnerEvent = (event) =>
+  ({
+    [EVENT_KIND.textNote]: (dispatch) => {
+      const hasETag = event.tags.some((tag) => tag[0] === "e");
+      const isMention = event.tags.some(
+        (tag) => tag[0] === "e" && tag[tag.length - 1] === "mention",
+      );
+      const isOwnerNote = !hasETag || isMention;
+      if (isOwnerNote) {
+        const tTags = event.tags.filter((tag) => tag[0] === "t");
+        if (tTags.length === 0) {
+          dispatch(appendHashtag({ hashtag: "ETC", id: event.id }));
+        } else {
+          tTags.forEach((tag) => {
+            dispatch(appendHashtag({ hashtag: tag[1], id: event.id }));
+          });
+        }
+        dispatch(appendOwnerNotes(event.id));
+      }
+    },
+    [EVENT_KIND.userStatus]: (dispatch) => {
+      if (event.tags.some((tag) => tag[0] === "d" && tag[1] === "general")) {
+        dispatch(setOwnerStatus(event.id));
+      }
+    },
+  })[event.kind];
+
 function subscribeEvents(relays, filters, onEvent, eoseTimeout = 60000) {
   return (dispatch, getState) => {
     const completedRelays = new Set();
@@ -204,7 +231,7 @@ function subscribeEvents(relays, filters, onEvent, eoseTimeout = 60000) {
           const batch = pending.slice(0, 20);
           const remaining = pending.slice(20);
           dispatch(setPendingRequests(remaining));
-          dispatch(subscribeEvents(relays, batch, onEvent, eoseTimeout));
+          dispatch(subscribeEvents(relays, batch, handleEvent, eoseTimeout));
         }
       }
     };
@@ -218,18 +245,15 @@ function subscribeEvents(relays, filters, onEvent, eoseTimeout = 60000) {
         const subscription = relay.subscribe(filters, {
           eoseTimeout,
           onevent: (event) => {
-            if (onEvent) {
-              onEvent(event);
-            }
-            handleEvent(event)(dispatch, getState);
+            onEvent(event)(dispatch, getState);
           },
-          oneose: async () => {
+          oneose: () => {
             subscription.close();
             completedRelays.add(relayUrl);
             handleCompletion();
           },
           onclose: (reason) => {
-            console.warn(`Relay ${relayUrl} closed:`, reason);
+            console.info(`Relay ${relayUrl} closed:`, reason);
             completedRelays.add(relayUrl);
             handleCompletion();
           },
@@ -268,39 +292,10 @@ export function loadOwners(relays, npub) {
             ],
           },
         ],
-        (event) => {
-          if (event.pubkey !== pubkey) {
-            return;
-          }
-          switch (event.kind) {
-            case EVENT_KIND.textNote: {
-              const hasETag = event.tags.some((tag) => tag[0] === "e");
-              const isMention = event.tags.some(
-                (tag) => tag[0] === "e" && tag[tag.length - 1] === "mention",
-              );
-              const isOwnerNote = !hasETag || isMention;
-              if (isOwnerNote) {
-                const tTags = event.tags.filter((tag) => tag[0] === "t");
-                if (tTags.length === 0) {
-                  dispatch(appendHashtag({ hashtag: "ETC", id: event.id }));
-                } else {
-                  tTags.forEach((tag) => {
-                    dispatch(appendHashtag({ hashtag: tag[1], id: event.id }));
-                  });
-                }
-                dispatch(appendOwnerNotes(event.id));
-              }
-              break;
-            }
-            case EVENT_KIND.userStatus:
-              if (
-                event.tags.some((tag) => tag[0] === "d" && tag[1] === "general")
-              ) {
-                dispatch(setOwnerStatus(event.id));
-              }
-              break;
-            default:
-              break;
+        (event) => (innerDispatch, getState) => {
+          handleEvent(event)(innerDispatch, getState);
+          if (event.pubkey === pubkey) {
+            handleOwnerEvent(event)(innerDispatch, getState);
           }
         },
       ),
