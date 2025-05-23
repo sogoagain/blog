@@ -25,7 +25,7 @@ const Content = styled.section`
   }
 `;
 
-export default function Note({ note, events, onHashtag }) {
+export default function Note({ note, events }) {
   const date = convertUnixTimestampToDate(note.created_at);
   const NIP19_ID_LENGTH = 63;
 
@@ -44,12 +44,7 @@ export default function Note({ note, events, onHashtag }) {
     <MediaLink href={href} content={content} {...props} />
   );
 
-  const renderHashtag = ({ content }) => (
-    <Hashtag
-      content={content}
-      onHashtag={(hashtag) => onHashtag(hashtag, note.id)}
-    />
-  );
+  const renderHashtag = ({ content }) => <Hashtag content={content} />;
 
   const renderMention = ({ attributes: { href, ...props }, content }) => {
     function getProfileName(npub) {

@@ -72,6 +72,10 @@ describe("<NotePage/>", () => {
     const note3 = screen.getByText("노트 3");
     const note3Date = screen.getByText("2024-01-06");
 
+    const primalRepostNote = screen.getByText(/Primal에서 인용한 노트/);
+    const primalRepostNoteDate = screen.getByText("2024-01-06");
+    const primalQuotedNote = screen.getByText("note1txds23y...fq2fk7ch");
+
     expect(note1).toBeInTheDocument();
     expect(note1Date).toBeInTheDocument();
 
@@ -80,6 +84,10 @@ describe("<NotePage/>", () => {
 
     expect(note3).toBeInTheDocument();
     expect(note3Date).toBeInTheDocument();
+
+    expect(primalRepostNote).toBeInTheDocument();
+    expect(primalRepostNoteDate).toBeInTheDocument();
+    expect(primalQuotedNote).toBeInTheDocument();
   });
 
   it("선택한 해시태그에 따라 노트를 필터링한다", () => {
@@ -100,7 +108,7 @@ describe("<NotePage/>", () => {
 
     const items = screen.getAllByRole("listitem");
 
-    expect(items).toHaveLength(9);
+    expect(items).toHaveLength(10);
   });
 
   it("ETC 해시태그 필터를 선택하면 태그가 없는 노트를 출력한다", () => {
@@ -110,7 +118,7 @@ describe("<NotePage/>", () => {
     const items = screen.getAllByRole("listitem");
     const note3 = screen.getByText("노트 3");
 
-    expect(items).toHaveLength(4);
+    expect(items).toHaveLength(5);
     expect(note3).toBeInTheDocument();
   });
 
@@ -171,22 +179,25 @@ describe("<NotePage/>", () => {
   it("노트들을 생성일 기준으로 정렬한 뒤 출력한다", () => {
     const noteEls = screen.getAllByRole("listitem");
 
-    expect(noteEls).toHaveLength(9);
+    expect(noteEls).toHaveLength(10);
     expect(noteEls[0].textContent).toContain(
+      "2024-02-24Primal에서 인용한 노트",
+    );
+    expect(noteEls[1].textContent).toContain(
       "2024-02-24@npub1zatgwjy 조회하지 못한 멘션과 인용",
     );
-    expect(noteEls[1].textContent).toEqual(
+    expect(noteEls[2].textContent).toEqual(
       "2024-02-24@mockusername2 멘션된 프로필을 조회한 노트",
     );
-    expect(noteEls[2].textContent).toContain(
+    expect(noteEls[3].textContent).toContain(
       "2024-02-24인용된 노트를 조회한 노트",
     );
-    expect(noteEls[3].textContent).toEqual("2024-02-09노트 6 #테스트");
-    expect(noteEls[4].textContent).toEqual("2024-01-28노트 5 #Bitcoin");
-    expect(noteEls[5].textContent).toEqual("2024-01-17노트 4  #Zaps");
-    expect(noteEls[6].textContent).toEqual("2024-01-06노트 3 ");
-    expect(noteEls[7].textContent).toEqual("2024-01-05노트 2 #Zaps");
-    expect(noteEls[8].textContent).toEqual(
+    expect(noteEls[4].textContent).toEqual("2024-02-09노트 6 #테스트");
+    expect(noteEls[5].textContent).toEqual("2024-01-28노트 5 #Bitcoin");
+    expect(noteEls[6].textContent).toEqual("2024-01-17노트 4  #Zaps");
+    expect(noteEls[7].textContent).toEqual("2024-01-06노트 3 ");
+    expect(noteEls[8].textContent).toEqual("2024-01-05노트 2 #Zaps");
+    expect(noteEls[9].textContent).toEqual(
       "2023-12-24노트 1 https://blog.sogoagain.com/ #Nothing",
     );
   });
