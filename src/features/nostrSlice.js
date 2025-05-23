@@ -189,7 +189,7 @@ const handleEvent = (event) =>
     [EVENT_KIND.userStatus]: (dispatch) => {
       dispatch(appendUserStatusEvent(event));
     },
-  })[event.kind];
+  })[event.kind] || (() => {});
 
 const handleOwnerEvent = (event) =>
   ({
@@ -216,7 +216,7 @@ const handleOwnerEvent = (event) =>
         dispatch(setOwnerStatus(event.id));
       }
     },
-  })[event.kind];
+  })[event.kind] || (() => {});
 
 function subscribeEvents(relays, filters, onEvent, eoseTimeout = 60000) {
   return (dispatch, getState) => {
