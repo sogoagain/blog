@@ -191,28 +191,62 @@ const handleEvent = (event) =>
     },
   })[event.kind];
 
-function subscribeEvents(relays, filters, onEvent) {
+function subscribeEvents(relays, filters, onEvent, eoseTimeout = 60000) {
   return (dispatch, getState) => {
-    const sub = pool.subscribeMany([...relays], [...filters], {
-      onevent(event) {
-        if (onEvent) {
-          onEvent(event);
-        }
-        handleEvent(event)(dispatch, getState);
-      },
-      oneose() {
+    const completedRelays = new Set();
+
+    const handleCompletion = () => {
+      if (completedRelays.size === relays.length) {
         const {
           nostr: { pending },
         } = getState();
-        if (pending.length === 0) {
-          sub.close();
-        } else {
+        if (pending.length > 0) {
           const batch = pending.slice(0, 20);
           const remaining = pending.slice(20);
           dispatch(setPendingRequests(remaining));
-          dispatch(subscribeEvents(relays, batch));
+          dispatch(subscribeEvents(relays, batch, onEvent, eoseTimeout));
         }
-      },
+      }
+    };
+
+    relays.forEach(async (relayUrl) => {
+      try {
+        const relay = await pool.ensureRelay(relayUrl, {
+          connectionTimeout: eoseTimeout,
+        });
+
+        const subscription = relay.subscribe(filters, {
+          eoseTimeout,
+          onevent: (event) => {
+            if (onEvent) {
+              onEvent(event);
+            }
+            handleEvent(event)(dispatch, getState);
+          },
+          oneose: async () => {
+            subscription.close();
+            completedRelays.add(relayUrl);
+            handleCompletion();
+          },
+          onclose: (reason) => {
+            console.warn(`Relay ${relayUrl} closed:`, reason);
+            completedRelays.add(relayUrl);
+            handleCompletion();
+          },
+          alreadyHaveEvent: (id) => {
+            const {
+              nostr: {
+                events: { metadata, textNote, userStatus },
+              },
+            } = getState();
+            return !!(metadata?.[id] || textNote?.[id] || userStatus?.[id]);
+          },
+        });
+      } catch (err) {
+        console.error(`Relay ${relayUrl} connection error:`, err);
+        completedRelays.add(relayUrl);
+        handleCompletion();
+      }
     });
   };
 }
