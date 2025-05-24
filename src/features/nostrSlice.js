@@ -218,7 +218,7 @@ const handleOwnerEvent = (event) =>
     },
   })[event.kind] || (() => {});
 
-function subscribeEvents(relays, filters, onEvent, eoseTimeout = 60000) {
+function subscribeEvents(relays, filters, onEvent, eoseTimeout = 10000) {
   return (dispatch, getState) => {
     const completedRelays = new Set();
 
