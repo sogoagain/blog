@@ -91,6 +91,16 @@ tags: ["인공지능", "LLM", "MCP", "에이전트"]
 ### 코드
 
 ```python
+# LLM으로 GPT 사용
+llm = ChatOpenAI()
+
+# 날씨 정보를 제공하는 MCP 서버 실행 정보
+stdio_server_params = StdioServerParameters(
+    command="python",
+    args=["/...(생략).../mcp-servers/weather_server.py"],
+)
+
+
 async def main():
     async with stdio_client(stdio_server_params) as (read, write):
         async with ClientSession(read_stream=read, write_stream=write) as session:
