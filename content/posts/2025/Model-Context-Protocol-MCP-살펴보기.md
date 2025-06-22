@@ -77,20 +77,30 @@ tags: ["인공지능", "LLM", "MCP", "에이전트"]
 
 ![mcp-client-server-connection.png](images/mcp-client-server-connection.png)
 
-# 전체 동작 흐름
+# MCP를 지원하는 LLM 애플리케이션의 작동 흐름
 
 ## 시퀀스 다이어그램
 
 ![mcp-sequence-diagram.png](images/mcp-sequence-diagram.png)
 
-## 간단한 LLM 애플리케이션
+## 간단한 LLM 에이전트
 
-- `LangGraph`를 활용한 간단한 에이전트
-- 시퀀스 다이어그램의 각 단계를 확인
+- 시퀀스 다이어그램의 각 단계를 확인할 수 있는 `LangGraph`로 개발한 간단한 에이전트
+- MCP Client로서 MCP Server를 활용하여 사용자 질의에 대한 답변 생성
 
 ### 코드
 
 ```python
+# LLM으로 GPT 사용
+llm = ChatOpenAI()
+
+# 날씨 정보를 제공하는 MCP 서버 실행 정보
+stdio_server_params = StdioServerParameters(
+    command="python",
+    args=["/...(생략).../mcp-servers/weather_server.py"],
+)
+
+
 async def main():
     async with stdio_client(stdio_server_params) as (read, write):
         async with ClientSession(read_stream=read, write_stream=write) as session:
@@ -101,7 +111,7 @@ async def main():
             agent = create_react_agent(llm, tools)
             # 3. 질의
             result = await agent.ainvoke({"messages": [HumanMessage(content="뉴욕의 현재 날씨는?")]})
-            # 10. 응답
+            # 12. 응답
             print(result["messages"][-1].content)
 ```
 
