@@ -86,7 +86,7 @@ tags: ["인공지능", "LLM", "MCP", "에이전트"]
 ## 간단한 LLM 에이전트
 
 - 시퀀스 다이어그램의 각 단계를 확인할 수 있는 `LangGraph`로 개발한 간단한 에이전트
-- MCP Client로서 MCP Server를 활용해 사용자 질의에 답변 생성
+- MCP Client로서 MCP Server를 활용하여 사용자 질의에 대한 답변 생성
 
 ### 코드
 
