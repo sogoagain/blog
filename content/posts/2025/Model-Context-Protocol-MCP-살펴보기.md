@@ -6,9 +6,7 @@ subtitle: "에이전트 시대로 가는 길"
 tags: ["인공지능", "LLM", "MCP", "에이전트"]
 ---
 
-# Model Context Protocol (MCP)
-
-# 왜 필요할까?
+# MCP, 왜 필요할까?
 
 ## LLM의 한계
 
