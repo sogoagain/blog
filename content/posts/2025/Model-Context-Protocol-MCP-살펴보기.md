@@ -73,9 +73,11 @@ tags: ["인공지능", "LLM", "MCP", "에이전트"]
 - 원격에서 작동시키는 MCP Server에서 사용
 - HTTP GET/POST 요청
 
-## MCP Client와 MCP Server는 1:1 연결
+## 각 MCP Client는 하나의 MCP Server와 1:1로 연결
 
 ![mcp-client-server-connection.png](images/mcp-client-server-connection.png)
+
+- 하나의 MCP Host 내에서 여러 개의 MCP Client가 생성되며, 각 Client는 특정 MCP Server와 1:1로 연결되어 통신
 
 # MCP를 지원하는 LLM 애플리케이션의 작동 흐름
 
@@ -117,15 +119,22 @@ async def main():
 
 ### LangGraph 실행 트레이스
 
+- 트레이스를 통해 사용자 질의부터 최종 응답까지 에이전트의 처리 과정 확인 가능
+  - 첫 번째 `agent` 노드의 `call_model`에서 LLM이 `get_forecast` 도구 사용을 결정하고 필요한 파라미터(위도, 경도)를 생성해 호출 요청
+  - `tools` 노드의 `get_forecast`에서 MCP Client를 통해 MCP Server의 날씨 예보 도구 실행
+  - 두 번째 `agent` 노드의 `call_model`에서 도구 실행 결과를 바탕으로 LLM이 최종 응답 생성
+
 ![langgraph-execution-trace.png](images/langgraph-execution-trace.png)
 
-### GPT 문장 생성 API 호출 로그
+### GPT Chat Completion API 호출 로그
 
-- MCP 기능 호출 응답 로그 (시퀀스 다이어그램 4~6 단계)
+- MCP 도구(`get_forecast`)의 호출을 요청하는 응답 생성
+  - 시퀀스 다이어그램 4~6 단계
 
 ![gpt-api-call-log-mcp-response.png](images/gpt-api-call-log-mcp-response.png)
 
-- 최종 응답 텍스트 생성 로그 (시퀀스 다이어그램 9~11 단계)
+- GPT가 MCP 도구(`get_forecast`)의 실행 결과를 참고해 최종 답변 생성
+  - 시퀀스 다이어그램 9~11 단계
 
 ![gpt-api-call-log-final-response.png](images/gpt-api-call-log-final-response.png)
 
