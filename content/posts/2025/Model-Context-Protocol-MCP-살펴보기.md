@@ -126,7 +126,7 @@ async def main():
 
 ![langgraph-execution-trace.png](images/langgraph-execution-trace.png)
 
-### GPT Chat Completion API 호출 로그
+### GPT `Chat Completion` API 호출 로그
 
 - MCP 도구(`get_forecast`)의 호출을 요청하는 응답 생성
   - 시퀀스 다이어그램 4~6 단계
