@@ -101,7 +101,7 @@ async def main():
             agent = create_react_agent(llm, tools)
             # 3. 질의
             result = await agent.ainvoke({"messages": [HumanMessage(content="뉴욕의 현재 날씨는?")]})
-            # 10. 응답
+            # 12. 응답
             print(result["messages"][-1].content)
 ```
 
