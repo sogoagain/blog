@@ -9,12 +9,13 @@ import "linkify-plugin-hashtag";
 import "linkify-plugin-mention";
 
 import Anchor from "../Anchor";
+import DateTime from "../DateTime";
 import DividedListItem from "../DividedListItem";
 import MediaLink from "./MediaLink";
 import Hashtag from "./Hashtag";
 import QuotedNote from "./QuotedNote";
 
-import { convertUnixTimestampToDate, toISOString } from "../../utils";
+import { convertUnixTimestampToDate } from "../../utils";
 
 const Content = styled.section`
   white-space: pre-wrap;
@@ -104,9 +105,7 @@ export default function Note({ note, events }) {
 
   return (
     <DividedListItem>
-      <small>
-        <time dateTime={toISOString(date)}>{date}</time>
-      </small>
+      <DateTime dateTime={date} />
       <Content>
         <Linkify
           options={linkifyOptions({

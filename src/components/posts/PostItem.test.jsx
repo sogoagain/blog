@@ -13,7 +13,11 @@ describe("<PostItem/>", () => {
 
   beforeEach(() => {
     render(
-      <PostItem title={post.title} date={post.date} to={`/posts${post.slug}`} />
+      <PostItem
+        title={post.title}
+        date={post.date}
+        to={`/posts${post.slug}`}
+      />,
     );
   });
 
@@ -24,7 +28,7 @@ describe("<PostItem/>", () => {
   });
 
   it("작성 일자를 출력한다", () => {
-    const dateEl = screen.getByText(post.date);
+    const dateEl = screen.getByText("2021.01.20");
 
     expect(dateEl).toBeInTheDocument();
     expect(dateEl).toHaveAttribute("datetime", "2021-01-20T00:00:00.000Z");

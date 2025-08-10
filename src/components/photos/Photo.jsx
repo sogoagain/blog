@@ -1,10 +1,21 @@
 import React from "react";
 
 import { GatsbyImage } from "gatsby-plugin-image";
+import styled from "@emotion/styled";
 
+import DateTime from "../DateTime";
 import DividedListItem from "../DividedListItem";
 
-import { toISOString } from "../../utils";
+const BorderlessImage = styled(GatsbyImage)`
+  margin-bottom: 0.5rem;
+  img {
+    border: none;
+  }
+`;
+
+const CameraInfo = styled.span`
+  color: grey;
+`;
 
 export default function Photo({
   image,
@@ -21,16 +32,13 @@ export default function Photo({
 }) {
   return (
     <DividedListItem key={title}>
-      <small>
-        <time dateTime={toISOString(dateTimeOriginal)}>{dateTimeOriginal}</time>
-      </small>
-      <br />
-      {title}
-      <GatsbyImage image={image} alt={title} />
-      <small>
+      <DateTime dateTime={dateTimeOriginal} />
+      <BorderlessImage image={image} alt={title} />
+      <div>{title}</div>
+      <CameraInfo>
         {cameraModel} · {lensModel} · ISO
         {iso} · {focalLength}mm · F{aperture} · {shutterSpeed}
-      </small>
+      </CameraInfo>
     </DividedListItem>
   );
 }

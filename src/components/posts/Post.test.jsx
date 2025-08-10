@@ -19,7 +19,7 @@ describe("<Post/>", () => {
         subtitle={post.subtitle}
         date={post.date}
         html={post.html}
-      />
+      />,
     );
   });
 
@@ -36,7 +36,7 @@ describe("<Post/>", () => {
   });
 
   it("작성 일자를 출력한다", () => {
-    const dateEl = screen.getByText(post.date);
+    const dateEl = screen.getByText("2021.01.20");
 
     expect(dateEl).toBeInTheDocument();
     expect(dateEl).toHaveAttribute("datetime", "2021-01-20T00:00:00.000Z");
@@ -44,7 +44,7 @@ describe("<Post/>", () => {
 
   it("본문을 출력한다", () => {
     const bodyEl = screen.getByText(
-      "중요한 로직을 작성할 때면 머릿속에서 떠오르는 질문이다."
+      "중요한 로직을 작성할 때면 머릿속에서 떠오르는 질문이다.",
     );
 
     expect(bodyEl).toBeInTheDocument();

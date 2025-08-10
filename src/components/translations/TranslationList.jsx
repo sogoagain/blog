@@ -3,9 +3,8 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import Anchor from "../Anchor";
+import DateTime from "../DateTime";
 import UnstyledOrderedList from "../UnstyledOrderedList";
-
-import { toISOString } from "../../utils";
 
 const ListItem = styled.li`
   margin: 0 0 1rem;
@@ -16,11 +15,9 @@ export default function TranslationList({ translations }) {
     <UnstyledOrderedList>
       {translations.map(({ date, title, author, source, link }) => (
         <ListItem key={link}>
-          <small>
-            <time dateTime={toISOString(date)}>{date}</time>
-            <br />
-            {source}
-          </small>
+          <DateTime dateTime={date} />
+          <br />
+          <small>{source}</small>
           <br />
           <Anchor href={link}>{title}</Anchor>
           {" - "}
