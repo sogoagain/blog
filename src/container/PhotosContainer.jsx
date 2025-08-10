@@ -17,8 +17,8 @@ const query = graphql`
           childImageSharp {
             gatsbyImageData(quality: 100, layout: CONSTRAINED)
           }
-          name
           fields {
+            title
             cameraModel
             lensModel
             iso
@@ -43,7 +43,6 @@ export default function PhotosContainer() {
       {edges.map(({ node }) =>
         Photo({
           image: getImage(node.childImageSharp.gatsbyImageData),
-          title: node.name,
           info: node.fields,
         }),
       )}

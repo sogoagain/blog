@@ -24,11 +24,17 @@ exports.onCreateNode = async ({ node, getNode, actions }) => {
       const metadata = await exifr.parse(node.absolutePath, {
         tiff: true,
         exif: true,
+        xmp: true,
       });
       const formatDate = (date) => {
         const d = new Date(date);
         return `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, "0")}-${d.getDate().toString().padStart(2, "0")}`;
       };
+      createNodeField({
+        name: "title",
+        value: metadata.title?.value || "Untitled",
+        node,
+      });
       createNodeField({
         name: "cameraModel",
         value: metadata.Model || "Unknown",
