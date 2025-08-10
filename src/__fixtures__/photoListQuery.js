@@ -13,8 +13,8 @@ const photoListQuery = {
               height: 400,
             },
           },
-          name: "Image 2",
           fields: {
+            title: "Image 2",
             cameraModel: "Canon EOS R",
             lensModel: "RF24-105mm F4-7.1 IS STM",
             iso: "200",
@@ -37,8 +37,8 @@ const photoListQuery = {
               height: 400,
             },
           },
-          name: "Image 1",
           fields: {
+            title: "Image 1",
             cameraModel: "Nikon Z50",
             lensModel: "NIKKOR Z DX 16-50mm f/3.5-6.3 VR",
             iso: "100",

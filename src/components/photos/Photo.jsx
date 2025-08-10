@@ -8,8 +8,8 @@ import { toISOString } from "../../utils";
 
 export default function Photo({
   image,
-  title,
   info: {
+    title,
     dateTimeOriginal,
     cameraModel,
     lensModel,
