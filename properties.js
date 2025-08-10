@@ -14,7 +14,6 @@ module.exports = {
     "eXtreme Programming",
     "Test Driven Development",
     "Bitcoin",
-    "Lightning Network",
     "Nostr",
   ],
   social: {
