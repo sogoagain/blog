@@ -8,7 +8,7 @@ import createStore from "./createStore";
 
 function render(
   ui,
-  { preloadedState, store = createStore(), ...renderOptions } = {}
+  { preloadedState, store = createStore(), ...renderOptions } = {},
 ) {
   function Wrapper({ children }) {
     return <Provider store={store}>{children}</Provider>;

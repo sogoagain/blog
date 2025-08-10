@@ -64,16 +64,16 @@ describe("<NotePage/>", () => {
 
   it("노트 목록을 출력한다", () => {
     const note1 = screen.getByText("노트 1");
-    const note1Date = screen.getByText("2023-12-24");
+    const note1Date = screen.getByText("2023.12.24");
 
     const note2 = screen.getByText("노트 2");
-    const note2Date = screen.getByText("2024-01-05");
+    const note2Date = screen.getByText("2024.01.05");
 
     const note3 = screen.getByText("노트 3");
-    const note3Date = screen.getByText("2024-01-06");
+    const note3Date = screen.getByText("2024.01.06");
 
     const primalRepostNote = screen.getByText(/Primal에서 인용한 노트/);
-    const primalRepostNoteDate = screen.getByText("2024-01-06");
+    const primalRepostNoteDate = screen.getByText("2024.01.06");
     const primalQuotedNote = screen.getByText("note1txds23y...fq2fk7ch");
 
     expect(note1).toBeInTheDocument();
@@ -181,24 +181,24 @@ describe("<NotePage/>", () => {
 
     expect(noteEls).toHaveLength(10);
     expect(noteEls[0].textContent).toContain(
-      "2024-02-24Primal에서 인용한 노트",
+      "2024.02.24Primal에서 인용한 노트",
     );
     expect(noteEls[1].textContent).toContain(
-      "2024-02-24@npub1zatgwjy 조회하지 못한 멘션과 인용",
+      "2024.02.24@npub1zatgwjy 조회하지 못한 멘션과 인용",
     );
     expect(noteEls[2].textContent).toEqual(
-      "2024-02-24@mockusername2 멘션된 프로필을 조회한 노트",
+      "2024.02.24@mockusername2 멘션된 프로필을 조회한 노트",
     );
     expect(noteEls[3].textContent).toContain(
-      "2024-02-24인용된 노트를 조회한 노트",
+      "2024.02.24인용된 노트를 조회한 노트",
     );
-    expect(noteEls[4].textContent).toEqual("2024-02-09노트 6 #테스트");
-    expect(noteEls[5].textContent).toEqual("2024-01-28노트 5 #Bitcoin");
-    expect(noteEls[6].textContent).toEqual("2024-01-17노트 4  #Zaps");
-    expect(noteEls[7].textContent).toEqual("2024-01-06노트 3 ");
-    expect(noteEls[8].textContent).toEqual("2024-01-05노트 2 #Zaps");
+    expect(noteEls[4].textContent).toEqual("2024.02.09노트 6 #테스트");
+    expect(noteEls[5].textContent).toEqual("2024.01.28노트 5 #Bitcoin");
+    expect(noteEls[6].textContent).toEqual("2024.01.17노트 4  #Zaps");
+    expect(noteEls[7].textContent).toEqual("2024.01.06노트 3 ");
+    expect(noteEls[8].textContent).toEqual("2024.01.05노트 2 #Zaps");
     expect(noteEls[9].textContent).toEqual(
-      "2023-12-24노트 1 https://blog.sogoagain.com/ #Nothing",
+      "2023.12.24노트 1 https://blog.sogoagain.com/ #Nothing",
     );
   });
 

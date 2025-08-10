@@ -55,7 +55,7 @@ describe("<PostPage/>", () => {
     });
 
     it("포스트 작성 시간을 출력한다", () => {
-      const dateEl = screen.getByText("2017-01-06");
+      const dateEl = screen.getByText("2017.01.06");
 
       expect(dateEl).toBeInTheDocument();
     });

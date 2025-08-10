@@ -5,8 +5,9 @@ import "linkify-plugin-hashtag";
 import "linkify-plugin-mention";
 
 import Anchor from "../Anchor";
+import DateTime from "../DateTime";
 
-import { convertUnixTimestampToDate, toISOString } from "../../utils";
+import { convertUnixTimestampToDate } from "../../utils";
 
 export default function QuotedNote({ note, npub, author, linkifyOptions }) {
   const date = convertUnixTimestampToDate(note.created_at);
@@ -14,7 +15,7 @@ export default function QuotedNote({ note, npub, author, linkifyOptions }) {
   return (
     <blockquote>
       <small>
-        <time dateTime={toISOString(date)}>{date}</time>{" "}
+        <DateTime dateTime={date} />{" "}
         <Anchor href={`nostr:${npub}`}>{author}</Anchor>
       </small>
       <br />
