@@ -28,7 +28,7 @@ export default function useScrambleTexts(texts) {
         {
           characters:
             "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
-        }
+        },
       );
     };
 

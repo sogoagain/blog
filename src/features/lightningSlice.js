@@ -149,9 +149,12 @@ export function createInvoice() {
         dispatch(setExpired(false));
       });
 
-      setTimeout(() => {
-        dispatch(setExpired(true));
-      }, (invoice.expiry - 1) * 1000);
+      setTimeout(
+        () => {
+          dispatch(setExpired(true));
+        },
+        (invoice.expiry - 1) * 1000,
+      );
     } catch (err) {
       dispatch(setError(true));
     }

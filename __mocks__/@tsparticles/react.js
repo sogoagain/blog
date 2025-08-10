@@ -6,12 +6,12 @@ module.exports = jest.fn().mockImplementation(({ ...rest }) =>
     {
       ...rest,
     },
-    "Particles"
-  )
+    "Particles",
+  ),
 );
 
 module.exports.initParticlesEngine = jest.fn().mockReturnValue(
   new Promise((resolve) => {
     resolve("init");
-  })
+  }),
 );
