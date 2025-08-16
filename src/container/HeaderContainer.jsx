@@ -31,6 +31,7 @@ export default function HeaderContainer({ pathname }) {
     { text: "번역", to: "/translations" },
     { text: "독서", to: "/books" },
     { text: "사진", to: "/photos" },
+    { text: "도구", to: "/tools" },
     { text: "소개", to: "/about" },
     { text: "RSS", to: rss },
   ];

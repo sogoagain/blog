@@ -35,10 +35,12 @@ export default function Photo({
       <DateTime dateTime={dateTimeOriginal} />
       <BorderlessImage image={image} alt={title} />
       <div>{title}</div>
-      <CameraInfo>
-        {cameraModel} · {lensModel} · ISO
-        {iso} · {focalLength}mm · F{aperture} · {shutterSpeed}
-      </CameraInfo>
+      <small>
+        <CameraInfo>
+          {cameraModel} · {lensModel} · ISO
+          {iso} · {focalLength}mm · F{aperture} · {shutterSpeed}
+        </CameraInfo>
+      </small>
     </DividedListItem>
   );
 }
