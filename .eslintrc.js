@@ -24,6 +24,7 @@ module.exports = {
     "react/jsx-props-no-spreading": "off",
     "import/prefer-default-export": "off",
     "import/no-extraneous-dependencies": "off",
+    "import/no-unresolved": ["error", { ignore: ["^@giscus/react$"] }],
     camelcase: "off",
     "react/no-unknown-property": ["error", { ignore: ["css"] }],
     "jsx-a11y/media-has-caption": "off",
