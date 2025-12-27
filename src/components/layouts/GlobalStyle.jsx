@@ -98,7 +98,6 @@ export default function GlobalStyle() {
           font-size: 1rem;
           padding: 0.1rem 0.3rem;
           border: 1px solid;
-          border-color: inherit;
           color: inherit;
           background-color: inherit;
 
@@ -119,16 +118,10 @@ export default function GlobalStyle() {
             a:active {
               color: red;
             }
-            button {
-              border-color: inherit;
-              color: inherit;
-              background-color: inherit;
-
-              &:hover {
-                border-color: white;
-                color: black;
-                background-color: white;
-              }
+            button:hover {
+              border-color: white;
+              color: black;
+              background-color: white;
             }
           }
         }
