@@ -25,5 +25,9 @@ module.exports = {
     "jsx-a11y/media-has-caption": "off",
     "no-console": "off",
     "react-hooks/exhaustive-deps": "off",
+    "no-param-reassign": [
+      "error",
+      { props: true, ignorePropertyModificationsFor: ["state", "acc"] },
+    ],
   },
 };

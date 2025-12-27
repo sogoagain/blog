@@ -24,99 +24,50 @@ const { actions, reducer } = createSlice({
     },
   },
   reducers: {
-    appendPendingRequest: (state, { payload: filter }) => ({
-      ...state,
-      pending: [...state.pending, filter],
-    }),
-    setPendingRequests: (state, { payload: filters }) => ({
-      ...state,
-      pending: [...filters],
-    }),
+    appendPendingRequest: (state, { payload: filter }) => {
+      state.pending.push(filter);
+    },
+    setPendingRequests: (state, { payload: filters }) => {
+      state.pending = filters;
+    },
     appendMetadataEvent: (state, { payload: event }) => {
       const existingEvent = state.events.metadata[event.pubkey];
       const shouldUpdate = existingEvent
         ? event.created_at > existingEvent.created_at
         : true;
-      return {
-        ...state,
-        events: {
-          ...state.events,
-          metadata: {
-            ...state.events.metadata,
-            [event.pubkey]: shouldUpdate ? event : existingEvent,
-          },
-        },
-      };
+      if (shouldUpdate) {
+        state.events.metadata[event.pubkey] = event;
+      }
     },
-    appendTextNoteEvent: (state, { payload: event }) => ({
-      ...state,
-      events: {
-        ...state.events,
-        textNote: {
-          ...state.events.textNote,
-          [event.id]: event,
-        },
-      },
-    }),
-    appendUserStatusEvent: (state, { payload: event }) => ({
-      ...state,
-      events: {
-        ...state.events,
-        userStatus: {
-          ...state.events.userStatus,
-          [event.id]: event,
-        },
-      },
-    }),
-    setOwnerPubkey: (state, { payload: pubkey }) => ({
-      ...state,
-      owner: {
-        ...state.owner,
-        pubkey,
-      },
-    }),
-    appendOwnerNotes: (state, { payload: id }) => ({
-      ...state,
-      owner: {
-        ...state.owner,
-        notes: [...state.owner.notes, id],
-      },
-    }),
-    setOwnerStatus: (state, { payload: id }) => ({
-      ...state,
-      owner: {
-        ...state.owner,
-        status: id,
-      },
-    }),
+    appendTextNoteEvent: (state, { payload: event }) => {
+      state.events.textNote[event.id] = event;
+    },
+    appendUserStatusEvent: (state, { payload: event }) => {
+      state.events.userStatus[event.id] = event;
+    },
+    setOwnerPubkey: (state, { payload: pubkey }) => {
+      state.owner.pubkey = pubkey;
+    },
+    appendOwnerNotes: (state, { payload: id }) => {
+      state.owner.notes.push(id);
+    },
+    setOwnerStatus: (state, { payload: id }) => {
+      state.owner.status = id;
+    },
     appendHashtag: (state, { payload: { hashtag, id } }) => {
       const key = hashtag.replace("#", "").toUpperCase();
-      const newIds = state.hashtag.tags[key]
-        ? [...new Set([...state.hashtag.tags[key], id])]
-        : [id];
-      const etcIds =
-        key === "ETC"
-          ? newIds
-          : (state.hashtag.tags.ETC || []).filter((etcId) => etcId !== id);
-      return {
-        ...state,
-        hashtag: {
-          ...state.hashtag,
-          tags: {
-            ...state.hashtag.tags,
-            [key]: newIds,
-            ETC: etcIds,
-          },
-        },
-      };
+      const existing = state.hashtag.tags[key] || [];
+      state.hashtag.tags[key] = [...new Set([...existing, id])];
+      if (key !== "ETC") {
+        state.hashtag.tags.ETC = (state.hashtag.tags.ETC || []).filter(
+          (etcId) => etcId !== id,
+        );
+      }
     },
-    toggleHashtag: (state, { payload: hashtag }) => ({
-      ...state,
-      hashtag: {
-        ...state.hashtag,
-        selected: state.hashtag.selected === hashtag ? null : hashtag,
-      },
-    }),
+    toggleHashtag: (state, { payload: hashtag }) => {
+      state.hashtag.selected =
+        state.hashtag.selected === hashtag ? null : hashtag;
+    },
   },
 });
 
