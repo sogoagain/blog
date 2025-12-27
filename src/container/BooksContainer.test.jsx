@@ -1,10 +1,8 @@
-import React from "react";
+import React, { act } from "react";
 
 import { Provider } from "react-redux";
 
 import { useStaticQuery } from "gatsby";
-
-import { act } from "react-dom/test-utils";
 
 import { render as rtlRender } from "@testing-library/react";
 
