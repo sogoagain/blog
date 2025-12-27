@@ -40,10 +40,6 @@ export default function GlobalStyle() {
         h1 + p {
           margin: 0 0 1rem;
         }
-        span.created {
-          display: block;
-          margin: 4px 15px;
-        }
         img,
         video {
           border: 1px solid lightgrey;
