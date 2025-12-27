@@ -46,12 +46,6 @@ describe("<AboutPage/>", () => {
     expect(aboutEl).toBeInTheDocument();
   });
 
-  it("배경화면에 파티클 효과를 출력한다", () => {
-    const particleEl = screen.getByText("Particles");
-
-    expect(particleEl).toBeInTheDocument();
-  });
-
   it("footer를 출력한다", () => {
     const goTopEl = screen.getByText("↑ 처음으로");
 

@@ -2,7 +2,6 @@ import React from "react";
 
 import { graphql } from "gatsby";
 
-import ParticleNetwork from "../components/ParticleNetwork";
 import Post from "../components/posts/Post";
 
 import LayoutContainer from "../container/LayoutContainer";
@@ -24,7 +23,6 @@ export default function AboutPage({
         description={title}
         pathname={location.pathname}
       />
-      <ParticleNetwork />
       <Post title={title} description={description} html={html} />
     </LayoutContainer>
   );
