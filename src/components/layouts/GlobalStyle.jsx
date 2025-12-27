@@ -89,9 +89,6 @@ export default function GlobalStyle() {
         tr {
           border-bottom: 1px solid lightgrey;
         }
-        tr:nth-of-type(odd) td {
-          background-color: #f8f8f8;
-        }
         th,
         td {
           padding: 6px;
