@@ -9,6 +9,7 @@ export default function GlobalStyle() {
         * {
           box-sizing: border-box;
         }
+
         body {
           font-family: sans-serif;
           line-height: 1.45;
@@ -16,30 +17,41 @@ export default function GlobalStyle() {
           max-width: 45rem;
           padding: 0 15px;
         }
+
+        a {
+          text-decoration-skip-ink: auto;
+        }
+
         hr {
           background-color: grey;
           border: 0;
           height: 1px;
           margin: 2rem 0;
         }
+
         nav {
           margin: 2rem 0 0;
         }
+
         main {
           hyphens: auto;
         }
+
         h1,
         h2,
         h3,
         h4 {
           margin: 2rem 0 0;
         }
+
         h1 {
           margin-bottom: 0.5rem;
         }
+
         h1 + p {
           margin: 0 0 1rem;
         }
+
         img,
         video {
           border: 1px solid lightgrey;
@@ -47,53 +59,65 @@ export default function GlobalStyle() {
           max-width: 100%;
           width: auto;
         }
+
         blockquote {
-          border: 1px solid;
-          border-left: 6px solid;
+          border-left: 4px solid grey;
           margin: 2rem 0;
-          padding: 10px;
+          padding: 0 1rem;
+          color: slategrey;
         }
+
         blockquote p {
           margin: 0;
         }
+
         figure {
           margin: 2rem 0;
         }
+
         figcaption {
           color: slategrey;
         }
+
         code {
           border: 1px solid;
           padding: 0.1rem 0.3rem;
           tab-size: 4;
         }
+
         pre {
           border: 1px solid;
         }
+
         pre code {
           border: 0;
           display: block;
           overflow-x: auto;
           padding: 0.3rem 0.6rem;
         }
+
         table {
           border-collapse: collapse;
           margin: 2rem 0;
           text-align: left;
           width: 100%;
         }
+
         tr {
           border-bottom: 1px solid lightgrey;
         }
+
         th,
         td {
           padding: 6px;
         }
+
         footer {
           border-top: 1px dashed grey;
           margin: 2rem 0;
           padding: 1rem 0;
         }
+
         button {
           font-size: 1rem;
           padding: 0.1rem 0.3rem;
@@ -107,21 +131,30 @@ export default function GlobalStyle() {
             background-color: black;
           }
         }
+
         @supports (color-scheme: dark light) {
           @media screen and (prefers-color-scheme: dark) {
             a:link {
               color: #9e9eff;
             }
+
             a:visited {
               color: #d0adf0;
             }
+
             a:active {
               color: red;
             }
+
             button:hover {
               border-color: white;
               color: black;
               background-color: white;
+            }
+
+            blockquote,
+            figcaption {
+              color: darkgrey;
             }
           }
         }

@@ -19,10 +19,12 @@ const CheckboxLabel = styled.span`
   color: ${(props) => (props.selected ? "white" : "inherit")};
   background-color: ${(props) => (props.selected ? "black" : "inherit")};
 
-  @media screen and (prefers-color-scheme: dark) {
-    border-color: ${(props) => (props.selected ? "white" : "inherit")};
-    color: ${(props) => (props.selected ? "black" : "inherit")};
-    background-color: ${(props) => (props.selected ? "white" : "inherit")};
+  @supports (color-scheme: dark light) {
+    @media screen and (prefers-color-scheme: dark) {
+      border-color: ${(props) => (props.selected ? "white" : "inherit")};
+      color: ${(props) => (props.selected ? "black" : "inherit")};
+      background-color: ${(props) => (props.selected ? "white" : "inherit")};
+    }
   }
 `;
 
