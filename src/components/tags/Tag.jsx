@@ -9,23 +9,31 @@ const CheckboxWrapper = styled.label`
 `;
 
 const CheckboxInput = styled.input`
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+
+  &:focus-visible + span {
+    outline: 2px solid;
+    outline-offset: 2px;
+  }
 `;
 
 const CheckboxLabel = styled.span`
-  padding: 0.1rem 0.3rem;
+  padding: 0.125rem 0.5rem;
   border: 1px solid;
-  border-color: ${(props) => (props.selected ? "black" : "inherit")};
-  color: ${(props) => (props.selected ? "white" : "inherit")};
-  background-color: ${(props) => (props.selected ? "black" : "inherit")};
-
-  @supports (color-scheme: dark light) {
-    @media screen and (prefers-color-scheme: dark) {
-      border-color: ${(props) => (props.selected ? "white" : "inherit")};
-      color: ${(props) => (props.selected ? "black" : "inherit")};
-      background-color: ${(props) => (props.selected ? "white" : "inherit")};
-    }
-  }
+  border-color: ${(props) =>
+    props.selected ? "var(--color-accent)" : "inherit"};
+  color: ${(props) =>
+    props.selected ? "var(--color-accent-text)" : "inherit"};
+  background-color: ${(props) =>
+    props.selected ? "var(--color-accent)" : "inherit"};
 `;
 
 export default function Tag({ text, selected, onClick }) {

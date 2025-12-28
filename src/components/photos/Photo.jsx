@@ -15,13 +15,7 @@ const BorderlessImage = styled(GatsbyImage)`
 `;
 
 const CameraInfo = styled.span`
-  color: slategrey;
-
-  @supports (color-scheme: dark light) {
-    @media screen and (prefers-color-scheme: dark) {
-      color: darkgrey;
-    }
-  }
+  color: var(--color-text-muted);
 `;
 
 export default function Photo({

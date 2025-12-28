@@ -2,12 +2,14 @@ import React from "react";
 
 import Anchor from "../Anchor";
 
-function Header({ menus, pathname }) {
-  const normalizePath = (path) => path.replace(/\/$/, "");
+const normalizePath = (path) => path.replace(/\/$/, "");
 
+function Header({ menus, pathname }) {
   const menuList = menus.flatMap(({ text, to }, i) => [
     normalizePath(pathname) === normalizePath(to) ? (
-      <span key={`${to}-anchor`}>{text}</span>
+      <span key={`${to}-anchor`} aria-current="page">
+        {text}
+      </span>
     ) : (
       <Anchor key={`${to}-anchor`} to={to}>
         {text}

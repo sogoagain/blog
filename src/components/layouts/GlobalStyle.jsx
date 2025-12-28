@@ -12,10 +12,10 @@ export default function GlobalStyle() {
 
         body {
           font-family: sans-serif;
-          line-height: 1.45;
+          line-height: 1.5;
           margin: 0 auto;
           max-width: 45rem;
-          padding: 0 15px;
+          padding: 0 1rem;
         }
 
         a {
@@ -23,7 +23,7 @@ export default function GlobalStyle() {
         }
 
         hr {
-          background-color: grey;
+          background-color: var(--color-border);
           border: 0;
           height: 1px;
           margin: 2rem 0;
@@ -54,17 +54,17 @@ export default function GlobalStyle() {
 
         img,
         video {
-          border: 1px solid lightgrey;
+          border: 1px solid var(--color-border-light);
           height: auto;
           max-width: 100%;
           width: auto;
         }
 
         blockquote {
-          border-left: 4px solid grey;
+          border-left: 4px solid var(--color-border);
           margin: 2rem 0;
           padding: 0 1rem;
-          color: slategrey;
+          color: var(--color-text-muted);
         }
 
         blockquote p {
@@ -76,12 +76,12 @@ export default function GlobalStyle() {
         }
 
         figcaption {
-          color: slategrey;
+          color: var(--color-text-muted);
         }
 
         code {
           border: 1px solid;
-          padding: 0.1rem 0.3rem;
+          padding: 0.125rem 0.25rem;
           tab-size: 4;
         }
 
@@ -93,7 +93,7 @@ export default function GlobalStyle() {
           border: 0;
           display: block;
           overflow-x: auto;
-          padding: 0.3rem 0.6rem;
+          padding: 0.5rem 0.75rem;
         }
 
         table {
@@ -104,57 +104,46 @@ export default function GlobalStyle() {
         }
 
         tr {
-          border-bottom: 1px solid lightgrey;
+          border-bottom: 1px solid var(--color-border-light);
         }
 
         th,
         td {
-          padding: 6px;
+          padding: 0.5rem;
         }
 
         footer {
-          border-top: 1px dashed grey;
+          border-top: 1px dashed var(--color-border);
           margin: 2rem 0;
           padding: 1rem 0;
         }
 
         button {
           font-size: 1rem;
-          padding: 0.1rem 0.3rem;
+          padding: 0.25rem 0.5rem;
           border: 1px solid;
           color: inherit;
           background-color: inherit;
 
           &:hover {
-            border-color: black;
-            color: white;
-            background-color: black;
+            border-color: var(--color-accent);
+            color: var(--color-accent-text);
+            background-color: var(--color-accent);
           }
         }
 
         @supports (color-scheme: dark light) {
           @media screen and (prefers-color-scheme: dark) {
             a:link {
-              color: #9e9eff;
+              color: var(--color-link);
             }
 
             a:visited {
-              color: #d0adf0;
+              color: var(--color-link-visited);
             }
 
             a:active {
               color: red;
-            }
-
-            button:hover {
-              border-color: white;
-              color: black;
-              background-color: white;
-            }
-
-            blockquote,
-            figcaption {
-              color: darkgrey;
             }
           }
         }
