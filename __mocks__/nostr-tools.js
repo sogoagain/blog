@@ -275,5 +275,17 @@ module.exports = {
     ensureRelay: jest
       .fn()
       .mockImplementation((relayUrl) => mockRelay(relayUrl)),
+    querySync: jest.fn().mockResolvedValue([
+      {
+        id: "relayListId1",
+        kind: 10002,
+        pubkey: owner.pk(),
+        created_at: 1708765620,
+        tags: [
+          ["r", "wss://relay.damus.io"],
+          ["r", "wss://nos.lol"],
+        ],
+      },
+    ]),
   })),
 };

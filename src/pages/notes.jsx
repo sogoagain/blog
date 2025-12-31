@@ -17,7 +17,7 @@ export default function NotePage({
     site: {
       siteMetadata: {
         social: {
-          nostr: { npub, relays },
+          nostr: { npub, bootstrapRelays },
         },
       },
     },
@@ -33,7 +33,7 @@ export default function NotePage({
     if (pubkey) {
       return;
     }
-    dispatch(loadOwners(relays, npub));
+    dispatch(loadOwners(bootstrapRelays, npub));
   }, []);
 
   return (
@@ -55,7 +55,7 @@ export const noteQuery = graphql`
         social {
           nostr {
             npub
-            relays
+            bootstrapRelays
           }
         }
       }

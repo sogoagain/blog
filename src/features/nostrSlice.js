@@ -7,6 +7,7 @@ import { refineContentWithReferences } from "../utils/nostr";
 const { actions, reducer } = createSlice({
   name: "nostr",
   initialState: {
+    relays: [],
     pending: [],
     events: {
       metadata: {},
@@ -68,6 +69,9 @@ const { actions, reducer } = createSlice({
       state.hashtag.selected =
         state.hashtag.selected === hashtag ? null : hashtag;
     },
+    setRelays: (state, { payload: relays }) => {
+      state.relays = relays;
+    },
   },
 });
 
@@ -82,11 +86,13 @@ export const {
   setOwnerStatus,
   appendHashtag,
   toggleHashtag,
+  setRelays,
 } = actions;
 
 const EVENT_KIND = {
   metadata: 0,
   textNote: 1,
+  relayList: 10002,
   userStatus: 30315,
 };
 
@@ -226,10 +232,8 @@ function subscribeEvents(relays, filters, onEvent, eoseTimeout = 10000) {
   };
 }
 
-export function loadOwners(relays, npub) {
+function loadOwnerEvents(relays, pubkey) {
   return (dispatch) => {
-    const { data: pubkey } = nip19.decode(npub);
-    dispatch(setOwnerPubkey(pubkey));
     dispatch(
       subscribeEvents(
         relays,
@@ -243,14 +247,50 @@ export function loadOwners(relays, npub) {
             ],
           },
         ],
-        (event) => (innerDispatch, getState) => {
-          handleEvent(event)(innerDispatch, getState);
+        (event) => (innerDispatch, innerGetState) => {
+          handleEvent(event)(innerDispatch, innerGetState);
           if (event.pubkey === pubkey) {
-            handleOwnerEvent(event)(innerDispatch, getState);
+            handleOwnerEvent(event)(innerDispatch, innerGetState);
           }
         },
       ),
     );
+  };
+}
+
+function parseRelayListEvent(event) {
+  return event.tags
+    .filter((tag) => tag[0] === "r")
+    .map((tag) => tag[1])
+    .filter((url) => url.startsWith("wss://"));
+}
+
+export function loadOwners(bootstrapRelays, npub) {
+  return async (dispatch) => {
+    const { data: pubkey } = nip19.decode(npub);
+    dispatch(setOwnerPubkey(pubkey));
+
+    let dynamicRelays = [];
+
+    try {
+      const relayListEvents = await pool.querySync(bootstrapRelays, {
+        authors: [pubkey],
+        kinds: [EVENT_KIND.relayList],
+      });
+
+      if (relayListEvents.length > 0) {
+        const latestEvent = relayListEvents.reduce((latest, event) =>
+          event.created_at > latest.created_at ? event : latest,
+        );
+        dynamicRelays = parseRelayListEvent(latestEvent);
+      }
+    } catch (err) {
+      console.error("Failed to fetch relay list:", err);
+    }
+
+    const allRelays = [...new Set([...bootstrapRelays, ...dynamicRelays])];
+    dispatch(setRelays(allRelays));
+    dispatch(loadOwnerEvents(allRelays, pubkey));
   };
 }
 
