@@ -25,8 +25,6 @@ module.exports = {
       primal: "https://primal.net/sogoagain",
       relays: [
         "wss://premium.primal.net",
-        "wss://nostr.oxtr.dev",
-        "wss://relay.nostr.band",
         "wss://offchain.pub",
         "wss://relay.damus.io",
         "wss://nostr.bitcoiner.social",
