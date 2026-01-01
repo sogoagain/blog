@@ -11,10 +11,15 @@ import HeaderContainer from "./HeaderContainer";
 const SkipLink = styled.a`
   position: absolute;
   left: -9999px;
+  top: auto;
 
   &:focus {
-    position: static;
-    left: auto;
+    left: 0;
+    top: 0;
+    padding: 0.5rem;
+    background: var(--color-accent);
+    color: var(--color-accent-text);
+    z-index: 1000;
   }
 `;
 
