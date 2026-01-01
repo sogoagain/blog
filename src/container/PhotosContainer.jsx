@@ -40,12 +40,13 @@ export default function PhotosContainer() {
 
   return (
     <UnstyledOrderedList>
-      {edges.map(({ node }) =>
-        Photo({
-          image: getImage(node.childImageSharp.gatsbyImageData),
-          info: node.fields,
-        }),
-      )}
+      {edges.map(({ node }) => (
+        <Photo
+          key={node.fields.dateTimeOriginal}
+          image={getImage(node.childImageSharp.gatsbyImageData)}
+          info={node.fields}
+        />
+      ))}
     </UnstyledOrderedList>
   );
 }

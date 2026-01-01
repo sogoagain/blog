@@ -21,14 +21,18 @@ const Content = styled.section`
   white-space: pre-wrap;
   word-wrap: break-word;
   margin: 0;
+
   & blockquote {
     margin: 1rem 0;
   }
 `;
 
+const NIP19_ID_LENGTH = 63;
+const NPUB_PREFIX_LENGTH = 12;
+const NPUB_SUFFIX_LENGTH = 8;
+
 export default function Note({ note, events }) {
   const date = convertUnixTimestampToDate(note.created_at);
-  const NIP19_ID_LENGTH = 63;
 
   const linkifyOptions = ({ render }) => ({
     defaultProtocol: "https",
@@ -49,23 +53,36 @@ export default function Note({ note, events }) {
 
   const renderMention = ({ attributes: { href, ...props }, content }) => {
     function getProfileName(npub) {
-      const { data: pubkey } = nip19.decode(npub);
-      const profile = events.metadata[pubkey];
-      let result = `${npub.slice(0, 12)}`;
-      if (profile) {
-        if (profile.content.display_name) {
-          result = profile.content.display_name;
-        } else if (profile.content.name) {
-          result = profile.content.name;
+      try {
+        const { data: pubkey } = nip19.decode(npub);
+        const profile = events.metadata[pubkey];
+        if (profile) {
+          if (profile.content.display_name) {
+            return profile.content.display_name;
+          }
+          if (profile.content.name) {
+            return profile.content.name;
+          }
         }
+      } catch {
+        // 유효하지 않은 npub
       }
-      return result;
+      return `${npub.slice(0, NPUB_PREFIX_LENGTH)}`;
     }
 
     const reference = content.slice(1, NIP19_ID_LENGTH + 1);
     const remainingText = content.slice(reference.length + 1);
     if (reference.startsWith("note")) {
-      const { data: id } = nip19.decode(reference);
+      let id;
+      try {
+        id = nip19.decode(reference).data;
+      } catch {
+        return (
+          <Anchor href={href} {...props}>
+            {content}
+          </Anchor>
+        );
+      }
       const quote = events.textNote[id];
       if (quote) {
         const npub = nip19.npubEncode(quote.pubkey);
@@ -87,7 +104,7 @@ export default function Note({ note, events }) {
       return (
         <blockquote>
           <Anchor href={href} {...props}>
-            {`${reference.slice(0, 12)}...${reference.slice(-8)}`}
+            {`${reference.slice(0, NPUB_PREFIX_LENGTH)}...${reference.slice(-NPUB_SUFFIX_LENGTH)}`}
           </Anchor>
           {remainingText}
         </blockquote>

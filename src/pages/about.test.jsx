@@ -1,6 +1,4 @@
-import React from "react";
-
-import { act } from "react-dom/test-utils";
+import React, { act } from "react";
 
 import { waitFor } from "@testing-library/react";
 
@@ -46,12 +44,6 @@ describe("<AboutPage/>", () => {
     const aboutEl = screen.getByText("안녕하세요");
 
     expect(aboutEl).toBeInTheDocument();
-  });
-
-  it("배경화면에 파티클 효과를 출력한다", () => {
-    const particleEl = screen.getByText("Particles");
-
-    expect(particleEl).toBeInTheDocument();
   });
 
   it("footer를 출력한다", () => {

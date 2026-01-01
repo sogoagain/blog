@@ -1,3 +1,4 @@
+import "./src/styles/variables.css";
 import wrapWithProvider from "./src/WrapWithProvider";
 import browserHydrate from "./src/browserHydrate";
 

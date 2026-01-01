@@ -26,27 +26,18 @@ export default function PostsTagListContainer() {
   const dispatch = useDispatch();
   const { selectedTag } = useSelector((state) => state.posts);
 
-  const tags = group
-    .reduce((acc, item) => {
-      const tag = item.tag.trim().toUpperCase();
-      const foundIndex = acc.findIndex((el) => el.tag === tag);
-      if (foundIndex >= 0) {
-        acc[foundIndex].totalCount += item.totalCount;
-      } else {
-        acc.push({
-          tag,
-          totalCount: item.totalCount,
-        });
-      }
-      return acc;
-    }, [])
-    .sort((a, b) => {
-      const totalCountDiff = b.totalCount - a.totalCount;
-      return totalCountDiff === 0
-        ? a.tag.localeCompare(b.tag, "ko")
-        : totalCountDiff;
+  const tagCounts = new Map();
+  group.forEach((item) => {
+    const tag = item.tag.trim().toUpperCase();
+    tagCounts.set(tag, (tagCounts.get(tag) || 0) + item.totalCount);
+  });
+
+  const tags = Array.from(tagCounts.entries())
+    .sort(([tagA, countA], [tagB, countB]) => {
+      const countDiff = countB - countA;
+      return countDiff === 0 ? tagA.localeCompare(tagB, "ko") : countDiff;
     })
-    .flatMap((item) => item.tag);
+    .map(([tag]) => tag);
 
   const handleClick = (tag) => {
     dispatch(toggleTag(tag));

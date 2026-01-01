@@ -9,133 +9,148 @@ export default function GlobalStyle() {
         * {
           box-sizing: border-box;
         }
+
         body {
           font-family: sans-serif;
-          line-height: 1.45;
+          line-height: 1.5;
           margin: 0 auto;
           max-width: 45rem;
-          padding: 0 15px;
+          padding: 0 1rem;
         }
+
+        a {
+          text-decoration-skip-ink: auto;
+        }
+
         hr {
-          background-color: grey;
+          background-color: var(--color-border);
           border: 0;
           height: 1px;
           margin: 2rem 0;
         }
+
         nav {
           margin: 2rem 0 0;
         }
+
         main {
           hyphens: auto;
         }
+
         h1,
         h2,
         h3,
         h4 {
           margin: 2rem 0 0;
         }
+
         h1 {
           margin-bottom: 0.5rem;
         }
+
         h1 + p {
           margin: 0 0 1rem;
         }
-        span.created {
-          display: block;
-          margin: 4px 15px;
-        }
+
         img,
         video {
-          border: 1px solid lightgrey;
+          border: 1px solid var(--color-border-light);
           height: auto;
           max-width: 100%;
           width: auto;
         }
+
         blockquote {
-          border: 1px solid;
-          border-left: 6px solid;
+          border-left: 4px solid var(--color-border);
           margin: 2rem 0;
-          padding: 10px;
+          padding: 0 1rem;
+          color: var(--color-text-muted);
         }
+
         blockquote p {
           margin: 0;
         }
+
         figure {
           margin: 2rem 0;
         }
+
         figcaption {
-          color: slategrey;
+          color: var(--color-text-muted);
         }
+
         code {
           border: 1px solid;
-          padding: 0.1rem 0.3rem;
+          padding: 0.125rem 0.25rem;
           tab-size: 4;
         }
+
         pre {
           border: 1px solid;
         }
+
         pre code {
           border: 0;
           display: block;
           overflow-x: auto;
-          padding: 0.3rem 0.6rem;
+          padding: 0.5rem 0.75rem;
         }
+
         table {
           border-collapse: collapse;
           margin: 2rem 0;
           text-align: left;
           width: 100%;
         }
+
         tr {
-          border-bottom: 1px solid lightgrey;
+          border-bottom: 1px solid var(--color-border-light);
         }
-        tr:nth-of-type(odd) td {
-          background-color: #f8f8f8;
-        }
+
         th,
         td {
-          padding: 6px;
+          padding: 0.5rem;
         }
+
         footer {
-          border-top: 1px dashed grey;
+          border-top: 1px dashed var(--color-border);
           margin: 2rem 0;
           padding: 1rem 0;
         }
+
         button {
           font-size: 1rem;
-          padding: 0.1rem 0.3rem;
+          padding: 0.25rem 0.5rem;
           border: 1px solid;
-          border-color: inherit;
           color: inherit;
           background-color: inherit;
 
-          &:hover {
-            border-color: black;
-            color: white;
-            background-color: black;
+          &:hover,
+          &:focus-visible {
+            border-color: var(--color-accent);
+            color: var(--color-accent-text);
+            background-color: var(--color-accent);
+            outline: none;
           }
         }
+
+        a:focus-visible {
+          outline: 2px solid var(--color-accent);
+          outline-offset: 2px;
+        }
+
         @supports (color-scheme: dark light) {
           @media screen and (prefers-color-scheme: dark) {
             a:link {
-              color: #9e9eff;
+              color: var(--color-link);
             }
-            a:visited {
-              color: #d0adf0;
-            }
-            a:active {
-              color: red;
-            }
-            button {
-              border-color: inherit;
-              color: inherit;
-              background-color: inherit;
 
-              &:hover {
-                border-color: white;
-                color: black;
-                background-color: white;
-              }
+            a:visited {
+              color: var(--color-link-visited);
+            }
+
+            a:active {
+              color: var(--color-accent);
             }
           }
         }

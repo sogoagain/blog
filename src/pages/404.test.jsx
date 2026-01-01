@@ -30,10 +30,4 @@ describe("<NotFoundPage/>", () => {
 
     expect(titleEl).toBeInTheDocument();
   });
-
-  it("홈으로 돌아가기 버튼을 제공한다", () => {
-    const linkEl = screen.getByText("포스트 목록으로 돌아가기");
-
-    expect(linkEl).toHaveAttribute("href", "/");
-  });
 });

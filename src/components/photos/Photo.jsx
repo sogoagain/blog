@@ -8,13 +8,14 @@ import DividedListItem from "../DividedListItem";
 
 const BorderlessImage = styled(GatsbyImage)`
   margin-bottom: 0.5rem;
+
   img {
     border: none;
   }
 `;
 
 const CameraInfo = styled.span`
-  color: grey;
+  color: var(--color-text-muted);
 `;
 
 export default function Photo({

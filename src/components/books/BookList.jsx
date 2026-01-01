@@ -16,13 +16,13 @@ const Item = styled.li`
 `;
 
 const Image = styled.img`
-  width: 100px;
+  width: 6rem;
   height: auto;
   margin-right: 1rem;
 `;
 
 const Content = styled.div`
-  max-width: calc(100% - 100px - 1rem);
+  max-width: calc(100% - 6rem - 1rem);
   word-wrap: break-word;
 `;
 

@@ -15,10 +15,7 @@ module.exports = {
   globals: {
     __PATH_PREFIX__: ``,
   },
-  testEnvironmentOptions: {
-    url: `http://localhost`,
-  },
-  setupFiles: [`<rootDir>/loadershim.js`, "jest-canvas-mock"],
+  setupFiles: ["jest-canvas-mock"],
   setupFilesAfterEnv: [
     "<rootDir>/jest.setup.js",
     "given2/setup",

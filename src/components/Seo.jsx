@@ -18,15 +18,13 @@ export default function Seo({ seo }) {
       <meta name="description" content={seo.description} />
       <meta name="image" content={seo.image} />
       {seo.url && <meta property="og:url" content={seo.url} />}
-      {(seo.article ? true : null) && (
-        <meta property="og:type" content="article" />
-      )}
+      {seo.article && <meta property="og:type" content="article" />}
       {seo.title && <meta property="og:title" content={seo.title} />}
       {seo.description && (
         <meta property="og:description" content={seo.description} />
       )}
       {seo.image && <meta property="og:image" content={seo.image} />}
-      <meta name="twitter:card" content={seo.title} />
+      <meta name="twitter:card" content="summary" />
       {seo.title && <meta name="twitter:title" content={seo.title} />}
       {seo.description && (
         <meta name="twitter:description" content={seo.description} />

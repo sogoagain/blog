@@ -27,8 +27,8 @@ export default function BooksKeywordListContainer() {
     })
     .map(([keyword]) => keyword);
 
-  const handleClick = (hashtag) => {
-    dispatch(toggleKeyword(hashtag));
+  const handleClick = (keyword) => {
+    dispatch(toggleKeyword(keyword));
   };
 
   return (

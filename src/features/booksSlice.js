@@ -1,6 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { fetchBooks } from "../services/blog";
+
+export const loadBooks = createAsyncThunk("books/loadBooks", async () => {
+  const books = await fetchBooks();
+  return books;
+});
 
 const { actions, reducer } = createSlice({
   name: "books",
@@ -11,81 +16,45 @@ const { actions, reducer } = createSlice({
       selected: null,
     },
     loading: false,
-    error: false,
+    error: null,
   },
   reducers: {
-    appendBooks: (state, { payload: books }) => {
-      const bookDictionary = [...state.books, ...books].reduce(
-        (prev, curr) => ({
-          ...prev,
-          [curr.id]: { ...curr },
-        }),
-        {},
-      );
-      return {
-        ...state,
-        books: Object.values(bookDictionary),
-      };
+    toggleKeyword: (state, { payload: keyword }) => {
+      state.keyword.selected =
+        state.keyword.selected === keyword ? null : keyword;
     },
-    appendKeyword: (state, { payload: { keyword, id } }) => {
-      const key = keyword.toUpperCase();
-      const newIds = state.keyword.keywords[key]
-        ? [...new Set([...state.keyword.keywords[key], id])]
-        : [id];
-      return {
-        ...state,
-        keyword: {
-          ...state.keyword,
-          keywords: {
-            ...state.keyword.keywords,
-            [key]: newIds,
-          },
-        },
-      };
-    },
-    toggleKeyword: (state, { payload: keyword }) => ({
-      ...state,
-      keyword: {
-        ...state.keyword,
-        selected: state.keyword.selected === keyword ? null : keyword,
-      },
-    }),
-    setLoading: (state, { payload: loading }) => ({
-      ...state,
-      loading,
-    }),
-    setError: (state, { payload: error }) => ({
-      ...state,
-      error,
-    }),
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loadBooks.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(loadBooks.fulfilled, (state, { payload: books }) => {
+        const bookDictionary = [...state.books, ...books].reduce(
+          (prev, curr) => ({
+            ...prev,
+            [curr.id]: { ...curr },
+          }),
+          {},
+        );
+        state.books = Object.values(bookDictionary);
+        books.forEach((book) => {
+          book.keywords.forEach((keyword) => {
+            const key = keyword.toUpperCase();
+            const existing = state.keyword.keywords[key] || [];
+            state.keyword.keywords[key] = [...new Set([...existing, book.id])];
+          });
+        });
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(loadBooks.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "알 수 없는 오류가 발생했습니다.";
+      });
   },
 });
 
-export const {
-  appendBooks,
-  appendKeyword,
-  toggleKeyword,
-  setLoading,
-  setError,
-} = actions;
-
-export function loadBooks() {
-  return async (dispatch) => {
-    dispatch(setLoading(true));
-    try {
-      const books = await fetchBooks();
-      dispatch(appendBooks(books));
-      books.forEach((book) => {
-        book.keywords.forEach((keyword) => {
-          dispatch(appendKeyword({ keyword, id: book.id }));
-        });
-      });
-      dispatch(setError(false));
-    } catch (err) {
-      dispatch(setError(true));
-    }
-    dispatch(setLoading(false));
-  };
-}
+export const { toggleKeyword } = actions;
 
 export default reducer;

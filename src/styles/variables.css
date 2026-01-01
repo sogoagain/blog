@@ -1,0 +1,17 @@
+:root {
+  --color-border: grey;
+  --color-border-light: lightgrey;
+  --color-text-muted: slategrey;
+  --color-accent: black;
+  --color-accent-text: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text-muted: darkgrey;
+    --color-accent: white;
+    --color-accent-text: black;
+    --color-link: #9e9eff;
+    --color-link-visited: #d0adf0;
+  }
+}

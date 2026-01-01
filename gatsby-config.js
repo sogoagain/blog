@@ -3,16 +3,10 @@ const properties = require("./properties");
 module.exports = {
   siteMetadata: {
     ...properties.site,
-    interests: [...properties.interests],
-    social: {
-      ...properties.social,
-    },
-    link: {
-      ...properties.link,
-    },
-    giscus: {
-      ...properties.giscus,
-    },
+    interests: properties.interests,
+    social: properties.social,
+    link: properties.link,
+    giscus: properties.giscus,
   },
   plugins: [
     "gatsby-plugin-emotion",

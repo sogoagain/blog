@@ -17,9 +17,11 @@ export function shuffleArray(origin) {
 }
 
 export function isImageUrl(url) {
-  return /\.(jpeg|jpg|gif|png|webp)$/.test(url);
+  const urlWithoutQuery = url.split("?")[0];
+  return /\.(jpeg|jpg|gif|png|webp)$/i.test(urlWithoutQuery);
 }
 
 export function isVideoUrl(url) {
-  return /\.(mp4|webm|ogg)$/i.test(url);
+  const urlWithoutQuery = url.split("?")[0];
+  return /\.(mp4|webm|ogg)$/i.test(urlWithoutQuery);
 }

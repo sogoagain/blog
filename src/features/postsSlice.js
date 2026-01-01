@@ -6,10 +6,9 @@ const { actions, reducer } = createSlice({
     selectedTag: null,
   },
   reducers: {
-    toggleTag: (state, { payload: tag }) => ({
-      ...state,
-      selectedTag: state.selectedTag === tag ? null : tag,
-    }),
+    toggleTag: (state, { payload: tag }) => {
+      state.selectedTag = state.selectedTag === tag ? null : tag;
+    },
   },
 });
 

@@ -1,12 +1,12 @@
 import React from "react";
 
-import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 import { ReactComponent as BitcoinIcon } from "../../images/hashtags/bitcoin.svg";
 import { ReactComponent as NostrIcon } from "../../images/hashtags/nostr.svg";
 import { ReactComponent as ZapIcon } from "../../images/hashtags/zap.svg";
 
-const style = css`
+const HashtagWrapper = styled.span`
   svg {
     width: 1rem;
     height: 1rem;
@@ -27,9 +27,9 @@ export default function Hashtag({ content }) {
   const icon = iconKey ? icons[iconKey] : null;
 
   return (
-    <span css={style}>
+    <HashtagWrapper>
       {content}
       {icon}
-    </span>
+    </HashtagWrapper>
   );
 }

@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 const DividedListItem = styled.li`
   padding: 2rem 0;
-  border-bottom: 1px dashed grey;
+  border-bottom: 1px dashed var(--color-border);
   &:first-of-type {
     padding-top: 0;
   }
