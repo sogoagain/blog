@@ -23,7 +23,14 @@ module.exports = {
       name: "sogoagain",
       npub: "npub1nhffp7hfyy2weckcw7tslaf20qhk7dp59zal2swghx4tpc9ejjxsuqxcf8",
       primal: "https://primal.net/sogoagain",
-      bootstrapRelays: ["wss://relay.damus.io", "wss://premium.primal.net"],
+      relays: [
+        "wss://premium.primal.net",
+        "wss://offchain.pub",
+        "wss://relay.damus.io",
+        "wss://nostr.bitcoiner.social",
+        "wss://relay.mostr.pub",
+        "wss://nos.lol",
+      ],
     },
   },
   link: {

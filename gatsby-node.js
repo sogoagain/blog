@@ -95,7 +95,7 @@ exports.onPostBuild = async () => {
         _: pubkey,
         [name]: pubkey,
       },
-      relays: { [pubkey]: [...relays] },
+      relays: { [pubkey]: relays },
     }),
   );
 };

@@ -12,7 +12,7 @@ const siteQuery = {
           name: "sogoagain",
           npub: "npub16686greycr3g4dpa8lndgqrrfxs0qdky8xtxp3nnc8z8upegzpkq566g38",
           primal: "https://primal.net/sogoagain",
-          bootstrapRelays: [
+          relays: [
             "wss://relay.damus.io",
             "wss://premium.primal.net",
           ],
