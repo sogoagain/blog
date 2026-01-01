@@ -101,8 +101,12 @@ const pool = new SimplePool();
 const handleEvent = (event) =>
   ({
     [EVENT_KIND.metadata]: (dispatch) => {
-      const content = JSON.parse(event.content);
-      dispatch(appendMetadataEvent({ ...event, content }));
+      try {
+        const content = JSON.parse(event.content);
+        dispatch(appendMetadataEvent({ ...event, content }));
+      } catch (err) {
+        console.error("Failed to parse metadata content:", err);
+      }
     },
     [EVENT_KIND.textNote]: (dispatch, getState) => {
       const { content, pubkeysMentioned, idsQuoted } =
@@ -260,7 +264,7 @@ function loadOwnerEvents(relays, pubkey) {
 
 function parseRelayListEvent(event) {
   return event.tags
-    .filter((tag) => tag[0] === "r")
+    .filter((tag) => tag[0] === "r" && tag[1])
     .map((tag) => tag[1])
     .filter((url) => url.startsWith("wss://"));
 }

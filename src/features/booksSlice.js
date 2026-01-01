@@ -16,7 +16,7 @@ const { actions, reducer } = createSlice({
       selected: null,
     },
     loading: false,
-    error: false,
+    error: null,
   },
   reducers: {
     toggleKeyword: (state, { payload: keyword }) => {
@@ -46,11 +46,11 @@ const { actions, reducer } = createSlice({
           });
         });
         state.loading = false;
-        state.error = false;
+        state.error = null;
       })
-      .addCase(loadBooks.rejected, (state) => {
+      .addCase(loadBooks.rejected, (state, action) => {
         state.loading = false;
-        state.error = true;
+        state.error = action.error.message || "알 수 없는 오류가 발생했습니다.";
       });
   },
 });

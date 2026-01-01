@@ -121,7 +121,7 @@ describe("<NotePage/>", () => {
   });
 
   it("노트에 포함된 이미지를 출력한다", () => {
-    const img = screen.getByAltText("Nostr 노트에서 불러온 이미지");
+    const img = screen.getByAltText("이미지");
 
     expect(img).toBeInTheDocument();
   });

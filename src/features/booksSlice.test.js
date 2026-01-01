@@ -16,7 +16,7 @@ describe("reading list reducer", () => {
       selected: null,
     },
     loading: false,
-    error: false,
+    error: null,
   };
 
   describe("loadBooks.pending", () => {
@@ -53,16 +53,19 @@ describe("reading list reducer", () => {
 
       expect(state.books).toHaveLength(2);
       expect(state.loading).toBe(false);
-      expect(state.error).toBe(false);
+      expect(state.error).toBeNull();
     });
   });
 
   describe("loadBooks.rejected", () => {
-    it("error 상태를 true로 변경한다", () => {
-      const state = booksReducer(initialBooksState, loadBooks.rejected());
+    it("에러 메시지를 저장한다", () => {
+      const state = booksReducer(
+        initialBooksState,
+        loadBooks.rejected(new Error("테스트 에러")),
+      );
 
       expect(state.loading).toBe(false);
-      expect(state.error).toBe(true);
+      expect(state.error).toBe("테스트 에러");
     });
   });
 });
@@ -90,7 +93,7 @@ describe("reading list actions", () => {
         const { books } = store.getState();
 
         expect(books.books).toHaveLength(5);
-        expect(books.error).toBe(false);
+        expect(books.error).toBeNull();
       });
     });
 
@@ -101,7 +104,7 @@ describe("reading list actions", () => {
         );
       });
 
-      it("error 상태를 true로 변경한다", async () => {
+      it("에러 메시지를 저장한다", async () => {
         const { books: previousState } = store.getState();
 
         await store.dispatch(loadBooks());
@@ -109,7 +112,7 @@ describe("reading list actions", () => {
         const { books } = store.getState();
 
         expect(books.books).toBe(previousState.books);
-        expect(books.error).toBe(true);
+        expect(books.error).toBe("독서목록을 불러오지 못했습니다.");
       });
     });
   });

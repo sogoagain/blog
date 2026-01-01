@@ -2,6 +2,7 @@ import React from "react";
 
 import styled from "@emotion/styled";
 
+import ErrorBoundary from "../components/ErrorBoundary";
 import Layout from "../components/layouts/Layout";
 
 import FooterContainer from "./FooterContainer";
@@ -22,7 +23,9 @@ export default function LayoutContainer({ location, children }) {
     <Layout>
       <SkipLink href="#main-content">본문으로 건너뛰기</SkipLink>
       <HeaderContainer pathname={location.pathname} />
-      <main id="main-content">{children}</main>
+      <main id="main-content">
+        <ErrorBoundary>{children}</ErrorBoundary>
+      </main>
       <FooterContainer />
     </Layout>
   );

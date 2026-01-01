@@ -13,7 +13,7 @@ const AlertWrapper = styled.div`
 
 export default function Alert({ message }) {
   return (
-    <AlertWrapper role="alert" aria-live="assertive">
+    <AlertWrapper role="alert">
       {message}
     </AlertWrapper>
   );

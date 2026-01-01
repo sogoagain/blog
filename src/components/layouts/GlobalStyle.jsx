@@ -125,11 +125,18 @@ export default function GlobalStyle() {
           color: inherit;
           background-color: inherit;
 
-          &:hover {
+          &:hover,
+          &:focus-visible {
             border-color: var(--color-accent);
             color: var(--color-accent-text);
             background-color: var(--color-accent);
+            outline: none;
           }
+        }
+
+        a:focus-visible {
+          outline: 2px solid var(--color-accent);
+          outline-offset: 2px;
         }
 
         @supports (color-scheme: dark light) {
@@ -143,7 +150,7 @@ export default function GlobalStyle() {
             }
 
             a:active {
-              color: red;
+              color: var(--color-accent);
             }
           }
         }

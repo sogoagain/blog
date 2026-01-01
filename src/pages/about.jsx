@@ -20,7 +20,7 @@ export default function AboutPage({
     <LayoutContainer location={location}>
       <SeoContainer
         title={title}
-        description={title}
+        description={description}
         pathname={location.pathname}
       />
       <Post title={title} description={description} html={html} />

@@ -39,7 +39,12 @@ const CheckboxLabel = styled.span`
 export default function Tag({ text, selected, onClick }) {
   return (
     <CheckboxWrapper>
-      <CheckboxInput type="checkbox" checked={selected} onChange={onClick} />
+      <CheckboxInput
+        type="checkbox"
+        checked={selected}
+        onChange={onClick}
+        aria-label={`${text} 태그 ${selected ? "선택됨" : "선택 안됨"}`}
+      />
       <CheckboxLabel selected={selected}>{text}</CheckboxLabel>
     </CheckboxWrapper>
   );
